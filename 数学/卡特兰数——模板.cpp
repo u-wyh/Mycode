@@ -1,19 +1,19 @@
-// ��������ģ��
-// ��ջ˳��涨Ϊ1��2��3..n�������ж����ֲ�ͬ�ĳ�ջ˳��
-// ������Ŀ����������С���õ��Ŀ�������û�ж�󣬲���Ҫȡģ����
-// ��������裬��n�Ƚϴ�ʱ�����������Ǻܴ�ģ��𰸶� 1000000007 ȡģ
-// �������� : https://www.luogu.com.cn/problem/P1044
-// �ύ���µ�code���ύʱ��������ĳ�"Main"������ͨ�����в�������
+// 卡特兰数模版
+// 进栈顺序规定为1、2、3..n，返回有多少种不同的出栈顺序
+// 测试题目的数据量很小，得到的卡特兰数没有多大，不需要取模处理
+// 但是请假设，当n比较大时，卡特兰数是很大的，答案对 1000000007 取模
+// 测试链接 : https://www.luogu.com.cn/problem/P1044
+// 提交以下的code，提交时请把类名改成"Main"，可以通过所有测试用例
 #include<bits/stdc++.h>
 using namespace std;
 const int MOD = 1000000007;
 const int MAXN = 1000001;
 
-// �׳�������
+// 阶乘余数表
 long long fac[MAXN];
-// �׳���Ԫ��
+// 阶乘逆元表
 long long inv1[MAXN];
-// ��������Ԫ��
+// 连续数逆元表
 long long inv2[MAXN];
 
 long long power(long long x, long long p) {
@@ -28,7 +28,7 @@ long long power(long long x, long long p) {
 	return ans;
 }
 
-// ���Խ���099����Ŀ3�����ɽ׳����������׳���Ԫ��
+// 来自讲解099，题目3，生成阶乘余数表、阶乘逆元表
 void build1(int n) {
 	fac[0] = inv1[0] = 1;
 	fac[1] = 1;
@@ -41,7 +41,7 @@ void build1(int n) {
 	}
 }
 
-// ���Խ���099����Ŀ2��������������Ԫ��
+// 来自讲解099，题目2，生成连续数逆元表
 void build2(int n) {
 	inv2[1] = 1;
 	for (int i = 2; i <= n + 1; i++) {
@@ -53,19 +53,19 @@ long long c(int n, int k) {
 	return (((fac[n] * inv1[k]) % MOD) * inv1[n - k]) % MOD;
 }
 
-// ��ʽ1
+// 公式1
 long long compute1(int n) {
     build1(2 * n);
     return (c(2 * n, n) - c(2 * n, n - 1) + MOD) % MOD;
 }
 
-// ��ʽ2
+// 公式2
 long long compute2(int n) {
     build1(2 * n);
     return c(2 * n, n) * power(n + 1, MOD - 2) % MOD;
 }
 
-// ��ʽ3
+// 公式3
 long long compute3(int n) {
     build2(n);
     long long f[n + 1];
@@ -76,7 +76,7 @@ long long compute3(int n) {
     return f[n];
 }
 
-// ��ʽ4
+// 公式4
 long long compute4(int n) {
     long long f[n + 1];
     for(int i=0;i<=n;i++){
