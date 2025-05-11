@@ -1,177 +1,177 @@
-// Ïß¶ÎÊ÷·ÖÖÎÄ£°æÌâ£¬C++°æ
-// Ò»¹²ÓĞn¸ö½Úµã£¬Ò»¹²ÓĞmÌõ²Ù×÷£¬Ã¿Ìõ²Ù×÷ÊÇÈçÏÂÈıÖÖÀàĞÍÖĞµÄÒ»ÖÖ
-// ²Ù×÷ 0 x y : µãxºÍµãyÖ®¼äÒ»¶¨Ã»ÓĞ±ß£¬ÏÖÔÚÔö¼ÓÒ»Ìõ±ß
-// ²Ù×÷ 1 x y : µãxºÍµãyÖ®¼äÒ»¶¨´æÔÚ±ß£¬ÏÖÔÚÉ¾³ıÕâÌõ±ß
-// ²Ù×÷ 2 x y : ²éÑ¯µãxºÍµãyÊÇ·ñÁªÍ¨
+// çº¿æ®µæ ‘åˆ†æ²»æ¨¡ç‰ˆé¢˜ï¼ŒC++ç‰ˆ
+// ä¸€å…±æœ‰nä¸ªèŠ‚ç‚¹ï¼Œä¸€å…±æœ‰mæ¡æ“ä½œï¼Œæ¯æ¡æ“ä½œæ˜¯å¦‚ä¸‹ä¸‰ç§ç±»å‹ä¸­çš„ä¸€ç§
+// æ“ä½œ 0 x y : ç‚¹xå’Œç‚¹yä¹‹é—´ä¸€å®šæ²¡æœ‰è¾¹ï¼Œç°åœ¨å¢åŠ ä¸€æ¡è¾¹
+// æ“ä½œ 1 x y : ç‚¹xå’Œç‚¹yä¹‹é—´ä¸€å®šå­˜åœ¨è¾¹ï¼Œç°åœ¨åˆ é™¤è¿™æ¡è¾¹
+// æ“ä½œ 2 x y : æŸ¥è¯¢ç‚¹xå’Œç‚¹yæ˜¯å¦è”é€š
 // 1 <= n <= 5000
 // 1 <= m <= 500000
-// ²»Ç¿ÖÆÔÚÏß£¬¿ÉÒÔÀëÏß´¦Àí
-// ²âÊÔÁ´½Ó : https://loj.ac/p/121
-// ÈçÏÂÊµÏÖÊÇC++µÄ°æ±¾£¬C++°æ±¾ºÍjava°æ±¾Âß¼­ÍêÈ«Ò»Ñù
-// Ìá½»ÈçÏÂ´úÂë£¬¿ÉÒÔÍ¨¹ıËùÓĞ²âÊÔÓÃÀı
+// ä¸å¼ºåˆ¶åœ¨çº¿ï¼Œå¯ä»¥ç¦»çº¿å¤„ç†
+// æµ‹è¯•é“¾æ¥ : https://loj.ac/p/121
+// å¦‚ä¸‹å®ç°æ˜¯C++çš„ç‰ˆæœ¬ï¼ŒC++ç‰ˆæœ¬å’Œjavaç‰ˆæœ¬é€»è¾‘å®Œå…¨ä¸€æ ·
+// æäº¤å¦‚ä¸‹ä»£ç ï¼Œå¯ä»¥é€šè¿‡æ‰€æœ‰æµ‹è¯•ç”¨ä¾‹
 #include <bits/stdc++.h>
 using namespace std;
-// µãµÄÊıÁ¿×î´óÖµ
+// ç‚¹çš„æ•°é‡æœ€å¤§å€¼
 const int MAXN = 5001;
-// ²Ù×÷ÊıÁ¿×î´óÖµ
+// æ“ä½œæ•°é‡æœ€å¤§å€¼
 const int MAXM = 500001;
-// ÈÎÎñÊıÁ¿×î´óÖµ
+// ä»»åŠ¡æ•°é‡æœ€å¤§å€¼
 const int MAXT = 5000001;
 
 int n, m;
 
-// ²Ù×÷ÀàĞÍop¡¢¶Ëµãu¡¢¶Ëµãv
+// æ“ä½œç±»å‹opã€ç«¯ç‚¹uã€ç«¯ç‚¹v
 int op[MAXM];
 int u[MAXM];
 int v[MAXM];
 
-// last[x][y] : µãxºÍµãyµÄ±ß£¬ÉÏ´Î³öÏÖµÄÊ±¼äµã
+// last[x][y] : ç‚¹xå’Œç‚¹yçš„è¾¹ï¼Œä¸Šæ¬¡å‡ºç°çš„æ—¶é—´ç‚¹
 int last[MAXN][MAXN];
 
-// ¿É³·Ïú²¢²é¼¯
+// å¯æ’¤é”€å¹¶æŸ¥é›†
 int father[MAXN];
 int siz[MAXN];
 int rollback[MAXN][2];
 int opsize = 0;
 
-// Ïß¶ÎÊ÷Ã¿¸öÇø¼äÓµÓĞÄÄĞ©ÈÎÎñµÄÁĞ±í£¬Á´Ê½Ç°ÏòĞÇ±íÊ¾
+// çº¿æ®µæ ‘æ¯ä¸ªåŒºé—´æ‹¥æœ‰å“ªäº›ä»»åŠ¡çš„åˆ—è¡¨ï¼Œé“¾å¼å‰å‘æ˜Ÿè¡¨ç¤º
 int head[MAXM << 2];
 int nxt[MAXT];
 int tox[MAXT];
-int toy[MAXT];//×¢Òâ ÒòÎªÃ¿¸ö½ÚµãÉÏÃæ¹ÒµÄÊÇÒ»ÌõÏß ËùÒÔÊÇ xºÍy
+int toy[MAXT];//æ³¨æ„ å› ä¸ºæ¯ä¸ªèŠ‚ç‚¹ä¸Šé¢æŒ‚çš„æ˜¯ä¸€æ¡çº¿ æ‰€ä»¥æ˜¯ xå’Œy
 int cnt = 0;
 
-// ans[i]ÎªµÚiÌõ²Ù×÷µÄ´ğ°¸£¬Ö»ÓĞ²éÑ¯²Ù×÷²ÅÓĞ´ğ°¸
+// ans[i]ä¸ºç¬¬iæ¡æ“ä½œçš„ç­”æ¡ˆï¼Œåªæœ‰æŸ¥è¯¢æ“ä½œæ‰æœ‰ç­”æ¡ˆ
 bool ans[MAXM];
 
 void addEdge(int i, int x, int y) {
-   nxt[++cnt] = head[i];
-   tox[cnt] = x;
-   toy[cnt] = y;
-   head[i] = cnt;
+    nxt[++cnt] = head[i];
+    tox[cnt] = x;
+    toy[cnt] = y;
+    head[i] = cnt;
 }
 
-//¿É³·Ïú²¢²é¼¯  Ã»ÓĞ±âÆ½»¯²Ù×÷
+//å¯æ’¤é”€å¹¶æŸ¥é›†  æ²¡æœ‰æ‰å¹³åŒ–æ“ä½œ
 int find(int i) {
-   while (i != father[i]) {
-       i = father[i];
-   }
-   return i;
+    while (i != father[i]) {
+        i = father[i];
+    }
+    return i;
 }
 
 void Union(int x, int y) {
-   int fx = find(x);
-   int fy = find(y);
-   if (siz[fx] < siz[fy]) {
-       int tmp = fx;
-       fx = fy;
-       fy = tmp;
-   }
-   father[fy] = fx;
-   siz[fx] += siz[fy];
-   rollback[++opsize][0] = fx;
-   rollback[opsize][1] = fy;
+    int fx = find(x);
+    int fy = find(y);
+    if (siz[fx] < siz[fy]) {
+        int tmp = fx;
+        fx = fy;
+        fy = tmp;
+    }
+    father[fy] = fx;
+    siz[fx] += siz[fy];
+    rollback[++opsize][0] = fx;
+    rollback[opsize][1] = fy;
 }
 
 void undo() {
-   int fx = rollback[opsize][0];
-   int fy = rollback[opsize--][1];
-   father[fy] = fy;
-   siz[fx] -= siz[fy];
+    int fx = rollback[opsize][0];
+    int fy = rollback[opsize--][1];
+    father[fy] = fy;
+    siz[fx] -= siz[fy];
 }
 
-//½«jobl~jobrÕâ¸öÏß¶ÎÊ÷µÄÇø¼äÉÏËùÓĞµã¹ÒÉÏ[jobx,joby] ±íÊ¾jobxºÍjobyÁ½¸öµãÔÚ´ËÇø¼äÄÚ´æÔÚÒ»ÌõÁ¬Ïß
+//å°†jobl~jobrè¿™ä¸ªçº¿æ®µæ ‘çš„åŒºé—´ä¸Šæ‰€æœ‰ç‚¹æŒ‚ä¸Š[jobx,joby] è¡¨ç¤ºjobxå’Œjobyä¸¤ä¸ªç‚¹åœ¨æ­¤åŒºé—´å†…å­˜åœ¨ä¸€æ¡è¿çº¿
 void add(int jobl, int jobr, int jobx, int joby, int l, int r, int i) {
-   if (jobl <= l && r <= jobr) {
-       addEdge(i, jobx, joby);
-   } else {
-       int mid = (l + r) >> 1;
-       if (jobl <= mid) {
-           add(jobl, jobr, jobx, joby, l, mid, i << 1);
-       }
-       if (jobr > mid) {
-           add(jobl, jobr, jobx, joby, mid + 1, r, i << 1 | 1);
-       }
-   }
+    if (jobl <= l && r <= jobr) {
+        addEdge(i, jobx, joby);
+    } else {
+        int mid = (l + r) >> 1;
+        if (jobl <= mid) {
+            add(jobl, jobr, jobx, joby, l, mid, i << 1);
+        }
+        if (jobr > mid) {
+            add(jobl, jobr, jobx, joby, mid + 1, r, i << 1 | 1);
+        }
+    }
 }
 
-//dfs±éÀúÊ÷
+//dfséå†æ ‘
 void dfs(int l, int r, int i) {
-   int unionCnt = 0;//¼ÇÂ¼Õâ¸ö½ÚµãÉÏ½øĞĞÁË¶àÉÙ´ÎºÏ²¢²Ù×÷  ·½±ã×îºóµÄ³·Ïú²Ù×÷
-   for (int ei = head[i], x, y, fx, fy; ei > 0; ei = nxt[ei]) {
-       x = tox[ei];
-       y = toy[ei];
-       fx = find(x);
-       fy = find(y);
-       if (fx != fy) {
-           Union(fx, fy);
-           unionCnt++;
-       }
-   }
-   if (l == r) {
-		//ÔÚÃ¿¸öÒ¶½ÚµãÍ³¼Æ´ğ°¸ 
-       if (op[l] == 2) {
-           ans[l] = find(u[l]) == find(v[l]);
-       }
-   } else {
-       int mid = (l + r) >> 1;
-       dfs(l, mid, i << 1);
-       dfs(mid + 1, r, i << 1 | 1);
-   }
-   for (int j = 1; j <= unionCnt; j++) {
-       undo();
-   }
+    int unionCnt = 0;//è®°å½•è¿™ä¸ªèŠ‚ç‚¹ä¸Šè¿›è¡Œäº†å¤šå°‘æ¬¡åˆå¹¶æ“ä½œ  æ–¹ä¾¿æœ€åçš„æ’¤é”€æ“ä½œ
+    for (int ei = head[i], x, y, fx, fy; ei > 0; ei = nxt[ei]) {
+        x = tox[ei];
+        y = toy[ei];
+        fx = find(x);
+        fy = find(y);
+        if (fx != fy) {
+            Union(fx, fy);
+            unionCnt++;
+        }
+    }
+    if (l == r) {
+        //åœ¨æ¯ä¸ªå¶èŠ‚ç‚¹ç»Ÿè®¡ç­”æ¡ˆ 
+        if (op[l] == 2) {
+            ans[l] = find(u[l]) == find(v[l]);
+        }
+    } else {
+        int mid = (l + r) >> 1;
+        dfs(l, mid, i << 1);
+        dfs(mid + 1, r, i << 1 | 1);
+    }
+    for (int j = 1; j <= unionCnt; j++) {
+        undo();
+    }
 }
 
-//ÕûÀíËùÓĞµÄĞÅÏ¢
+//æ•´ç†æ‰€æœ‰çš„ä¿¡æ¯
 void prepare() {
-   for (int i = 1; i <= n; i++) {
-       father[i] = i;
-       siz[i] = 1;
-   }
-   for (int i = 1, t, x, y; i <= m; i++) {
-       t = op[i];
-       x = u[i];
-       y = v[i];
-       if (t == 0) {
-			//Èç¹ûÊÇÁ¬Ïß
-           last[x][y] = i;
-       } else if (t == 1) {
-			//Èç¹ûÊÇÉ¾³ı±ß  ÄÇÃ´¾ÍÊÇÒâÎ¶×ÅÔÚ last~i-1 Õâ¸öÊ±¼ä¶ÎÄÚ xºÍy´æÔÚ±ßµÄ¹ØÏµ
-           add(last[x][y], i - 1, x, y, 1, m, 1);
-           last[x][y] = 0;
-       }
-   }
-   for (int x = 1; x <= n; x++) {
-       for (int y = x + 1; y <= n; y++) {
-			//±íÊ¾Ö±µ½×îºó»¹Ã»ÓĞ±»É¾³ıµÄ±ß  ËµÃ÷ËûÃÇ´Ó×îºóÒ»¸ö¼ÓÈë¿ªÊ¼Ò»Ö±ÉúĞ§µ½×îºó
-           if (last[x][y] != 0) {
-               add(last[x][y], m, x, y, 1, m, 1);
-           }
-       }
-   }
+    for (int i = 1; i <= n; i++) {
+        father[i] = i;
+        siz[i] = 1;
+    }
+    for (int i = 1, t, x, y; i <= m; i++) {
+        t = op[i];
+        x = u[i];
+        y = v[i];
+        if (t == 0) {
+            //å¦‚æœæ˜¯è¿çº¿
+            last[x][y] = i;
+        } else if (t == 1) {
+            //å¦‚æœæ˜¯åˆ é™¤è¾¹  é‚£ä¹ˆå°±æ˜¯æ„å‘³ç€åœ¨ last~i-1 è¿™ä¸ªæ—¶é—´æ®µå†… xå’Œyå­˜åœ¨è¾¹çš„å…³ç³»
+            add(last[x][y], i - 1, x, y, 1, m, 1);
+            last[x][y] = 0;
+        }
+    }
+    for (int x = 1; x <= n; x++) {
+        for (int y = x + 1; y <= n; y++) {
+            //è¡¨ç¤ºç›´åˆ°æœ€åè¿˜æ²¡æœ‰è¢«åˆ é™¤çš„è¾¹  è¯´æ˜ä»–ä»¬ä»æœ€åä¸€ä¸ªåŠ å…¥å¼€å§‹ä¸€ç›´ç”Ÿæ•ˆåˆ°æœ€å
+            if (last[x][y] != 0) {
+                add(last[x][y], m, x, y, 1, m, 1);
+            }
+        }
+    }
 }
 
 int main() {
-   ios::sync_with_stdio(false);
-   cin.tie(nullptr);
-   cin >> n >> m;
-   for (int i = 1, t, x, y; i <= m; i++) {
-       cin >> t >> x >> y;
-       op[i] = t;
-       u[i] = min(x, y);
-       v[i] = max(x, y);
-   }
-   prepare();
-   dfs(1, m, 1);
-   for (int i = 1; i <= m; i++) {
-       if (op[i] == 2) {
-           if (ans[i]) {
-               cout << "Y" << "\n";
-           } else {
-               cout << "N" << "\n";
-           }
-       }
-   }
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cin >> n >> m;
+    for (int i = 1, t, x, y; i <= m; i++) {
+        cin >> t >> x >> y;
+        op[i] = t;
+        u[i] = min(x, y);
+        v[i] = max(x, y);
+    }
+    prepare();
+    dfs(1, m, 1);
+    for (int i = 1; i <= m; i++) {
+        if (op[i] == 2) {
+            if (ans[i]) {
+                cout << "Y" << "\n";
+            } else {
+                cout << "N" << "\n";
+            }
+        }
+    }
    return 0;
 }

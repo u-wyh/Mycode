@@ -1,17 +1,18 @@
-// ×îĞ¡mexÉú³ÉÊ÷£¬C++°æ
-// ¸ø¶¨n¸öµã£¬mÌõ±ßµÄÎŞÏòÁ¬Í¨Í¼£¬±ßÓĞ±ßÈ¨
-// ×ÔÈ»Êı¼¯ºÏSµÄmexº¬ÒåÎª£º×îĞ¡µÄ¡¢Ã»ÓĞ³öÏÖÔÚSÖĞµÄ×ÔÈ»Êı
-// ÏÖÔÚÄãÒªÇó³öÒ»¸öÕâ¸öÍ¼µÄÉú³ÉÊ÷£¬Ê¹µÃÆä±ßÈ¨¼¯ºÏµÄmex¾¡¿ÉÄÜĞ¡
-// ¶Ô±¾ÌâÀ´Ëµ£¬×¢Òâ0ÊÇ×ÔÈ»Êı
+// æœ€å°mexç”Ÿæˆæ ‘ï¼ŒC++ç‰ˆ
+// ç»™å®šnä¸ªç‚¹ï¼Œmæ¡è¾¹çš„æ— å‘è¿é€šå›¾ï¼Œè¾¹æœ‰è¾¹æƒ
+// è‡ªç„¶æ•°é›†åˆSçš„mexå«ä¹‰ä¸ºï¼šæœ€å°çš„ã€æ²¡æœ‰å‡ºç°åœ¨Sä¸­çš„è‡ªç„¶æ•°
+// ç°åœ¨ä½ è¦æ±‚å‡ºä¸€ä¸ªè¿™ä¸ªå›¾çš„ç”Ÿæˆæ ‘ï¼Œä½¿å¾—å…¶è¾¹æƒé›†åˆçš„mexå°½å¯èƒ½å°
+// å¯¹æœ¬é¢˜æ¥è¯´ï¼Œæ³¨æ„0æ˜¯è‡ªç„¶æ•°
 // 1 <= n <= 10^6
 // 1 <= m <= 2 * 10^6
-// 0 <= ±ßÈ¨ <= 10^5
-// ²âÊÔÁ´½Ó : https://www.luogu.com.cn/problem/P5631
-// ÈçÏÂÊµÏÖÊÇC++µÄ°æ±¾£¬C++°æ±¾ºÍjava°æ±¾Âß¼­ÍêÈ«Ò»Ñù
-// Ìá½»ÈçÏÂ´úÂë£¬¿ÉÒÔÍ¨¹ıËùÓĞ²âÊÔÓÃÀı
-//ÕâµÀÌâÊÇ½«Ïß¶ÎÊ÷×ö³É´ğ°¸Öá  ¼´Ã¿¸ö½ÚµãÊÇÒ»¸ö´ğ°¸µÄ²éÑ¯ ¾ßÌåÀ´Ëµ¾ÍÊÇËµ£º
-//ÅĞ¶Ï±ßÈ¨ÎªiµÄÊÇ²»ÊÇ×îÖÕµÄ´ğ°¸  ´Ó0¿ªÊ¼³¢ÊÔ  
-//ÅĞ¶ÏµÄ·½·¨ÊÇÉ¾³ı±ßÈ¨ÎªiµÄËùÓĞ±ß  Õû¸öÍ¼ÊÇ·ñÁªÍ¨  Èç¹ûÁªÍ¨ ¼ÌĞøÈ¥ÏÂÒ»¸öµãÈ¨  ·ñÔò¾ÍÊÇ´ğ°¸
+// 0 <= è¾¹æƒ <= 10^5
+// æµ‹è¯•é“¾æ¥ : https://www.luogu.com.cn/problem/P5631
+// å¦‚ä¸‹å®ç°æ˜¯C++çš„ç‰ˆæœ¬ï¼ŒC++ç‰ˆæœ¬å’Œjavaç‰ˆæœ¬é€»è¾‘å®Œå…¨ä¸€æ ·
+// æäº¤å¦‚ä¸‹ä»£ç ï¼Œå¯ä»¥é€šè¿‡æ‰€æœ‰æµ‹è¯•ç”¨ä¾‹
+//è¿™é“é¢˜æ˜¯å°†çº¿æ®µæ ‘åšæˆç­”æ¡ˆè½´  å³æ¯ä¸ªèŠ‚ç‚¹æ˜¯ä¸€ä¸ªç­”æ¡ˆçš„æŸ¥è¯¢ å…·ä½“æ¥è¯´å°±æ˜¯è¯´ï¼š
+//åˆ¤æ–­è¾¹æƒä¸ºiçš„æ˜¯ä¸æ˜¯æœ€ç»ˆçš„ç­”æ¡ˆ  ä»0å¼€å§‹å°è¯•  
+//åˆ¤æ–­çš„æ–¹æ³•æ˜¯åˆ é™¤è¾¹æƒä¸ºiçš„æ‰€æœ‰è¾¹  æ•´ä¸ªå›¾æ˜¯å¦è”é€š  å¦‚æœè”é€š ç»§ç»­å»ä¸‹ä¸€ä¸ªç‚¹æƒ  å¦åˆ™å°±æ˜¯ç­”æ¡ˆ
+//è¿™é‡Œæˆ‘ä»¬è¦æ³¨æ„ä¸€ç‚¹ å°±æ˜¯çº¿æ®µæ ‘åˆ†æ²»ç®—æ³•èŠ‚ç‚¹ä¸Šçš„ä¿¡æ¯éƒ½æ˜¯åŠ æ“ä½œä¿¡æ¯  æ²¡æœ‰åˆ é™¤æ“ä½œä¿¡æ¯
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 1000001;
@@ -20,7 +21,7 @@ const int MAXT = 30000001;
 
 int n, m, v;
 
-//¿É³·Ïú²¢²é¼¯
+//å¯æ’¤é”€å¹¶æŸ¥é›†
 int father[MAXN];
 int siz[MAXN];
 int rollback[MAXN][2];
@@ -32,34 +33,34 @@ int tox[MAXT];
 int toy[MAXT];
 int cnt = 0;
 
-int part;//¼ÇÂ¼µ±Ç°Õû¸öÍ¼ÓĞ¶àÉÙ¸öÁªÍ¨¿é Èç¹ûÖ»ÓĞÒ»¸ö ÄÇÃ´¾ÍÊÇÁªÍ¨µÄ
+int part;//è®°å½•å½“å‰æ•´ä¸ªå›¾æœ‰å¤šå°‘ä¸ªè”é€šå— å¦‚æœåªæœ‰ä¸€ä¸ª é‚£ä¹ˆå°±æ˜¯è”é€šçš„
 
 void addEdge(int i, int x, int y) {
-   nxt[++cnt] = head[i];
-   tox[cnt] = x;
-   toy[cnt] = y;
-   head[i] = cnt;
+    nxt[++cnt] = head[i];
+    tox[cnt] = x;
+    toy[cnt] = y;
+    head[i] = cnt;
 }
 
 int find(int i) {
-   while (i != father[i]) {
-       i = father[i];
-   }
-   return i;
+    while (i != father[i]) {
+        i = father[i];
+    }
+    return i;
 }
 
 void Union(int x, int y) {
-   int fx = find(x);
-   int fy = find(y);
-   if (siz[fx] < siz[fy]) {
-       int tmp = fx;
-       fx = fy;
-       fy = tmp;
-   }
-   father[fy] = fx;
-   siz[fx] += siz[fy];
-   rollback[++opsize][0] = fx;
-   rollback[opsize][1] = fy;
+    int fx = find(x);
+    int fy = find(y);
+    if (siz[fx] < siz[fy]) {
+        int tmp = fx;
+        fx = fy;
+        fy = tmp;
+    }
+    father[fy] = fx;
+    siz[fx] += siz[fy];
+    rollback[++opsize][0] = fx;
+    rollback[opsize][1] = fy;
 }
 
 void undo() {
@@ -70,68 +71,68 @@ void undo() {
 }
 
 void add(int jobl, int jobr, int jobx, int joby, int l, int r, int i) {
-   if (jobl <= l && r <= jobr) {
-       addEdge(i, jobx, joby);
-   } else {
-       int mid = (l + r) >> 1;
-       if (jobl <= mid) {
-           add(jobl, jobr, jobx, joby, l, mid, i << 1);
-       }
-       if (jobr > mid) {
-           add(jobl, jobr, jobx, joby, mid + 1, r, i << 1 | 1);
-       }
-   }
+    if (jobl <= l && r <= jobr) {
+        addEdge(i, jobx, joby);
+    } else {
+        int mid = (l + r) >> 1;
+        if (jobl <= mid) {
+            add(jobl, jobr, jobx, joby, l, mid, i << 1);
+        }
+        if (jobr > mid) {
+            add(jobl, jobr, jobx, joby, mid + 1, r, i << 1 | 1);
+        }
+    }
 }
 
 int dfs(int l, int r, int i) {
-   int unionCnt = 0;
-   for (int ei = head[i]; ei > 0; ei = nxt[ei]) {
-       int fx = find(tox[ei]);
-       int fy = find(toy[ei]);
-       if (fx != fy) {
-           Union(fx, fy);
-           part--;
-           unionCnt++;
-       }
-   }
-   int ans = -1;
-   if (l == r) {
-       if (part == 1) {
-           ans = l;
-       }
-   } else {
-       int mid = (l + r) >> 1;
-       ans = dfs(l, mid, i << 1);
-       if (ans == -1) {
-           ans = dfs(mid + 1, r, i << 1 | 1);
-       }
-   }
-   for (int k = 1; k <= unionCnt; k++) {
-       undo();
-       part++;
-   }
-   return ans;
+    int unionCnt = 0;
+    for (int ei = head[i]; ei > 0; ei = nxt[ei]) {
+        int fx = find(tox[ei]);
+        int fy = find(toy[ei]);
+        if (fx != fy) {
+            Union(fx, fy);
+            part--;
+            unionCnt++;
+        }
+    }
+    int ans = -1;
+    if (l == r) {
+        if (part == 1) {
+            ans = l;
+        }
+    } else {
+        int mid = (l + r) >> 1;
+        ans = dfs(l, mid, i << 1);
+        if (ans == -1) {
+            ans = dfs(mid + 1, r, i << 1 | 1);
+        }
+    }
+    for (int k = 1; k <= unionCnt; k++) {
+        undo();
+        part++;
+    }
+    return ans;
 }
 
 int main() {
-   ios::sync_with_stdio(false);
-   cin.tie(nullptr);
-   cin >> n >> m;
-   v = MAXV;
-   for (int i = 1; i <= n; i++) {
-       father[i] = i;
-       siz[i] = 1;
-   }
-   for (int i = 1; i <= m; i++) {
-       int x, y, w;
-       cin >> x >> y >> w;
-       //ÕâÌõ±ß´æÔÚÓÚ 0~w-1 ºÍ w+1~n
-       if (w > 0) {
-           add(0, w - 1, x, y, 0, v, 1);
-       }
-       add(w + 1, v, x, y, 0, v, 1);
-   }
-   part = n;
-   cout << dfs(0, v, 1) << '\n';
-   return 0;
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cin >> n >> m;
+    v = MAXV;
+    for (int i = 1; i <= n; i++) {
+        father[i] = i;
+        siz[i] = 1;
+    }
+    for (int i = 1; i <= m; i++) {
+        int x, y, w;
+        cin >> x >> y >> w;
+        //è¿™æ¡è¾¹å­˜åœ¨äº 0~w-1 å’Œ w+1~n
+        if (w > 0) {
+            add(0, w - 1, x, y, 0, v, 1);
+        }
+        add(w + 1, v, x, y, 0, v, 1);
+    }
+    part = n;
+    cout << dfs(0, v, 1) << '\n';
+    return 0;
 }

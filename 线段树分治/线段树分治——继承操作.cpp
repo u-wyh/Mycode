@@ -1,19 +1,19 @@
-// ����Ϳɫ��C++��
-// һ����n���㣬����m������ߣ�һ��ʼÿ��������ɫ��һ����k����ɫ
-// �Ϸ�״̬�Ķ���Ϊ��������Ⱦ��k����ɫ�е��κ�һ����ɫ�ıߣ�ͼ����һ�Ŷ���ͼ
-// һ����q��������ÿ��������ʽ����
-// ���� e c : ��e���ߣ�����ҪͿ��c��ɫ
-//           ���ִ�д˲���֮������ͼ���ǺϷ�״̬����ôִ�в���ӡ"YES"
-//           ���ִ�д˲���֮������ͼ�����ǺϷ�״̬����ô��ִ�в���ӡ"NO"
-// 1 <= n��m��q <= 5 * 10^5    1 <= k <= 50
-// �������� : https://www.luogu.com.cn/problem/CF576E
-// �������� : https://codeforces.com/problemset/problem/576/E
-// ����ʵ����C++�İ汾��C++�汾��java�汾�߼���ȫһ��
-// �ύ���´��룬����ͨ�����в�������
-//�����������ĵط�����������߸���ɫ���²��Ϸ� ��ô��Ҫ��������ԭ������ɫ  ���ܶ���
-//�������ǽ��ߵ�ʱ�� ������ֱ�ӽ�xy��Ϊ������  ���ǽ��޸ı�Ŵ���
-//����������ɫ�Ĳ��� ��ô������޸Ĳ�������ɫ�ĳ���һ�ε���ɫ  ��������Ҫ��
-//����֮�� ��Ҫά�������ɫ���鼯 find�Ⱥ���ҲҪ��color���β�
+// 给边涂色，C++版
+// 一共有n个点，给定m条无向边，一开始每条边无颜色，一共有k种颜色
+// 合法状态的定义为，仅保留染成k种颜色中的任何一种颜色的边，图都是一张二分图
+// 一共有q条操作，每条操作格式如下
+// 操作 e c : 第e条边，现在要涂成c颜色
+//           如果执行此操作之后，整张图还是合法状态，那么执行并打印"YES"
+//           如果执行此操作之后，整张图不再是合法状态，那么不执行并打印"NO"
+// 1 <= n、m、q <= 5 * 10^5    1 <= k <= 50
+// 测试链接 : https://www.luogu.com.cn/problem/CF576E
+// 测试链接 : https://codeforces.com/problemset/problem/576/E
+// 如下实现是C++的版本，C++版本和java版本逻辑完全一样
+// 提交如下代码，可以通过所有测试用例
+//这道题最特殊的地方是如果这条边改颜色导致不合法 那么还要继续保持原来的颜色  这点很独特
+//所以我们建边的时候 不再是直接将xy作为参数了  而是将修改编号传递
+//如果这个边颜色改不了 那么将这个修改操作的颜色改成上一次的颜色  这样满足要求
+//除此之外 还要维护多个颜色并查集 find等函数也要有color的形参
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 500001;
@@ -25,25 +25,25 @@ int n, m, k, q;
 int u[MAXN];
 int v[MAXN];
 
-//��¼������Ϣ
-int e[MAXN];//�޸ĵıߵı��
-int c[MAXN];//�޸ĺ����ɫ  ����޷��޸ģ����޸ĺ󲻺Ϸ��� ��ô����ᷢ���仯
-int post[MAXN];//���Դ��ڵķ�Χ  ����һ���޷�����ĵ��λ��
+//记录操作信息
+int e[MAXN];//修改的边的编号
+int c[MAXN];//修改后的颜色  如果无法修改（即修改后不合法） 那么这个会发生变化
+int post[MAXN];//可以存在的范围  即下一个无法到达的点的位置
 
-//�ɳ������鼯 ������ɫά��������鼯
+//可撤销并查集 根据颜色维护多个并查集
 int father[MAXK][MAXN << 1];
 int siz[MAXK][MAXN << 1];
 int rollback[MAXN << 1][3];
 int opsize = 0;
 
-//�����Ϲ��ŵĲ����� xy  ���ǲ����ı��
-//��Ϊ���������ݿ��ܻᷢ���仯
+//区间上挂着的不再是 xy  而是操作的编号
+//因为操作的内容可能会发生变化
 int head[MAXN << 2];
 int nxt[MAXT];
 int qid[MAXT];
 int cnt = 0;
 
-//��¼��������ǰ��ʲô��ɫ��
+//记录这条边以前是什么颜色的
 int lastColor[MAXN];
 
 bool ans[MAXN];
@@ -121,13 +121,13 @@ void dfs(int l, int r, int i) {
        }
    }
    if (l == r) {
-        //����Ҷ�ڵ� ��ѯ�Ƿ�����޸�
+        //到了叶节点 查询是否可以修改
        if (find(c[l], u[e[l]]) == find(c[l], v[e[l]])) {
-            //��������ߵ���ɫ���ܱ仯 ��ô�ͽ�������ɫ�ĳ���һ�ε���ɫ
+            //如果这条边的颜色不能变化 那么就将操作颜色改成上一次的颜色
            ans[l] = false;
            c[l] = lastColor[e[l]];
        } else {
-            //������һ����������ɫ���ó������ɫ
+            //否则将上一次这条边颜色设置成这个颜色
            ans[l] = true;
            lastColor[e[l]] = c[l];
        }
@@ -153,7 +153,7 @@ void prepare() {
    for (int i = 1; i <= m; i++) {
        post[i] = q;
    }
-   //����Ӻ���ǰ����
+   //这里从后往前设置
    for (int i = q; i >= 1; i--) {
        if (i + 1 <= post[e[i]]) {
            add(i + 1, post[e[i]], i, 1, q, 1);

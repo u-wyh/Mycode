@@ -62,6 +62,7 @@ void compute(int x, int changeCnt) {
             mineor[i] = only[l] ^ only[r];
         } else if (pass[l] == 0 ^ pass[r] == 0) {
             //如果有一侧是空  那么就是非空的那一边的答案
+            //这里需要注意 不能和下面的情况合并在一起  因为即使pass等于0  但是mineor可能不是INF  比如根本没有这个孩子节点  即根本没有初始化
             mineor[i] = pass[l] == 0 ? mineor[r] : mineor[l];
         } else {
             //否则  一定是左右两边至少有一边不止1个  那么一定就是两侧中较小的那一个
