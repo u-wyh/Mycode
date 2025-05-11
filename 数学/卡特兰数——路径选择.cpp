@@ -1,17 +1,20 @@
-// �����ַ���
-// ��n��1��m��0��Ҫ���n+m���ȵ����У���֤����ǰ׺�ϣ�1������ >= 0������
-// �����ж��������з������𰸶� 20100403 ȡģ
+// 生成字符串
+// 有n个1和m个0，要组成n+m长度的数列，保证任意前缀上，1的数量 >= 0的数量
+// 返回有多少种排列方法，答案对 20100403 取模
 // 1 <= m <= n <= 10^6
-// �������� : https://www.luogu.com.cn/problem/P1641
-// �ύ���µ�code���ύʱ��������ĳ�"Main"������ͨ�����в�������
+// 测试链接 : https://www.luogu.com.cn/problem/P1641
+// 提交以下的code，提交时请把类名改成"Main"，可以通过所有测试用例
+//这道题我们可以抽象化为从（0,0）走到(n,m)  并且不能接触到y=x+1这条线
+//因为我们可以理解为横向为1的步数  纵向为0的步数
+//如果不允许0的数量多于1的数量  那么就是不准超过和接触y=x+1
 #include<bits/stdc++.h>
 using namespace std;
 const int MOD = 20100403;
 const int MAXN = 2000001;
 
-// �׳�������
+// 阶乘余数表
 long long fac[MAXN];
-// �׳���Ԫ��
+// 阶乘逆元表
 long long inv[MAXN];
 
 long long power(long long x, long long p) {
@@ -26,7 +29,7 @@ long long power(long long x, long long p) {
 	return ans;
 }
 
-// ���Խ���099����Ŀ3�����ɽ׳����������׳���Ԫ��
+// 来自讲解099，题目3，生成阶乘余数表、阶乘逆元表
 void build(int n) {
 	fac[0] = inv[0] = 1;
 	fac[1] = 1;

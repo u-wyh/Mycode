@@ -1,19 +1,19 @@
-// Ô²ÉÏÁ¬Ïß
-// Ô²ÉÏÓÐ2n¸öµã£¬ÕâÐ©µã³É¶ÔÁ¬½ÓÆðÀ´£¬ÐÎ³ÉnÌõÏß¶Î£¬ÈÎÒâÁ½ÌõÏß¶Î²»ÄÜÏà½»£¬·µ»ØÁ¬½ÓµÄ·½·¨Êý
-// ×¢Òâ£¡´ð°¸²»¶Ô 10^9 + 7 È¡Ä££¡¶øÊÇ¶Ô 10^8 + 7 È¡Ä££¡
+// åœ†ä¸Šè¿žçº¿
+// åœ†ä¸Šæœ‰2nä¸ªç‚¹ï¼Œè¿™äº›ç‚¹æˆå¯¹è¿žæŽ¥èµ·æ¥ï¼Œå½¢æˆnæ¡çº¿æ®µï¼Œä»»æ„ä¸¤æ¡çº¿æ®µä¸èƒ½ç›¸äº¤ï¼Œè¿”å›žè¿žæŽ¥çš„æ–¹æ³•æ•°
+// æ³¨æ„ï¼ç­”æ¡ˆä¸å¯¹ 10^9 + 7 å–æ¨¡ï¼è€Œæ˜¯å¯¹ 10^8 + 7 å–æ¨¡ï¼
 // 1 <= n <= 2999
-// ²âÊÔÁ´½Ó : https://www.luogu.com.cn/problem/P1976
-// Ìá½»ÒÔÏÂµÄcode£¬Ìá½»Ê±Çë°ÑÀàÃû¸Ä³É"Main"£¬¿ÉÒÔÍ¨¹ýËùÓÐ²âÊÔÓÃÀý
+// æµ‹è¯•é“¾æŽ¥ : https://www.luogu.com.cn/problem/P1976
+// æäº¤ä»¥ä¸‹çš„codeï¼Œæäº¤æ—¶è¯·æŠŠç±»åæ”¹æˆ"Main"ï¼Œå¯ä»¥é€šè¿‡æ‰€æœ‰æµ‹è¯•ç”¨ä¾‹
 #include<bits/stdc++.h>
 using namespace std;
 const int MOD = 100000007;
 const int MAXN = 1000001;
 
-// ½×³ËÓàÊý±í
+// é˜¶ä¹˜ä½™æ•°è¡¨
 long long fac[MAXN];
-// ½×³ËÄæÔª±í
+// é˜¶ä¹˜é€†å…ƒè¡¨
 long long inv1[MAXN];
-// Á¬ÐøÊýÄæÔª±í
+// è¿žç»­æ•°é€†å…ƒè¡¨
 long long inv2[MAXN];
 
 long long power(long long x, long long p) {
@@ -28,7 +28,7 @@ long long power(long long x, long long p) {
 	return ans;
 }
 
-// À´×Ô½²½â099£¬ÌâÄ¿3£¬Éú³É½×³ËÓàÊý±í¡¢½×³ËÄæÔª±í
+// æ¥è‡ªè®²è§£099ï¼Œé¢˜ç›®3ï¼Œç”Ÿæˆé˜¶ä¹˜ä½™æ•°è¡¨ã€é˜¶ä¹˜é€†å…ƒè¡¨
 void build1(int n) {
 	fac[0] = inv1[0] = 1;
 	fac[1] = 1;
@@ -40,7 +40,7 @@ void build1(int n) {
 		inv1[i] = ((long long) (i + 1) * inv1[i + 1]) % MOD;
 	}
 }
-	// À´×Ô½²½â099£¬ÌâÄ¿2£¬Éú³ÉÁ¬ÐøÊýÄæÔª±í
+	// æ¥è‡ªè®²è§£099ï¼Œé¢˜ç›®2ï¼Œç”Ÿæˆè¿žç»­æ•°é€†å…ƒè¡¨
 void build2(int n) {
 	inv2[1] = 1;
 	for (int i = 2; i <= n + 1; i++) {
@@ -52,7 +52,7 @@ long long c(int n, int k) {
 	return (((fac[n] * inv1[k]) % MOD) * inv1[n - k]) % MOD;
 }
 
-// ¹«Ê½1
+// å…¬å¼1
 long long compute1(int n) {
     build1(2 * n);
     return (c(2 * n, n) - c(2 * n, n - 1) + MOD) % MOD;
