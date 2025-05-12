@@ -29,6 +29,7 @@ void add(int i,int v){
     }
 }
 
+//这个函数求的是从1到i所有数字的和
 int sum(int i){
     int ans=0;
     while(i>0){
@@ -39,7 +40,6 @@ int sum(int i){
     }
     return ans;
 }
-//这个函数求的是从1到i所有数字的和
 
 //通过二分法得到答案
 int solve(int x){
@@ -84,11 +84,11 @@ void compute(){
         arr[i] %= n - i + 1;
     }
     //到这里时  arr数组里面是加上m后的排名在阶乘进制下的表示
-    // 根据阶乘进制转化为具体的排列
+    //将树状数组重新复原
     for(int i=1;i<=n;i++){
         add(tmp[i],1);
     }
-    //将树状数组重新复原
+    // 根据阶乘进制转化为具体的排列
     for (int i = 1; i <= n; i++) {
         arr[i] = solve((int) arr[i] + 1);
         //此时这个arr数组用来存放排列

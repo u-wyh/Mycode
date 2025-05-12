@@ -1,4 +1,4 @@
-//P3014
+//https://www.luogu.com.cn/problem/P3014
 //这道题目考察了康拓展开的正向和反向过程
 //比较全面
 #include<bits/stdc++.h>
@@ -11,8 +11,7 @@ int arr[MAXN];
 int fac[MAXN];
 // 线段树
 int sum[MAXN << 2];
-int n;
-int m;
+int n,m;
 
 // 初始化线段树，单点范围的初始累加和为1，认为所有数字都可用
 void build(int l, int r, int i) {
