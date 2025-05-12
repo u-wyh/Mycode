@@ -1,20 +1,20 @@
 //P3014
-//ÕâµÀÌâÄ¿¿¼²ìÁË¿µÍØÕ¹¿ªµÄÕıÏòºÍ·´Ïò¹ı³Ì
-//±È½ÏÈ«Ãæ
+//è¿™é“é¢˜ç›®è€ƒå¯Ÿäº†åº·æ‹“å±•å¼€çš„æ­£å‘å’Œåå‘è¿‡ç¨‹
+//æ¯”è¾ƒå…¨é¢
 #include<bits/stdc++.h>
 using namespace std;
 #define int long long
 const int MAXN = 22;
 
 int arr[MAXN];
-//½×³Ë±í
+//é˜¶ä¹˜è¡¨
 int fac[MAXN];
-// Ïß¶ÎÊ÷
+// çº¿æ®µæ ‘
 int sum[MAXN << 2];
 int n;
 int m;
 
-// ³õÊ¼»¯Ïß¶ÎÊ÷£¬µ¥µã·¶Î§µÄ³õÊ¼ÀÛ¼ÓºÍÎª1£¬ÈÏÎªËùÓĞÊı×Ö¶¼¿ÉÓÃ
+// åˆå§‹åŒ–çº¿æ®µæ ‘ï¼Œå•ç‚¹èŒƒå›´çš„åˆå§‹ç´¯åŠ å’Œä¸º1ï¼Œè®¤ä¸ºæ‰€æœ‰æ•°å­—éƒ½å¯ç”¨
 void build(int l, int r, int i) {
     if (l == r) {
         sum[i] = 1;
@@ -26,7 +26,7 @@ void build(int l, int r, int i) {
     }
 }
 
-// µ¥µãjobiÉÏ£¬Ôö¼Ójobv£¬ÒòÎªÊÇµ¥µã¸üĞÂ£¬ËùÒÔ²»ĞèÒª½¨Á¢ÀÁ¸üĞÂ»úÖÆ
+// å•ç‚¹jobiä¸Šï¼Œå¢åŠ jobvï¼Œå› ä¸ºæ˜¯å•ç‚¹æ›´æ–°ï¼Œæ‰€ä»¥ä¸éœ€è¦å»ºç«‹æ‡’æ›´æ–°æœºåˆ¶
 void add(int jobi, int jobv, int l, int r, int i) {
     if (l == r) {
         sum[i] += jobv;
@@ -41,7 +41,7 @@ void add(int jobi, int jobv, int l, int r, int i) {
     }
 }
 
-// ²éÑ¯jobl~jobr·¶Î§µÄÀÛ¼ÓºÍ
+// æŸ¥è¯¢jobl~jobrèŒƒå›´çš„ç´¯åŠ å’Œ
 int Sum(int jobl, int jobr, int l, int r, int i) {
     if (jobl <= l && r <= jobr) {
         return sum[i];
@@ -57,12 +57,12 @@ int Sum(int jobl, int jobr, int l, int r, int i) {
     return ans;
 }
 
-// Ïß¶ÎÊ÷ÉÏÕÒµ½µÚkÃûµÄÊÇÊ²Ã´£¬ÕÒµ½ºóÉ¾µô´ÊÆµ£¬·µ»ØµÄ¹ı³ÌĞŞ¸ÄÀÛ¼ÓºÍ
-// ×¢ÒâÕâ¸öÅÅÃûÊÇÔÚ×ÓÊ÷ÖĞµÄÅÅÃû
+// çº¿æ®µæ ‘ä¸Šæ‰¾åˆ°ç¬¬kåçš„æ˜¯ä»€ä¹ˆï¼Œæ‰¾åˆ°ååˆ æ‰è¯é¢‘ï¼Œè¿”å›çš„è¿‡ç¨‹ä¿®æ”¹ç´¯åŠ å’Œ
+// æ³¨æ„è¿™ä¸ªæ’åæ˜¯åœ¨å­æ ‘ä¸­çš„æ’å
 int getAndDelete(int k, int l, int r, int i) {
     int ans;
     if (l == r) {
-        //ÕÒµ½Ä¿±ê É¾³ı´ÊÆµ
+        //æ‰¾åˆ°ç›®æ ‡ åˆ é™¤è¯é¢‘
         sum[i]--;
         ans = l;
     } else {
@@ -71,20 +71,20 @@ int getAndDelete(int k, int l, int r, int i) {
             ans = getAndDelete(k, l, mid, i << 1);
         } else {
             ans = getAndDelete(k - sum[i << 1], mid + 1, r, i << 1 | 1);
-            //Òª¼õÈ¥×ó²àÅÅÃûµÄÓ°Ïì
+            //è¦å‡å»å·¦ä¾§æ’åçš„å½±å“
         }
         sum[i] = sum[i << 1] + sum[i << 1 | 1];
-        //·µ»ØµÄ¹ı³ÌĞŞ¸ÄÀÛ¼ÓºÍ
+        //è¿”å›çš„è¿‡ç¨‹ä¿®æ”¹ç´¯åŠ å’Œ
     }
     return ans;
 }
 
 void compute(int k) {
     build(1, n, 1);
-    //½«Ïß¶ÎÊ÷ÖØĞÂ¸´Ô­
+    //å°†çº¿æ®µæ ‘é‡æ–°å¤åŸ
     for (int i = 1; i <= n; i++) {
         arr[i] = getAndDelete((int) arr[i] + 1, 1, n, 1);
-        //´ËÊ±Õâ¸öarrÊı×éÓÃÀ´´æ·ÅÅÅÁĞ
+        //æ­¤æ—¶è¿™ä¸ªarræ•°ç»„ç”¨æ¥å­˜æ”¾æ’åˆ—
     }
 }
 
@@ -95,7 +95,7 @@ signed main()
     for(int i=1;i<=n;i++){
         fac[i]=(fac[i-1]*i);
     }
-    //½¨Á¢½×³Ë±í
+    //å»ºç«‹é˜¶ä¹˜è¡¨
 
     for(int i=1;i<=m;i++){
         char op;
@@ -127,7 +127,7 @@ signed main()
                 else{
                     ans+=1;
                 }
-                add(arr[i],-1,1,n,1);//½«ÕâÒ»Î»µÄĞÅÏ¢È¥³ı
+                add(arr[i],-1,1,n,1);//å°†è¿™ä¸€ä½çš„ä¿¡æ¯å»é™¤
             }
             cout<<ans<<endl;
         }

@@ -1,11 +1,11 @@
-// Äæ¿µÍÐÕ¹¿ª   ¶þ·Ö¼ÓÊ÷×´Êý×é
-// Êý×Ö´Ó1µ½n£¬¿ÉÒÔÓÐºÜ¶àÅÅÁÐ£¬¸ø¶¨Ò»¸ö³¤¶ÈÎªnµÄÊý×és£¬±íÊ¾¾ßÌåµÄÒ»¸öÅÅÁÐ
-// Çó³öÕâ¸öÅÅÁÐµÄÅÅÃû¼ÙÉèÎªx£¬´òÓ¡µÚx+mÃûµÄÅÅÁÐÊÇÊ²Ã´
+// é€†åº·æ‰˜å±•å¼€   äºŒåˆ†åŠ æ ‘çŠ¶æ•°ç»„
+// æ•°å­—ä»Ž1åˆ°nï¼Œå¯ä»¥æœ‰å¾ˆå¤šæŽ’åˆ—ï¼Œç»™å®šä¸€ä¸ªé•¿åº¦ä¸ºnçš„æ•°ç»„sï¼Œè¡¨ç¤ºå…·ä½“çš„ä¸€ä¸ªæŽ’åˆ—
+// æ±‚å‡ºè¿™ä¸ªæŽ’åˆ—çš„æŽ’åå‡è®¾ä¸ºxï¼Œæ‰“å°ç¬¬x+måçš„æŽ’åˆ—æ˜¯ä»€ä¹ˆ
 // 1 <= n <= 10^5
 // 1 <= m <= 10^15
-// ÌâÄ¿±£Ö¤sÊÇÒ»¸öÓÉ1~nÊý×Ö×é³ÉµÄÕýÈ·ÅÅÁÐ£¬ÌâÄ¿±£Ö¤x+m²»»á³¬¹ýÅÅÁÐµÄ×ÜÊý
-// ²âÊÔÁ´½Ó : https://www.luogu.com.cn/problem/U72177
-// Ìá½»ÒÔÏÂµÄcode£¬Ìá½»Ê±Çë°ÑÀàÃû¸Ä³É"Main"£¬¿ÉÒÔÍ¨¹ýËùÓÐ²âÊÔÓÃÀý
+// é¢˜ç›®ä¿è¯sæ˜¯ä¸€ä¸ªç”±1~næ•°å­—ç»„æˆçš„æ­£ç¡®æŽ’åˆ—ï¼Œé¢˜ç›®ä¿è¯x+mä¸ä¼šè¶…è¿‡æŽ’åˆ—çš„æ€»æ•°
+// æµ‹è¯•é“¾æŽ¥ : https://www.luogu.com.cn/problem/U72177
+// æäº¤ä»¥ä¸‹çš„codeï¼Œæäº¤æ—¶è¯·æŠŠç±»åæ”¹æˆ"Main"ï¼Œå¯ä»¥é€šè¿‡æ‰€æœ‰æµ‹è¯•ç”¨ä¾‹
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 100001;
@@ -15,7 +15,7 @@ int tree[MAXN];
 int n;
 long long m;
 
-//ÒÔÏÂ²¿·ÖÊÇÊ÷×´Êý×éÓÃÓÚÇóºÍ
+//ä»¥ä¸‹éƒ¨åˆ†æ˜¯æ ‘çŠ¶æ•°ç»„ç”¨äºŽæ±‚å’Œ
 int lowbit(int x){
     return x & -x;
 }
@@ -24,8 +24,8 @@ void add(int i,int v){
     while(i<=n){
         tree[i]+=v;
         i+=lowbit(i);
-        //Ã¿Ò»´Î¶¼¼ÓÉÏ×Ô¼º×îÓÒ²àµÄ1
-        //Ïàµ±ÓÚ°ÑËùÓÐ°üº¬¸Ã×´Ì¬µÄÊý×Ö¶¼Ôö¼Ó
+        //æ¯ä¸€æ¬¡éƒ½åŠ ä¸Šè‡ªå·±æœ€å³ä¾§çš„1
+        //ç›¸å½“äºŽæŠŠæ‰€æœ‰åŒ…å«è¯¥çŠ¶æ€çš„æ•°å­—éƒ½å¢žåŠ 
     }
 }
 
@@ -34,14 +34,14 @@ int sum(int i){
     while(i>0){
         ans+=tree[i];
         i-=lowbit(i);
-        //Ã¿Ò»´Î¶¼¼õÈ¥×Ô¼º×îÓÒ²àµÄ1
-        //Ïàµ±ÓÚ½«Õû¸öÇø¼ä²ð·Ö¿ªÎª¼¸¸öÐ¡Çø¼ä¼ÓËÙ  ºÍ³Ë·¨¿ìËÙÃÝÏàËÆ
+        //æ¯ä¸€æ¬¡éƒ½å‡åŽ»è‡ªå·±æœ€å³ä¾§çš„1
+        //ç›¸å½“äºŽå°†æ•´ä¸ªåŒºé—´æ‹†åˆ†å¼€ä¸ºå‡ ä¸ªå°åŒºé—´åŠ é€Ÿ  å’Œä¹˜æ³•å¿«é€Ÿå¹‚ç›¸ä¼¼
     }
     return ans;
 }
-//Õâ¸öº¯ÊýÇóµÄÊÇ´Ó1µ½iËùÓÐÊý×ÖµÄºÍ
+//è¿™ä¸ªå‡½æ•°æ±‚çš„æ˜¯ä»Ž1åˆ°iæ‰€æœ‰æ•°å­—çš„å’Œ
 
-//Í¨¹ý¶þ·Ö·¨µÃµ½´ð°¸
+//é€šè¿‡äºŒåˆ†æ³•å¾—åˆ°ç­”æ¡ˆ
 int solve(int x){
     int l=1,r=n,ans;
     while(l<=r){
@@ -59,11 +59,11 @@ int solve(int x){
 }
 
 void compute(){
-    //³õÊ¼»¯Ê÷×´Êý×é
+    //åˆå§‹åŒ–æ ‘çŠ¶æ•°ç»„
     for(int i=1;i<=n;i++){
         add(i,1);
     }
-    // µ±Ç°ÅÅÁÐ×ª»¯Îª½×³Ë½øÖÆµÄÅÅÃû
+    // å½“å‰æŽ’åˆ—è½¬åŒ–ä¸ºé˜¶ä¹˜è¿›åˆ¶çš„æŽ’å
     for (int i = 1, x; i <= n; i++) {
         x = (int) arr[i];
         if (x == 1) {
@@ -71,27 +71,27 @@ void compute(){
         } else {
             arr[i] = sum(x - 1);
         }
-        //arrÊý×é±íÊ¾Ò»¿ªÊ¼µÄÅÅÁÐÔÚ½×³Ë½øÖÆÏÂµÄÅÅÃû
+        //arræ•°ç»„è¡¨ç¤ºä¸€å¼€å§‹çš„æŽ’åˆ—åœ¨é˜¶ä¹˜è¿›åˆ¶ä¸‹çš„æŽ’å
         add(x, -1);
-        //Ïû³ýÕâ¸öÊý×ÖµÄÓ°Ïì
+        //æ¶ˆé™¤è¿™ä¸ªæ•°å­—çš„å½±å“
     }
-    // µ±Ç°ÅÅÃû¼ÓÉÏmÖ®ºó£¬µÃµ½ÐÂµÄÅÅÃû£¬ÓÃ½×³Ë½øÖÆ±íÊ¾
-    arr[n] += m; // ×îµÍÎ»»ñµÃÔö¼ÓµÄ·ù¶È
+    // å½“å‰æŽ’ååŠ ä¸Šmä¹‹åŽï¼Œå¾—åˆ°æ–°çš„æŽ’åï¼Œç”¨é˜¶ä¹˜è¿›åˆ¶è¡¨ç¤º
+    arr[n] += m; // æœ€ä½Žä½èŽ·å¾—å¢žåŠ çš„å¹…åº¦
     for (int i = n; i >= 1; i--) {
-        // ÍùÉÏ½øÎ»¶àÉÙ
+        // å¾€ä¸Šè¿›ä½å¤šå°‘
         arr[i - 1] += arr[i] / (n - i + 1);
-        // µ±Ç°Î»ÊÇ¶àÉÙ
+        // å½“å‰ä½æ˜¯å¤šå°‘
         arr[i] %= n - i + 1;
     }
-    //µ½ÕâÀïÊ±  arrÊý×éÀïÃæÊÇ¼ÓÉÏmºóµÄÅÅÃûÔÚ½×³Ë½øÖÆÏÂµÄ±íÊ¾
-    // ¸ù¾Ý½×³Ë½øÖÆ×ª»¯Îª¾ßÌåµÄÅÅÁÐ
+    //åˆ°è¿™é‡Œæ—¶  arræ•°ç»„é‡Œé¢æ˜¯åŠ ä¸ŠmåŽçš„æŽ’ååœ¨é˜¶ä¹˜è¿›åˆ¶ä¸‹çš„è¡¨ç¤º
+    // æ ¹æ®é˜¶ä¹˜è¿›åˆ¶è½¬åŒ–ä¸ºå…·ä½“çš„æŽ’åˆ—
     for(int i=1;i<=n;i++){
         add(tmp[i],1);
     }
-    //½«Ê÷×´Êý×éÖØÐÂ¸´Ô­
+    //å°†æ ‘çŠ¶æ•°ç»„é‡æ–°å¤åŽŸ
     for (int i = 1; i <= n; i++) {
         arr[i] = solve((int) arr[i] + 1);
-        //´ËÊ±Õâ¸öarrÊý×éÓÃÀ´´æ·ÅÅÅÁÐ
+        //æ­¤æ—¶è¿™ä¸ªarræ•°ç»„ç”¨æ¥å­˜æ”¾æŽ’åˆ—
     }
 }
 
