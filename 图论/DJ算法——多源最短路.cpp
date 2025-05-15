@@ -1,6 +1,6 @@
 //P10193
-// �����Ŀ�ܴ��� �����DJ�㷨������̶�
-// ����Դ�㲻�ٽ���ֻ��һ����  �����кܶ��
+// 这道题目很创新 考察对DJ算法的理解程度
+// 他的源点不再仅仅只是一个了  而是有很多个
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 5e4+5;
@@ -16,7 +16,7 @@ int cnt = 1;
 
 struct node{
 	int id,dis,pre;
-	//��ʾ��ǰ�����Ľڵ���  pre��ʾ����Ŀǰ������·�������Ǹ�Դ�����������  dis��ʾ��preԴ������ĵ�id��������̾���
+	//表示当前来到的节点编号  pre表示的是目前这个最短路径是由那个源点出发得来的  dis表示从pre源点出发的到id这个点的最短距离
 };
 struct Compare {
     bool operator()(const node& a, const node& b) {
@@ -58,7 +58,7 @@ void dijkstra(){
 		int pre=now.pre;
 
 		if (vis[u].size() >= k || vis[u].count(pre)) {
-            //��ʾ����ڵ��Ѿ��Ƿ���Ҫ�����  ����  ��ǰ���Ѿ�����˴�pre���Դ����������·
+            //表示这个节点已经是符合要求的了  或者  以前就已经完成了从pre这个源点出发的最短路
             continue;
         }
 		vis[u][pre] = true;
