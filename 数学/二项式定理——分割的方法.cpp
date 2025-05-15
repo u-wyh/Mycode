@@ -1,20 +1,20 @@
-// ·Ö¸îµÄ·½·¨Êı
-// ¸ø¶¨Ò»¸ö³¤¶ÈÎªnµÄÊı×éA, ½«Æä·Ö¸î³ÉÊı×éBºÍÊı×éC£¬Âú×ãA[i] = B[i] + C[i]
-// Ò²¾ÍÊÇÒ»¸öÊı×Ö·Ö³ÉÁ½·İ£¬È»ºó¸÷×Ô½øÈëBºÍC£¬ÒªÇóB[i], C[i] >= 1
-// Í¬Ê±ÒªÇó£¬BÊı×é´Ó×óµ½ÓÒ²»ÄÜ½µĞò£¬CÊı×é´Ó×óµ½ÓÒ²»ÄÜÉıĞò
-// ±ÈÈç£¬A = { 5, 4, 5 }£¬Ò»ÖÖÓĞĞ§µÄ»®·Ö£¬B = { 2, 2, 3 }£¬C = { 3, 2, 2 }
-// ·µ»ØÓĞ¶àÉÙÖÖÓĞĞ§µÄ»®·Ö·½Ê½
+// åˆ†å‰²çš„æ–¹æ³•æ•°
+// ç»™å®šä¸€ä¸ªé•¿åº¦ä¸ºnçš„æ•°ç»„A, å°†å…¶åˆ†å‰²æˆæ•°ç»„Bå’Œæ•°ç»„Cï¼Œæ»¡è¶³A[i] = B[i] + C[i]
+// ä¹Ÿå°±æ˜¯ä¸€ä¸ªæ•°å­—åˆ†æˆä¸¤ä»½ï¼Œç„¶åå„è‡ªè¿›å…¥Bå’ŒCï¼Œè¦æ±‚B[i], C[i] >= 1
+// åŒæ—¶è¦æ±‚ï¼ŒBæ•°ç»„ä»å·¦åˆ°å³ä¸èƒ½é™åºï¼ŒCæ•°ç»„ä»å·¦åˆ°å³ä¸èƒ½å‡åº
+// æ¯”å¦‚ï¼ŒA = { 5, 4, 5 }ï¼Œä¸€ç§æœ‰æ•ˆçš„åˆ’åˆ†ï¼ŒB = { 2, 2, 3 }ï¼ŒC = { 3, 2, 2 }
+// è¿”å›æœ‰å¤šå°‘ç§æœ‰æ•ˆçš„åˆ’åˆ†æ–¹å¼
 // 1 <= n <= 10^7
 // 1 <= A[i] <= 10^7
-// ×îÖÕ½á¹û¿ÉÄÜºÜ´ó£¬´ğ°¸¶Ô 1000000007 È¡Ä£
-// À´×ÔÕæÊµ´ó³§±ÊÊÔÌâ£¬¸ÃÊµÏÖÎª¶ÔÊıÆ÷°æ±¾
-// ÓĞÍ¬Ñ§ÕÒµ½ÁË²âÊÔÁ´½Ó£¬¾ÍÊÇCode04_SplitWays2ÎÄ¼ş
+// æœ€ç»ˆç»“æœå¯èƒ½å¾ˆå¤§ï¼Œç­”æ¡ˆå¯¹ 1000000007 å–æ¨¡
+// æ¥è‡ªçœŸå®å¤§å‚ç¬”è¯•é¢˜ï¼Œè¯¥å®ç°ä¸ºå¯¹æ•°å™¨ç‰ˆæœ¬
+// æœ‰åŒå­¦æ‰¾åˆ°äº†æµ‹è¯•é“¾æ¥ï¼Œå°±æ˜¯Code04_SplitWays2æ–‡ä»¶
 #include<bits/stdc++.h>
 using namespace std;
 
 const int MOD = 1000000007;
 
-// ³Ë·¨¿ìËÙÃİ
+// ä¹˜æ³•å¿«é€Ÿå¹‚
 long long power(long long x, long long p) {
     long long ans = 1;
     while (p > 0) {
@@ -40,7 +40,7 @@ int f(const std::vector<int>& arr, int i, int preb, int prec) {
     return ans;
 }
 
-// ×éºÏ¹«Ê½
+// ç»„åˆå…¬å¼
 int c(int n, int k) {
     long long fac = 1;
     long long inv1 = 1;
@@ -48,16 +48,16 @@ int c(int n, int k) {
     for (int i = 1; i <= n; ++i) {
         fac = (fac * i) % MOD;
         if (i == k) {
-            inv1 = power(fac, MOD - 2); // ·ÑÂíĞ¡¶¨ÀíÇóÄæÔª
+            inv1 = power(fac, MOD - 2); // è´¹é©¬å°å®šç†æ±‚é€†å…ƒ
         }
         if (i == n - k) {
-            inv2 = power(fac, MOD - 2); // ·ÑÂíĞ¡¶¨ÀíÇóÄæÔª
+            inv2 = power(fac, MOD - 2); // è´¹é©¬å°å®šç†æ±‚é€†å…ƒ
         }
     }
     return (int) ((((fac * inv1) % MOD) * inv2) % MOD);
 }
 
-// ±©Á¦·½·¨
+// æš´åŠ›æ–¹æ³•
 int ways1(const std::vector<int>& arr) {
     int ans = 0;
     for (int b = 1, c = arr[0] - 1; b < arr[0]; ++b, --c) {
@@ -66,8 +66,8 @@ int ways1(const std::vector<int>& arr) {
     return ans;
 }
 
-// ÕıÊ½·½·¨
-// ×ª»¯³ÉÑî»ÔÈı½Ç
+// æ­£å¼æ–¹æ³•
+// è½¬åŒ–æˆæ¨è¾‰ä¸‰è§’
 int ways2(const std::vector<int>& arr) {
     int n = arr.size();
     int k = arr[0] - 1;
@@ -82,7 +82,7 @@ int ways2(const std::vector<int>& arr) {
     return c(k + n - 1, n);
 }
 
-// ÎªÁË²âÊÔ
+// ä¸ºäº†æµ‹è¯•
 std::vector<int> randomArray(int n, int v) {
     std::vector<int> ans(n);
     for (int i = 0; i < n; ++i) {
@@ -91,10 +91,10 @@ std::vector<int> randomArray(int n, int v) {
     return ans;
 }
 
-// ²âÊÔº¯Êı
+// æµ‹è¯•å‡½æ•°
 int main() {
     srand(static_cast<unsigned int>(time(0)));
-    std::cout << "¹¦ÄÜ²âÊÔ¿ªÊ¼" << std::endl;
+    std::cout << "åŠŸèƒ½æµ‹è¯•å¼€å§‹" << std::endl;
     int N = 10;
     int V = 20;
     int test = 2000;
@@ -104,25 +104,25 @@ int main() {
         int ans1 = ways1(arr);
         int ans2 = ways2(arr);
         if (ans1 != ans2) {
-            std::cout << "³ö´íÁË!" << std::endl;
+            std::cout << "å‡ºé”™äº†!" << std::endl;
         }
         else{
-            cout<<"µÚ"<<setw(5)<<i<<"×é²âÊÔÕıÈ·£¡"<<endl;
+            cout<<"ç¬¬"<<setw(5)<<i<<"ç»„æµ‹è¯•æ­£ç¡®ï¼"<<endl;
         }
     }
-    std::cout << "¹¦ÄÜ²âÊÔ½áÊø" << std::endl;
+    std::cout << "åŠŸèƒ½æµ‹è¯•ç»“æŸ" << std::endl;
 
 //    std::cout << "==========" << std::endl;
 //
-//    std::cout << "ĞÔÄÜ²âÊÔ¿ªÊ¼" << std::endl;
+//    std::cout << "æ€§èƒ½æµ‹è¯•å¼€å§‹" << std::endl;
 //    int n = 10000000;
 //    int v = 10000000;
 //    auto start, end;
 //    std::vector<int> arr(n);
 //
-//    std::cout << "Ëæ»úÉú³ÉµÄÊı¾İ²âÊÔ" << std::endl;
-//    std::cout << "Êı×é³¤¶È : " << n << std::endl;
-//    std::cout << "ÊıÖµ·¶Î§ : [" << 1 << "," << v << "]" << std::endl;
+//    std::cout << "éšæœºç”Ÿæˆçš„æ•°æ®æµ‹è¯•" << std::endl;
+//    std::cout << "æ•°ç»„é•¿åº¦ : " << n << std::endl;
+//    std::cout << "æ•°å€¼èŒƒå›´ : [" << 1 << "," << v << "]" << std::endl;
 //    for (int i = 0; i < n; ++i) {
 //        arr[i] = rand() % v + 1;
 //    }
@@ -130,14 +130,14 @@ int main() {
 //    ways2(arr);
 //    end = std::chrono::high_resolution_clock::now();
 //    std::chrono::duration<double> elapsed_seconds = end - start;
-//    std::cout << "ÔËĞĞÊ±¼ä : " << elapsed_seconds.count() * 1000 << " ºÁÃë" << std::endl;
+//    std::cout << "è¿è¡Œæ—¶é—´ : " << elapsed_seconds.count() * 1000 << " æ¯«ç§’" << std::endl;
 //
 //    std::cout << std::endl;
 //
-//    std::cout << "ÔËĞĞ×îÂıµÄÊı¾İ²âÊÔ" << std::endl;
-//    std::cout << "Êı×é³¤¶È : " << n << std::endl;
-//    std::cout << "ÊıÖµ¶¼ÊÇ : " << v << std::endl;
-//    std::cout << "ÕâÖÖÇé¿öÆäÊµÊÇ¸´ÔÓ¶È×î¸ßµÄÇé¿ö" << std::endl;
+//    std::cout << "è¿è¡Œæœ€æ…¢çš„æ•°æ®æµ‹è¯•" << std::endl;
+//    std::cout << "æ•°ç»„é•¿åº¦ : " << n << std::endl;
+//    std::cout << "æ•°å€¼éƒ½æ˜¯ : " << v << std::endl;
+//    std::cout << "è¿™ç§æƒ…å†µå…¶å®æ˜¯å¤æ‚åº¦æœ€é«˜çš„æƒ…å†µ" << std::endl;
 //    for (int i = 0; i < n; ++i) {
 //        arr[i] = v;
 //    }
@@ -145,8 +145,8 @@ int main() {
 //    ways2(arr);
 //    end = std::chrono::high_resolution_clock::now();
 //    elapsed_seconds = end - start;
-//    std::cout << "ÔËĞĞÊ±¼ä : " << elapsed_seconds.count() * 1000 << " ºÁÃë" << std::endl;
-//    std::cout << "ĞÔÄÜ²âÊÔ½áÊø" << std::endl;
+//    std::cout << "è¿è¡Œæ—¶é—´ : " << elapsed_seconds.count() * 1000 << " æ¯«ç§’" << std::endl;
+//    std::cout << "æ€§èƒ½æµ‹è¯•ç»“æŸ" << std::endl;
 
     return 0;
 }

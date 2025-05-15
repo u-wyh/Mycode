@@ -1,14 +1,14 @@
-// �ŷ�����(��������)
-// һ��n���ˣ�ÿ���˶�д��һ����
-// ÿ���˱���ĳ�һ���ţ�ÿ���˱����յ�һ���ţ����Ҳ����Լ��ĸ��Լ�
-// ����һ���ж����ּ��ŵķ���
+// 信封问题(错排问题)
+// 一共n个人，每个人都写了一封信
+// 每个人必须寄出一封信，每个人必须收到一封信，并且不能自己寄给自己
+// 返回一共有多少种寄信的方法
 // 1 <= n <= 20
-// �������� : https://www.luogu.com.cn/problem/P1595
-// �ύ���µ�code���ύʱ��������ĳ�"Main"������ͨ�����в�������
+// 测试链接 : https://www.luogu.com.cn/problem/P1595
+// 提交以下的code，提交时请把类名改成"Main"，可以通过所有测试用例
 #include<bits/stdc++.h>
 using namespace std;
 
-// ��ͨ��̬�滮�ķ���
+// 普通动态规划的方法
 long ways1(int n) {
     long dp[n + 1];
     for (int i = 1; i <= n; i++) {
@@ -23,17 +23,18 @@ long ways1(int n) {
     return dp[n];
 }
 
-// ����ʽ���ݵķ���
+//这是形式二的反演
+// 二项式反演的方法
 long ways2(int n) {
     long facn = 1; // n!
     for (int i = 1; i <= n; i++) {
         facn *= i;
     }
-    long ans = facn; // i = 0ʱ����
+    long ans = facn; // i = 0时的项
     long faci = 1; // i!
     for (int i = 1; i <= n; i++) {
         // i = 1...n
-        // (-1)��i�η� * (n! / i!)
+        // (-1)的i次方 * (n! / i!)
         faci = faci * i;
         if ((i & 1) == 0) {
             ans += facn / faci;

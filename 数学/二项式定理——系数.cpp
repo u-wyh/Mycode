@@ -1,11 +1,11 @@
-// ¼ÆËãÏµÊý
-// ¶àÏîÊ½Îª£¬(ax + by)µÄk´Î·½£¬ÆäÖÐa¡¢b¡¢kÎª³£Êý
-// ¼ÆËãÕâ¸ö¶àÏîÊ½Õ¹¿ªºó£¬xµÄn´Î·½ * yµÄm´Î·½£¬ÕâÒ»ÏîµÄÏµÊý
+// è®¡ç®—ç³»æ•°
+// å¤šé¡¹å¼ä¸ºï¼Œ(ax + by)çš„kæ¬¡æ–¹ï¼Œå…¶ä¸­aã€bã€kä¸ºå¸¸æ•°
+// è®¡ç®—è¿™ä¸ªå¤šé¡¹å¼å±•å¼€åŽï¼Œxçš„næ¬¡æ–¹ * yçš„mæ¬¡æ–¹ï¼Œè¿™ä¸€é¡¹çš„ç³»æ•°
 // 0 <= k <= 1000
-// 0 <= a¡¢b <= 10^6
+// 0 <= aã€b <= 10^6
 // n + m == k
-// ²âÊÔÁ´½Ó : https://www.luogu.com.cn/problem/P1313
-// Ìá½»ÒÔÏÂµÄcode£¬Ìá½»Ê±Çë°ÑÀàÃû¸Ä³É"Main"£¬¿ÉÒÔÍ¨¹ýËùÓÐ²âÊÔÓÃÀý
+// æµ‹è¯•é“¾æŽ¥ : https://www.luogu.com.cn/problem/P1313
+// æäº¤ä»¥ä¸‹çš„codeï¼Œæäº¤æ—¶è¯·æŠŠç±»åæ”¹æˆ"Main"ï¼Œå¯ä»¥é€šè¿‡æ‰€æœ‰æµ‹è¯•ç”¨ä¾‹
 #include<bits/stdc++.h>
 using namespace std;
 const int MOD = 10007;
@@ -13,7 +13,7 @@ const int MOD = 10007;
 long long fac[1005];
 long long inv[1005];
 
-// ¿ìËÙÃÝ¼ÆËã a^b % MOD
+// å¿«é€Ÿå¹‚è®¡ç®— a^b % MOD
 long long power(long long a, int b) {
     long long ans = 1;
     a = a % MOD;
@@ -27,7 +27,7 @@ long long power(long long a, int b) {
     return ans;
 }
 
-// ¹¹½¨½×³Ë±íºÍÄæÔª±í
+// æž„å»ºé˜¶ä¹˜è¡¨å’Œé€†å…ƒè¡¨
 void build() {
     fac[0] = 1;
     for (int i = 1; i <= 1005; i++) {
@@ -39,7 +39,7 @@ void build() {
     }
 }
 
-// ×éºÏ¹«Ê½
+// ç»„åˆå…¬å¼
 long long c(int n, int k) {
     return (((fac[n] * inv[k]) % MOD) * inv[n - k]) % MOD;
 }

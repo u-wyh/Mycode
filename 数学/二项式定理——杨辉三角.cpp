@@ -1,8 +1,8 @@
-// Ñî»ÔÈý½Ç
-// ¸ø¶¨Êý×Ön£¬´òÓ¡Ñî»ÔÈý½ÇµÄÇ°nÐÐ
+// æ¨è¾‰ä¸‰è§’
+// ç»™å®šæ•°å­—nï¼Œæ‰“å°æ¨è¾‰ä¸‰è§’çš„å‰nè¡Œ
 // 1 <= n <= 20
-// ²âÊÔÁ´½Ó : https://www.luogu.com.cn/problem/P5732
-// Ìá½»ÒÔÏÂµÄcode£¬Ìá½»Ê±Çë°ÑÀàÃû¸Ä³É"Main"£¬¿ÉÒÔÍ¨¹ýËùÓÐ²âÊÔÓÃÀý
+// æµ‹è¯•é“¾æŽ¥ : https://www.luogu.com.cn/problem/P5732
+// æäº¤ä»¥ä¸‹çš„codeï¼Œæäº¤æ—¶è¯·æŠŠç±»åæ”¹æˆ"Main"ï¼Œå¯ä»¥é€šè¿‡æ‰€æœ‰æµ‹è¯•ç”¨ä¾‹
 #include<bits/stdc++.h>
 using namespace std;
 
