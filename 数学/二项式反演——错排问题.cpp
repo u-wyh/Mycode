@@ -5,6 +5,7 @@
 // 1 <= n <= 20
 // 测试链接 : https://www.luogu.com.cn/problem/P1595
 // 提交以下的code，提交时请把类名改成"Main"，可以通过所有测试用例
+//这是形式二的反演   确实比较难想
 #include<bits/stdc++.h>
 using namespace std;
 
