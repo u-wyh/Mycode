@@ -34,10 +34,10 @@ int main()
     while(scanf("%d %d",&cost[i],&val[i])==2)
         i++;
     int n=i;
-    //nÊÇÓÐÐ§Êý×é³¤¶È
+    //næ˜¯æœ‰æ•ˆæ•°ç»„é•¿åº¦
     int t;
     printf("please enter the t: ");
-    //tÊÇ¿Õ¼ä
+    //tæ˜¯ç©ºé—´
     scanf("%d",&t);
     printf("%5d\n",compute(n,t));
     return 0;
