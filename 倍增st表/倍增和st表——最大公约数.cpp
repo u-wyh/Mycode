@@ -1,10 +1,10 @@
-// ST����ѯ���Լ��
-// ����һ������Ϊn������arr��һ����m�β�ѯ
-// ÿ�β�ѯarr[l~r]�������������Լ��
-// �������� : https://www.luogu.com.cn/problem/P1890
-// ��ͬѧ����زο����´����й������롢����Ĵ���
-// ���������������Ч�ʺܸߵ�д��
-// �ύ���µ�code���ύʱ��������ĳ�"Main"������ֱ��ͨ��
+// ST表查询最大公约数
+// 给定一个长度为n的数组arr，一共有m次查询
+// 每次查询arr[l~r]上所有数的最大公约数
+// 测试链接 : https://www.luogu.com.cn/problem/P1890
+// 请同学们务必参考如下代码中关于输入、输出的处理
+// 这是输入输出处理效率很高的写法
+// 提交以下的code，提交时请把类名改成"Main"，可以直接通过
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 5005;
@@ -50,4 +50,3 @@ int main()
     }
     return 0;
 }
-

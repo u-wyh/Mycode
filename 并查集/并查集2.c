@@ -5,35 +5,28 @@
 
 int father[Max];
 
-void build(int n)
-{
-    for(int i=0;i<=n;i++)
-    {
+void build(int n){
+    for(int i=0;i<=n;i++){
         father[i]=i;
     }
 }
 
-int find(int i)
-{
-    if (i != father[i])
-    {
+int find(int i){
+    if (i != father[i]){
         father[i] = find(father[i]);
     }
     return father[i];
 }
 
-bool issameset(int x,int y)
-{
+bool issameset(int x,int y){
     return find(x)==find(y);
 }
 
-void un(int x,int y)
-{
+void un(int x,int y){
     father[find(x)] = find(y);
 }
 
 
-int main()
-{
+int main(){
     return 0;
 }

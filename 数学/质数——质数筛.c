@@ -1,17 +1,17 @@
 #include <stdio.h>
 #include <string.h>
 
-// °£ÊÏÉ¸Í³¼Æ0 ~ n·¶Î§ÄÚµÄÖÊÊý¸öÊý
-// Ê±¼ä¸´ÔÓ¶ÈO(n * log(logn))
+// åŸƒæ°ç­›ç»Ÿè®¡0 ~ nèŒƒå›´å†…çš„è´¨æ•°ä¸ªæ•°
+// æ—¶é—´å¤æ‚åº¦O(n * log(logn))
 int ehrlich(int n) {
-    // ³õÊ¼Ê±ÈÏÎª0~nËùÓÐÊý¶¼ÊÇÖÊÊý£¬µ«0ºÍ1²»ÊÇÖÊÊý
+    // åˆå§‹æ—¶è®¤ä¸º0~næ‰€æœ‰æ•°éƒ½æ˜¯è´¨æ•°ï¼Œä½†0å’Œ1ä¸æ˜¯è´¨æ•°
     int visit[n + 1];
-    memset(visit, 0, sizeof(visit)); // 0±íÊ¾ÖÊÊý£¬1±íÊ¾ºÏÊý
+    memset(visit, 0, sizeof(visit)); // 0è¡¨ç¤ºè´¨æ•°ï¼Œ1è¡¨ç¤ºåˆæ•°
 
     for (int i = 2; i * i <= n; i++) {
         if (!visit[i]) {
             for (int j = i * i; j <= n; j += i) {
-                visit[j] = 1; // ±ê¼ÇÎªºÏÊý
+                visit[j] = 1; // æ ‡è®°ä¸ºåˆæ•°
             }
         }
     }
@@ -19,19 +19,19 @@ int ehrlich(int n) {
     int cnt = 0;
     for (int i = 2; i <= n; i++) {
         if (!visit[i]) {
-            cnt++; // ¼ÆÊýÖÊÊý
+            cnt++; // è®¡æ•°è´¨æ•°
         }
     }
 
     return cnt;
 }
 
-// Å·À­É¸Í³¼Æ0 ~ n·¶Î§ÄÚµÄÖÊÊý¸öÊý
-// Ê±¼ä¸´ÔÓ¶ÈO(n)
-//Å·À­É¸»¹¿ÉÒÔÉèÖÃÃ¿¸öÊý×ÖµÄ×îÐ¡ÖÊÒò×Ó
+// æ¬§æ‹‰ç­›ç»Ÿè®¡0 ~ nèŒƒå›´å†…çš„è´¨æ•°ä¸ªæ•°
+// æ—¶é—´å¤æ‚åº¦O(n)
+//æ¬§æ‹‰ç­›è¿˜å¯ä»¥è®¾ç½®æ¯ä¸ªæ•°å­—çš„æœ€å°è´¨å› å­
 int euler(int n) {
     int visit[n + 1];
-    memset(visit, 0, sizeof(visit)); // 0±íÊ¾ÖÊÊý£¬1±íÊ¾ºÏÊý
+    memset(visit, 0, sizeof(visit)); // 0è¡¨ç¤ºè´¨æ•°ï¼Œ1è¡¨ç¤ºåˆæ•°
     int prime[n / 2 + 1];
     int cnt = 0;
 
@@ -41,13 +41,13 @@ int euler(int n) {
         }
 
         for (int j = 0; j < cnt && i * prime[j] <= n; j++) {
-            //Ã¿Ò»´Î´Ó×îÐ¡µÄÖÊÊý¿ªÊ¼
-            visit[i * prime[j]] = 1; // ±ê¼ÇÎªºÏÊý
+            //æ¯ä¸€æ¬¡ä»Žæœ€å°çš„è´¨æ•°å¼€å§‹
+            visit[i * prime[j]] = 1; // æ ‡è®°ä¸ºåˆæ•°
             if (i % prime[j] == 0) {
-                //Èç¹ûi¿ÉÒÔÕû³ýprime[j]ËµÃ÷Ò»¶¨º¬ÓÐÕâ¸öÖÊÒò×Ó
-                //ÄÇÃ´Èç¹û¼ÌÐøµÄ»°  ¾ÍÊÇ½«½ÓÏÂÀ´µÄÊý×ÖµÄ°´ÕÕÏÂÒ»¸öÖÊÊý×÷ÎªËûµÄ×îÐ¡ÖÊÒò×ÓÅÅ³ýµÄ
-                //²»ÊÇ×îÐ¡ÖÊÒò×ÓÅÅ³ýµÄ  ËùÒÔ²»ÄÜ¼ÌÐø  ÒªÁ¢¼´Ìø³ö
-                break; // Ã¿¸öºÏÊýÖ»±»Æä×îÐ¡µÄÖÊÒòÊýÉ¸È¥Ò»´Î
+                //å¦‚æžœiå¯ä»¥æ•´é™¤prime[j]è¯´æ˜Žä¸€å®šå«æœ‰è¿™ä¸ªè´¨å› å­
+                //é‚£ä¹ˆå¦‚æžœç»§ç»­çš„è¯  å°±æ˜¯å°†æŽ¥ä¸‹æ¥çš„æ•°å­—çš„æŒ‰ç…§ä¸‹ä¸€ä¸ªè´¨æ•°ä½œä¸ºä»–çš„æœ€å°è´¨å› å­æŽ’é™¤çš„
+                //ä¸æ˜¯æœ€å°è´¨å› å­æŽ’é™¤çš„  æ‰€ä»¥ä¸èƒ½ç»§ç»­  è¦ç«‹å³è·³å‡º
+                break; // æ¯ä¸ªåˆæ•°åªè¢«å…¶æœ€å°çš„è´¨å› æ•°ç­›åŽ»ä¸€æ¬¡
             }
         }
     }
@@ -55,23 +55,23 @@ int euler(int n) {
     return cnt;
 }
 
-// ¸Ä½ø°æ°£ÊÏÉ¸£¬½ö¼ÆÊý
+// æ”¹è¿›ç‰ˆåŸƒæ°ç­›ï¼Œä»…è®¡æ•°
 int ehrlich2(int n) {
     if (n <= 1) {
         return 0;
     }
 
     int visit[n + 1];
-    memset(visit, 0, sizeof(visit)); // 0±íÊ¾ÖÊÊý£¬1±íÊ¾ºÏÊý
+    memset(visit, 0, sizeof(visit)); // 0è¡¨ç¤ºè´¨æ•°ï¼Œ1è¡¨ç¤ºåˆæ•°
 
-    // ³õÊ¼¹À¼ÆµÄÖÊÊýÊýÁ¿£¬Ö»¿¼ÂÇÆæÊý
+    // åˆå§‹ä¼°è®¡çš„è´¨æ•°æ•°é‡ï¼Œåªè€ƒè™‘å¥‡æ•°
     int cnt = (n + 1) / 2;
 
     for (int i = 3; i * i <= n; i += 2) {
         if (!visit[i]) {
             for (int j = i * i; j <= n; j += 2 * i) {
                 if (!visit[j]) {
-                    visit[j] = 1; // ±ê¼ÇÎªºÏÊý
+                    visit[j] = 1; // æ ‡è®°ä¸ºåˆæ•°
                     cnt--;
                 }
             }

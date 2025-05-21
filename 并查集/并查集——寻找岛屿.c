@@ -1,3 +1,8 @@
+// 岛屿数量
+// 给你一个由 '1'（陆地）和 '0'（水）组成的的二维网格，请你计算网格中岛屿的数量
+// 岛屿总是被水包围，并且每座岛屿只能由水平方向和/或竖直方向上相邻的陆地连接形成
+// 此外，你可以假设该网格的四条边均被水包围
+// 测试链接 : https://leetcode.cn/problems/number-of-islands/
 #include<stdio.h>
 #include<stdbool.h>
 #include<stdlib.h>
@@ -5,13 +10,11 @@
 
 int father[Max],n,m,sets=0,board[Max][Max];
 
-int getindex(int x,int y)
-{
+int getindex(int x,int y){
     return x*m+y;
 }
 
-void build()
-{
+void build(){
     for (int a = 0; a < n; a++) {
         for (int b = 0, index1; b < m; b++) {
             if (board[a][b] == 1) {
@@ -31,8 +34,7 @@ int find(int i) {
     return father[i];
 }
 
-void un(int a,int b,int c,int d)
-{
+void un(int a,int b,int c,int d){
     int fx = find(getindex(a, b));
     int fy = find(getindex(c, d));
     if (fx != fy) {

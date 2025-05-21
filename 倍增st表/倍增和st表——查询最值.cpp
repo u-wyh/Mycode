@@ -1,15 +1,17 @@
-// ST����ѯ���ֵ����Сֵ
-// ����һ������Ϊn������arr��һ����m�β�ѯ
-// ÿ�β�ѯarr[l~r]�ϵ����ֵ����Сֵ
-// ÿ�β�ѯֻ��Ҫ��ӡ���ֵ-��Сֵ�Ľ��
-// �������� : https://www.luogu.com.cn/problem/P2880
-// ��ͬѧ����زο����´����й������롢����Ĵ���
-// ���������������Ч�ʺܸߵ�д��
-// �ύ���µ�code���ύʱ��������ĳ�"Main"������ֱ��ͨ��
+// ST表查询最大值和最小值
+// 给定一个长度为n的数组arr，一共有m次查询
+// 每次查询arr[l~r]上的最大值和最小值
+// 每次查询只需要打印最大值-最小值的结果
+// 测试链接 : https://www.luogu.com.cn/problem/P2880
+// 请同学们务必参考如下代码中关于输入、输出的处理
+// 这是输入输出处理效率很高的写法
+// 提交以下的code，提交时请把类名改成"Main"，可以直接通过
+//这个当然可以使用线段树来维持  但是不如这种方法简单
+//这个倍增和普通的倍增我感觉是略有不同的
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 70005;
-//���ﱾ��50005����  ����������ʵ���2��16�η�
+//这里本来50005即可  但是下面访问到了2的16次方
 const int LIMIT = 16;
 
 int stmax[MAXN][LIMIT];
