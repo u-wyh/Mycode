@@ -1,15 +1,15 @@
-// ÒøºÓÓ¢ÐÛ´«Ëµ
-// Ò»¹²ÓÐ30000ËÑÕ½½¢£¬±àºÅ1~30000£¬Ò»¿ªÊ¼Ã¿ËÒÕ½½¢¸÷×Ô³ÉÒ»¶Ó
-// Èç¹ûÈô¸ÉÕ½½¢±ä³ÉÒ»¶Ó£¬ÄÇÃ´¶ÓÎéÀïµÄËùÓÐÕ½½¢ÊúÖ±µØÅÅ³ÉÒ»ÁÐ
-// ÊµÏÖÈçÏÂÁ½ÖÖ²Ù×÷£¬²Ù×÷Ò»¹²µ÷ÓÃt´Î
-// M l r : ºÏ²¢lºÅÕ½½¢ËùÔÚ¶ÓÎéºÍrºÅÕ½½¢ËùÔÚ¶ÓÎé
-//         lºÅÕ½½¢µÄ¶ÓÎé£¬ÕûÌåÒÆ¶¯µ½£¬rºÅÕ½½¢ËùÔÚ¶ÓÎéµÄ×îÄ©Î²Õ½½¢µÄºóÃæ
-//         Èç¹ûlºÅÕ½½¢ºÍrºÅÕ½½¢ÒÑ¾­ÊÇÒ»¶Ó£¬²»½øÐÐÈÎºÎ²Ù×÷
-// C l r : Èç¹ûlºÅÕ½½¢ºÍrºÅÕ½½¢²»ÔÚÒ»¸ö¶ÓÎé£¬´òÓ¡-1
-//         Èç¹ûlºÅÕ½½¢ºÍrºÅÕ½½¢ÔÚÒ»¸ö¶ÓÎé£¬´òÓ¡ËüÁ©ÖÐ¼ä¸ô×Å¼¸ËÒÕ½½¢
+// é“¶æ²³è‹±é›„ä¼ è¯´
+// ä¸€å…±æœ‰30000æœæˆ˜èˆ°ï¼Œç¼–å·1~30000ï¼Œä¸€å¼€å§‹æ¯è‰˜æˆ˜èˆ°å„è‡ªæˆä¸€é˜Ÿ
+// å¦‚æžœè‹¥å¹²æˆ˜èˆ°å˜æˆä¸€é˜Ÿï¼Œé‚£ä¹ˆé˜Ÿä¼é‡Œçš„æ‰€æœ‰æˆ˜èˆ°ç«–ç›´åœ°æŽ’æˆä¸€åˆ—
+// å®žçŽ°å¦‚ä¸‹ä¸¤ç§æ“ä½œï¼Œæ“ä½œä¸€å…±è°ƒç”¨tæ¬¡
+// M l r : åˆå¹¶lå·æˆ˜èˆ°æ‰€åœ¨é˜Ÿä¼å’Œrå·æˆ˜èˆ°æ‰€åœ¨é˜Ÿä¼
+//         lå·æˆ˜èˆ°çš„é˜Ÿä¼ï¼Œæ•´ä½“ç§»åŠ¨åˆ°ï¼Œrå·æˆ˜èˆ°æ‰€åœ¨é˜Ÿä¼çš„æœ€æœ«å°¾æˆ˜èˆ°çš„åŽé¢
+//         å¦‚æžœlå·æˆ˜èˆ°å’Œrå·æˆ˜èˆ°å·²ç»æ˜¯ä¸€é˜Ÿï¼Œä¸è¿›è¡Œä»»ä½•æ“ä½œ
+// C l r : å¦‚æžœlå·æˆ˜èˆ°å’Œrå·æˆ˜èˆ°ä¸åœ¨ä¸€ä¸ªé˜Ÿä¼ï¼Œæ‰“å°-1
+//         å¦‚æžœlå·æˆ˜èˆ°å’Œrå·æˆ˜èˆ°åœ¨ä¸€ä¸ªé˜Ÿä¼ï¼Œæ‰“å°å®ƒä¿©ä¸­é—´éš”ç€å‡ è‰˜æˆ˜èˆ°
 // 1 <= t <= 5 * 10^5
-// ²âÊÔÁ´½Ó : https://www.luogu.com.cn/problem/P1196
-// Ìá½»ÒÔÏÂµÄcode£¬Ìá½»Ê±Çë°ÑÀàÃû¸Ä³É"Main"£¬¿ÉÒÔÍ¨¹ýËùÓÐ²âÊÔÓÃÀý
+// æµ‹è¯•é“¾æŽ¥ : https://www.luogu.com.cn/problem/P1196
+// æäº¤ä»¥ä¸‹çš„codeï¼Œæäº¤æ—¶è¯·æŠŠç±»åæ”¹æˆ"Main"ï¼Œå¯ä»¥é€šè¿‡æ‰€æœ‰æµ‹è¯•ç”¨ä¾‹
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 30001;
@@ -19,7 +19,7 @@ int fa[MAXN];
 int dist[MAXN];
 int sz[MAXN];
 
-//³õÊ¼»¯´øÈ¨²¢²é¼¯
+//åˆå§‹åŒ–å¸¦æƒå¹¶æŸ¥é›†
 void prepare() {
     for (int i = 0; i <= n; i++) {
         fa[i] = i;
@@ -28,12 +28,12 @@ void prepare() {
     }
 }
 
-//Ñ°ÕÒi½ÚµãµÄ¸¸Ç× ±âÆ½»¯´¦Àí  ²¢ÔÚ¸Ã¹ý³ÌÖÐ¸üÐÂ¾àÀë
+//å¯»æ‰¾ièŠ‚ç‚¹çš„çˆ¶äº² æ‰å¹³åŒ–å¤„ç†  å¹¶åœ¨è¯¥è¿‡ç¨‹ä¸­æ›´æ–°è·ç¦»
 int find(int i) {
     if (i != fa[i]) {
         int tmp = fa[i];
         fa[i] = find(tmp);
-        dist[i] += dist[tmp];//½«¾àÀë¸üÐÂÕýÈ·
+        dist[i] += dist[tmp];//å°†è·ç¦»æ›´æ–°æ­£ç¡®
     }
     return fa[i];
 }
@@ -41,7 +41,7 @@ int find(int i) {
 void un(int l, int r) {
     int lf = find(l), rf = find(r);
     if (lf != rf) {
-        fa[lf] = rf;//Ç¿ÖÆÒªÇóºóÃæµÄ½Úµã×÷Îª¸¸Ç×
+        fa[lf] = rf;//å¼ºåˆ¶è¦æ±‚åŽé¢çš„èŠ‚ç‚¹ä½œä¸ºçˆ¶äº²
         dist[lf] += sz[rf];
         sz[rf] += sz[lf];
     }
@@ -49,7 +49,7 @@ void un(int l, int r) {
 
 int query(int l, int r) {
     if (find(l) != find(r)) {
-        //²»ÔÚÒ»¸ö¼¯ºÏÖÐ
+        //ä¸åœ¨ä¸€ä¸ªé›†åˆä¸­
         return -1;
     }
     return abs(dist[l] - dist[r])-1;

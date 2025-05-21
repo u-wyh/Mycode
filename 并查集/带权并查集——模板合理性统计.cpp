@@ -1,13 +1,13 @@
-// ´íÎó´ð°¸ÊýÁ¿£¬´øÈ¨²¢²é¼¯Ä£°æÌâ3
-// ÓÐn¸öÊý×Ö£¬ÏÂ±ê1 ~ n£¬µ«ÊÇ²¢²»ÖªµÀÃ¿¸öÊý×ÖÊÇ¶àÉÙ
-// ²Ù×÷ l r v£¬´ú±íl~r·¶Î§ÉÏÀÛ¼ÓºÍÎªv
-// Ò»¹²m¸ö²Ù×÷£¬Èç¹ûÄ³¸ö²Ù×÷ºÍÖ®Ç°µÄ²Ù×÷ÐÅÏ¢×ÔÏàÃ¬¶Ü£¬ÈÏÎªµ±Ç°²Ù×÷ÊÇ´íÎóµÄ£¬²»½øÐÐÕâ¸ö²Ù×÷
-// ×îºó´òÓ¡´íÎó²Ù×÷µÄÊýÁ¿
+// é”™è¯¯ç­”æ¡ˆæ•°é‡ï¼Œå¸¦æƒå¹¶æŸ¥é›†æ¨¡ç‰ˆé¢˜3
+// æœ‰nä¸ªæ•°å­—ï¼Œä¸‹æ ‡1 ~ nï¼Œä½†æ˜¯å¹¶ä¸çŸ¥é“æ¯ä¸ªæ•°å­—æ˜¯å¤šå°‘
+// æ“ä½œ l r vï¼Œä»£è¡¨l~rèŒƒå›´ä¸Šç´¯åŠ å’Œä¸ºv
+// ä¸€å…±mä¸ªæ“ä½œï¼Œå¦‚æžœæŸä¸ªæ“ä½œå’Œä¹‹å‰çš„æ“ä½œä¿¡æ¯è‡ªç›¸çŸ›ç›¾ï¼Œè®¤ä¸ºå½“å‰æ“ä½œæ˜¯é”™è¯¯çš„ï¼Œä¸è¿›è¡Œè¿™ä¸ªæ“ä½œ
+// æœ€åŽæ‰“å°é”™è¯¯æ“ä½œçš„æ•°é‡
 // 1 <= n <= 200000    1 <= m <= 40000
-// ÀÛ¼ÓºÍ²»»á³¬¹ýintÀàÐÍ·¶Î§
-// ²âÊÔÁ´½Ó : https://acm.hdu.edu.cn/showproblem.php?pid=3038
-// ²âÊÔÁ´½Ó : https://vjudge.net/problem/HDU-3038
-// Ìá½»ÒÔÏÂµÄcode£¬Ìá½»Ê±Çë°ÑÀàÃû¸Ä³É"Main"£¬¿ÉÒÔÍ¨¹ýËùÓÐ²âÊÔÓÃÀý
+// ç´¯åŠ å’Œä¸ä¼šè¶…è¿‡intç±»åž‹èŒƒå›´
+// æµ‹è¯•é“¾æŽ¥ : https://acm.hdu.edu.cn/showproblem.php?pid=3038
+// æµ‹è¯•é“¾æŽ¥ : https://vjudge.net/problem/HDU-3038
+// æäº¤ä»¥ä¸‹çš„codeï¼Œæäº¤æ—¶è¯·æŠŠç±»åæ”¹æˆ"Main"ï¼Œå¯ä»¥é€šè¿‡æ‰€æœ‰æµ‹è¯•ç”¨ä¾‹
 #include<iostream>
 using namespace std;
 const int MAXN = 200002;
@@ -16,7 +16,7 @@ int n,m,ans;
 int fa[MAXN];
 int dist[MAXN];
 
-//³õÊ¼»¯´øÈ¨²¢²é¼¯
+//åˆå§‹åŒ–å¸¦æƒå¹¶æŸ¥é›†
 void prepare() {
     ans=0;
     for (int i = 0; i <= n; i++) {
@@ -25,12 +25,12 @@ void prepare() {
     }
 }
 
-//Ñ°ÕÒi½ÚµãµÄ¸¸Ç× ±âÆ½»¯´¦Àí  ²¢ÔÚ¸Ã¹ý³ÌÖÐ¸üÐÂ¾àÀë
+//å¯»æ‰¾ièŠ‚ç‚¹çš„çˆ¶äº² æ‰å¹³åŒ–å¤„ç†  å¹¶åœ¨è¯¥è¿‡ç¨‹ä¸­æ›´æ–°è·ç¦»
 int find(int i) {
     if (i != fa[i]) {
         int tmp = fa[i];
         fa[i] = find(tmp);
-        dist[i] += dist[tmp];//½«¾àÀë¸üÐÂÕýÈ·
+        dist[i] += dist[tmp];//å°†è·ç¦»æ›´æ–°æ­£ç¡®
     }
     return fa[i];
 }
@@ -38,12 +38,12 @@ int find(int i) {
 void un(int l, int r, int v) {
     int lf = find(l), rf = find(r);
     if (lf != rf) {
-        fa[lf] = rf;//Ç¿ÖÆÒªÇóºóÃæµÄ½Úµã×÷Îª¸¸Ç×
+        fa[lf] = rf;//å¼ºåˆ¶è¦æ±‚åŽé¢çš„èŠ‚ç‚¹ä½œä¸ºçˆ¶äº²
         dist[lf] = v + dist[r] - dist[l];
     }
 }
 
-//ÓÃÓÚ¼ì²éÊÇ·ñ³öÏÖÂß¼­´íÎó  ¶Ô²»ÉÏµÄÇé¿ö
+//ç”¨äºŽæ£€æŸ¥æ˜¯å¦å‡ºçŽ°é€»è¾‘é”™è¯¯  å¯¹ä¸ä¸Šçš„æƒ…å†µ
 bool check(int l, int r,int v) {
     if (find(l) == find(r)) {
         if ((dist[l] - dist[r]) != v) {

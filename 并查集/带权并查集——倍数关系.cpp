@@ -1,14 +1,14 @@
-// ������ֵ
-// ���б��������ַ�����ʾ�����Ҹ����������ʽ
-// �����ʽ
-// ["ab", "ef"] = 8������ab / ef = 8
-// ["ct", "ef"] = 2������ct / ef = 2
-// ���е�ʽ������ȷ�Ĳ��ҿ��Խ����ƶϣ��������е�ʽ֮�󣬻������������ѯ
-// �����ѯ��["ab", "ct"]����������ĵ�ʽ�ƶϣ�ab / ct = 4
-// ���ĳ����ѯ�еı���������û�ڵ�ʽ�г��ֹ�����Ϊ����-1.0
-// ���ĳ����ѯ�Ĵ𰸸����ƶϲ���������Ϊ����-1.0
-// �������в�ѯ�Ĵ�
-// �������� : https://leetcode.cn/problems/evaluate-division/
+// 除法求值
+// 所有变量都用字符串表示，并且给定若干组等式
+// 比如等式
+// ["ab", "ef"] = 8，代表ab / ef = 8
+// ["ct", "ef"] = 2，代表ct / ef = 2
+// 所有等式都是正确的并且可以进行推断，给定所有等式之后，会给你若干条查询
+// 比如查询，["ab", "ct"]，根据上面的等式推断，ab / ct = 4
+// 如果某条查询中的变量，从来没在等式中出现过，认为答案是-1.0
+// 如果某条查询的答案根本推断不出来，认为答案是-1.0
+// 返回所有查询的答案
+// 测试链接 : https://leetcode.cn/problems/evaluate-division/
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -28,7 +28,7 @@ void prepare(const vector<vector<string>>& equations) {
 }
 
 string find(const string& x) {
-    //��ʾ������ʴ���û�г��ֹ�
+    //表示这个单词从来没有出现过
     if (father.find(x) == father.end()) {
         return "";
     }

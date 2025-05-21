@@ -1,6 +1,7 @@
-//P2024
-//��������ֽⷨʵ������������������
-//Ҳ����ͨ����Ȩ���鼯���
+//https://www.luogu.com.cn/problem/P2024
+//这道题这种解法实际上是正反集的延伸
+//也可以通过带权并查集完成
+//也被称之为扩展并查集
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 100005;
