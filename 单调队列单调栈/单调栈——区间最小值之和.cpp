@@ -20,6 +20,7 @@ int main()
     int r = 0;
     for (int i = 0; i < n; i++) {
         while (r > 0 && arr[st[r - 1]] >= arr[i]) {
+            //严格大压小
             int cur = st[--r];
             int left = r == 0 ? -1 : st[r - 1];
             ans = (ans + (long) (cur - left) * (i - cur) * arr[cur]) % MOD;
