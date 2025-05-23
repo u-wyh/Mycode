@@ -10,114 +10,167 @@
 // 1 <= n <= 20000    1 <= m <= 40000    1 <= k <= 15
 // 测试链接 : https://acm.hdu.edu.cn/showproblem.php?pid=3234
 // 测试链接 : https://www.luogu.com.cn/problem/UVA12232
-// 测试链接 : https://vjudge.net/problem/UVA-12232
+// 测试链接 : https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=244&page=show_problem&problem=3384
 // 提交以下的code，提交时请把类名改成"Main"，可以通过所有测试用例
-#include<iostream>
+//这道题的一个难度是输入数据很恶心
+//除此之外  还需要增加一个虚点  绝对顶点永远不会挂着其他点的下面   它的值就是0
+//我们在合并集合的时候也需要注意，不能将绝对顶点当场普通点处理
+#include<bits/stdc++.h>
 using namespace std;
-#define gc getchar
-inline int read(){
-	int ret=0,f=0;char c=gc();
-	while(!isdigit(c)){if(c=='-')f=1;c=gc();}
-	while(isdigit(c)){ret=ret*10+c-48;c=gc();}
-	if(f)return -ret;return ret;
-}
-const int N=20005;
-int n,m,fa[N],val[N],vis[N];
-struct query{
-    char c;
-    int a,b,v,k,x[20];
-} q[N*2];
-int find(int x)
-{
-    if(fa[x]==x)return x;
-    int tmp=fa[x];
-    fa[x]=find(fa[x]);
-    val[x]^=val[tmp];
-    return fa[x];
-}
-void init()//建一颗无用的点n，把值确定的点连向n
-{
-    for(int i=0;i<=n;i++)
-	{
-		fa[i]=i;
-		val[i]=0;
-    }
-    char Q[105];
-    for(int i=0;i<m;i++)
-	{
-		scanf("%s",Q);
-		q[i].c=Q[0];
-		int a,b,v;
-		if(Q[0]=='I')
-		{
-		    gets(Q);
-		    if(sscanf(Q,"%d%d%d",&a,&b,&v)==2)
-			{
-				v=b;
-				b=n;
-		    }
-		    q[i].a=a;q[i].b=b;q[i].v=v;
-		}
-		else{
-		    scanf("%d",&q[i].k);
-		    for(int j=0;j<q[i].k;j++)scanf("%d",&q[i].x[j]);
-		}
+const int MAXN = 2e4+5;
+const int MAXK = 20;
+
+int t,n,m;
+bool flag;//表示是否出现了冲突
+int cnti;//表示现在到了第几个操作
+int fa[MAXN];
+int dis[MAXN];//与头节点的异或值
+
+//收集查询信息
+int nums[MAXK];
+int fas[MAXK];
+
+void prepare(){
+    flag=false;
+    cnti=0;
+    for(int i=0;i<=n;i++){
+        //节点n是绝对顶点
+        fa[i]=i;
+        dis[i]=0;
     }
 }
-void solve()
-{
-    int fir=0;
-    for(int i=0;i<m;i++)
-	{
-		if(q[i].c=='I')
-		{
-		    fir++;
-		    int x=find(q[i].a);
-		    int y=find(q[i].b);
-		    if(x==n)swap(x,y);
-		    if(x==y)
-			{
-				if((val[q[i].a]^val[q[i].b])!=q[i].v)
-				{
-				    printf("The first %d facts are conflicting.\n",fir);
-				    return;
-				}
-		    }
-		    else{
-				fa[x]=y;
-				val[x]=val[q[i].a]^val[q[i].b]^q[i].v;//不知道x和y确切的值，所以要用其他方式求出x^y
-		    }
-		}
-		else{
-		    int ans=0;
-		    for(int j=0;j<q[i].k;j++)
-			{
-				int x=find(q[i].x[j]);
-				ans^=val[q[i].x[j]];
-				if(x!=n)vis[x]^=1;//为1就表示多计算了一次fa的值
-			}
-			int flag=1;
-			for(int j=0;j<q[i].k;j++)
-			{
-				if(vis[fa[q[i].x[j]]])flag=0;
-				vis[fa[q[i].x[j]]]=0;
-		    }
-		    if(flag)printf("%d\n",ans);
-		    else printf("I don't know.\n");
-		}
+
+int find(int i){
+    if(i!=fa[i]){
+        int tmp=fa[i];
+        fa[i]=find(tmp);
+        dis[i]^=dis[tmp];
     }
+    return fa[i];
+}
+
+//处理i类型的操作  返回这个操作是否合法
+bool opi(int l,int r,int v){
+    cnti++;
+    int lf=find(l);
+    int rf=find(r);
+    if(lf==rf){
+        if((dis[l]^dis[r])!=v){
+            flag=true;
+            return false;
+        }
+    }
+    else{
+        if(lf==n){
+            //绝对顶点不能做孩子节点
+            swap(lf,rf);
+        }
+        fa[lf]=rf;
+        dis[lf]=dis[l]^dis[r]^v;
+    }
+    return true;
+}
+
+//处理q类型的操作
+int opq(int k){
+    int ans=0;
+    for(int i=1;i<=k;i++){
+        int f=find(nums[i]);
+        ans^=dis[nums[i]];
+        fas[i]=f;
+    }
+    sort(fas+1,fas+k+1);
+    for (int l = 1, r; l <= k; l = r + 1) {
+        r = l;
+        while (r + 1 <= k && fas[r + 1] == fas[l]) {
+            r++;
+        }
+        int cnt = r - l + 1;
+        if (cnt % 2 == 1 && fas[l] != n) {
+            //表示一定无法得知答案
+            return -1;
+        }
+    }
+    return ans;
 }
 
 int main()
 {
-    int cas=0;
-    while(scanf("%d%d",&n,&m)!=EOF)
-	{
-		if(n==0&&m==0)return 0;
-		init();
-		printf("Case %d:\n",++cas);
-		solve();
-		puts("");
+    t=0;
+    string line;
+    while(getline(cin,line)){
+        istringstream iss(line);
+        if(!(iss>>n>>m)){
+            break;
+        }
+        if(n==0&&m==0){
+            break;
+        }
+        prepare();
+        cout << "Case " << ++t << ":" << endl;
+        for (int i = 0; i < m; ++i) {
+            getline(cin, line);
+            istringstream iss_op(line);
+            string op;
+            iss_op >> op;
+            if (op == "I") {
+                vector<int> params;
+                int x;
+                while (iss_op >> x) {
+                    params.push_back(x);
+                }
+                if (flag) 
+                    continue;//如果已经不合法了   那么就把剩下的数据读入就好了
+                int l, r, v;
+                if (params.size() == 2) {
+                    l = params[0];
+                    r = n;//和绝对顶点相连
+                    v = params[1];
+                } else if (params.size() == 3) {
+                    l = params[0];
+                    r = params[1];
+                    v = params[2];
+                } else {
+                    continue;
+                }
+                if (!opi(l, r, v)) {
+                    cout << "The first " << cnti << " facts are conflicting." << endl;
+                }
+            } else if (op == "Q") {
+                int k;
+                iss_op >> k;
+                for (int j = 1; j <= k; ++j) {
+                    iss_op >> nums[j];
+                }
+                if (flag) continue;
+                int ans = opq(k);
+                if (ans == -1) {
+                    cout << "I don't know." << endl;
+                } else {
+                    cout << ans << endl;
+                }
+            }
+        }
+        cout << endl;
     }
     return 0;
 }
+/*
+2 6
+I 0 1 3
+Q 1 0
+Q 2 1 0
+I 0 2
+Q 1 1
+Q 1 0
+3 3
+I 0 1 6 
+I 0 2 2
+Q 2 1 2
+2 4
+I 0 1 7
+Q 2 0 1
+I 0 1 8
+Q 2 0 1
+0 0
+*/

@@ -1,23 +1,23 @@
-// KruskalÖØ¹¹Ê÷Ä£°æÌâ£¬C++°æ
-// Í¼ÀïÓĞn¸öµã£¬mÌõÎŞÏò±ß£¬Ã¿Ìõ±ß¸ø¶¨±ßÈ¨£¬Í¼Àï¿ÉÄÜÓĞÈô¸É¸öÁ¬Í¨µÄ²¿·Ö
-// Ò»¹²ÓĞqÌõ²éÑ¯£¬Ã¿Ìõ²éÑ¯¶¼ÊÇÈçÏÂµÄ¸ñÊ½
-// ²éÑ¯ x y : µãxºÍµãyÏ£ÍûÁ¬Í¨ÆğÀ´£¬ÆäÖĞµÄ×î´ó±ßÈ¨Ï£Íû¾¡Á¿Ğ¡£¬´òÓ¡Õâ¸öÖµ
-//            Èç¹ûÔõÑù¶¼ÎŞ·¨ÁªÍ¨£¬´òÓ¡"impossible"
+// Kruskalé‡æ„æ ‘æ¨¡ç‰ˆé¢˜ï¼ŒC++ç‰ˆ
+// å›¾é‡Œæœ‰nä¸ªç‚¹ï¼Œmæ¡æ— å‘è¾¹ï¼Œæ¯æ¡è¾¹ç»™å®šè¾¹æƒï¼Œå›¾é‡Œå¯èƒ½æœ‰è‹¥å¹²ä¸ªè¿é€šçš„éƒ¨åˆ†
+// ä¸€å…±æœ‰qæ¡æŸ¥è¯¢ï¼Œæ¯æ¡æŸ¥è¯¢éƒ½æ˜¯å¦‚ä¸‹çš„æ ¼å¼
+// æŸ¥è¯¢ x y : ç‚¹xå’Œç‚¹yå¸Œæœ›è¿é€šèµ·æ¥ï¼Œå…¶ä¸­çš„æœ€å¤§è¾¹æƒå¸Œæœ›å°½é‡å°ï¼Œæ‰“å°è¿™ä¸ªå€¼
+//            å¦‚æœæ€æ ·éƒ½æ— æ³•è”é€šï¼Œæ‰“å°"impossible"
 // 1 <= n <= 10^5
 // 1 <= m <= 3 * 10^5
 // 1 <= q <= 10^5
-// ²âÊÔÁ´½Ó : https://www.luogu.com.cn/problem/P2245
-// ÈçÏÂÊµÏÖÊÇC++µÄ°æ±¾£¬C++°æ±¾ºÍjava°æ±¾Âß¼­ÍêÈ«Ò»Ñù
-// Ìá½»ÈçÏÂ´úÂë£¬¿ÉÒÔÍ¨¹ıËùÓĞ²âÊÔÓÃÀı
+// æµ‹è¯•é“¾æ¥ : https://www.luogu.com.cn/problem/P2245
+// å¦‚ä¸‹å®ç°æ˜¯C++çš„ç‰ˆæœ¬ï¼ŒC++ç‰ˆæœ¬å’Œjavaç‰ˆæœ¬é€»è¾‘å®Œå…¨ä¸€æ ·
+// æäº¤å¦‚ä¸‹ä»£ç ï¼Œå¯ä»¥é€šè¿‡æ‰€æœ‰æµ‹è¯•ç”¨ä¾‹
 #include <bits/stdc++.h>
 using namespace std;
-const int MAXK = 200001;//ÓĞ1e5¸öÔ­Ê¼½Úµã  ¼´Ò¶½Úµã ÄÇÃ´ËùÓĞ½Úµã×ÜÊıÎªÖÁÉÙÁ½±¶
+const int MAXK = 200001;//æœ‰1e5ä¸ªåŸå§‹èŠ‚ç‚¹  å³å¶èŠ‚ç‚¹ é‚£ä¹ˆæ‰€æœ‰èŠ‚ç‚¹æ€»æ•°ä¸ºè‡³å°‘ä¸¤å€
 const int MAXM = 300001;
 const int MAXH = 20;
 
 int n, m, q;
 
-// Ã¿Ìõ±ßÓĞÈı¸öĞÅÏ¢£¬½Úµãu¡¢½Úµãv¡¢±ßÈ¨w
+// æ¯æ¡è¾¹æœ‰ä¸‰ä¸ªä¿¡æ¯ï¼ŒèŠ‚ç‚¹uã€èŠ‚ç‚¹vã€è¾¹æƒw
 struct Edge {
    int u, v, w;
 };
@@ -28,112 +28,112 @@ bool cmp(Edge x, Edge y) {
 
 Edge edge[MAXM];
 
-// ²¢²é¼¯
+// å¹¶æŸ¥é›†
 int father[MAXK];
-// KruskalÖØ¹¹Ê÷µÄ½¨Í¼
+// Kruskalé‡æ„æ ‘çš„å»ºå›¾
 int head[MAXK];
 int nxt[MAXK];
 int to[MAXK];
 int cntg;
-// KruskalÖØ¹¹Ê÷ÉÏ£¬½ÚµãµÄÈ¨Öµ
+// Kruskalé‡æ„æ ‘ä¸Šï¼ŒèŠ‚ç‚¹çš„æƒå€¼
 int nodeKey[MAXK];
-// KruskalÖØ¹¹Ê÷ÉÏ£¬µãµÄÊıÁ¿
+// Kruskalé‡æ„æ ‘ä¸Šï¼Œç‚¹çš„æ•°é‡
 int cntu;
 
-// KruskalÖØ¹¹Ê÷ÉÏ£¬dfs¹ı³Ì½¨Á¢µÄĞÅÏ¢
+// Kruskalé‡æ„æ ‘ä¸Šï¼Œdfsè¿‡ç¨‹å»ºç«‹çš„ä¿¡æ¯
 int dep[MAXK];
 int stjump[MAXK][MAXH];
 
 int find(int i) {
-   if (i != father[i]) {
-       father[i] = find(father[i]);
-   }
-   return father[i];
+    if (i != father[i]) {
+        father[i] = find(father[i]);
+    }
+    return father[i];
 }
 
 void addEdge(int u, int v) {
-   nxt[++cntg] = head[u];
-   to[cntg] = v;
-   head[u] = cntg;
+    nxt[++cntg] = head[u];
+    to[cntg] = v;
+    head[u] = cntg;
 }
 
 void kruskalRebuild() {
-   for (int i = 1; i <= n; i++) {
-       father[i] = i;
-   }
-   sort(edge + 1, edge + m + 1, cmp);//½«±ß°´ÕÕ±ßÈ¨ÅÅĞò
-   cntu = n;
-   for (int i = 1; i <= m; i++) {
-       int fx = find(edge[i].u);
-       int fy = find(edge[i].v);
-       if (fx != fy) {
-           //Èç¹ûÕâÁ½¸ö½Úµã²»ÊÇÒ»¸ö¼¯ºÏ ÄÇÃ´ºÏ²¢  ²¢½«µãÈ¨¸³ÖµÎª±ßÈ¨
-           father[fx] = father[fy] = ++cntu;
-           father[cntu] = cntu;
-           nodeKey[cntu] = edge[i].w;
-           addEdge(cntu, fx);
-           addEdge(cntu, fy);
-       }
-   }
+    for (int i = 1; i <= n; i++) {
+        father[i] = i;
+    }
+    sort(edge + 1, edge + m + 1, cmp);//å°†è¾¹æŒ‰ç…§è¾¹æƒæ’åº
+    cntu = n;
+    for (int i = 1; i <= m; i++) {
+        int fx = find(edge[i].u);
+        int fy = find(edge[i].v);
+        if (fx != fy) {
+            //å¦‚æœè¿™ä¸¤ä¸ªèŠ‚ç‚¹ä¸æ˜¯ä¸€ä¸ªé›†åˆ é‚£ä¹ˆåˆå¹¶  å¹¶å°†ç‚¹æƒèµ‹å€¼ä¸ºè¾¹æƒ
+            father[fx] = father[fy] = ++cntu;
+            father[cntu] = cntu;
+            nodeKey[cntu] = edge[i].w;
+            addEdge(cntu, fx);
+            addEdge(cntu, fy);
+        }
+    }
 }
 
-//½¨Á¢±¶Ôö±íĞÅÏ¢
+//å»ºç«‹å€å¢è¡¨ä¿¡æ¯
 void dfs(int u, int fa) {
-   dep[u] = dep[fa] + 1;
-   stjump[u][0] = fa;
-   for (int p = 1; p < MAXH; p++) {
-       stjump[u][p] = stjump[stjump[u][p - 1]][p - 1];
-   }
-   for (int e = head[u]; e > 0; e = nxt[e]) {
-       dfs(to[e], u);
-   }
+    dep[u] = dep[fa] + 1;
+    stjump[u][0] = fa;
+    for (int p = 1; p < MAXH; p++) {
+        stjump[u][p] = stjump[stjump[u][p - 1]][p - 1];
+    }
+    for (int e = head[u]; e > 0; e = nxt[e]) {
+        dfs(to[e], u);
+    }
 }
 
 int lca(int a, int b) {
-   if (dep[a] < dep[b]) {
-       int tmp = a;
-       a = b;
-       b = tmp;
-   }
-   for (int p = MAXH - 1; p >= 0; p--) {
-       if (dep[stjump[a][p]] >= dep[b]) {
-           a = stjump[a][p];
-       }
-   }
-   if (a == b) {
-       return a;
-   }
-   for (int p = MAXH - 1; p >= 0; p--) {
-       if (stjump[a][p] != stjump[b][p]) {
-           a = stjump[a][p];
-           b = stjump[b][p];
-       }
-   }
-   return stjump[a][0];
+    if (dep[a] < dep[b]) {
+        int tmp = a;
+        a = b;
+        b = tmp;
+    }
+    for (int p = MAXH - 1; p >= 0; p--) {
+        if (dep[stjump[a][p]] >= dep[b]) {
+            a = stjump[a][p];
+        }
+    }
+    if (a == b) {
+        return a;
+    }
+    for (int p = MAXH - 1; p >= 0; p--) {
+        if (stjump[a][p] != stjump[b][p]) {
+            a = stjump[a][p];
+            b = stjump[b][p];
+        }
+    }
+    return stjump[a][0];
 }
 
 int main() {
-   ios::sync_with_stdio(false);
-   cin.tie(nullptr);
-   cin >> n >> m;
-   for (int i = 1; i <= m; i++) {
-       cin >> edge[i].u >> edge[i].v >> edge[i].w;
-   }
-   kruskalRebuild();
-   for (int i = 1; i <= cntu; i++) {
-       if (i == father[i]) {
-            //¶ÔÓÚÃ¿¿ÃÊ÷½¨Á¢±¶Ôö±í
-           dfs(i, 0);
-       }
-   }
-   cin >> q;
-   for (int i = 1, x, y; i <= q; i++) {
-       cin >> x >> y;
-       if (find(x) != find(y)) {
-           cout << "impossible" << "\n";
-       } else {
-           cout << nodeKey[lca(x, y)] << "\n";
-       }
-   }
-   return 0;
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cin >> n >> m;
+    for (int i = 1; i <= m; i++) {
+        cin >> edge[i].u >> edge[i].v >> edge[i].w;
+    }
+    kruskalRebuild();
+    for (int i = 1; i <= cntu; i++) {
+        if (i == father[i]) {
+                //å¯¹äºæ¯æ£µæ ‘å»ºç«‹å€å¢è¡¨
+            dfs(i, 0);
+        }
+    }
+    cin >> q;
+    for (int i = 1, x, y; i <= q; i++) {
+        cin >> x >> y;
+        if (find(x) != find(y)) {
+            cout << "impossible" << "\n";
+        } else {
+            cout << nodeKey[lca(x, y)] << "\n";
+        }
+    }
+    return 0;
 }

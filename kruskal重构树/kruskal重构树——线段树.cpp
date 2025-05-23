@@ -1,20 +1,20 @@
-// ɾ�ߺͲ�ѯ��C++��
-// ͼ����n���㣬m������ߣ���ʼʱ��Ȩ����ͬ��ͼ����������ɸ���ͨ�Ĳ���
-// һ����q��������ÿ���������������������е�һ��
-// ���� 1 x : ��x���ڵ���ͨ�����У������yӵ�����ĵ�Ȩ
-//            ��ӡy�ĵ�Ȩ��Ȼ���y�ĵ�Ȩ�޸�Ϊ0
-// ���� 2 x : ɾ����x����
+// 删边和查询，C++版
+// 图里有n个点，m条无向边，初始时点权都不同，图里可能有若干个连通的部分
+// 一共有q条操作，每条操作是如下两种类型中的一种
+// 操作 1 x : 点x所在的连通区域中，假设点y拥有最大的点权
+//            打印y的点权，然后把y的点权修改为0
+// 操作 2 x : 删掉第x条边
 // 1 <= n <= 2 * 10^5    1 <= m <= 3 * 10^5    1 <= q <= 5 * 10^5
-// �������� : https://www.luogu.com.cn/problem/CF1416D
-// �������� : https://codeforces.com/problemset/problem/1416/D
-// ����ʵ����C++�İ汾��C++�汾��java�汾�߼���ȫһ��
-// �ύ���´��룬����ͨ�����в�������
-//�����ֻ��ΪҶ�ڵ㸳��dfn���  ������
-//�����Ļ� �߶�������ͨ�������ѯ �͵����޸�
-//�����������ĵط�����θ��߸���Ȩ
-//��ʼ���ն����ڵı�  ��1��ʼ����Ȩ
-//��ɾ���ı߽������������  ��ɾ���ı߱�Ȩ����
-//�����Ļ�ÿ��ɾһ���� �ͻ�ʹ��limit-1  �����ѯ
+// 测试链接 : https://www.luogu.com.cn/problem/CF1416D
+// 测试链接 : https://codeforces.com/problemset/problem/1416/D
+// 如下实现是C++的版本，C++版本和java版本逻辑完全一样
+// 提交如下代码，可以通过所有测试用例
+//这道题只会为叶节点赋予dfn序号  很巧妙
+//这样的话 线段树可以通过区间查询 和单点修改
+//这道题最特殊的地方是如何给边赋边权
+//从始至终都存在的边  从1开始赋边权
+//后删除的边接着上面的数字  先删除的边边权更大
+//这样的话每次删一条边 就会使得limit-1  方便查询
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 200001;
@@ -33,17 +33,17 @@ bool cmp(Edge x, Edge y) {
 
 int n, m, q;
 
-// �ڵ�ֵ�����飬��Ҫ��¼���߶���ҲҪʹ��
+// 节点值的数组，需要记录，线段树也要使用
 int node[MAXN];
-// ���бߵ����飬������ɾ������������ÿ���ߵ�Ȩֵ
+// 所有边的数组，逆序处理删除操作，设置每条边的权值
 Edge edge[MAXM];
-// ��¼���в���
+// 记录所有操作
 int ques[MAXQ][2];
 
-// ���鼯
+// 并查集
 int father[MAXK];
 
-// Kruskal�ع���
+// Kruskal重构树
 int head[MAXK];
 int nxt[MAXK];
 int to[MAXK];
@@ -51,21 +51,21 @@ int cntg;
 int nodeKey[MAXK];
 int cntu;
 
-// ������
+// 倍增表
 int stjump[MAXK][MAXH];
-// �����ϵ�Ҷ�ڵ����
+// 子树上的叶节点个数
 int leafsiz[MAXK];
-// ������Ҷ�ڵ��dfn�����Сֵ
+// 子树上叶节点的dfn序号最小值
 int leafDfnMin[MAXK];
-// leafseg[i] = j����ʾdfn���Ϊi��Ҷ�ڵ㣬ԭʼ���Ϊj
+// leafseg[i] = j，表示dfn序号为i的叶节点，原始编号为j
 int leafseg[MAXK];
-// dfn�ļ���
+// dfn的计数
 int cntd;
 
-// �߶������±���dfn��ţ�ά����Χ�ڣ�ӵ������Ȩ��dfn���
+// 线段树的下标是dfn序号，维护范围内，拥有最大点权的dfn序号
 int maxValueDfn[MAXN << 2];
 
-//�����еı߸��ϱ�Ȩ
+//将所有的边赋上边权
 void prepare() {
     for (int i = 1; i <= q; i++) {
         if (ques[i][0] == 2) {
@@ -169,7 +169,7 @@ void build(int l, int r, int i) {
     }
 }
 
-// dfn���Ϊjobi����Ȩ���³�jobv
+// dfn序号为jobi，点权更新成jobv
 void update(int jobi, int jobv, int l, int r, int i) {
     if (l == r) {
         node[leafseg[jobi]] = jobv;
@@ -184,7 +184,7 @@ void update(int jobi, int jobv, int l, int r, int i) {
     }
 }
 
-// dfn��Χ[jobl..jobr]���ĸ��ڵ�ӵ������Ȩ�����ظýڵ��dfn���
+// dfn范围[jobl..jobr]，哪个节点拥有最大点权，返回该节点的dfn序号
 int query(int jobl, int jobr, int l, int r, int i) {
     if (jobl <= l && r <= jobr) {
         return maxValueDfn[i];
