@@ -1,25 +1,25 @@
-//¶şÎ¬²©ŞÄÂÛ
+//äºŒç»´åšå¼ˆè®º
 #include<stdio.h>
 #include<stdbool.h>
 
 int main()
 {
     int a,b;
-    scanf("%d %d",&a,&b);//ÊäÈëÁ½¶ÑÊ¯×ÓµÄ¸öÊı
-    int sg[a+1][b+1];//¶¨Òåsgº¯Êı
+    scanf("%d %d",&a,&b);//è¾“å…¥ä¸¤å †çŸ³å­çš„ä¸ªæ•°
+    int sg[a+1][b+1];//å®šä¹‰sgå‡½æ•°
     sg[1][1]=0;
     bool appear[a+1][b+1];
 
     for(int i=0;i<=a;i++){
         for(int m=1;m<=a;m++){
             for(int n=1;n<=b;n++){
-                appear[m][n]=false;//Íê³ÉappearµÄ³õÊ¼»¯
+                appear[m][n]=false;//å®Œæˆappearçš„åˆå§‹åŒ–
             }
         }
         for(int s = 0; s <= (a+b); s++) {
             if(!appear[s]) {
                 sg[i] = s;
-                break; // ÕÒµ½ s ºóÍË³öÑ­»·
+                break; // æ‰¾åˆ° s åé€€å‡ºå¾ªç¯
             }
         }
     }
