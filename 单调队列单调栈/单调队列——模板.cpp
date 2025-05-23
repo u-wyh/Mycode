@@ -1,8 +1,10 @@
-// »¬¶¯´°¿Ú×î´óÖµ£¨µ¥µ÷¶ÓÁÐ¾­µäÓÃ·¨Ä£°æ£©
-// ¸øÄãÒ»¸öÕûÊýÊý×é nums£¬ÓÐÒ»¸ö´óÐ¡Îª k µÄ»¬¶¯´°¿Ú´ÓÊý×éµÄ×î×ó²àÒÆ¶¯µ½Êý×éµÄ×îÓÒ²à
-// ÄãÖ»¿ÉÒÔ¿´µ½ÔÚ»¬¶¯´°¿ÚÄÚµÄ k ¸öÊý×Ö¡£»¬¶¯´°¿ÚÃ¿´ÎÖ»ÏòÓÒÒÆ¶¯Ò»Î»¡£
-// ·µ»Ø »¬¶¯´°¿ÚÖÐµÄ×î´óÖµ ¡£
-// ²âÊÔÁ´½Ó : https://leetcode.cn/problems/sliding-window-maximum/
+// æ»‘åŠ¨çª—å£æœ€å¤§å€¼ï¼ˆå•è°ƒé˜Ÿåˆ—ç»å…¸ç”¨æ³•æ¨¡ç‰ˆï¼‰
+// ç»™ä½ ä¸€ä¸ªæ•´æ•°æ•°ç»„ numsï¼Œæœ‰ä¸€ä¸ªå¤§å°ä¸º k çš„æ»‘åŠ¨çª—å£ä»Žæ•°ç»„çš„æœ€å·¦ä¾§ç§»åŠ¨åˆ°æ•°ç»„çš„æœ€å³ä¾§
+// ä½ åªå¯ä»¥çœ‹åˆ°åœ¨æ»‘åŠ¨çª—å£å†…çš„ k ä¸ªæ•°å­—ã€‚æ»‘åŠ¨çª—å£æ¯æ¬¡åªå‘å³ç§»åŠ¨ä¸€ä½ã€‚
+// è¿”å›ž æ»‘åŠ¨çª—å£ä¸­çš„æœ€å¤§å€¼ ã€‚
+// æµ‹è¯•é“¾æŽ¥ : https://leetcode.cn/problems/sliding-window-maximum/
+//è¿™é‡Œä¹Ÿå¯ä»¥å…ˆå»ºç«‹ä¸€ä¸ªk-1çš„æ»‘åŠ¨çª—å£  ç„¶åŽåœ¨åŠ å…¥ç¬¬kä¸ªæ•°å­—  åˆ¤æ–­å¹¶è¾“å‡ºæœ€å¤§å€¼
+//æ³¨æ„è¿™é‡Œçš„å¼¹å‡ºåŽ‹å…¥æ“ä½œéƒ½æ˜¯æ ¹æ®h tçš„å˜åŒ–æ¥è¿›è¡Œçš„   äº‹å®žä¸Šè¢«â€œå¼¹å‡ºâ€çš„æ•°å­—ä¾æ—§åœ¨åºåˆ—ä¸­   åªæ˜¯ä¸ä¼šè¢«è®¿é—®äº†
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -21,7 +23,7 @@ int main()
         }
         while(h<t&&a[q[t-1]]<a[i]){
             t--;
-        }//h<t  ±£Ö¤ÁËÈç¹û¶ÓÁÐÒÑ¾­ÊÇ¿ÕµÄ  ÄÇÃ´²»ÔÚt--
+        }//h<t  ä¿è¯äº†å¦‚æžœé˜Ÿåˆ—å·²ç»æ˜¯ç©ºçš„  é‚£ä¹ˆä¸åœ¨t--
         q[t]=i;
         t++;
         if(i>=k)
@@ -29,5 +31,3 @@ int main()
     }
     return 0;
 }
-//ÕâÀïÒ²¿ÉÒÔÏÈ½¨Á¢Ò»¸ök-1µÄ»¬¶¯´°¿Ú  È»ºóÔÚ¼ÓÈëµÚk¸öÊý×Ö  ÅÐ¶Ï²¢Êä³ö×î´óÖµ
-//×¢ÒâÕâÀïµÄµ¯³öÑ¹Èë²Ù×÷¶¼ÊÇ¸ù¾Ýh tµÄ±ä»¯À´½øÐÐµÄ   ÊÂÊµÉÏ±»¡°µ¯³ö¡±µÄÊý×ÖÒÀ¾ÉÔÚÐòÁÐÖÐ   Ö»ÊÇ²»»á±»·ÃÎÊÁË

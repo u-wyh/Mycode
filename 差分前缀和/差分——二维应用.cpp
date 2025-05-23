@@ -1,13 +1,13 @@
-// ×îÇ¿×£¸£Á¦³¡
-// Ð¡¿ÛÔÚÌ½Ë÷´ÔÁÖµÄ¹ý³ÌÖÐ£¬ÎÞÒâ¼ä·¢ÏÖÁË´«ËµÖÐ"ÂäÄ¯µÄ»Æ½ðÖ®¶¼"
-// ¶øÔÚÕâÆ¬½¨Öþ·ÏÐæµÄµØ´øÖÐ£¬Ð¡¿ÛÊ¹ÓÃÌ½²âÒÇ¼à²âµ½ÁË´æÔÚÄ³ÖÖ´øÓÐ¡¸×£¸£¡¹Ð§¹ûµÄÁ¦³¡
-// ¾­¹ý²»¶ÏµÄ¿±²â¼ÇÂ¼£¬Ð¡¿Û½«ËùÓÐÁ¦³¡µÄ·Ö²¼¶¼¼ÇÂ¼ÁËÏÂÀ´
+// æœ€å¼ºç¥ç¦åŠ›åœº
+// å°æ‰£åœ¨æŽ¢ç´¢ä¸›æž—çš„è¿‡ç¨‹ä¸­ï¼Œæ— æ„é—´å‘çŽ°äº†ä¼ è¯´ä¸­"è½å¯žçš„é»„é‡‘ä¹‹éƒ½"
+// è€Œåœ¨è¿™ç‰‡å»ºç­‘åºŸå¢Ÿçš„åœ°å¸¦ä¸­ï¼Œå°æ‰£ä½¿ç”¨æŽ¢æµ‹ä»ªç›‘æµ‹åˆ°äº†å­˜åœ¨æŸç§å¸¦æœ‰ã€Œç¥ç¦ã€æ•ˆæžœçš„åŠ›åœº
+// ç»è¿‡ä¸æ–­çš„å‹˜æµ‹è®°å½•ï¼Œå°æ‰£å°†æ‰€æœ‰åŠ›åœºçš„åˆ†å¸ƒéƒ½è®°å½•äº†ä¸‹æ¥
 // forceField[i] = [x,y,side]
-// ±íÊ¾µÚ i Æ¬Á¦³¡½«¸²¸ÇÒÔ×ø±ê (x,y) ÎªÖÐÐÄ£¬±ß³¤Îª side µÄÕý·½ÐÎÇøÓò¡£
-// ÈôÈÎÒâÒ»µãµÄ Á¦³¡Ç¿¶È µÈÓÚ¸²¸Ç¸ÃµãµÄÁ¦³¡ÊýÁ¿
-// ÇëÇó³öÔÚÕâÆ¬µØ´øÖÐ Á¦³¡Ç¿¶È ×îÇ¿´¦µÄ Á¦³¡Ç¿¶È
-// ×¢Òâ£ºÁ¦³¡·¶Î§µÄ±ßÔµÍ¬Ñù±»Á¦³¡¸²¸Ç¡£
-// ²âÊÔÁ´½Ó : https://leetcode.cn/problems/xepqZ5/
+// è¡¨ç¤ºç¬¬ i ç‰‡åŠ›åœºå°†è¦†ç›–ä»¥åæ ‡ (x,y) ä¸ºä¸­å¿ƒï¼Œè¾¹é•¿ä¸º side çš„æ­£æ–¹å½¢åŒºåŸŸã€‚
+// è‹¥ä»»æ„ä¸€ç‚¹çš„ åŠ›åœºå¼ºåº¦ ç­‰äºŽè¦†ç›–è¯¥ç‚¹çš„åŠ›åœºæ•°é‡
+// è¯·æ±‚å‡ºåœ¨è¿™ç‰‡åœ°å¸¦ä¸­ åŠ›åœºå¼ºåº¦ æœ€å¼ºå¤„çš„ åŠ›åœºå¼ºåº¦
+// æ³¨æ„ï¼šåŠ›åœºèŒƒå›´çš„è¾¹ç¼˜åŒæ ·è¢«åŠ›åœºè¦†ç›–ã€‚
+// æµ‹è¯•é“¾æŽ¥ : https://leetcode.cn/problems/xepqZ5/
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -55,7 +55,7 @@ int main()
     for(int i=0;i<n;i++){
         cin>>fields[i][0]>>fields[i][1]>>fields[i][2];
     }
-    // n : ¾ØÐÎµÄ¸öÊý£¬x 2*n¸ö×ø±ê
+    // n : çŸ©å½¢çš„ä¸ªæ•°ï¼Œx 2*nä¸ªåæ ‡
     long* xs = new long[n << 1];
     long* ys = new long[n << 1];
     for (int i = 0, k = 0, p = 0; i < n; i++) {
@@ -67,11 +67,11 @@ int main()
         ys[p++] = (y << 1) - r;
         ys[p++] = (y << 1) + r;
     }
-    // xsÊý×éÖÐ£¬ÅÅÐòÁËÇÒÏàÍ¬ÖµÖ»ÁôÒ»·Ý£¬·µ»ØÓÐÐ§³¤¶È
+    // xsæ•°ç»„ä¸­ï¼ŒæŽ’åºäº†ä¸”ç›¸åŒå€¼åªç•™ä¸€ä»½ï¼Œè¿”å›žæœ‰æ•ˆé•¿åº¦
     int sizex = sort1(xs);
-    // ysÊý×éÖÐ£¬ÅÅÐòÁËÇÒÏàÍ¬ÖµÖ»ÁôÒ»·Ý£¬·µ»ØÓÐÐ§³¤¶È
+    // ysæ•°ç»„ä¸­ï¼ŒæŽ’åºäº†ä¸”ç›¸åŒå€¼åªç•™ä¸€ä»½ï¼Œè¿”å›žæœ‰æ•ˆé•¿åº¦
     int sizey = sort1(ys);
-    // n¸öÁ¦³¡£¬sizex : 2 * n, sizey : 2 * n
+    // nä¸ªåŠ›åœºï¼Œsizex : 2 * n, sizey : 2 * n
     for (int i = 0, a, b, c, d; i < n; i++) {
         long x = fields[i][0];
         long y = fields[i][1];

@@ -5,6 +5,7 @@
 // 请同学们务必参考如下代码中关于输入、输出的处理
 // 这是输入输出处理效率很高的写法
 // 提交以下的code，提交时请把类名改成"Main"，可以直接通过
+//等差数列差分需要两遍前缀和
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -13,7 +14,7 @@ long long arr[10000005];
 long long l,s,r,e,maxans,eor;
 
 long long read(){
-	short f=1;ll x;char ch;
+	short f=1;long long x;char ch;
 	while(ch=getchar(),ch<'0'||ch>'9')
 		if(ch=='-') f=-1;
 	x=ch-'0';

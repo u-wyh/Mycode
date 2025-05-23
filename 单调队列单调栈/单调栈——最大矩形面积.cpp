@@ -1,7 +1,7 @@
-// ��״ͼ�����ľ���
-// ���� n ���Ǹ�������������ʾ��״ͼ�и������ӵĸ߶�
-// ÿ�����ӱ˴����ڣ��ҿ���Ϊ 1 �����ڸ���״ͼ�У��ܹ����ճ����ľ��ε�������
-// �������ӣ�https://leetcode.cn/problems/largest-rectangle-in-histogram
+// 柱状图中最大的矩形
+// 给定 n 个非负整数，用来表示柱状图中各个柱子的高度
+// 每个柱子彼此相邻，且宽度为 1 。求在该柱状图中，能够勾勒出来的矩形的最大面积
+// 测试链接：https://leetcode.cn/problems/largest-rectangle-in-histogram
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -21,7 +21,7 @@ int main()
             cur=st[--r];
             L=r>0?st[r-1]:-1;
             ans=max(ans,nums[cur]*(i-1-L));
-            //ͳ�����Լ���Ϊ���ʱ����� ����ߺ��ұ�С���Լ���֮��Ϊ����
+            //统计以自己作为最低时的面积 即左边和右边小于自己的之间为长度
         }
         st[r++]=i;
     }
@@ -35,4 +35,3 @@ int main()
     cout<<ans<<endl;
     return 0;
 }
-

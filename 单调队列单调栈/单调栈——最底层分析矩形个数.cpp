@@ -1,5 +1,5 @@
 //P1950
-//其实这道题也是枚举每一层作为最底层  也是一道很好的题目
+//鍏跺疄杩欓亾棰樹篃鏄灇涓炬瘡涓�灞備綔涓烘渶搴曞眰  涔熸槸涓�閬撳緢濂界殑棰樼洰
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -44,13 +44,13 @@ int main()
             if(s[i][j]=='*')
                 nums[i][j]=0;
             if(nums[i][j]!=0){
-                nums[i][j]+=nums[i-1][j];//得到每一层的数据
+                nums[i][j]+=nums[i-1][j];//寰楀埌姣忎竴灞傜殑鏁版嵁
             }
         }
     }
 
     for(int i=1;i<=n;i++){
-        work(i);//单调栈计算出l r数组
+        work(i);//鍗曡皟鏍堣绠楀嚭l r鏁扮粍
         for(int j=1;j<=m;j++){
             ans+=nums[i][j]*(j - l[j]) * (r[j] - j);
         }

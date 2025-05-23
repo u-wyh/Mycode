@@ -1,13 +1,14 @@
-// ����Ʊ��������ͼ
-// ����һ�� m * n �Ķ����ƾ��� grid
-// ÿ������ҪôΪ 0 ���գ�ҪôΪ 1 ����ռ�ݣ�
-// ������Ʊ�ĳߴ�Ϊ stampHeight * stampWidth
-// �����뽫��Ʊ���������ƾ����У����������� ���� �� Ҫ�� ��
-// �������пո��ӣ��������κα�ռ�ݵĸ���
-// ���Է���������Ŀ����Ʊ����Ʊ�����໥���ص�����
-// ��Ʊ��������ת����Ʊ������ȫ�ھ�����
-// �������������Ҫ���ǰ���£����Է�����Ʊ���뷵�� true �����򷵻� false
-// �������� : https://leetcode.cn/problems/stamping-the-grid/
+// 用邮票贴满网格图
+// 给你一个 m * n 的二进制矩阵 grid
+// 每个格子要么为 0 （空）要么为 1 （被占据）
+// 给你邮票的尺寸为 stampHeight * stampWidth
+// 我们想将邮票贴进二进制矩阵中，且满足以下 限制 和 要求 ：
+// 覆盖所有空格子，不覆盖任何被占据的格子
+// 可以放入任意数目的邮票，邮票可以相互有重叠部分
+// 邮票不允许旋转，邮票必须完全在矩阵内
+// 如果在满足上述要求的前提下，可以放入邮票，请返回 true ，否则返回 false
+// 测试链接 : https://leetcode.cn/problems/stamping-the-grid/
+//这道题的思路是将所有可以贴的位置全部贴上 然后统计是不是所有的地方都被贴上了
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -37,11 +38,11 @@ int main()
 
     for (int a = 1, c = a + h - 1; c <= n; a++, c++) {
         for (int b = 1, d = b + w - 1; d <= m; b++, d++) {
-            // ԭʼ������ (a,b)���Ͻǵ�
-            // ������Ʊ���h��w��������½ǵ�(c,d)
-            // ������򳹵׶���0����ô:
+            // 原始矩阵中 (a,b)左上角点
+            // 根据邮票规格，h、w，算出右下角点(c,d)
+            // 这个区域彻底都是0，那么:
             // sumRegion(sum, a, b, c, d) == 0
-            // ��ô��ʱ��������������Ʊ
+            // 那么此时这个区域可以贴邮票
             if (fun(a,b,c,d)== 0) {
                 Set(a, b, c, d,1);
             }

@@ -1,8 +1,8 @@
-// ��ά���ģ��(���)
-// �������� : https://www.luogu.com.cn/problem/P3397
-// ��ͬѧ����زο����´����й������롢����Ĵ���
-// ���������������Ч�ʺܸߵ�д��
-// �ύ���µ�code���ύʱ��������ĳ�"Main"������ֱ��ͨ��
+// 二维差分模版(洛谷)
+// 测试链接 : https://www.luogu.com.cn/problem/P3397
+// 请同学们务必参考如下代码中关于输入、输出的处理
+// 这是输入输出处理效率很高的写法
+// 提交以下的code，提交时请把类名改成"Main"，可以直接通过
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -17,7 +17,7 @@ void Set(int a,int b,int c,int d,int v){
 }
 
 void build(){
-    //��һ���άǰ׺�ͼ���
+    //来一遍二维前缀和即可
     for(int i=1;i<=n;i++){
         for(int j=1;j<=n;j++){
             nums[i][j]+=nums[i-1][j]+nums[i][j-1]-nums[i-1][j-1];
