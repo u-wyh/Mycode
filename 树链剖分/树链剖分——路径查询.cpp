@@ -1,15 +1,15 @@
-// ·�����ֵ���ۼӺͣ�C++��
-// һ����n���ڵ㣬����n-1���ߣ��ڵ�����һ������ÿ���ڵ����Ȩֵ
-// һ����m��������ÿ�ֲ���������3�������е�һ��
-// ���� CHANGE x y : x��Ȩֵ�޸�Ϊy
-// ���� QMAX x y   : x��y��·���ϣ���ӡ�ڵ�ֵ�����ֵ
-// ���� QSUM x y   : x��y��·���ϣ���ӡ�ڵ�ֵ���ۼӺ�
+// 路径最大值与累加和，C++版
+// 一共有n个节点，给定n-1条边，节点连成一棵树，每个节点给定权值
+// 一共有m条操作，每种操作是如下3种类型中的一种
+// 操作 CHANGE x y : x的权值修改为y
+// 操作 QMAX x y   : x到y的路径上，打印节点值的最大值
+// 操作 QSUM x y   : x到y的路径上，打印节点值的累加和
 // 1 <= n <= 3 * 10^4
 // 0 <= m <= 2 * 10^5
-// -30000 <= �ڵ�Ȩֵ <= +30000
-// �������� : https://www.luogu.com.cn/problem/P2590
-// ����ʵ����C++�İ汾��C++�汾��java�汾�߼���ȫһ��
-// �ύ���´��룬����ͨ�����в�������
+// -30000 <= 节点权值 <= +30000
+// 测试链接 : https://www.luogu.com.cn/problem/P2590
+// 如下实现是C++的版本，C++版本和java版本逻辑完全一样
+// 提交如下代码，可以通过所有测试用例
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 30001;
@@ -23,7 +23,7 @@ int nxt[MAXN << 1];
 int to[MAXN << 1];
 int cntg = 0;
 
-//�����ʷֱر�
+//树链剖分必备
 int fa[MAXN];
 int dep[MAXN];
 int siz[MAXN];
@@ -33,7 +33,7 @@ int dfn[MAXN];
 int seg[MAXN];
 int cntd = 0;
 
-//�߶���
+//线段树
 int maxv[MAXN << 2];
 int sumv[MAXN << 2];
 

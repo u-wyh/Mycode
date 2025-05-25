@@ -1,14 +1,14 @@
-// Èí¼þ°ü¹ÜÀíÆ÷£¬C++°æ
-// Ò»¹²ÓÐn¸öÈí¼þ£¬±àºÅ0~n-1£¬0ºÅÈí¼þ²»ÒÀÀµÈÎºÎÈí¼þ£¬ÆäËûÃ¿¸öÈí¼þ¶¼½öÒÀÀµÒ»¸öÈí¼þ
-// ÒÀÀµ¹ØÏµÓÉÊý×éÐÎÊ½¸ø³ö£¬ÌâÄ¿±£Ö¤²»»á³öÏÖÑ­»·ÒÀÀµ
-// Ò»¿ªÊ¼ËùÓÐÈí¼þ¶¼ÊÇÃ»ÓÐ°²×°µÄ£¬Èç¹ûaÒÀÀµb£¬ÄÇÃ´°²×°aÐèÒª°²×°b£¬Í¬Ê±Ð¶ÔØbÐèÒªÐ¶ÔØa
-// Ò»¹²ÓÐmÌõ²Ù×÷£¬Ã¿ÖÖ²Ù×÷ÊÇÈçÏÂ2ÖÖÀàÐÍÖÐµÄÒ»ÖÖ
-// ²Ù×÷ install x    : °²×°x£¬Èç¹ûxÒÑ¾­°²×°´òÓ¡0£¬·ñÔò´òÓ¡ÓÐ¶àÉÙ¸öÈí¼þµÄ×´Ì¬ÐèÒª¸Ä±ä
-// ²Ù×÷ uninstall x  : Ð¶ÔØx£¬Èç¹ûxÃ»ÓÐ°²×°´òÓ¡0£¬·ñÔò´òÓ¡ÓÐ¶àÉÙ¸öÈí¼þµÄ×´Ì¬ÐèÒª¸Ä±ä
-// 1 <= n¡¢m <= 10^6
-// ²âÊÔÁ´½Ó : https://www.luogu.com.cn/problem/P2146
-// ÈçÏÂÊµÏÖÊÇC++µÄ°æ±¾£¬C++°æ±¾ºÍjava°æ±¾Âß¼­ÍêÈ«Ò»Ñù
-// Ìá½»ÈçÏÂ´úÂë£¬¿ÉÒÔÍ¨¹ýËùÓÐ²âÊÔÓÃÀý
+// è½¯ä»¶åŒ…ç®¡ç†å™¨ï¼ŒC++ç‰ˆ
+// ä¸€å…±æœ‰nä¸ªè½¯ä»¶ï¼Œç¼–å·0~n-1ï¼Œ0å·è½¯ä»¶ä¸ä¾èµ–ä»»ä½•è½¯ä»¶ï¼Œå…¶ä»–æ¯ä¸ªè½¯ä»¶éƒ½ä»…ä¾èµ–ä¸€ä¸ªè½¯ä»¶
+// ä¾èµ–å…³ç³»ç”±æ•°ç»„å½¢å¼ç»™å‡ºï¼Œé¢˜ç›®ä¿è¯ä¸ä¼šå‡ºçŽ°å¾ªçŽ¯ä¾èµ–
+// ä¸€å¼€å§‹æ‰€æœ‰è½¯ä»¶éƒ½æ˜¯æ²¡æœ‰å®‰è£…çš„ï¼Œå¦‚æžœaä¾èµ–bï¼Œé‚£ä¹ˆå®‰è£…aéœ€è¦å®‰è£…bï¼ŒåŒæ—¶å¸è½½béœ€è¦å¸è½½a
+// ä¸€å…±æœ‰mæ¡æ“ä½œï¼Œæ¯ç§æ“ä½œæ˜¯å¦‚ä¸‹2ç§ç±»åž‹ä¸­çš„ä¸€ç§
+// æ“ä½œ install x    : å®‰è£…xï¼Œå¦‚æžœxå·²ç»å®‰è£…æ‰“å°0ï¼Œå¦åˆ™æ‰“å°æœ‰å¤šå°‘ä¸ªè½¯ä»¶çš„çŠ¶æ€éœ€è¦æ”¹å˜
+// æ“ä½œ uninstall x  : å¸è½½xï¼Œå¦‚æžœxæ²¡æœ‰å®‰è£…æ‰“å°0ï¼Œå¦åˆ™æ‰“å°æœ‰å¤šå°‘ä¸ªè½¯ä»¶çš„çŠ¶æ€éœ€è¦æ”¹å˜
+// 1 <= nã€m <= 10^6
+// æµ‹è¯•é“¾æŽ¥ : https://www.luogu.com.cn/problem/P2146
+// å¦‚ä¸‹å®žçŽ°æ˜¯C++çš„ç‰ˆæœ¬ï¼ŒC++ç‰ˆæœ¬å’Œjavaç‰ˆæœ¬é€»è¾‘å®Œå…¨ä¸€æ ·
+// æäº¤å¦‚ä¸‹ä»£ç ï¼Œå¯ä»¥é€šè¿‡æ‰€æœ‰æµ‹è¯•ç”¨ä¾‹
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 100001;
@@ -74,7 +74,7 @@ void up(int i) {
     sum[i] = sum[i << 1] + sum[i << 1 | 1];
 }
 
-// Ïß¶ÎÊ÷ÖØÖÃ²Ù×÷µÄÀÁ¸üÐÂ
+// çº¿æ®µæ ‘é‡ç½®æ“ä½œçš„æ‡’æ›´æ–°
 void lazy(int i, int v, int n) {
     sum[i] = v * n;
     update[i] = true;
@@ -111,7 +111,7 @@ long long query(int jobl, int jobr, int l, int r, int i) {
     return ans;
 }
 
-// ´Ó1µ½xµÄÂ·¾¶ÉÏ£¬ËùÓÐ½ÚµãÖµ¸Ä³Év
+// ä»Ž1åˆ°xçš„è·¯å¾„ä¸Šï¼Œæ‰€æœ‰èŠ‚ç‚¹å€¼æ”¹æˆv
 void pathUpdate(int x, int v) {
     int y = 1;
     while (top[x] != top[y]) {

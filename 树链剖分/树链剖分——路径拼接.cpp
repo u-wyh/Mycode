@@ -1,29 +1,30 @@
-// Ⱦɫ��C++��
-// һ����n���ڵ㣬����n-1���ߣ��ڵ�����һ������ÿ���ڵ������ʼ��ɫֵ
-// ������ͬ��ɫ����Ϊ��һ�Σ��仯�˾���Ϊ����һ��
-// ���磬112221����������ɫ�Σ��ֱ�Ϊ 11��222��1
-// һ����m��������ÿ�ֲ���������2�������е�һ��
-// ���� C x y z : x��y��·���ϣ�ÿ���ڵ����ɫ����Ϊz
-// ���� Q x y   : x��y��·���ϣ���ӡ�м�����ɫ��
-// 1 <= n��m <= 10^5
-// 1 <= �κ�ʱ�����ɫֵ <= 10^9
-// �������� : https://www.luogu.com.cn/problem/P2486
-// ����ʵ����C++�İ汾��C++�汾��java�汾�߼���ȫһ��
-// �ύ���´��룬����ͨ�����в�������
+// 染色，C++版
+// 一共有n个节点，给定n-1条边，节点连成一棵树，每个节点给定初始颜色值
+// 连续相同颜色被认为是一段，变化了就认为是另一段
+// 比如，112221，有三个颜色段，分别为 11、222、1
+// 一共有m条操作，每种操作是如下2种类型中的一种
+// 操作 C x y z : x到y的路径上，每个节点的颜色都改为z
+// 操作 Q x y   : x到y的路径上，打印有几个颜色段
+// 1 <= n、m <= 10^5
+// 1 <= 任何时候的颜色值 <= 10^9
+// 测试链接 : https://www.luogu.com.cn/problem/P2486
+// 如下实现是C++的版本，C++版本和java版本逻辑完全一样
+// 提交如下代码，可以通过所有测试用例
+//比模板的拼接要有难度 但是也不是太难
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 100001;
 
 int n, m;
-int arr[MAXN];//��ʼ�ڵ���ɫ
+int arr[MAXN];//初始节点颜色
 
-//��ʽǰ���ǽ�ͼ
+//链式前向星建图
 int head[MAXN];
 int nxt[MAXN << 1];
 int to[MAXN << 1];
 int cntg = 0;
 
-//�����ʷ�
+//树链剖分
 int fa[MAXN];
 int dep[MAXN];
 int siz[MAXN];
@@ -33,13 +34,13 @@ int dfn[MAXN];
 int seg[MAXN];
 int cntd = 0;
 
-//�߶���
-int sum[MAXN << 2];//�������ܹ��ж�������ɫ
-int lcolor[MAXN << 2];//�����������ɫ
-int rcolor[MAXN << 2];//�������Ҷ���ɫ
-// change���߶�������������Ϣ
-// change[i] == 0 ����û����������Ϣ
-// change[i] != 0 ������ɫ����Ϊchange[i]
+//线段树
+int sum[MAXN << 2];//区间上总共有多少种颜色
+int lcolor[MAXN << 2];//区间最左端颜色
+int rcolor[MAXN << 2];//区间最右端颜色
+// change是线段树的懒更新信息
+// change[i] == 0 代表没有懒更新信息
+// change[i] != 0 代表颜色重置为change[i]
 int change[MAXN << 2];
 
 void addEdge(int u, int v) {
@@ -48,7 +49,7 @@ void addEdge(int u, int v) {
     head[u] = cntg;
 }
 
-//�����ʷֺ���
+//树链剖分函数
 void dfs1(int u, int f) {
     fa[u] = f;
     dep[u] = dep[f] + 1;
@@ -86,10 +87,11 @@ void dfs2(int u, int t) {
     }
 }
 
-//�߶�������
+//线段树函数
 void up(int i) {
     sum[i] = sum[i << 1] + sum[i << 1 | 1];
     if (rcolor[i << 1] == lcolor[i << 1 | 1]) {
+        //如果衔接处颜色一样  那么总的颜色种类减少一个
     	sum[i]--;
     }
     lcolor[i] = lcolor[i << 1];
@@ -154,14 +156,14 @@ int query(int jobl, int jobr, int l, int r, int i) {
         int ans = query(jobl, jobr, l, mid, i << 1)
                 + query(jobl, jobr, mid + 1, r, i << 1 | 1);
         if (rcolor[i << 1] == lcolor[i << 1 | 1]) {
-            //����󲿷ֵ��Ҷ���ɫ���Ҳ��������ɫһ�� ��ô�����һ
+            //如果左部分的右端颜色和右部分左端颜色一样 那么种类减一
             ans--;
         }
         return ans;
     }
 }
 
-// ��ѯ������ɫ��jobiΪ�ڵ��dfn���
+// 查询单点颜色，jobi为节点的dfn序号
 int pointColor(int jobi, int l, int r, int i) {
     if (l == r) {
         return lcolor[i];
@@ -203,12 +205,12 @@ int pathColors(int x, int y) {
             x = fa[top[x]];
         }
         if (sonc == fac) {
-            //��������νӵ���ɫ��ͬ ��ô�𰸼�һ
+            //如果两个衔接点颜色相同 那么答案减一
             ans--;
         }
     }
     ans += query(min(dfn[x], dfn[y]), max(dfn[x], dfn[y]), 1, n, 1);
-    //�����ͬһ��������  ��ô���ÿ��Ǽ�һ  ֮ǰ�Ѿ�������
+    //如果在同一条重链上  那么不用考虑减一  
     return ans;
 }
 

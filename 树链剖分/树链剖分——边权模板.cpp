@@ -1,34 +1,34 @@
-// ���Ҽ�ѵ�����Σ�C++��
-// һ����n���ڵ㣬�ڵ��Ŵ�0��n-1�����нڵ�����һ����
-// ����n-1���ߣ��ߵı�Ŵ�1��n-1��ÿ���߸�����ʼ��Ȩ
-// һ����m��������ÿ������������������5�������е�һ��
-// ���� C x y   : ��x���ߵı�Ȩ�ĳ�y
-// ���� N x y   : x�ŵ㵽y�ŵ��·���ϣ����б�Ȩ����෴��
-// ���� SUM x y : x�ŵ㵽y�ŵ��·���ϣ���ѯ���б�Ȩ���ۼӺ�
-// ���� MAX x y : x�ŵ㵽y�ŵ��·���ϣ���ѯ���б�Ȩ�����ֵ
-// ���� MIN x y : x�ŵ㵽y�ŵ��·���ϣ���ѯ���б�Ȩ����Сֵ
-// 1 <= n��m <= 2 * 10^5
-// -1000 <= �κ�ʱ��ı�Ȩ <= +1000
-// �������� : https://www.luogu.com.cn/problem/P1505
-// ����ʵ����C++�İ汾��C++�汾��java�汾�߼���ȫһ��
-// �ύ���´��룬����ͨ�����в�������
+// 国家集训队旅游，C++版
+// 一共有n个节点，节点编号从0到n-1，所有节点连成一棵树
+// 给定n-1条边，边的编号从1到n-1，每条边给定初始边权
+// 一共有m条操作，每条操作的类型是如下5种类型中的一种
+// 操作 C x y   : 第x条边的边权改成y
+// 操作 N x y   : x号点到y号点的路径上，所有边权变成相反数
+// 操作 SUM x y : x号点到y号点的路径上，查询所有边权的累加和
+// 操作 MAX x y : x号点到y号点的路径上，查询所有边权的最大值
+// 操作 MIN x y : x号点到y号点的路径上，查询所有边权的最小值
+// 1 <= n、m <= 2 * 10^5
+// -1000 <= 任何时候的边权 <= +1000
+// 测试链接 : https://www.luogu.com.cn/problem/P1505
+// 如下实现是C++的版本，C++版本和java版本逻辑完全一样
+// 提交如下代码，可以通过所有测试用例
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 200001;
 
 int n, m;
-// arr[i][0] : ��i���ߵ�����һ��
-// arr[i][1] : ��i���ߵ�����һ��
-// arr[i][2] : ��i���ߵĳ�ʼ��Ȩ
+// arr[i][0] : 第i条边的其中一点
+// arr[i][1] : 第i条边的另外一点
+// arr[i][2] : 第i条边的初始边权
 int arr[MAXN][3];
 
-// ��ʽǰ����
+// 链式前向星
 int head[MAXN];
 int nxt[MAXN << 1];
 int to[MAXN << 1];
 int cntg = 0;
 
-// �����ʷ�
+// 重链剖分
 int fa[MAXN];
 int dep[MAXN];
 int siz[MAXN];
@@ -37,7 +37,7 @@ int top[MAXN];
 int dfn[MAXN];
 int cntd = 0;
 
-// �߶���
+// 线段树
 int sumv[MAXN << 2];
 int maxv[MAXN << 2];
 int minv[MAXN << 2];
@@ -92,7 +92,7 @@ void up(int i) {
     minv[i] = min(minv[l], minv[r]);
 }
 
-//���ڵ�i����Ϣȡ��
+//将节点i的信息取反
 void lazy(int i) {
     sumv[i] = -sumv[i];
     int tmp = maxv[i];
@@ -124,7 +124,7 @@ void update(int jobi, int jobv, int l, int r, int i) {
     }
 }
 
-//��jobl��jobr�Ľڵ�Ȩֵȫ��ȡ��
+//将jobl到jobr的节点权值全部取反
 void negative(int jobl, int jobr, int l, int r, int i) {
     if (jobl <= l && r <= jobr) {
         lazy(i);
@@ -189,7 +189,7 @@ int queryMin(int jobl, int jobr, int l, int r, int i) {
     return ans;
 }
 
-//����һ����Ȩ  ���Ǹ���һ����ĵ�Ȩ
+//更新一条边权  就是更新一个点的点权
 void edgeUpdate(int ei, int val) {
     int x = arr[ei][0];
     int y = arr[ei][1];
@@ -197,7 +197,7 @@ void edgeUpdate(int ei, int val) {
     update(downx, val, 1, n, 1);
 }
 
-//��x��y��֮���·��ȡ��
+//将x到y的之间的路径取反
 void pathNegative(int x, int y) {
     while (top[x] != top[y]) {
         if (dep[top[x]] <= dep[top[y]]) {
@@ -208,11 +208,11 @@ void pathNegative(int x, int y) {
             x = fa[top[x]];
         }
     }
-    //lca���ܶ�
+    //lca不能动
     negative(min(dfn[x], dfn[y]) + 1, max(dfn[x], dfn[y]), 1, n, 1);
 }
 
-//��x��y��֮���·��Ȩֵ��
+//求x到y的之间的路径权值和
 int pathSum(int x, int y) {
     int ans = 0;
     while (top[x] != top[y]) {
@@ -224,12 +224,12 @@ int pathSum(int x, int y) {
             x = fa[top[x]];
         }
     }
-    //lca���ܶ�
+    //lca不能动
     ans += querySum(min(dfn[x], dfn[y]) + 1, max(dfn[x], dfn[y]), 1, n, 1);
     return ans;
 }
 
-//��x��y��֮���·��Ȩֵ���ֵ
+//求x到y的之间的路径权值最大值
 int pathMax(int x, int y) {
     int ans = INT_MIN;
     while (top[x] != top[y]) {
@@ -241,12 +241,12 @@ int pathMax(int x, int y) {
             x = fa[top[x]];
         }
     }
-    //lca���ܶ�
+    //lca不能动
     ans = max(ans, queryMax(min(dfn[x], dfn[y]) + 1, max(dfn[x], dfn[y]), 1, n, 1));
     return ans;
 }
 
-//��x��y��֮���·��Ȩֵ��Сֵ
+//求x到y的之间的路径权值最小值
 int pathMin(int x, int y) {
     int ans = INT_MAX;
     while (top[x] != top[y]) {
@@ -258,7 +258,7 @@ int pathMin(int x, int y) {
             x = fa[top[x]];
         }
     }
-    //lca���ܶ�
+    //lca不能动
     ans = min(ans, queryMin(min(dfn[x], dfn[y]) + 1, max(dfn[x], dfn[y]), 1, n, 1));
     return ans;
 }

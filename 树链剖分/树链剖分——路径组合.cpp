@@ -1,30 +1,33 @@
-// ���Σ�C++��
-// һ����n�����У�����n-1���ߣ���������һ������ÿ�����и�����ʼ�ı�ʯ�۸�
-// һ����m��������������������
-// ���� x y v : ����x������y�����·;�У������ѡ��һ�����뱦ʯ
-//              �����н��Ĺ����У���ѡһ��������ʯ���Դ˻������
-//              ��ӡ���ܻ�õ�����������Ϊ��������ӡ0
-//              ���������;����;���г��еı�ʯ�۸�����v
-// 1 <= n��m <= 5 * 10^4
-// 0 <= �κ�ʱ��ı�ʯ�۸� <= 10^9
-// �������� : https://www.luogu.com.cn/problem/P3976
-// ����ʵ����C++�İ汾��C++�汾��java�汾�߼���ȫһ��
-// �ύ���´��룬����ͨ�����в�������
+// 旅游，C++版
+// 一共有n个城市，给定n-1条边，城市连成一棵树，每个城市给定初始的宝石价格
+// 一共有m条操作，操作类型如下
+// 操作 x y v : 城市x到城市y的最短路途中，你可以选择一城买入宝石
+//              继续行进的过程中，再选一城卖出宝石，以此获得利润
+//              打印你能获得的最大利润，如果为负数，打印0
+//              当你结束旅途后，沿途所有城市的宝石价格增加v
+// 1 <= n、m <= 5 * 10^4
+// 0 <= 任何时候的宝石价格 <= 10^9
+// 测试链接 : https://www.luogu.com.cn/problem/P3976
+// 如下实现是C++的版本，C++版本和java版本逻辑完全一样
+// 提交如下代码，可以通过所有测试用例
+//这道题看着很有难度  但是如果仅仅只是线段树的话  其实也就是中等难度
+//结合一下重链剖分  问题也就迎刃而解
+//关键是如何将重链剖分所需要的信息统计出来
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 50001;
 const int INF  = 1000000001;
 
 int n, m;
-int arr[MAXN];//��ʼʱ��ɫ����
+int arr[MAXN];//初始时颜色种类
 
-//��ʽǰ����
+//链式前向星
 int head[MAXN];
 int nxt[MAXN << 1];
 int to[MAXN << 1];
 int cntg = 0;
 
-//�����ʷ�
+//树链剖分
 int fa[MAXN];
 int dep[MAXN];
 int siz[MAXN];
@@ -34,12 +37,12 @@ int dfn[MAXN];
 int seg[MAXN];
 int cntd = 0;
 
-//�߶���
-int maxv[MAXN << 2];//�������ֵ
-int minv[MAXN << 2];//������Сֵ
-int lprofit[MAXN << 2];//�����з�������  ����Ǵ������������
-int rprofit[MAXN << 2];//�����з�������  ����Ǵ��ҵ����������
-// �߶�����Χ���ӵ���������Ϣ
+//线段树
+int maxv[MAXN << 2];//区间最大值
+int minv[MAXN << 2];//区间最小值
+int lprofit[MAXN << 2];//由于有方向问题  这个是从左到右最大利润
+int rprofit[MAXN << 2];//由于有方向问题  这个是从右到左最大利润
+// 线段树范围增加的懒更新信息
 int addTag[MAXN << 2];
 
 void addEdge(int u, int v) {
@@ -135,15 +138,15 @@ void add(int jobl, int jobr, int jobv, int l, int r, int i) {
     }
 }
 
-// ans[0] : �߶�������ಿ�ֵ�max
-// ans[1] : �߶�������ಿ�ֵ�min
-// ans[2] : �߶�������ಿ�ֵ�lprofit
-// ans[3] : �߶�������ಿ�ֵ�rprofit
-// rmax : �߶������Ҳಿ�ֵ�max
-// rmin : �߶������Ҳಿ�ֵ�min
-// rlpro : �߶������Ҳಿ�ֵ�lprofit
-// rrpro : �߶������Ҳಿ�ֵ�rprofit
-// ��ಿ�ֺ��Ҳಿ�ֵ���Ϣ������һ��õ�������Χ��max��min��lprofit��rprofit
+// ans[0] : 线段树更左侧部分的max
+// ans[1] : 线段树更左侧部分的min
+// ans[2] : 线段树更左侧部分的lprofit
+// ans[3] : 线段树更左侧部分的rprofit
+// rmax : 线段树更右侧部分的max
+// rmin : 线段树更右侧部分的min
+// rlpro : 线段树更右侧部分的lprofit
+// rrpro : 线段树更右侧部分的rprofit
+// 左侧部分和右侧部分的信息整合在一起得到整个范围的max、min、lprofit、rprofit
 void merge(int ans[], int rmax, int rmin, int rlpro, int rrpro) {
     int lmax  = ans[0];
     int lmin  = ans[1];
@@ -153,12 +156,12 @@ void merge(int ans[], int rmax, int rmin, int rlpro, int rrpro) {
     ans[1] = min(lmin, rmin);
     ans[2] = max({llpro, rlpro, rmax - lmin});
     ans[3] = max({lrpro, rrpro, lmax - rmin});
-    //��up��������Ϣ��Ϸ�ʽһ��
+    //和up函数的信息组合方式一样
 }
 
 void query(int ans[], int jobl, int jobr, int l, int r, int i) {
     if (jobl <= l && r <= jobr) {
-        //����ǰ�ռ�����Ϣ��Ŀǰ����Ϣ�ϲ�  ��ǰ����Ϣ�϶�����ಿ�ֵ���Ϣ
+        //将以前收集的信息和目前的信息合并  以前的信息肯定是左侧部分的信息
         merge(ans, maxv[i], minv[i], lprofit[i], rprofit[i]);
     } else {
         down(i);
@@ -172,17 +175,17 @@ void query(int ans[], int jobl, int jobr, int l, int r, int i) {
     }
 }
 
-// ans[0] : �߶�������ಿ�ֵ�max
-// ans[1] : �߶�������ಿ�ֵ�min
-// ans[2] : �߶�������ಿ�ֵ�lprofit
-// ans[3] : �߶�������ಿ�ֵ�rprofit
-// �����߶�����ѯ��չ�������и��Ҳ��ֵ���Ϣ���Ͻ�ans���������ϳ�������Ϣ
+// ans[0] : 线段树更左侧部分的max
+// ans[1] : 线段树更左侧部分的min
+// ans[2] : 线段树更左侧部分的lprofit
+// ans[3] : 线段树更左侧部分的rprofit
+// 随着线段树查询的展开，会有更右部分的信息整合进ans，最终整合出整体信息
 void query(int ans[], int jobl, int jobr) {
     ans[0] = -INF;
     ans[1] =  INF;
     ans[2] =  0;
     ans[3] =  0;
-    //��ʼʱ��ans����  ���ֵ����Ϊ��Сֵ  ��Сֵ����Ϊ�ϴ�ֵ  ������������Ϊ0  �����������
+    //初始时将ans数组  最大值设置为较小值  最小值设置为较大值  左右利润都设置为0  方便后来覆盖
     query(ans, jobl, jobr, 1, n, 1);
 }
 
@@ -196,14 +199,14 @@ void clone(int *a, int *b) {
 int compute(int x, int y, int v) {
     int tmpx = x;
     int tmpy = y;
-    int xpath[4] = {-INF, INF, 0, 0};//�ռ�x��lca����Ϣ
-    int ypath[4] = {-INF, INF, 0, 0};//�ռ�y��lca����Ϣ
+    int xpath[4] = {-INF, INF, 0, 0};//收集x到lca的信息
+    int ypath[4] = {-INF, INF, 0, 0};//收集y到lca的信息
     int cur[4];
     while (top[x] != top[y]) {
         if (dep[top[x]] <= dep[top[y]]) {
-            query(cur, dfn[top[y]], dfn[y]);//����ѯ����Ϣ�͵�cur������
-            merge(cur, ypath[0], ypath[1], ypath[2], ypath[3]);//��ypath����Ϣ���ܵ�cur��  ��Ϊcur�����
-            clone(ypath, cur);//�ٽ�cur��Ϣ�ͻص�ypath
+            query(cur, dfn[top[y]], dfn[y]);//将查询的信息送到cur数组中
+            merge(cur, ypath[0], ypath[1], ypath[2], ypath[3]);//将ypath的信息汇总到cur中  因为cur在左侧
+            clone(ypath, cur);//再将cur信息送回到ypath
             y = fa[top[y]];
         } else {
             query(cur, dfn[top[x]], dfn[x]);
@@ -212,7 +215,7 @@ int compute(int x, int y, int v) {
             x = fa[top[x]];
         }
     }
-    //���ݽڵ������ж����һ��������һ����
+    //根据节点的深度判断最后一段属于那一部分
     if (dep[x] <= dep[y]) {
         query(cur, dfn[x], dfn[y]);
         merge(cur, ypath[0], ypath[1], ypath[2], ypath[3]);
@@ -222,10 +225,10 @@ int compute(int x, int y, int v) {
         merge(cur, xpath[0], xpath[1], xpath[2], xpath[3]);
         clone(xpath, cur);
     }
-    //ʵ����x��lca�Ǵ��ҵ���Ĺ���  lca��y�Ǵ�����
+    //实际上x到lca是从右到左的过程  lca到y是从左到右
     int ans = max({xpath[3], ypath[2], ypath[0] - xpath[1]});
 
-    //�������ϵ�Ȩֵ������ĿҪ�����v
+    //将区间上的权值按照题目要求加上v
     x = tmpx;
     y = tmpy;
     while (top[x] != top[y]) {

@@ -1,16 +1,16 @@
-// ����ë������C++��
-// һ����n���ڵ㣬�ڵ��Ŵ�1��n�����нڵ�����һ����
-// ����n-1���ߣ��ߵı�Ŵ�1��n-1��ÿ���߸�����ʼ��Ȩ
-// ��������ɴβ�����ÿ������������������4�������е�һ��
-// ���� Change x v  : ��x���ߵı�Ȩ�ĳ�v
-// ���� Cover x y v : x�ŵ㵽y�ŵ��·���ϣ����б�Ȩ�ĳ�v
-// ���� Add x y v   : x�ŵ㵽y�ŵ��·���ϣ����б�Ȩ����v
-// ���� Max x y     : x�ŵ㵽y�ŵ��·���ϣ���ӡ���ı�Ȩ
+// 月下毛景树，C++版
+// 一共有n个节点，节点编号从1到n，所有节点连成一棵树
+// 给定n-1条边，边的编号从1到n-1，每条边给定初始边权
+// 会进行若干次操作，每条操作的类型是如下4种类型中的一种
+// 操作 Change x v  : 第x条边的边权改成v
+// 操作 Cover x y v : x号点到y号点的路径上，所有边权改成v
+// 操作 Add x y v   : x号点到y号点的路径上，所有边权增加v
+// 操作 Max x y     : x号点到y号点的路径上，打印最大的边权
 // 1 <= n <= 10^5
-// �κ�ʱ��ı�Ȩ <= 10^9
-// �������� : https://www.luogu.com.cn/problem/P4315
-// ����ʵ����C++�İ汾��C++�汾��java�汾�߼���ȫһ��
-// �ύ���´��룬����ͨ�����в�������
+// 任何时候的边权 <= 10^9
+// 测试链接 : https://www.luogu.com.cn/problem/P4315
+// 如下实现是C++的版本，C++版本和java版本逻辑完全一样
+// 提交如下代码，可以通过所有测试用例
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 100001;
@@ -33,9 +33,9 @@ int cntd = 0;
 
 int maxv[MAXN << 2];
 int addTag[MAXN << 2];
-bool updateTag[MAXN << 2];//�Ƿ���������ź�
-int change[MAXN << 2];//������������ź�  ��ô����Ϊʲôֵ
-//�����Ϣ����Ҫ�����������洢  ��Ϊ���ܻ��Ϊ�κ�ֵ  ����0 -1��
+bool updateTag[MAXN << 2];//是否存在重置信号
+int change[MAXN << 2];//如果存在重置信号  那么将改为什么值
+//这个信息必须要两个数组来存储  因为可能会改为任何值  比如0 -1等
 
 void addEdge(int u, int v) {
     nxt[++cntg] = head[u];
@@ -90,7 +90,7 @@ void addLazy(int i, int v) {
 
 void updateLazy(int i, int v) {
     maxv[i] = v;
-    addTag[i] = 0;//����ʱ��add��Ϣ��Ϊ0
+    addTag[i] = 0;//重置时将add信息改为0
     updateTag[i] = true;
     change[i] = v;
 }

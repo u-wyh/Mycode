@@ -1,25 +1,25 @@
-// ��Ȩת��Ϊ��Ȩ��ģ���⣬C++��
-// һ����n���ڵ㣬����n-1���ߣ��ڵ�����һ��������ʼʱ���бߵ�ȨֵΪ0
-// һ����m��������ÿ������������2�������е�һ��
-// ���� P x y : x��y��·���ϣ�ÿ���ߵ�Ȩֵ����1
-// ���� Q x y : x��y��֤��ֱ�����ӵģ���ѯ����֮��ı�Ȩ
-// 1 <= n��m <= 10^5
-// �������� : https://www.luogu.com.cn/problem/P3038
-// ����ʵ����C++�İ汾��C++�汾��java�汾�߼���ȫһ��
-// �ύ���´��룬����ͨ�����в�������
+// 边权转化为点权的模版题，C++版
+// 一共有n个节点，给定n-1条边，节点连成一棵树，初始时所有边的权值为0
+// 一共有m条操作，每条操作是如下2种类型中的一种
+// 操作 P x y : x到y的路径上，每条边的权值增加1
+// 操作 Q x y : x和y保证是直接连接的，查询他们之间的边权
+// 1 <= n、m <= 10^5
+// 测试链接 : https://www.luogu.com.cn/problem/P3038
+// 如下实现是C++的版本，C++版本和java版本逻辑完全一样
+// 提交如下代码，可以通过所有测试用例
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 100001;
 
 int n, m;
 
-// ��ʽǰ����
+// 链式前向星
 int head[MAXN];
 int nxt[MAXN << 1];
 int to[MAXN << 1];
 int cntg = 0;
 
-// �����ʷ�
+// 重链剖分
 int fa[MAXN];
 int dep[MAXN];
 int siz[MAXN];
@@ -28,7 +28,7 @@ int top[MAXN];
 int dfn[MAXN];
 int cntd = 0;
 
-// �߶���
+// 线段树
 int sum[MAXN << 2];
 int addTag[MAXN << 2];
 
@@ -91,14 +91,14 @@ void down(int i, int ln, int rn) {
     }
 }
 
-// ��Χ����
+// 范围增加
 void add(int jobl, int jobr, int jobv, int l, int r, int i) {
-    //������һ���ܺõķ��� ���Ǵ��ڿ�����jobl>jobr  ������������ԺܺõĽ��
-    //���jobl>jobr  ��ôһ����jobl=jobr+1  ����lһ��С�ڵ���r  ����jobl <= l && r <= jobrһ��������
-    //��ô����else�� ���jobl<=mid ��ôjobrһ��С��mid  ���jobr>mid  ��ôjoblһ������mid  
-    //��������Խ���add�����еݹ� ��ôһ��ֻ�ܽ���һ���ݹ�
-    //���ϵݹ� ����һ��������  jobl>mid&&jobr<=mid  �����Ҳ��ֶ��޷�����
-    //���յĽ������  �������� һ�������㲻��  ���޼�����
+    //这里存在可能性jobl>jobr  有一个很好的方法可以解决
+    //如果jobl>jobr  那么一定有jobl=jobr+1  并且l一定小于等于r  所以jobl <= l && r <= jobr一定不成立
+    //那么进入else中 如果jobl<=mid 那么jobr一定小于mid  如果jobr>mid  那么jobl一定大于mid  
+    //即如果可以进入add函数中递归 那么一定只能进入一个递归
+    //不断递归 最终一定会满足  jobl>mid&&jobr<=mid  即左右部分都无法进入
+    //最终的结果就是  两个条件 一个都满足不了  即无疾而终
     if (jobl <= l && r <= jobr) {
         lazy(i, jobv, r - l + 1);
     } else {
@@ -114,7 +114,7 @@ void add(int jobl, int jobr, int jobv, int l, int r, int i) {
     }
 }
 
-// �����ѯ
+// 单点查询
 int query(int jobi, int l, int r, int i) {
     if (l == r) {
         return sum[i];
@@ -128,9 +128,9 @@ int query(int jobi, int l, int r, int i) {
     }
 }
 
-// x��y��·���ϣ�ÿ���ߵı�Ȩ����·���ĵ�Ȩ
-// ÿ���ߵı�Ȩ����v���������ɵ�ĵ�Ȩ����v
-// ����Ҫע�⣡x��y����͹������ȣ��������ӵ�Ȩ��
+// x到y的路径上，每条边的边权变成下方点的点权
+// 每条边的边权增加v，就是若干点的点权增加v
+// 但是要注意！x和y的最低公共祖先，不能增加点权！
 void pathAdd(int x, int y, int v) {
     while (top[x] != top[y]) {
         if (dep[top[x]] <= dep[top[y]]) {
@@ -141,11 +141,11 @@ void pathAdd(int x, int y, int v) {
             x = fa[top[x]];
         }
     }
-    // x��y����͹������ȣ���Ȩ�����ӣ�
+    // x和y的最低公共祖先，点权不增加！
     add(min(dfn[x], dfn[y]) + 1, max(dfn[x], dfn[y]), v, 1, n, 1);
 }
 
-// ����x��y֮�������ߵı�Ȩ
+// 返回x和y之间这条边的边权
 int edgeQuery(int x, int y) {
     int down = max(dfn[x], dfn[y]);
     return query(down, 1, n, 1);

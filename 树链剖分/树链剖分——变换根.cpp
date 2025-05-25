@@ -1,14 +1,22 @@
-// ңԶ�Ĺ��ȣ�C++��
-// һ����n���ڵ㣬����n-1���ߣ��ڵ�����һ�������������ĳ�ʼͷ�ڵ㣬����ÿ����ĵ�Ȩ
-// һ����m��������ÿ�ֲ���������3�������е�һ��
-// ���� 1 x     : ����ͷ�ڵ���x����������Ҫ������֯
-// ���� 2 x y v : x��y��·���ϣ����нڵ��ֵ�ĳ�v
-// ���� 3 x     : �ڵ�ǰ����״̬�£���ӡu�������е���Сֵ
-// 1 <= n��m <= 10^5
-// �κ�ʱ��ڵ�ֵһ��������
-// �������� : https://www.luogu.com.cn/problem/P3979
-// ����ʵ����C++�İ汾��C++�汾��java�汾�߼���ȫһ��
-// �ύ���´��룬����ͨ�����в�������
+// 遥远的国度，C++版
+// 一共有n个节点，给定n-1条边，节点连成一棵树，给定树的初始头节点，给定每个点的点权
+// 一共有m条操作，每种操作是如下3种类型中的一种
+// 操作 1 x     : 树的头节点变成x，整棵树需要重新组织
+// 操作 2 x y v : x到y的路径上，所有节点的值改成v
+// 操作 3 x     : 在当前树的状态下，打印x的子树中的最小值
+// 1 <= n、m <= 10^5
+// 任何时候节点值一定是正数
+// 测试链接 : https://www.luogu.com.cn/problem/P3979
+// 如下实现是C++的版本，C++版本和java版本逻辑完全一样
+// 提交如下代码，可以通过所有测试用例
+//这道题的分析特别巧妙  如果我们按照题目要求进行换根  那么时间不允许
+//那么我们就始终以节点1作为根节点建图  当然要标记各个时刻题目要求的根节点
+//那么其实这样做  操作二是不受影响的  关键是类型三的操作
+//我们分情况考虑  
+//1.如果x就是此时的根节点 那么答案就是所有节点中权值最小的
+//2.如果不是根节点  同时在以1为根的结构中 此时的根节点不是x子树上的点  那么其实x子树上的答案就是这个结构上的答案
+//3.如果不是根节点  同时在以1为根的结构中 此时的根节点是x子树上的点  
+//  那么找到这个根节点是x的那个儿子的子树中的节点  答案就是除了这个儿子以外的所有节点权值最小值
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 100001;
@@ -31,10 +39,10 @@ int seg[MAXN];
 int cntd = 0;
 
 int minv[MAXN << 2];
-// ���ò�������������Ϣ
-// ��Ϊ��Ŀ˵�ˣ��κ�ʱ��ڵ�ֵһ��������
-// change[i] == 0����ʾû������������
-// change[i] != 0����ʾ��Χ�ڵ������޸�Ϊchange[i]
+// 重置操作的懒更新信息
+// 因为题目说了，任何时候节点值一定是正数
+// change[i] == 0，表示没有重置懒更新
+// change[i] != 0，表示范围内的数字修改为change[i]
 int change[MAXN << 2];
 
 void addEdge(int u, int v) {
@@ -154,33 +162,33 @@ void pathUpdate(int x, int y, int v) {
     update(min(dfn[x], dfn[y]), max(dfn[x], dfn[y]), v, 1, n, 1);
 }
 
-// ��֪rootһ����u��������
-// �ҵ�u�ĸ����ӵ���������root�������Ǹ����ӵı��
+// 已知root一定在u的子树上
+// 找到u哪个儿子的子树里有root，返回那个儿子的编号
 int findSon(int root, int u) {
     while (top[root] != top[u]) {
         if (fa[top[root]] == u) {
-            //�����νӵĽڵ�  �������
+            //返回衔接的节点  即轻儿子
             return top[root];
         }
         root = fa[top[root]];
     }
     return son[u];
-    //���������һ��������  ��ô�����ض���
+    //如果最终在一条重链上  那么返回重儿子
 }
 
-// ��������ͷ�ڵ���root���ڵ�ǰ����״̬�£���ѯu�������е���Сֵ
+// 假设树的头节点变成root，在当前树的状态下，查询u的子树中的最小值
 int treeQuery(int root, int u) {
     if (root == u) {
-        //���Ҫ��ѯ�ĵ����root  ��ôҪ��ѯ���൱��������������Сֵ
-        //����ֱ�ӷ���minv[1]  Ч��һ��
+        //如果要查询的点就是root  那么要查询的相当于是整棵树上最小值
+        //所以直接返回minv[1]  效果一样
         return minv[1];
     } else if (dfn[root] < dfn[u] || dfn[u] + siz[u] <= dfn[root]) {
-        //���root����1Ϊ���������  ����u�������ϵĵ� ��ô��ʵ�Դ�û��ʲôӰ��
-        //����1Ϊ��ʱ��u����������Сֵ һ��
+        //如果root在以1为根的情况下  不是u的子树上的点 那么其实对答案没有什么影响
+        //和以1为根时的u的子树上最小值 一样
         return query(dfn[u], dfn[u] + siz[u] - 1, 1, n, 1);
     } else {
-        //ʣ�µ����������ʾ����rootһ����u�������ϵĵ�
-        //uson��ʾroot��u���Ǹ����������ϵĵ�
+        //剩下的这种情况表示的是root一定是u的子树上的点
+        //uson表示root是u的那个儿子子树上的点
         int uson = findSon(root, u);
         int ans = INT_MAX;
         if (1 <= dfn[uson] - 1) {
@@ -209,7 +217,7 @@ int main() {
     dfs1(1, 0);
     dfs2(1, 1);
     build(1, n, 1);
-    //���ǲ���root�ڵ���ô�仯  ��ֱ����Ϊ1��ͷ���
+    //我们不管root节点怎么变化  就直接认为1是头结点
     int root;
     cin >> root;
     for (int i = 1, op, x, y, v; i <= m; i++) {
