@@ -1,23 +1,23 @@
-// Á¬Ðø½×³ËÄæÔªµÄÏßÐÔµÝÍÆ
-// ÊµÏÖ×éºÏ¹«Ê½C(n,m)µÄ¼ÆËã
-// ×îÖÕ½á¹û % 1000000007ºó·µ»Ø
+// è¿žç»­é˜¶ä¹˜é€†å…ƒçš„çº¿æ€§é€’æŽ¨
+// å®žçŽ°ç»„åˆå…¬å¼C(n,m)çš„è®¡ç®—
+// æœ€ç»ˆç»“æžœ % 1000000007åŽè¿”å›ž
 // 0 <= m <= n <= 1000
-// ¶ÔÊýÆ÷ÑéÖ¤
+// å¯¹æ•°å™¨éªŒè¯
 #include <bits/stdc++.h>
 using namespace std;
 
 const int MOD = 1000000007;
 const int LIMIT = 1000;
 
-// ½×³Ë±í
-// fac[i] ´ú±í i! ÔÚ %MOD ÒâÒåÏÂµÄÓàÊý
+// é˜¶ä¹˜è¡¨
+// fac[i] ä»£è¡¨ i! åœ¨ %MOD æ„ä¹‰ä¸‹çš„ä½™æ•°
 long long fac[LIMIT + 1];
 
-// ½×³Ë½á¹ûµÄÄæÔª±í
-// inv[i] ´ú±í i! ÔÚ %MOD ÒâÒåÏÂµÄÄæÔª (1 / i!)
+// é˜¶ä¹˜ç»“æžœçš„é€†å…ƒè¡¨
+// inv[i] ä»£è¡¨ i! åœ¨ %MOD æ„ä¹‰ä¸‹çš„é€†å…ƒ (1 / i!)
 long long inv[LIMIT + 1];
 
-// ¿ìËÙÃÝº¯Êý£¬¼ÆËã x^n % MOD
+// å¿«é€Ÿå¹‚å‡½æ•°ï¼Œè®¡ç®— x^n % MOD
 long long power(long long x, int n) {
     long long ans = 1;
     while (n > 0) {
@@ -30,68 +30,68 @@ long long power(long long x, int n) {
     return ans;
 }
 
-// ³õÊ¼»¯½×³Ë±íºÍÄæÔª±í
+// åˆå§‹åŒ–é˜¶ä¹˜è¡¨å’Œé€†å…ƒè¡¨
 void build() {
-    //ÏÈÇó³ö½×³Ë±í
+    //å…ˆæ±‚å‡ºé˜¶ä¹˜è¡¨
     fac[0] = 1; // 0! = 1
     for (int i = 1; i <= LIMIT; i++) {
         fac[i] = (fac[i - 1] * i) % MOD;
     }
 
-    // ÀûÓÃÏßÐÔµÝÍÆÓÅ»¯¼ÆËãÄæÔª
-    inv[LIMIT] = power(fac[LIMIT], MOD - 2);//Çó³ö×îºóÒ»¸öÊý×ÖµÄ½×³ËÄæÔª
+    // åˆ©ç”¨çº¿æ€§é€’æŽ¨ä¼˜åŒ–è®¡ç®—é€†å…ƒ
+    inv[LIMIT] = power(fac[LIMIT], MOD - 2);//æ±‚å‡ºæœ€åŽä¸€ä¸ªæ•°å­—çš„é˜¶ä¹˜é€†å…ƒ
     for (int i = LIMIT - 1; i >= 0; i--) {
-        inv[i] = (inv[i + 1] * (i + 1)) % MOD;//ÏßÐÔµÝÍÆ
+        inv[i] = (inv[i + 1] * (i + 1)) % MOD;//çº¿æ€§é€’æŽ¨
     }
 }
 
-// ×éºÏ¹«Ê½ C(n, m) % MOD
-// Ê¹ÓÃ½×³Ë±íºÍÄæÔª±í
+// ç»„åˆå…¬å¼ C(n, m) % MOD
+// ä½¿ç”¨é˜¶ä¹˜è¡¨å’Œé€†å…ƒè¡¨
 int c2(int n, int m) {
-    if (m > n || m < 0) return 0; // ±ß½çÌõ¼þ
+    if (m > n || m < 0) return 0; // è¾¹ç•Œæ¡ä»¶
     long long ans = fac[n];
     ans = (ans * inv[m]) % MOD;
     ans = (ans * inv[n - m]) % MOD;
     return (int)ans;
 }
 
-// ×éºÏ¹«Ê½ C(n, m) % MOD
-// Ö±½Ó¼ÆËã£¬²»Ê¹ÓÃ½×³Ë±íºÍÄæÔª±í
-//±©Á¦Ëã·¨
+// ç»„åˆå…¬å¼ C(n, m) % MOD
+// ç›´æŽ¥è®¡ç®—ï¼Œä¸ä½¿ç”¨é˜¶ä¹˜è¡¨å’Œé€†å…ƒè¡¨
+//æš´åŠ›ç®—æ³•
 int c1(int n, int m) {
-    if (m > n || m < 0) return 0; // ±ß½çÌõ¼þ
+    if (m > n || m < 0) return 0; // è¾¹ç•Œæ¡ä»¶
     long long ans = 1;
     for (int i = 1; i <= m; i++) {
         ans = (ans * (n - m + i)) % MOD;
-        ans = (ans * power(i, MOD - 2)) % MOD; // ³ËÒÔ i µÄÄæÔª
+        ans = (ans * power(i, MOD - 2)) % MOD; // ä¹˜ä»¥ i çš„é€†å…ƒ
     }
     return (int)ans;
 }
 
 int main() {
-    cout << "²âÊÔ¿ªÊ¼" << endl;
+    cout << "æµ‹è¯•å¼€å§‹" << endl;
     build();
 
-    // ²âÊÔ c1 ºÍ c2 µÄÒ»ÖÂÐÔ
+    // æµ‹è¯• c1 å’Œ c2 çš„ä¸€è‡´æ€§
     int n = 500;
     for (int m = 0; m <= n; m++) {
         int ans1 = c1(n, m);
         int ans2 = c2(n, m);
         if (ans1 != ans2) {
-            cout << "³ö´íÁË!" << endl;
+            cout << "å‡ºé”™äº†!" << endl;
         }
         else{
-            cout<<"µÚ "<<setw(3)<<m<<" ×é²âÊÔÍ¨¹ý£¡"<<endl;
+            cout<<"ç¬¬ "<<setw(3)<<m<<" ç»„æµ‹è¯•é€šè¿‡ï¼"<<endl;
         }
     }
-    cout << "²âÊÔ½áÊø" << endl;
+    cout << "æµ‹è¯•ç»“æŸ" << endl;
 
-    // ¼ÆËã C(a, b) % MOD
+    // è®¡ç®— C(a, b) % MOD
     int a = 537;
     int b = 367;
-    cout << "¼ÆËã C(" << a << ", " << b << ") % " << MOD << endl;
-    cout << "·½·¨1´ð°¸: " << c1(a, b) << endl;
-    cout << "·½·¨2´ð°¸: " << c2(a, b) << endl;
+    cout << "è®¡ç®— C(" << a << ", " << b << ") % " << MOD << endl;
+    cout << "æ–¹æ³•1ç­”æ¡ˆ: " << c1(a, b) << endl;
+    cout << "æ–¹æ³•2ç­”æ¡ˆ: " << c2(a, b) << endl;
 
     return 0;
 }

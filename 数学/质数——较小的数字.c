@@ -4,10 +4,10 @@
 #include <string.h>
 #include <inttypes.h>
 
-// ÖÊÊıÁĞ±í£¬ÓÃÓÚMiller-Rabin²âÊÔ
+// è´¨æ•°åˆ—è¡¨ï¼Œç”¨äºMiller-Rabinæµ‹è¯•
 static const int64_t p[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37};
 
-// ¿ìËÙÃİº¯Êı£¬¼ÆËã (n^p) % mod
+// å¿«é€Ÿå¹‚å‡½æ•°ï¼Œè®¡ç®— (n^p) % mod
 int64_t power(int64_t n, int64_t p, int64_t mod) {
     int64_t ans = 1;
     while (p > 0) {
@@ -20,7 +20,7 @@ int64_t power(int64_t n, int64_t p, int64_t mod) {
     return ans;
 }
 
-// Miller-Rabin²âÊÔµÄµ¥´Îµü´ú
+// Miller-Rabinæµ‹è¯•çš„å•æ¬¡è¿­ä»£
 bool witness(int64_t a, int64_t n) {
     int64_t u = n - 1;
     int t = 0;
@@ -32,17 +32,17 @@ bool witness(int64_t a, int64_t n) {
     for (int i = 1; i <= t; i++) {
         x2 = power(x1, 2, n);
         if (x2 == 1 && x1 != 1 && x1 != n - 1) {
-            return true; // n ÊÇºÏÊı
+            return true; // n æ˜¯åˆæ•°
         }
         x1 = x2;
     }
     if (x1 != 1) {
-        return true; // n ÊÇºÏÊı
+        return true; // n æ˜¯åˆæ•°
     }
-    return false; // n ¿ÉÄÜÊÇÖÊÊı
+    return false; // n å¯èƒ½æ˜¯è´¨æ•°
 }
 
-// Miller-RabinÖÊÊı²âÊÔ
+// Miller-Rabinè´¨æ•°æµ‹è¯•
 bool millerRabin(int64_t n) {
     if (n <= 2) {
         return n == 2;
@@ -61,10 +61,10 @@ bool millerRabin(int64_t n) {
 int main() {
     int t;
     scanf("%d", &t);
-    char buffer[100]; // ¼ÙÉèÊı×Ö²»»á³¬¹ı99Î»
+    char buffer[100]; // å‡è®¾æ•°å­—ä¸ä¼šè¶…è¿‡99ä½
     for (int i = 0; i < t; i++) {
         scanf("%s", buffer);
-        int64_t n = strtoll(buffer, NULL, 10); // ½«×Ö·û´®×ª»»Îªlong long
+        int64_t n = strtoll(buffer, NULL, 10); // å°†å­—ç¬¦ä¸²è½¬æ¢ä¸ºlong long
         printf("%s\n", millerRabin(n) ? "Yes" : "No");
     }
     return 0;

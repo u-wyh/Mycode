@@ -1,3 +1,15 @@
+//用于判断一个很大的数字是否是一个质数
+// Miller-Rabin测试，java版，不用BigInteger也能通过的实现
+// 这个文件课上没有讲，课上讲的是，java中的long是64位
+// 所以 long * long 需要128位才能不溢出，于是直接用BigInteger中自带的方法了
+// 但是
+// 如果a和b都是long类型，其实 a * b 的过程，用位运算去实现，中间结果都 % mod 即可
+// 这样就不需要使用BigInteger
+// 讲解033，位运算实现乘法，增加 每一步 % mod 的逻辑即可
+// 重点看一下本文件中的 multiply 方法，就是位运算实现乘法的改写
+// C++的同学也可以用这种方式来实现，也不需要定义128位的long类型
+// 测试链接 : https://www.luogu.com.cn/problem/U148828
+// 提交以下的code，提交时请把类名改成"Main"，可以通过所有测试用例
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -6,7 +18,7 @@
 
 #define MAX_TESTS 10
 
-// �����ݺ��������� (base^exp) % mod
+// 快速幂函数，计算 (base^exp) % mod
 int64_t qpow(int64_t base, int64_t exp, int64_t mod) {
     int64_t result = 1;
     while (exp > 0) {
@@ -19,7 +31,7 @@ int64_t qpow(int64_t base, int64_t exp, int64_t mod) {
     return result;
 }
 
-// Miller-Rabin��������
+// Miller-Rabin素数测试
 bool miller_rabin(int64_t n, int s) {
     if (n < 3 || n % 2 == 0) return n == 2;
 
@@ -52,7 +64,7 @@ int main() {
     int t;
     scanf("%d", &t);
 
-    char buffer[100]; // �������ֲ���̫�����������ַ�����ȡ
+    char buffer[100]; // 假设数字不会太长，足以用字符串读取
     while (t--) {
         scanf("%s", buffer);
         int64_t n = strtoll(buffer, NULL, 10);

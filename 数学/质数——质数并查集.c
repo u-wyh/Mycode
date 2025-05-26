@@ -10,7 +10,7 @@ int father[MAXN];
 int size[MAXN];
 int n;
 
-// ³õÊ¼»¯factorsÊı×éºÍ²¢²é¼¯
+// åˆå§‹åŒ–factorsæ•°ç»„å’Œå¹¶æŸ¥é›†
 void build(int arrSize) {
     memset(factors, -1, sizeof(factors));
     for (int i = 0; i < arrSize; i++) {
@@ -19,7 +19,7 @@ void build(int arrSize) {
     }
 }
 
-// ²éÕÒ¸ù½Úµã
+// æŸ¥æ‰¾æ ¹èŠ‚ç‚¹
 int find(int i) {
     if (i != father[i]) {
         father[i] = find(father[i]);
@@ -27,7 +27,7 @@ int find(int i) {
     return father[i];
 }
 
-// ºÏ²¢Á½¸ö¼¯ºÏ
+// åˆå¹¶ä¸¤ä¸ªé›†åˆ
 void unionSet(int x, int y) {
     int fx = find(x);
     int fy = find(y);
@@ -37,7 +37,7 @@ void unionSet(int x, int y) {
     }
 }
 
-// »ñÈ¡×î´ó¼¯ºÏµÄ´óĞ¡
+// è·å–æœ€å¤§é›†åˆçš„å¤§å°
 int maxSize() {
     int ans = 0;
     for (int i = 0; i < n; i++) {
@@ -48,7 +48,7 @@ int maxSize() {
     return ans;
 }
 
-// ´òÓ¡nµÄËùÓĞÖÊÒò×Ó
+// æ‰“å°nçš„æ‰€æœ‰è´¨å› å­
 void printFactors(int n) {
     for (int i = 2; i * i <= n; i++) {
         if (n % i == 0) {
@@ -63,7 +63,7 @@ void printFactors(int n) {
     }
 }
 
-// ¼ÆËã¸ø¶¨Êı×éµÄ×î´óÁ¬Í¨×é¼ş´óĞ¡
+// è®¡ç®—ç»™å®šæ•°ç»„çš„æœ€å¤§è¿é€šç»„ä»¶å¤§å°
 int largestComponentSize(int* arr, int arrSize) {
     n = arrSize;
     build(arrSize);
@@ -97,16 +97,16 @@ int largestComponentSize(int* arr, int arrSize) {
 int main() {
     int n;
     scanf("%d",&n);
-    int arr[n] ; // Ê¾ÀıÊı×é
+    int arr[n] ; // ç¤ºä¾‹æ•°ç»„
     for(int i=0;i<n;i++)
     {
         scanf("%d",&arr[i]);
     }
     int size = sizeof(arr) / sizeof(arr[0]);
     int maxSize = largestComponentSize(arr, size);
-    printf("×î´óÁ¬Í¨×é¼şµÄ´óĞ¡Îª: %d\n", maxSize);
+    printf("æœ€å¤§è¿é€šç»„ä»¶çš„å¤§å°ä¸º: %d\n", maxSize);
 
-    // ÁíÍâ£¬´òÓ¡4012100µÄËùÓĞÖÊÒò×Ó
+    // å¦å¤–ï¼Œæ‰“å°4012100çš„æ‰€æœ‰è´¨å› å­
     //printFactors(4012100);
 
     return 0;

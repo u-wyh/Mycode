@@ -1,17 +1,17 @@
-//Õâ¸öÎÄ¼þÖÐÒÔÏÂÈýÖÖÄæÔª£º
-//µ¥¸ö³ýÊýµÄÄæÔª
-//Á¬ÐøÊý×ÖµÄÄæÔª
-//Á¬ÐøÊý×Ö½×³ËÄæÔª
+//è¿™ä¸ªæ–‡ä»¶ä¸­ä»¥ä¸‹ä¸‰ç§é€†å…ƒï¼š
+//å•ä¸ªé™¤æ•°çš„é€†å…ƒ
+//è¿žç»­æ•°å­—çš„é€†å…ƒ
+//è¿žç»­æ•°å­—é˜¶ä¹˜é€†å…ƒ
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 3e5+5;
 
 int n,m,mod;
-int inv[MAXN];//Á¬ÐøÊý×ÖµÄÄæÔª
-int fac[MAXN];//Á¬ÐøÊý×ÖµÄ½×³Ë
-int facinv[MAXN];//Á¬ÐøÊý×Ö½×³ËµÄÄæÔª
+int inv[MAXN];//è¿žç»­æ•°å­—çš„é€†å…ƒ
+int fac[MAXN];//è¿žç»­æ•°å­—çš„é˜¶ä¹˜
+int facinv[MAXN];//è¿žç»­æ•°å­—é˜¶ä¹˜çš„é€†å…ƒ
 
-//³Ë·¨¿ìËÙÃÝ  ÇóaµÄb´Î·½¶ÔmodÈ¡Óà
+//ä¹˜æ³•å¿«é€Ÿå¹‚  æ±‚açš„bæ¬¡æ–¹å¯¹modå–ä½™
 long long power(long long a,long long b,long long mod){
     long long ans=1;
     while(b){
@@ -26,15 +26,15 @@ long long power(long long a,long long b,long long mod){
     return ans;
 }
 
-//µ¥¸ö³ýÊýµÄÄæÔª
-//·ÑÂíÐ¡¶¨ÀíÇó(a/b)%modµÄÖµ
+//å•ä¸ªé™¤æ•°çš„é€†å…ƒ
+//è´¹é©¬å°å®šç†æ±‚(a/b)%modçš„å€¼
 long long compute(long long a,long long b,long long mod){
-    long long inv=power(b,mod-2,mod);//ÇóbÔÚ%modµÄÇé¿öÏÂµÄÄæÔª
+    long long inv=power(b,mod-2,mod);//æ±‚båœ¨%modçš„æƒ…å†µä¸‹çš„é€†å…ƒ
     return (a*inv)%mod;
 }
 
-//Á¬ÐøÊý×ÖµÄÄæÔª
-// Ô¤¼ÆËãÄ£ÄæÔª
+//è¿žç»­æ•°å­—çš„é€†å…ƒ
+// é¢„è®¡ç®—æ¨¡é€†å…ƒ
 void build(int n) {
     inv[1] = 1;
     for (int i = 2; i <= n; i++) {
@@ -42,19 +42,19 @@ void build(int n) {
     }
 }
 
-//Á¬ÐøÊý×Ö½×³ËµÄÄæÔª
-// ³õÊ¼»¯½×³Ë±íºÍÄæÔª±í
+//è¿žç»­æ•°å­—é˜¶ä¹˜çš„é€†å…ƒ
+// åˆå§‹åŒ–é˜¶ä¹˜è¡¨å’Œé€†å…ƒè¡¨
 void build() {
-    //ÏÈÇó³ö½×³Ë±í
+    //å…ˆæ±‚å‡ºé˜¶ä¹˜è¡¨
     fac[0] = 1; // 0! = 1
     for (int i = 1; i <= n; i++) {
         fac[i] = (fac[i - 1] * i) % mod;
     }
 
-    // ÀûÓÃÏßÐÔµÝÍÆÓÅ»¯¼ÆËãÄæÔª
-    facinv[n] = power(fac[n], mod - 2,mod);//Çó³ö×îºóÒ»¸öÊý×ÖµÄ½×³ËÄæÔª
+    // åˆ©ç”¨çº¿æ€§é€’æŽ¨ä¼˜åŒ–è®¡ç®—é€†å…ƒ
+    facinv[n] = power(fac[n], mod - 2,mod);//æ±‚å‡ºæœ€åŽä¸€ä¸ªæ•°å­—çš„é˜¶ä¹˜é€†å…ƒ
     for (int i = n - 1; i >= 0; i--) {
-        facinv[i] = (facinv[i + 1] * (i + 1)) % mod;//ÏßÐÔµÝÍÆ
+        facinv[i] = (facinv[i + 1] * (i + 1)) % mod;//çº¿æ€§é€’æŽ¨
     }
 }
 
