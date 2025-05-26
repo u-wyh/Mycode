@@ -1,9 +1,9 @@
-// ͬ�෽��
-// �����x��ͬ�෽�� ax �� 1(mod b) ����С��������
-// ��Ŀ��֤һ���н⣬Ҳ����a��b����
-// 2 <= a��b <= 2 * 10^9
-// �������� : https://www.luogu.com.cn/problem/P1082
-// �ύ���µ�code���ύʱ��������ĳ�"Main"������ͨ�����в�������
+// 同余方程
+// 求关于x的同余方程 ax ≡ 1(mod b) 的最小正整数解
+// 题目保证一定有解，也就是a和b互质
+// 2 <= a、b <= 2 * 10^9
+// 测试链接 : https://www.luogu.com.cn/problem/P1082
+// 提交以下的code，提交时请把类名改成"Main"，可以通过所有测试用例
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -11,11 +11,13 @@ long long d, x, y, px, py;
 
 void exgcd(long long a, long long b) {
     if (b == 0) {
-        d = a;
+        //表示已经求出了最大公约数d      x y分别是1 0
+        d = a;//最大公约数设置为a
         x = 1;
         y = 0;
     } else {
         exgcd(b, a % b);
+        //这个过程在向上的时候逐步更新
         px = x;
         py = y;
         x = py;

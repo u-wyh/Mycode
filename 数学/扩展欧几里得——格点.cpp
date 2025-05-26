@@ -1,10 +1,10 @@
-// ¸ñµãÁ¬ÏßÉÏÓÐ¼¸¸ö¸ñµã
-// ¶þÎ¬Íø¸ñÖÐÖ»ÓÐxºÍyµÄÖµ¶¼ÎªÕûÊýµÄ×ø±ê£¬²Å½Ð¸ñµã
-// ¸ø¶¨Á½¸ö¸ñµã£¬AÔÚ(x1, y1)£¬BÔÚ(x2, y2)
-// ·µ»ØAºÍBµÄÁ¬ÏßÉÏ£¬°üÀ¨AºÍBÔÚÄÚ£¬Ò»¹²ÓÐ¼¸¸ö¸ñµã
-// -10^9 <= x1¡¢y1¡¢x2¡¢y2 <= 10^9
-// ²âÊÔÁ´½Ó : https://lightoj.com/problem/how-many-points
-// Ìá½»ÒÔÏÂµÄcode£¬Ìá½»Ê±Çë°ÑÀàÃû¸Ä³É"Main"£¬¿ÉÒÔÍ¨¹ýËùÓÐ²âÊÔÓÃÀý
+// æ ¼ç‚¹è¿žçº¿ä¸Šæœ‰å‡ ä¸ªæ ¼ç‚¹
+// äºŒç»´ç½‘æ ¼ä¸­åªæœ‰xå’Œyçš„å€¼éƒ½ä¸ºæ•´æ•°çš„åæ ‡ï¼Œæ‰å«æ ¼ç‚¹
+// ç»™å®šä¸¤ä¸ªæ ¼ç‚¹ï¼ŒAåœ¨(x1, y1)ï¼ŒBåœ¨(x2, y2)
+// è¿”å›žAå’ŒBçš„è¿žçº¿ä¸Šï¼ŒåŒ…æ‹¬Aå’ŒBåœ¨å†…ï¼Œä¸€å…±æœ‰å‡ ä¸ªæ ¼ç‚¹
+// -10^9 <= x1ã€y1ã€x2ã€y2 <= 10^9
+// æµ‹è¯•é“¾æŽ¥ : https://lightoj.com/problem/how-many-points
+// æäº¤ä»¥ä¸‹çš„codeï¼Œæäº¤æ—¶è¯·æŠŠç±»åæ”¹æˆ"Main"ï¼Œå¯ä»¥é€šè¿‡æ‰€æœ‰æµ‹è¯•ç”¨ä¾‹
 #include<bits/stdc++.h>
 using namespace std;
 

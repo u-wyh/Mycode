@@ -2,11 +2,11 @@
 
 using namespace std;
 
-// À©Õ¹Å·¼¸ÀïµÃËã·¨
-// ¶ÔÓÚ·½³Ìax + by = gcd(a,b)
-// µ±aºÍbÈ·¶¨£¬ÄÇÃ´gcd(a,b)Ò²È·¶¨
-// À©Õ¹Å·¼¸ÀïµÃËã·¨¿ÉÒÔ¸ø³öaºÍbµÄ×î´ó¹«Ô¼Êıd¡¢ÒÔ¼°ÆäÖĞÒ»¸öÌØ½âx¡¢y
-// ÌØ±ğ×¢ÒâÒª±£Ö¤Èë²ÎaºÍbÃ»ÓĞ¸ºÊı
+// æ‰©å±•æ¬§å‡ é‡Œå¾—ç®—æ³•
+// å¯¹äºæ–¹ç¨‹ax + by = gcd(a,b)
+// å½“aå’Œbç¡®å®šï¼Œé‚£ä¹ˆgcd(a,b)ä¹Ÿç¡®å®š
+// æ‰©å±•æ¬§å‡ é‡Œå¾—ç®—æ³•å¯ä»¥ç»™å‡ºaå’Œbçš„æœ€å¤§å…¬çº¦æ•°dã€ä»¥åŠå…¶ä¸­ä¸€ä¸ªç‰¹è§£xã€y
+// ç‰¹åˆ«æ³¨æ„è¦ä¿è¯å…¥å‚aå’Œbæ²¡æœ‰è´Ÿæ•°
 long long d, x, y, px, py;
 
 void exgcd(long long a, long long b) {
@@ -23,7 +23,7 @@ void exgcd(long long a, long long b) {
     }
 }
 
-// ¿ìËÙÃİËã·¨
+// å¿«é€Ÿå¹‚ç®—æ³•
 long long power(long long num, long long pow, long long mod) {
     long long ans = 1;
     while (pow > 0) {
@@ -36,32 +36,32 @@ long long power(long long num, long long pow, long long mod) {
     return ans;
 }
 
-// ·ÑÂíĞ¡¶¨Àí¼ÆËãÄæÔª
+// è´¹é©¬å°å®šç†è®¡ç®—é€†å…ƒ
 long long fermat(long long num, long long mod) {
     return power(num, mod - 2, mod);
 }
 
 int main() {
-    // À©Õ¹Å·¼¸ÀïµÃËã·¨Àı×Ó
+    // æ‰©å±•æ¬§å‡ é‡Œå¾—ç®—æ³•ä¾‹å­
     long long a = 110;
     long long b = 170;
     exgcd(a, b);
     cout << "gcd(" << a << ", " << b << ")" << " = " << d << endl;
     cout << "x = " << x << ", " << " y = " << y << endl;
 
-    // À©Õ¹Å·¼¸ÀïµÃËã·¨¿ÉÒÔÈ¥ÇóÄæÔª
-    cout << "ÇóÄæÔª²âÊÔ¿ªÊ¼" << endl;
+    // æ‰©å±•æ¬§å‡ é‡Œå¾—ç®—æ³•å¯ä»¥å»æ±‚é€†å…ƒ
+    cout << "æ±‚é€†å…ƒæµ‹è¯•å¼€å§‹" << endl;
     long long mod = 1000000007;
     long long test = 10000000;
     for (long long num = 1; num <= test; ++num) {
         exgcd(num, mod);
         x = (x % mod + mod) % mod;
         if (x != fermat(num, mod)) {
-            cout << "³ö´íÁË!" << endl;
-            break; // ¿ÉÒÔÑ¡ÔñÊÇ·ñÖĞ¶ÏÑ­»·£¬ÕâÀïÑ¡ÔñÖĞ¶ÏÒÔ±ã¿ìËÙ·¢ÏÖÎÊÌâ
+            cout << "å‡ºé”™äº†!" << endl;
+            break; // å¯ä»¥é€‰æ‹©æ˜¯å¦ä¸­æ–­å¾ªç¯ï¼Œè¿™é‡Œé€‰æ‹©ä¸­æ–­ä»¥ä¾¿å¿«é€Ÿå‘ç°é—®é¢˜
         }
     }
-    cout << "ÇóÄæÔª²âÊÔ½áÊø" << endl;
+    cout << "æ±‚é€†å…ƒæµ‹è¯•ç»“æŸ" << endl;
 
     return 0;
 }

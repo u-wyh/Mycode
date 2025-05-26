@@ -1,24 +1,23 @@
-// ϴ��
-// һ����n���ƣ�nһ����ż����ÿ���Ƶ������1��n��ϴ�ƹ�������
-// ����n = 6�������������Ϊ1 2 3 4 5 6
-// �ȷֳ����1 2 3���Ҷ�4 5 6��Ȼ�����Ҷѵ�i����ǰ����ѵ�i���ں�ķ�ʽ���η���
-// ����ϴһ�κ󣬵õ� 4 1 5 2 6 3
-// �����ϴһ�Σ��õ� 2 4 6 1 3 5
-// �����ϴһ�Σ��õ� 1 2 3 4 5 6
-// ��֪��n����ϴm�ε�֮�󣬵�l���ƣ���ʲô����
-// 1 <= n <= 10^10��nΪż��
+// 洗牌
+// 一共有n张牌，n一定是偶数，每张牌的牌面从1到n，洗牌规则如下
+// 比如n = 6，牌面最初排列为1 2 3 4 5 6
+// 先分成左堆1 2 3，右堆4 5 6，然后按照右堆第i张在前，左堆第i张在后的方式依次放置
+// 所以洗一次后，得到 4 1 5 2 6 3
+// 如果再洗一次，得到 2 4 6 1 3 5
+// 如果再洗一次，得到 1 2 3 4 5 6
+// 想知道n张牌洗m次的之后，第l张牌，是什么牌面
+// 1 <= n <= 10^10，n为偶数
 // 0 <= m <= 10^10
-// �������� : https://www.luogu.com.cn/problem/P2054
-// �ύ���µ�code���ύʱ��������ĳ�"Main"������ͨ�����в�������
+// 测试链接 : https://www.luogu.com.cn/problem/P2054
+// 提交以下的code，提交时请把类名改成"Main"，可以通过所有测试用例
 #include <iostream>
-
 using namespace std;
 
-// ��չŷ������㷨
-// ���ڷ���ax + by = gcd(a,b)
-// ��a��bȷ������ôgcd(a,b)Ҳȷ��
-// ��չŷ������㷨���Ը���a��b�����Լ��d���Լ�����һ���ؽ�x��y
-// �ر�ע��Ҫ��֤���a��bû�и���
+// 扩展欧几里得算法
+// 对于方程ax + by = gcd(a,b)
+// 当a和b确定，那么gcd(a,b)也确定
+// 扩展欧几里得算法可以给出a和b的最大公约数d、以及其中一个特解x、y
+// 特别注意要保证入参a和b没有负数
 long long d, x, y, px, py;
 
 void exgcd(long long a, long long b) {
@@ -35,13 +34,13 @@ void exgcd(long long a, long long b) {
     }
 }
 
-// ԭ�����ԣ�����033��λ����ʵ�ֳ˷�
-// a * b�Ĺ����Լ�ʵ�֣�ÿһ���м���̶�%mod
-// ��ôдĿ���Ƿ�ֹ�����Ҳ�й��ٳ�
+// 原理来自，讲解033，位运算实现乘法
+// a * b的过程自己实现，每一个中间过程都%mod
+// 这么写目的是防止溢出，也叫龟速乘
 long long multiply(long long a, long long b, long long mod) {
-	// ��Ȼ����%mod�������£���ôa��b���Զ�ת���ɷǸ���
-	// ���ⲻת������ν������������Ŀ������Ҫת��
-	// ������b��Ҫת��������whileѭ�����ܲ���
+	// 既然是在%mod的意义下，那么a和b可以都转化成非负的
+	// 本题不转化无所谓，但是其他题目可能需要转化
+	// 尤其是b需要转化，否则while循环会跑不完
 	a = (a % mod + mod) % mod;
 	b = (b % mod + mod) % mod;
 	long long ans = 0;
@@ -55,8 +54,8 @@ long long multiply(long long a, long long b, long long mod) {
 	return ans;
 }
 
-// ԭ�����ԣ�����098���˷�������
-// ����a��b�η������� % mod �Ľ��
+// 原理来自，讲解098，乘法快速幂
+// 计算a的b次方，最终 % mod 的结果
 long long power(long long a, long long b, long long mod) {
 	long ans = 1;
 	while (b > 0) {

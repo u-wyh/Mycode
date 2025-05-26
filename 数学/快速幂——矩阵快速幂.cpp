@@ -1,13 +1,13 @@
-// Çóì³²¨ÄÇÆõÊıÁĞµÚnÏî
-// ²âÊÔÁ´½Ó : https://leetcode.cn/problems/fibonacci-number/
-// Õâ¸ö²âÊÔµÄÊı¾İÁ¿Ì«Ğ¡£¬²¢ÇÒ²»Ç£³¶È¡Ä£µÄÊÂÇé
-// ËùÒÔ¾ØÕó¿ìËÙÃİ¿´²»³öÓÅÊÆ
+// æ±‚æ–æ³¢é‚£å¥‘æ•°åˆ—ç¬¬né¡¹
+// æµ‹è¯•é“¾æ¥ : https://leetcode.cn/problems/fibonacci-number/
+// è¿™ä¸ªæµ‹è¯•çš„æ•°æ®é‡å¤ªå°ï¼Œå¹¶ä¸”ä¸ç‰µæ‰¯å–æ¨¡çš„äº‹æƒ…
+// æ‰€ä»¥çŸ©é˜µå¿«é€Ÿå¹‚çœ‹ä¸å‡ºä¼˜åŠ¿
 #include <iostream>
 #include <vector>
 
 using namespace std;
 
-// Ê±¼ä¸´ÔÓ¶ÈO(n)£¬ÆÕÍ¨½â·¨
+// æ—¶é—´å¤æ‚åº¦O(n)ï¼Œæ™®é€šè§£æ³•
 int fib1(int n) {
     if (n == 0) {
         return 0;
@@ -24,8 +24,8 @@ int fib1(int n) {
     return last;
 }
 
-// ¾ØÕóÏà³Ë
-// aµÄÁĞÊıÒ»¶¨ÒªµÈÓÚbµÄĞĞÊı
+// çŸ©é˜µç›¸ä¹˜
+// açš„åˆ—æ•°ä¸€å®šè¦ç­‰äºbçš„è¡Œæ•°
 vector<vector<int>> multiply(vector<vector<int>>& a, const vector<vector<int>>& b) {
     int n = a.size();
     int m = b[0].size();
@@ -41,23 +41,23 @@ vector<vector<int>> multiply(vector<vector<int>>& a, const vector<vector<int>>& 
     return ans;
 }
 
-// ¾ØÕó¿ìËÙÃİ
+// çŸ©é˜µå¿«é€Ÿå¹‚
 vector<vector<int>> power(vector<vector<int>>& m, int p) {
     int n = m.size();
     vector<vector<int>> ans(n, vector<int>(n, 0));
     for (int i = 0; i < n; i++) {
-        ans[i][i] = 1;//µ¥Î»¾ØÕó Ïàµ±ÓÚ³Ë·¨¿ìËÙÃİÖĞµÄ1
+        ans[i][i] = 1;//å•ä½çŸ©é˜µ ç›¸å½“äºä¹˜æ³•å¿«é€Ÿå¹‚ä¸­çš„1
     }
     for (; p != 0; p >>= 1) {
         if ((p & 1) != 0) {
             ans = multiply(ans, m);
         }
-        m = multiply(m, m);//Ã¿´Î¶¼ÊÇ±¶Ôö
+        m = multiply(m, m);//æ¯æ¬¡éƒ½æ˜¯å€å¢
     }
     return ans;
 }
 
-// Ê±¼ä¸´ÔÓ¶ÈO(logn)£¬¾ØÕó¿ìËÙÃİµÄ½â·¨
+// æ—¶é—´å¤æ‚åº¦O(logn)ï¼ŒçŸ©é˜µå¿«é€Ÿå¹‚çš„è§£æ³•
 int fib2(int n) {
     if (n == 0) {
         return 0;
@@ -66,14 +66,14 @@ int fib2(int n) {
         return 1;
     }
 
-    // ¶¨Òå³õÊ¼¾ØÕóºÍ×ªÒÆ¾ØÕó
+    // å®šä¹‰åˆå§‹çŸ©é˜µå’Œè½¬ç§»çŸ©é˜µ
     vector<vector<int>> start = { {1, 0} };
     vector<vector<int>> base = {
         {1, 1},
         {1, 0}
     };
 
-    // ¼ÆËã¾ØÕó¿ìËÙÃİ
+    // è®¡ç®—çŸ©é˜µå¿«é€Ÿå¹‚
     vector<vector<int>> ans = multiply(start, power(base, n - 1));
     return ans[0][0];
 }

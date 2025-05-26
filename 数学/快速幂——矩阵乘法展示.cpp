@@ -3,8 +3,8 @@
 
 using namespace std;
 
-// ¾ØÕóÏà³Ë
-// aµÄÁĞÊıÒ»¶¨ÒªµÈÓÚbµÄĞĞÊı
+// çŸ©é˜µç›¸ä¹˜
+// açš„åˆ—æ•°ä¸€å®šè¦ç­‰äºbçš„è¡Œæ•°
 vector<vector<int>> multiply(const vector<vector<int>>& a, const vector<vector<int>>& b) {
     int n = a.size();
     int m = b[0].size();
@@ -20,8 +20,8 @@ vector<vector<int>> multiply(const vector<vector<int>>& a, const vector<vector<i
     return ans;
 }
 
-// ¾ØÕó¿ìËÙÃİ
-// ÒªÇó¾ØÕómÊÇÕı·½ĞÎ¾ØÕó
+// çŸ©é˜µå¿«é€Ÿå¹‚
+// è¦æ±‚çŸ©é˜µmæ˜¯æ­£æ–¹å½¢çŸ©é˜µ
 vector<vector<int>> power(const vector<vector<int>>& m, int p) {
     int n = m.size();
     vector<vector<int>> ans(n, vector<int>(n, 0));
@@ -38,7 +38,7 @@ vector<vector<int>> power(const vector<vector<int>>& m, int p) {
     return ans;
 }
 
-// ´òÓ¡¶şÎ¬¾ØÕó
+// æ‰“å°äºŒç»´çŸ©é˜µ
 void print(const vector<vector<int>>& m) {
     for (const auto& row : m) {
         for (int val : row) {
@@ -54,7 +54,7 @@ void print(const vector<vector<int>>& m) {
     }
 }
 
-// ¾ØÕó³Ë·¨µÄÕ¹Ê¾
+// çŸ©é˜µä¹˜æ³•çš„å±•ç¤º
 void f1() {
     vector<vector<int>> a = { { 1, 3 }, { 4, 2 } };
     vector<vector<int>> b = { { 2, 3 }, { 3, 2 } };
@@ -77,7 +77,7 @@ void f1() {
     print(ans4);
 }
 
-// ¾ØÕó¿ìËÙÃİÓÃ·¨µÄÕ¹Ê¾
+// çŸ©é˜µå¿«é€Ÿå¹‚ç”¨æ³•çš„å±•ç¤º
 void f2() {
     vector<vector<int>> a = { { 1, 2 }, { 3, 4 } };
     vector<vector<int>> b = multiply(a, multiply(a, multiply(a, multiply(a, a))));
@@ -87,7 +87,7 @@ void f2() {
     print(ans);
 }
 
-// ÓÃ¾ØÕó³Ë·¨½â¾öì³²¨ÄÇÆõµÚnÏîµÄÎÊÌâ
+// ç”¨çŸ©é˜µä¹˜æ³•è§£å†³æ–æ³¢é‚£å¥‘ç¬¬né¡¹çš„é—®é¢˜
 void f3() {
     vector<vector<int>> start = { { 1, 0 } };
     vector<vector<int>> m = {
@@ -107,7 +107,7 @@ void f3() {
     print(d);
 }
 
-// ÓÃ¾ØÕó¿ìËÙÃİ½â¾öì³²¨ÄÇÆõµÚnÏîµÄÎÊÌâ
+// ç”¨çŸ©é˜µå¿«é€Ÿå¹‚è§£å†³æ–æ³¢é‚£å¥‘ç¬¬né¡¹çš„é—®é¢˜
 void f4() {
     vector<vector<int>> start = { { 1, 0 } };
     vector<vector<int>> m = {
@@ -129,28 +129,28 @@ void f4() {
 
 int main() {
     cout << "f1() : " << endl;
-    cout << "¾ØÕó³Ë·¨Õ¹Ê¾¿ªÊ¼" << endl;
+    cout << "çŸ©é˜µä¹˜æ³•å±•ç¤ºå¼€å§‹" << endl;
     f1();
-    cout << "¾ØÕó³Ë·¨Õ¹Ê¾½áÊø" << endl << endl;
+    cout << "çŸ©é˜µä¹˜æ³•å±•ç¤ºç»“æŸ" << endl << endl;
 
     cout << "f2() : " << endl;
-    cout << "¾ØÕó¿ìËÙÃİÕ¹Ê¾¿ªÊ¼" << endl;
+    cout << "çŸ©é˜µå¿«é€Ÿå¹‚å±•ç¤ºå¼€å§‹" << endl;
     f2();
-    cout << "¾ØÕó¿ìËÙÃİÕ¹Ê¾½áÊø" << endl << endl;
+    cout << "çŸ©é˜µå¿«é€Ÿå¹‚å±•ç¤ºç»“æŸ" << endl << endl;
 
     cout << "f3() : " << endl;
-    cout << "Çóì³²¨ÄÇÆõÊıÁĞµÚnÏî" << endl;
-    cout << "ÓÃ¾ØÕó³Ë·¨½â¾ö" << endl;
-    cout << "Õ¹Ê¾¿ªÊ¼" << endl;
+    cout << "æ±‚æ–æ³¢é‚£å¥‘æ•°åˆ—ç¬¬né¡¹" << endl;
+    cout << "ç”¨çŸ©é˜µä¹˜æ³•è§£å†³" << endl;
+    cout << "å±•ç¤ºå¼€å§‹" << endl;
     f3();
-    cout << "Õ¹Ê¾½áÊø" << endl << endl;
+    cout << "å±•ç¤ºç»“æŸ" << endl << endl;
 
     cout << "f4() : " << endl;
-    cout << "Çóì³²¨ÄÇÆõÊıÁĞµÚnÏî" << endl;
-    cout << "ÓÃ¾ØÕó¿ìËÙÃİ½â¾ö" << endl;
-    cout << "Õ¹Ê¾¿ªÊ¼" << endl;
+    cout << "æ±‚æ–æ³¢é‚£å¥‘æ•°åˆ—ç¬¬né¡¹" << endl;
+    cout << "ç”¨çŸ©é˜µå¿«é€Ÿå¹‚è§£å†³" << endl;
+    cout << "å±•ç¤ºå¼€å§‹" << endl;
     f4();
-    cout << "Õ¹Ê¾½áÊø" << endl << endl;
+    cout << "å±•ç¤ºç»“æŸ" << endl << endl;
 
     return 0;
 }
