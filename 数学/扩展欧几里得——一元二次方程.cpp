@@ -13,6 +13,7 @@
 // 在真正笔试、比赛时，一定是兼顾各种语言的，该实现是一定正确的
 // C++版本就是Code01_DiophantineEquation2文件
 // C++版本和java版本逻辑完全一样，但只有C++版本可以通过所有测试用例
+//在跑完扩展欧几里得之后 我们可以得到最大公约数和一组特解
 #include <iostream>
 #include <cstdio>
 using namespace std;
@@ -43,6 +44,7 @@ int main()
         scanf("%lld %lld %lld", &a, &b, &c);
         exgcd(a, b);
         if (c % d != 0) {
+            //c甚至不是gcd(a,b)的倍数 那么一定无解
             printf("-1\n");
         } else {
             x *= c / d;
