@@ -5,6 +5,7 @@
 // -10^9 <= x1、y1、x2、y2 <= 10^9
 // 测试链接 : https://lightoj.com/problem/how-many-points
 // 提交以下的code，提交时请把类名改成"Main"，可以通过所有测试用例
+//这个是计算给定两个点 求出两点之间的格点数
 #include<bits/stdc++.h>
 using namespace std;
 
