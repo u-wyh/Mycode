@@ -1,13 +1,13 @@
-// ��չ�й�ʣ�ඨ��ģ��
-// ����n��ͬ�෽�̣�������ͬ�෽�̵���С������x
-// һ��n��ͬ�෽�̣�x �� ri(% mi)
+// 扩展中国剩余定理模版
+// 给出n个同余方程，求满足同余方程的最小正数解x
+// 一共n个同余方程，x ≡ ri(% mi)
 // 1 <= n <= 10^5
-// 0 <= ri��mi <= 10^12
-// ����mi��һ������
-// ����mi����С������ <= 10^18
-// �������� : https://www.luogu.com.cn/problem/P4777
-// �������� : https://www.luogu.com.cn/problem/P1495
-// �ύ���µ�code���ύʱ��������ĳ�"Main"������ͨ�����в�������
+// 0 <= ri、mi <= 10^12
+// 所有mi不一定互质
+// 所有mi的最小公倍数 <= 10^18
+// 测试链接 : https://www.luogu.com.cn/problem/P4777
+// 测试链接 : https://www.luogu.com.cn/problem/P1495
+// 提交以下的code，提交时请把类名改成"Main"，可以通过所有测试用例
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 100001;
@@ -17,13 +17,13 @@ long long r[MAXN];
 
 long long d, x, y, px, py;
 
-// ԭ�����ԣ�����033��λ����ʵ�ֳ˷�
-// a * b�Ĺ����Լ�ʵ�֣�ÿһ���м���̶�%mod
-// ��ôдĿ���Ƿ�ֹ�����Ҳ�й��ٳ�
+// 原理来自，讲解033，位运算实现乘法
+// a * b的过程自己实现，每一个中间过程都%mod
+// 这么写目的是防止溢出，也叫龟速乘
 long long multiply(long long a, long long b, long long mod) {
-	// ��Ȼ����%mod�������£���ôa��b���Զ�ת���ɷǸ���
-	// ���ⲻת������ν������������Ŀ������Ҫת��
-	// ������b��Ҫת��������whileѭ�����ܲ���
+	// 既然是在%mod的意义下，那么a和b可以都转化成非负的
+	// 本题不转化无所谓，但是其他题目可能需要转化
+	// 尤其是b需要转化，否则while循环会跑不完
 	a = (a % mod + mod) % mod;
 	b = (b % mod + mod) % mod;
 	long long ans = 0;
@@ -51,8 +51,8 @@ void exgcd(long long a, long long b) {
     }
 }
 
-// ��չ�й�ʣ�ඨ��ģ��
-// �������ڽ��ģ�����ǻ��ʵ����  ���÷�Χ����
+// 扩展中国剩余定理模版
+// 可以用于解决模数不是互质的情况  适用范围更广
 long long excrt(int n) {
     long long tail = 0, lcm = 1, tmp, b, c, x0;
     // ans = lcm * x + tail
@@ -68,12 +68,12 @@ long long excrt(int n) {
         if (c % d != 0) {
             return -1;
         }
-        // ax + by = gcd(a,b)���ؽ��ǣ�x����
-        // ax + by = c���ؽ��ǣ�x���� * (c/d)
-        // ax + by = c����С�Ǹ��ؽ�x0 = (x * (c/d)) % (b/d) ȡ�Ǹ�����
-        // ͨ�� = x0 + (b/d) * n
+        // ax + by = gcd(a,b)，特解是，x变量
+        // ax + by = c，特解是，x变量 * (c/d)
+        // ax + by = c，最小非负特解x0 = (x * (c/d)) % (b/d) 取非负余数
+        // 通解 = x0 + (b/d) * n
         x0 = multiply(x, c / d, b / d);
-        // ans = lcm * x + tail������ͨ��
+        // ans = lcm * x + tail，带入通解
         // ans = lcm * (x0 + (b/d) * n) + tail
         // ans = lcm * (b/d) * n + lcm * x0 + tail
         // tail' = tail' % lcm'

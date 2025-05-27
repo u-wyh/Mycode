@@ -1,13 +1,13 @@
-// ²ÂÊý×Ö
-// ¸ø¶¨Á½¸ö³¤¶ÈÎªnÊý×é£¬Ò»×éÎªr1£¬r2£¬r3...£¬ÁíÒ»×éÎªm1£¬m2£¬m3...
-// ÆäÖÐµÚ¶þ×éÊý×ÖÁ½Á½»¥ÖÊ£¬Çó×îÐ¡ÕýÊý½âx
-// ÒªÇóxÂú×ã£¬mi | (x - ri)£¬¼´(x - ri)ÊÇmiµÄÕûÊý±¶
+// çŒœæ•°å­—
+// ç»™å®šä¸¤ä¸ªé•¿åº¦ä¸ºnæ•°ç»„ï¼Œä¸€ç»„ä¸ºr1ï¼Œr2ï¼Œr3...ï¼Œå¦ä¸€ç»„ä¸ºm1ï¼Œm2ï¼Œm3...
+// å…¶ä¸­ç¬¬äºŒç»„æ•°å­—ä¸¤ä¸¤äº’è´¨ï¼Œæ±‚æœ€å°æ­£æ•°è§£x
+// è¦æ±‚xæ»¡è¶³ï¼Œmi | (x - ri)ï¼Œå³(x - ri)æ˜¯miçš„æ•´æ•°å€
 // 1 <= n <= 10
 // -10^9 <= ri <= +10^9
 // 1 <= mi <= 6 * 10^3
-// ËùÓÐmiµÄ³Ë»ý <= 10^18
-// ²âÊÔÁ´½Ó : https://www.luogu.com.cn/problem/P3868
-// Ìá½»ÒÔÏÂµÄcode£¬Ìá½»Ê±Çë°ÑÀàÃû¸Ä³É"Main"£¬¿ÉÒÔÍ¨¹ýËùÓÐ²âÊÔÓÃÀý
+// æ‰€æœ‰miçš„ä¹˜ç§¯ <= 10^18
+// æµ‹è¯•é“¾æŽ¥ : https://www.luogu.com.cn/problem/P3868
+// æäº¤ä»¥ä¸‹çš„codeï¼Œæäº¤æ—¶è¯·æŠŠç±»åæ”¹æˆ"Main"ï¼Œå¯ä»¥é€šè¿‡æ‰€æœ‰æµ‹è¯•ç”¨ä¾‹
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 11;
@@ -17,13 +17,13 @@ long long r[MAXN];
 
 long long d, x, y, px, py;
 
-// Ô­ÀíÀ´×Ô£¬½²½â033£¬Î»ÔËËãÊµÏÖ³Ë·¨
-// a * bµÄ¹ý³Ì×Ô¼ºÊµÏÖ£¬Ã¿Ò»¸öÖÐ¼ä¹ý³Ì¶¼%mod
-// ÕâÃ´Ð´Ä¿µÄÊÇ·ÀÖ¹Òç³ö£¬Ò²½Ð¹êËÙ³Ë
+// åŽŸç†æ¥è‡ªï¼Œè®²è§£033ï¼Œä½è¿ç®—å®žçŽ°ä¹˜æ³•
+// a * bçš„è¿‡ç¨‹è‡ªå·±å®žçŽ°ï¼Œæ¯ä¸€ä¸ªä¸­é—´è¿‡ç¨‹éƒ½%mod
+// è¿™ä¹ˆå†™ç›®çš„æ˜¯é˜²æ­¢æº¢å‡ºï¼Œä¹Ÿå«é¾Ÿé€Ÿä¹˜
 long long multiply(long long a, long long b, long long mod) {
-	// ¼ÈÈ»ÊÇÔÚ%modµÄÒâÒåÏÂ£¬ÄÇÃ´aºÍb¿ÉÒÔ¶¼×ª»¯³É·Ç¸ºµÄ
-	// ±¾Ìâ²»×ª»¯ÎÞËùÎ½£¬µ«ÊÇÆäËûÌâÄ¿¿ÉÄÜÐèÒª×ª»¯
-	// ÓÈÆäÊÇbÐèÒª×ª»¯£¬·ñÔòwhileÑ­»·»áÅÜ²»Íê
+	// æ—¢ç„¶æ˜¯åœ¨%modçš„æ„ä¹‰ä¸‹ï¼Œé‚£ä¹ˆaå’Œbå¯ä»¥éƒ½è½¬åŒ–æˆéžè´Ÿçš„
+	// æœ¬é¢˜ä¸è½¬åŒ–æ— æ‰€è°“ï¼Œä½†æ˜¯å…¶ä»–é¢˜ç›®å¯èƒ½éœ€è¦è½¬åŒ–
+	// å°¤å…¶æ˜¯béœ€è¦è½¬åŒ–ï¼Œå¦åˆ™whileå¾ªçŽ¯ä¼šè·‘ä¸å®Œ
 	a = (a % mod + mod) % mod;
 	b = (b % mod + mod) % mod;
 	long long ans = 0;
@@ -51,7 +51,7 @@ void exgcd(long long a, long long b) {
     }
 }
 
-// ÖÐ¹úÊ£Óà¶¨ÀíÄ£°æ
+// ä¸­å›½å‰©ä½™å®šç†æ¨¡ç‰ˆ
 long long crt(int n) {
     long long lcm = 1;
     for (int i = 1; i <= n; i++) {
@@ -61,9 +61,9 @@ long long crt(int n) {
     for (int i = 1; i <= n; i++) {
         // ai = lcm / m[i]
         ai = lcm / m[i];
-        // aiÄæÔª£¬ÔÚ%m[i]ÒâÒåÏÂµÄÄæÔª
+        // aié€†å…ƒï¼Œåœ¨%m[i]æ„ä¹‰ä¸‹çš„é€†å…ƒ
         exgcd(ai, m[i]);
-        // ci = (ri *   ai * aiÄæÔª  ) % lcm
+        // ci = (ri *   ai * aié€†å…ƒ  ) % lcm
         ci = multiply(r[i], multiply(ai, x, lcm), lcm);
         ans = (ans + ci) % lcm;
     }
