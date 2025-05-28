@@ -1,18 +1,18 @@
-// ¸ßË¹ÏûÔª½â¾öÒì»ò·½³Ì×éÄ£°æÌâ
-// ÓÐÒ»¸ö³¤¶ÈÎªnµÄÊý×éarr£¬¿ÉÄÜÓÐÖØ¸´Öµ£¬Êý×Ö¶¼ÊÇlongÀàÐÍµÄÕýÊý
-// Ã¿¸öÊýÓµÓÐµÄÖÊÊýÒò×ÓÒ»¶¨²»³¬¹ý2000£¬Ã¿¸öÊý×î¶àÌôÑ¡Ò»´Î
-// ÔÚÖÁÉÙÒªÑ¡Ò»¸öÊýµÄÇé¿öÏÂ£¬Äã¿ÉÒÔËæÒâÌôÑ¡Êý×Ö³ËÆðÀ´
-// ³ËµÃµÄ½á¹ûÐèÒªÊÇÍêÈ«Æ½·½Êý£¬ÇëÎÊÓÐ¼¸ÖÖÌôÑ¡Êý×ÖµÄ·½·¨
-// ·½·¨Êý¿ÉÄÜºÜ´ó£¬´ð°¸¶Ô 1000000007 È¡Ä£
+// é«˜æ–¯æ¶ˆå…ƒè§£å†³å¼‚æˆ–æ–¹ç¨‹ç»„æ¨¡ç‰ˆé¢˜
+// æœ‰ä¸€ä¸ªé•¿åº¦ä¸ºnçš„æ•°ç»„arrï¼Œå¯èƒ½æœ‰é‡å¤å€¼ï¼Œæ•°å­—éƒ½æ˜¯longç±»åž‹çš„æ­£æ•°
+// æ¯ä¸ªæ•°æ‹¥æœ‰çš„è´¨æ•°å› å­ä¸€å®šä¸è¶…è¿‡2000ï¼Œæ¯ä¸ªæ•°æœ€å¤šæŒ‘é€‰ä¸€æ¬¡
+// åœ¨è‡³å°‘è¦é€‰ä¸€ä¸ªæ•°çš„æƒ…å†µä¸‹ï¼Œä½ å¯ä»¥éšæ„æŒ‘é€‰æ•°å­—ä¹˜èµ·æ¥
+// ä¹˜å¾—çš„ç»“æžœéœ€è¦æ˜¯å®Œå…¨å¹³æ–¹æ•°ï¼Œè¯·é—®æœ‰å‡ ç§æŒ‘é€‰æ•°å­—çš„æ–¹æ³•
+// æ–¹æ³•æ•°å¯èƒ½å¾ˆå¤§ï¼Œç­”æ¡ˆå¯¹ 1000000007 å–æ¨¡
 // 1 <= n <= 300
 // 1 <= arr[i] <= 10^18
-// ²âÊÔÁ´½Ó : https://acm.hdu.edu.cn/showproblem.php?pid=5833
-// Ìá½»ÒÔÏÂµÄcode£¬Ìá½»Ê±Çë°ÑÀàÃû¸Ä³É"Main"£¬¿ÉÒÔÍ¨¹ýËùÓÐ²âÊÔÓÃÀý
-//ÕâµÀÌâµÄË¼Â·ÊÇºÜÇÉÃîµØ
-//Èç¹ûÒ»¸öÊý×ÖÊÇÍêÈ«Æ½·½Êý ÄÇÃ´ËûµÄËùÓÐÖÊÊýÒò×ÓµÄ¸öÊý¶¼ÊÇÅ¼Êý
-//ÄÇÃ´ÎÒÃÇ¿ÉÒÔ½«ËùÓÐÊý×ÖµÄÖÊÊýÒò×ÓÕ¹¿ª ÆæÊýÎª1  Å¼ÊýÎª0
-//×îºóÍ³¼Æ×ÔÓÉÔª  ÄÇÃ´·½°¸Êý¾ÍÊÇ 2µÄ×ÔÓÉÔª¸öÊý -1
-//£¨ÒòÎª²»ÄÜËùÓÐµÄ×ÔÓÉÔª¶¼²»Ñ¡ ·ñÔòËùÓÐµÄÖ÷ÔªÒ²µÃÊÇ0  Ò²¾ÍÊÇËùÓÐÔª¶¼ÊÇ0£©
+// æµ‹è¯•é“¾æŽ¥ : https://acm.hdu.edu.cn/showproblem.php?pid=5833
+// æäº¤ä»¥ä¸‹çš„codeï¼Œæäº¤æ—¶è¯·æŠŠç±»åæ”¹æˆ"Main"ï¼Œå¯ä»¥é€šè¿‡æ‰€æœ‰æµ‹è¯•ç”¨ä¾‹
+//è¿™é“é¢˜çš„æ€è·¯æ˜¯å¾ˆå·§å¦™åœ°
+//å¦‚æžœä¸€ä¸ªæ•°å­—æ˜¯å®Œå…¨å¹³æ–¹æ•° é‚£ä¹ˆä»–çš„æ‰€æœ‰è´¨æ•°å› å­çš„ä¸ªæ•°éƒ½æ˜¯å¶æ•°
+//é‚£ä¹ˆæˆ‘ä»¬å¯ä»¥å°†æ‰€æœ‰æ•°å­—çš„è´¨æ•°å› å­å±•å¼€ å¥‡æ•°ä¸º1  å¶æ•°ä¸º0
+//æœ€åŽç»Ÿè®¡è‡ªç”±å…ƒ  é‚£ä¹ˆæ–¹æ¡ˆæ•°å°±æ˜¯ 2çš„è‡ªç”±å…ƒä¸ªæ•° -1
+//ï¼ˆå› ä¸ºä¸èƒ½æ‰€æœ‰çš„è‡ªç”±å…ƒéƒ½ä¸é€‰ å¦åˆ™æ‰€æœ‰çš„ä¸»å…ƒä¹Ÿå¾—æ˜¯0  ä¹Ÿå°±æ˜¯æ‰€æœ‰å…ƒéƒ½æ˜¯0ï¼‰
 #include <iostream>
 #include <vector>
 #include <cmath>
@@ -25,14 +25,14 @@ const int MAXN = 305;
 
 long long arr[MAXN];
 int mat[MAXN][MAXN];
-int prime[MAXV + 1];//µÃµ½2000ÒÔÄÚËùÓÐµÄÖÊÊý
+int prime[MAXV + 1];//å¾—åˆ°2000ä»¥å†…æ‰€æœ‰çš„è´¨æ•°
 int cnt = 0;
 bool visit[MAXV + 1];
 int pow2[MAXN];
 int n;
 
 void prepare() {
-    // µÃµ½2000ÒÔÄÚµÄÖÊÊý
+    // å¾—åˆ°2000ä»¥å†…çš„è´¨æ•°
     for (int i = 2; i * i <= MAXV; i++) {
         if (!visit[i]) {
             for (int j = i * i; j <= MAXV; j += i) {
@@ -45,7 +45,7 @@ void prepare() {
             prime[++cnt] = i;
         }
     }
-    // 2µÄi´Î·½%MODµÄ½á¹û
+    // 2çš„iæ¬¡æ–¹%MODçš„ç»“æžœ
     pow2[0] = 1;
     for (int i = 1; i < MAXN; i++) {
         pow2[i] = (pow2[i - 1] * 2) % MOD;
@@ -61,7 +61,7 @@ void swap(int a, int b) {
     }
 }
 
-//¸ßË¹ÏûÔª
+//é«˜æ–¯æ¶ˆå…ƒ
 void gauss(int n) {
     for (int i = 1; i <= n; i++) {
         for (int j = 1; j <= n; j++) {
@@ -101,18 +101,18 @@ int compute() {
             }
         }
     }
-    //ÕæÊµÔªµÄÊýÁ¿Êµ¼ÊÊÇn  µ«ÊÇÖÊÊýµÄ¸öÊý×î¶à¿ÉÒÔÊÇ303  ÒòÎª2000ÒÔÄÚ¾ÍÊÇÕâÃ´¶àµÄÖÊÊý
-    //ÄÇÃ´Êµ¼ÊÔªµÄÊýÁ¿¿ÉÄÜ±ÈÓÃµ½µÄÖÊÊý¸öÊýÉÙ  ÎÒÃÇ²¹³äÐéÄâÔª  ¼´xi
-    //×îÖÕÍ³¼Æ×ÔÓÉÔª
+    //çœŸå®žå…ƒçš„æ•°é‡å®žé™…æ˜¯n  ä½†æ˜¯è´¨æ•°çš„ä¸ªæ•°æœ€å¤šå¯ä»¥æ˜¯303  å› ä¸º2000ä»¥å†…å°±æ˜¯è¿™ä¹ˆå¤šçš„è´¨æ•°
+    //é‚£ä¹ˆå®žé™…å…ƒçš„æ•°é‡å¯èƒ½æ¯”ç”¨åˆ°çš„è´¨æ•°ä¸ªæ•°å°‘  æˆ‘ä»¬è¡¥å……è™šæ‹Ÿå…ƒ  å³xi
+    //æœ€ç»ˆç»Ÿè®¡è‡ªç”±å…ƒ
     gauss(cnt);
-    int main_count = 0; // Ö÷ÔªµÄÊýÁ¿
+    int main_count = 0; // ä¸»å…ƒçš„æ•°é‡
     for (int i = 1; i <= cnt; i++) {
         if (mat[i][i] == 1) {
             main_count++;
         }
     }
-    // ×ÔÓÉÔªÊýÁ¿ÊÇ n - main_count
-    // 2µÄ(n - main_count)´Î·½ÖÖ¾ö²ß - 1
+    // è‡ªç”±å…ƒæ•°é‡æ˜¯ n - main_count
+    // 2çš„(n - main_count)æ¬¡æ–¹ç§å†³ç­– - 1
     return pow2[n - main_count] - 1 ;
 }
 

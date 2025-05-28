@@ -1,35 +1,35 @@
-//¸ø³öÁË¾ØÕóÖÐµÄÒ»²¿·Ö¹ØÏµ  ÐèÒª×Ô¼ºÕûÀíÊ£ÏÂµÄ¹ØÏµ
-// ÓÐÒ»´Î´íÎó³ÆÖØÇó×îÖØÎïÆ·
-// Ò»¹²ÓÐn¸öÎïÆ·£¬±àºÅ1~n£¬¶¨ÒåºÏ·¨·½°¸ÈçÏÂ£º
-// 1£¬Ã¿¸öÎïÆ·µÄÖØÁ¿¶¼ÊÇÈ·¶¨µÄ
-// 2£¬Ã¿¸öÎïÆ·µÄÖØÁ¿Ò»¶¨¶¼ÊÇÕýÕûÊý
-// 3£¬×îÖØµÄÎïÆ·ÓÐÇÒ½öÓÐ1¸ö
-// Ã¿´Î³ÆÖØ¸ñÊ½ÀàËÆ£º3 2 5 6 10£¬´ú±í±¾´Î³ÆÖØÉæ3¸öÎïÆ·£¬±àºÅÎª2¡¢5¡¢6£¬×ÜÖØÁ¿10
-// Ò»¹²ÓÐn+1Ìõ³ÆÖØÊý¾Ý£¬³ÆÖØÊý¾ÝÕûÌåÓÐÐ§µÄÌõ¼þÎª£º
-// ´íÎóµÄ³ÆÖØÊý¾ÝÓÐÇÒ½öÓÐ1Ìõ£¬Ö»ÓÐÅÅ³ýÕâÌõ´íÎó³ÆÖØ£¬²ÅÄÜÇó³öÒ»ÖÖºÏ·¨·½°¸
-// Èç¹û³ÆÖØÊý¾ÝÓÐÐ§£¬´òÓ¡×îÖØÈý½ÇÐÎµÄ±àºÅ
-// Èç¹û³ÆÖØÊý¾ÝÎÞÐ§£¬´òÓ¡"illegal"
+//ç»™å‡ºäº†çŸ©é˜µä¸­çš„ä¸€éƒ¨åˆ†å…³ç³»  éœ€è¦è‡ªå·±æ•´ç†å‰©ä¸‹çš„å…³ç³»
+// æœ‰ä¸€æ¬¡é”™è¯¯ç§°é‡æ±‚æœ€é‡ç‰©å“
+// ä¸€å…±æœ‰nä¸ªç‰©å“ï¼Œç¼–å·1~nï¼Œå®šä¹‰åˆæ³•æ–¹æ¡ˆå¦‚ä¸‹ï¼š
+// 1ï¼Œæ¯ä¸ªç‰©å“çš„é‡é‡éƒ½æ˜¯ç¡®å®šçš„
+// 2ï¼Œæ¯ä¸ªç‰©å“çš„é‡é‡ä¸€å®šéƒ½æ˜¯æ­£æ•´æ•°
+// 3ï¼Œæœ€é‡çš„ç‰©å“æœ‰ä¸”ä»…æœ‰1ä¸ª
+// æ¯æ¬¡ç§°é‡æ ¼å¼ç±»ä¼¼ï¼š3 2 5 6 10ï¼Œä»£è¡¨æœ¬æ¬¡ç§°é‡æ¶‰3ä¸ªç‰©å“ï¼Œç¼–å·ä¸º2ã€5ã€6ï¼Œæ€»é‡é‡10
+// ä¸€å…±æœ‰n+1æ¡ç§°é‡æ•°æ®ï¼Œç§°é‡æ•°æ®æ•´ä½“æœ‰æ•ˆçš„æ¡ä»¶ä¸ºï¼š
+// é”™è¯¯çš„ç§°é‡æ•°æ®æœ‰ä¸”ä»…æœ‰1æ¡ï¼Œåªæœ‰æŽ’é™¤è¿™æ¡é”™è¯¯ç§°é‡ï¼Œæ‰èƒ½æ±‚å‡ºä¸€ç§åˆæ³•æ–¹æ¡ˆ
+// å¦‚æžœç§°é‡æ•°æ®æœ‰æ•ˆï¼Œæ‰“å°æœ€é‡ä¸‰è§’å½¢çš„ç¼–å·
+// å¦‚æžœç§°é‡æ•°æ®æ— æ•ˆï¼Œæ‰“å°"illegal"
 // 1 <= m <= n <= 100
-// ²âÊÔÁ´½Ó : https://www.luogu.com.cn/problem/P5027
-// Ìá½»ÒÔÏÂµÄcode£¬Ìá½»Ê±Çë°ÑÀàÃû¸Ä³É"Main"£¬¿ÉÒÔÍ¨¹ýËùÓÐ²âÊÔÓÃÀý
+// æµ‹è¯•é“¾æŽ¥ : https://www.luogu.com.cn/problem/P5027
+// æäº¤ä»¥ä¸‹çš„codeï¼Œæäº¤æ—¶è¯·æŠŠç±»åæ”¹æˆ"Main"ï¼Œå¯ä»¥é€šè¿‡æ‰€æœ‰æµ‹è¯•ç”¨ä¾‹
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 102;
 // 0.0000001 == 1e-7
-// ÒòÎªdoubleÀàÐÍÓÐ¾«¶ÈÎÊÌâ£¬ËùÒÔÈÏÎª
-// Èç¹ûÒ»¸öÊý×Ö¾ø¶ÔÖµ  <  sml£¬ÔòÈÏÎª¸ÃÊý×ÖÊÇ0
-// Èç¹ûÒ»¸öÊý×Ö¾ø¶ÔÖµ  >= sml£¬ÔòÈÏÎª¸ÃÊý×Ö²»ÊÇ0
+// å› ä¸ºdoubleç±»åž‹æœ‰ç²¾åº¦é—®é¢˜ï¼Œæ‰€ä»¥è®¤ä¸º
+// å¦‚æžœä¸€ä¸ªæ•°å­—ç»å¯¹å€¼  <  smlï¼Œåˆ™è®¤ä¸ºè¯¥æ•°å­—æ˜¯0
+// å¦‚æžœä¸€ä¸ªæ•°å­—ç»å¯¹å€¼  >= smlï¼Œåˆ™è®¤ä¸ºè¯¥æ•°å­—ä¸æ˜¯0
 const double sml = 1e-7;
 
 int n;
 int data[MAXN][MAXN];
 double mat[MAXN][MAXN + 1];
 
-//swapµÄ×÷ÓÃÊÇÓÃÓÚ½»»»Á½¸öÊý×éµÄÄ³Ò»ÐÐ
-//Ê¹ÓÃÏµÍ³µÄÄÚÖÃº¯Êý¿ÉÒÔ  µ«ÊÇÊ±¼äÉÔÎ¢²îÒ»µã
-//ÔÚ³ÌÐòÖÐ ½¨ÒéÈ«²¿ÊÖÐ´
-//µ«ÊÇÊÖÐ´µÄÊ±ºòÒ»¶¨Òª×¢ÒâÖÐ¼äÊý×étmpµÄÀàÐÍÊÇint »¹ÊÇ double
-//²¢ÇÒÊÖÐ´µÄÊ±ºòÒ»¶¨Òª×¢ÒâÁÐµÄ·¶Î§  ²»ÄÜÈ±ÉÙ
+//swapçš„ä½œç”¨æ˜¯ç”¨äºŽäº¤æ¢ä¸¤ä¸ªæ•°ç»„çš„æŸä¸€è¡Œ
+//ä½¿ç”¨ç³»ç»Ÿçš„å†…ç½®å‡½æ•°å¯ä»¥  ä½†æ˜¯æ—¶é—´ç¨å¾®å·®ä¸€ç‚¹
+//åœ¨ç¨‹åºä¸­ å»ºè®®å…¨éƒ¨æ‰‹å†™
+//ä½†æ˜¯æ‰‹å†™çš„æ—¶å€™ä¸€å®šè¦æ³¨æ„ä¸­é—´æ•°ç»„tmpçš„ç±»åž‹æ˜¯int è¿˜æ˜¯ double
+//å¹¶ä¸”æ‰‹å†™çš„æ—¶å€™ä¸€å®šè¦æ³¨æ„åˆ—çš„èŒƒå›´  ä¸èƒ½ç¼ºå°‘
 void swap(int a, int b) {
     double tmp[MAXN + 1];
     for (int j = 1; j <= n+1; j++) {
@@ -59,7 +59,7 @@ void gauss(int n) {
                 max = j;
             }
         }
-        swap(i, max);//½»»»¸ÄÐÐ×î´óÖµ
+        swap(i, max);//äº¤æ¢æ”¹è¡Œæœ€å¤§å€¼
         if (abs(mat[i][i]) >= sml) {
             double tmp = mat[i][i];
             for (int j = i; j <= n + 1; j++) {
@@ -77,7 +77,7 @@ void gauss(int n) {
     }
 }
 
-//ÅÐ¶ÏµÃµ½µÄ´ð°¸ÊÇ·ñºÏ·¨
+//åˆ¤æ–­å¾—åˆ°çš„ç­”æ¡ˆæ˜¯å¦åˆæ³•
 int check() {
     gauss(n);
     double maxv = 0;
@@ -115,9 +115,9 @@ int main() {
         cin>>data[i][n + 1];
     }
     int ans = 0;
-    int times = 0;//times±íÊ¾ÓÐ¶àÉÙ¸öÐÅÏ¢×÷ÎªÎÞÐ§ÐÅÏ¢Ê±¿ÉÒÔµÃµ½ºÏÀíµÄ³ÆÖØ
+    int times = 0;//timesè¡¨ç¤ºæœ‰å¤šå°‘ä¸ªä¿¡æ¯ä½œä¸ºæ— æ•ˆä¿¡æ¯æ—¶å¯ä»¥å¾—åˆ°åˆç†çš„ç§°é‡
     for (int k = 1; k <= n + 1; k++) {
-        swapdata(k, n + 1);//Ã¶¾ÙÃ¿Ò»ÌõÐÅÏ¢×÷ÎªÎÞÐ§ÐÅÏ¢
+        swapdata(k, n + 1);//æžšä¸¾æ¯ä¸€æ¡ä¿¡æ¯ä½œä¸ºæ— æ•ˆä¿¡æ¯
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= n + 1; j++) {
                 mat[i][j] = data[i][j];
@@ -131,11 +131,10 @@ int main() {
         }
     }
     if (times != 1) {
-        //Èç¹ûÕâ¸öÊý×Ö²»ÊÇ1  ÄÇÃ´¾Í²»ÐÐ
+        //å¦‚æžœè¿™ä¸ªæ•°å­—ä¸æ˜¯1  é‚£ä¹ˆå°±ä¸è¡Œ
         cout<<"illegal"<<endl;
     } else {
         cout<<ans<<endl;
     }
     return 0;
 }
-

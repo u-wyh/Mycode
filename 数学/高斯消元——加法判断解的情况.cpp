@@ -1,12 +1,12 @@
-//×î×î»ù±¾µÄÄ£°æÌâ
-// ¸ßË¹ÏûÔª½â¾ö¼Ó·¨·½³Ì×éÄ£°æ(Çø·ÖÃ¬¶Ü¡¢¶à½â¡¢Î¨Ò»½â)
-// Ò»¹²ÓÐn¸ö±äÁ¿£¬¸ø¶¨n¸ö¼Ó·¨·½³Ì£¬¹¹³ÉÒ»¸ö¼Ó·¨·½³Ì×é
-// Èç¹û·½³Ì×é´æÔÚÃ¬¶Ü£¬´òÓ¡-1
-// Èç¹û·½³Ì×éÎÞ·¨È·¶¨Î¨Ò»½â£¬´òÓ¡0
-// Èç¹û·½³Ì×é´æÔÚÎ¨Ò»½â£¬´òÓ¡Ã¿¸ö±äÁ¿µÄÖµ£¬±£ÁôÐ¡ÊýµãºóÁ½Î»
+//æœ€æœ€åŸºæœ¬çš„æ¨¡ç‰ˆé¢˜
+// é«˜æ–¯æ¶ˆå…ƒè§£å†³åŠ æ³•æ–¹ç¨‹ç»„æ¨¡ç‰ˆ(åŒºåˆ†çŸ›ç›¾ã€å¤šè§£ã€å”¯ä¸€è§£)
+// ä¸€å…±æœ‰nä¸ªå˜é‡ï¼Œç»™å®šnä¸ªåŠ æ³•æ–¹ç¨‹ï¼Œæž„æˆä¸€ä¸ªåŠ æ³•æ–¹ç¨‹ç»„
+// å¦‚æžœæ–¹ç¨‹ç»„å­˜åœ¨çŸ›ç›¾ï¼Œæ‰“å°-1
+// å¦‚æžœæ–¹ç¨‹ç»„æ— æ³•ç¡®å®šå”¯ä¸€è§£ï¼Œæ‰“å°0
+// å¦‚æžœæ–¹ç¨‹ç»„å­˜åœ¨å”¯ä¸€è§£ï¼Œæ‰“å°æ¯ä¸ªå˜é‡çš„å€¼ï¼Œä¿ç•™å°æ•°ç‚¹åŽä¸¤ä½
 // 1 <= n <= 50
-// ²âÊÔÁ´½Ó : https://www.luogu.com.cn/problem/P2455
-// Ìá½»ÒÔÏÂµÄcode£¬Ìá½»Ê±Çë°ÑÀàÃû¸Ä³É"Main"£¬¿ÉÒÔÍ¨¹ýËùÓÐ²âÊÔÓÃÀý
+// æµ‹è¯•é“¾æŽ¥ : https://www.luogu.com.cn/problem/P2455
+// æäº¤ä»¥ä¸‹çš„codeï¼Œæäº¤æ—¶è¯·æŠŠç±»åæ”¹æˆ"Main"ï¼Œå¯ä»¥é€šè¿‡æ‰€æœ‰æµ‹è¯•ç”¨ä¾‹
 #include <iostream>
 #include <cmath>
 #include <iomanip>  // for std::setprecision
@@ -14,20 +14,20 @@ using namespace std;
 
 const int MAXN = 101;
 // 0.0000001 == 1e-7
-// ÒòÎªdoubleÀàÐÍÓÐ¾«¶ÈÎÊÌâ£¬ËùÒÔÈÏÎª
-// Èç¹ûÒ»¸öÊý×Ö¾ø¶ÔÖµ  <  sml£¬ÔòÈÏÎª¸ÃÊý×ÖÊÇ0
-// Èç¹ûÒ»¸öÊý×Ö¾ø¶ÔÖµ  >= sml£¬ÔòÈÏÎª¸ÃÊý×Ö²»ÊÇ0
+// å› ä¸ºdoubleç±»åž‹æœ‰ç²¾åº¦é—®é¢˜ï¼Œæ‰€ä»¥è®¤ä¸º
+// å¦‚æžœä¸€ä¸ªæ•°å­—ç»å¯¹å€¼  <  smlï¼Œåˆ™è®¤ä¸ºè¯¥æ•°å­—æ˜¯0
+// å¦‚æžœä¸€ä¸ªæ•°å­—ç»å¯¹å€¼  >= smlï¼Œåˆ™è®¤ä¸ºè¯¥æ•°å­—ä¸æ˜¯0
 const double sml = 1e-7;
 
 int n;
 double mat[MAXN][MAXN + 1];
 
 void swap(int a, int b) {
-    //swapµÄ×÷ÓÃÊÇÓÃÓÚ½»»»Á½¸öÊý×éµÄÄ³Ò»ÐÐ
-    //Ê¹ÓÃÏµÍ³µÄÄÚÖÃº¯Êý¿ÉÒÔ  µ«ÊÇÊ±¼äÉÔÎ¢²îÒ»µã
-    //ÔÚ³ÌÐòÖÐ ½¨ÒéÈ«²¿ÊÖÐ´
-    //µ«ÊÇÊÖÐ´µÄÊ±ºòÒ»¶¨Òª×¢ÒâÖÐ¼äÊý×étmpµÄÀàÐÍÊÇint »¹ÊÇ double
-    //²¢ÇÒÊÖÐ´µÄÊ±ºòÒ»¶¨Òª×¢ÒâÁÐµÄ·¶Î§  ²»ÄÜÈ±ÉÙ
+    //swapçš„ä½œç”¨æ˜¯ç”¨äºŽäº¤æ¢ä¸¤ä¸ªæ•°ç»„çš„æŸä¸€è¡Œ
+    //ä½¿ç”¨ç³»ç»Ÿçš„å†…ç½®å‡½æ•°å¯ä»¥  ä½†æ˜¯æ—¶é—´ç¨å¾®å·®ä¸€ç‚¹
+    //åœ¨ç¨‹åºä¸­ å»ºè®®å…¨éƒ¨æ‰‹å†™
+    //ä½†æ˜¯æ‰‹å†™çš„æ—¶å€™ä¸€å®šè¦æ³¨æ„ä¸­é—´æ•°ç»„tmpçš„ç±»åž‹æ˜¯int è¿˜æ˜¯ double
+    //å¹¶ä¸”æ‰‹å†™çš„æ—¶å€™ä¸€å®šè¦æ³¨æ„åˆ—çš„èŒƒå›´  ä¸èƒ½ç¼ºå°‘
     double tmp[MAXN + 1];
     for (int j = 0; j <= n+1; j++) {
         tmp[j] = mat[a][j];
@@ -47,7 +47,7 @@ void gauss(int n) {
                 max = j;
             }
         }
-        swap(i, max);//½»»»¸ÄÐÐ×î´óÖµ
+        swap(i, max);//äº¤æ¢æ”¹è¡Œæœ€å¤§å€¼
         if (abs(mat[i][i]) >= sml) {
             double tmp = mat[i][i];
             for (int j = i; j <= n + 1; j++) {
@@ -76,12 +76,12 @@ int main() {
     int sign = 1;
     for (int i = 1; i <= n; i++) {
         if (abs(mat[i][i]) < sml && abs(mat[i][n + 1]) >= sml) {
-            //Ã¬¶Ü¿ÉÒÔÀí½âÎªÃ»ÓÐÖ÷Ôª  µ«ÊÇÓÐ½á¹û
+            //çŸ›ç›¾å¯ä»¥ç†è§£ä¸ºæ²¡æœ‰ä¸»å…ƒ  ä½†æ˜¯æœ‰ç»“æžœ
             sign = -1;
             break;
         }
         if (abs(mat[i][i]) < sml) {
-            //¶à½â¿ÉÒÔÀí½âÎªÓÐ×ÔÓÉÔª  ½á¹ûÎª0  ÈÏÎªÃ»ÓÐ½á¹ûs
+            //å¤šè§£å¯ä»¥ç†è§£ä¸ºæœ‰è‡ªç”±å…ƒ  ç»“æžœä¸º0  è®¤ä¸ºæ²¡æœ‰ç»“æžœs
             sign = 0;
         }
     }

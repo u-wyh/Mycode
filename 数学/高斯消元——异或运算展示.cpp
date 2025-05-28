@@ -6,10 +6,10 @@ using namespace std;
 const int MAXN = 101;
 
 vector<vector<int>> mat(MAXN, vector<int>(MAXN + 1, 0));
-//ÊÂÊµÉÏ  ÎÒÃÇÒ»°ãÓÃ¾²Ì¬±í   ´Ë¶Î´úÂëÓÉaiÉú³É
+//äº‹å®žä¸Š  æˆ‘ä»¬ä¸€èˆ¬ç”¨é™æ€è¡¨   æ­¤æ®µä»£ç ç”±aiç”Ÿæˆ
 
-// ×¢Òâ£ºÕâÀïÎªÁË¼ò»¯£¬ÎÒÃÇÖ±½Ó½»»»ÐÐÏòÁ¿£¬¶ø²»ÊÇÕæÕýµÄÐÐÏòÁ¿ÄÚÈÝ
-// ÐèÒªÔÚº¯ÊýÍâ¶¨ÒåÒ»¸ö¸¨Öúº¯ÊýÀ´ÕæÕý½»»»Á½¸övector<int>
+// æ³¨æ„ï¼šè¿™é‡Œä¸ºäº†ç®€åŒ–ï¼Œæˆ‘ä»¬ç›´æŽ¥äº¤æ¢è¡Œå‘é‡ï¼Œè€Œä¸æ˜¯çœŸæ­£çš„è¡Œå‘é‡å†…å®¹
+// éœ€è¦åœ¨å‡½æ•°å¤–å®šä¹‰ä¸€ä¸ªè¾…åŠ©å‡½æ•°æ¥çœŸæ­£äº¤æ¢ä¸¤ä¸ªvector<int>
 void swap(int a, int b) {
     cout<<"swap"<<endl;
     vector<int> tmp = mat[a];
@@ -17,8 +17,8 @@ void swap(int a, int b) {
     mat[b] = tmp;
 }
 
-// ¸ßË¹ÏûÔª½â¾öÒì»ò·½³Ì×éÄ£°æ
-// ÐèÒª±£Ö¤±äÁ¿ÓÐn¸ö£¬±í´ïÊ½Ò²ÓÐn¸ö
+// é«˜æ–¯æ¶ˆå…ƒè§£å†³å¼‚æˆ–æ–¹ç¨‹ç»„æ¨¡ç‰ˆ
+// éœ€è¦ä¿è¯å˜é‡æœ‰nä¸ªï¼Œè¡¨è¾¾å¼ä¹Ÿæœ‰nä¸ª
 void gauss(int n) {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
@@ -26,7 +26,7 @@ void gauss(int n) {
                 continue;
             }
             if (mat[j][i] == 1) {
-                //Òì»òÔËËã  ÒªÃ´ÊÇ0ÒªÃ´ÊÇ1  ËùÒÔÕÒµ½1¾Í¿ÉÒÔ½áÊøÁË
+                //å¼‚æˆ–è¿ç®—  è¦ä¹ˆæ˜¯0è¦ä¹ˆæ˜¯1  æ‰€ä»¥æ‰¾åˆ°1å°±å¯ä»¥ç»“æŸäº†
                 swap(i, j);
                 break;
             }
@@ -54,7 +54,7 @@ void print(int n) {
 }
 
 int main() {
-    cout << "¿ÎÉÏÍ¼½âµÄÀý×Ó£¬ÓÐÎ¨Ò»½â" << endl;
+    cout << "è¯¾ä¸Šå›¾è§£çš„ä¾‹å­ï¼Œæœ‰å”¯ä¸€è§£" << endl;
     // x1 ^ x2 ^ x3 = 0
     // x1 ^ x3 ^ x4 = 1
     // x2 ^ x3 ^ x4 = 1
@@ -66,7 +66,7 @@ int main() {
     gauss(4);
     print(4);
 
-    cout << "±í´ïÊ½´æÔÚÃ¬¶ÜµÄÀý×Ó" << endl;
+    cout << "è¡¨è¾¾å¼å­˜åœ¨çŸ›ç›¾çš„ä¾‹å­" << endl;
     // x1 ^ x2 = 1
     // x1 ^ x3 = 1
     // x2 ^ x3 = 1
@@ -76,19 +76,19 @@ int main() {
     gauss(3);
     print(3);
 
-    cout << "±í´ïÊ½´æÔÚ¶à½âµÄÀý×Ó" << endl;
+    cout << "è¡¨è¾¾å¼å­˜åœ¨å¤šè§£çš„ä¾‹å­" << endl;
     // x1 ^ x3 = 1
     // x2 ^ x3 = 1
     // x1 ^ x2 = 0
     mat[0][0] = 1; mat[0][1] = 0; mat[0][2] = 1; mat[0][3] = 1;
     mat[1][0] = 0; mat[1][1] = 1; mat[1][2] = 1; mat[1][3] = 1;
     mat[2][0] = 1; mat[2][1] = 1; mat[2][2] = 0; mat[2][3] = 0;
-    // ×¢Òâ£ºÕâ¸öÀý×ÓÔÚC++ÖÐÓ¦¸ÃÈÔÈ»Ê¹ÓÃ3¸ö±äÁ¿£¬ËùÒÔÈ¥µôÏÂÃæµÄÐÐ
-    // mat[3][0] = 1; mat[3][1] = 1; mat[3][2] = 0; mat[3][3] = 0; // ÕâÐÐ²»Ó¦¸Ã´æÔÚ
+    // æ³¨æ„ï¼šè¿™ä¸ªä¾‹å­åœ¨C++ä¸­åº”è¯¥ä»ç„¶ä½¿ç”¨3ä¸ªå˜é‡ï¼Œæ‰€ä»¥åŽ»æŽ‰ä¸‹é¢çš„è¡Œ
+    // mat[3][0] = 1; mat[3][1] = 1; mat[3][2] = 0; mat[3][3] = 0; // è¿™è¡Œä¸åº”è¯¥å­˜åœ¨
     gauss(3);
     print(3);
 
-    cout << "×¢ÒâÏÂÃæÕâ¸ö¶à½âµÄÀý×Ó" << endl;
+    cout << "æ³¨æ„ä¸‹é¢è¿™ä¸ªå¤šè§£çš„ä¾‹å­" << endl;
     // x1 ^ x3 ^ x4 = 0
     // x2 ^ x3 ^ x4 = 0
     // x1 ^ x2 = 0
@@ -99,16 +99,16 @@ int main() {
     mat[3][0] = 0; mat[3][1] = 0; mat[3][2] = 1; mat[3][3] = 1; mat[3][4] = 1;
     gauss(4);
     print(4);
-    cout << "×îºóÒ»¸öÀý×ÓÀï" << endl;
-    cout << "Ö÷Ôªx1ºÍx2£¬²»ÊÜÆäËû×ÔÓÉÔªÓ°Ïì£¬Öµ¿ÉÒÔÖ±½ÓÈ·¶¨" << endl;
-    cout << "µ«ÊÇÖ÷Ôªx3£¬ÊÜµ½×ÔÓÉÔªx4µÄÓ°Ïì£¬x3 ^ x4 = 1" << endl;
-    cout << "Ö»ÓÐ×ÔÓÉÔªx4È·¶¨ÁËÖµ£¬Ö÷Ôªx3µÄÖµ²ÅÄÜÈ·¶¨" << endl;
-    cout << "ÕâÀïÊÇÏëËµ£¬ÏûÔªÍê³Éºó£¬Èç¹û½áÂÛÊÇ¶à½â£¬ÄÇÃ´" << endl;
-    cout << "ÓÐÐ©Ö÷ÔªµÄÖµ¿ÉÒÔÖ±½ÓÈ·¶¨" << endl;
-    cout << "ÓÐÐ©Ö÷ÔªµÄÖµÐèÒªÈô¸É×ÔÓÉÔªÈ·¶¨Ö®ºó²ÅÄÜÈ·¶¨" << endl;
-    cout << "Õâ¾ÍÊÇÉÏ½Ú¿Î½²½âµÄÄÚÈÝ£º" << endl;
-    cout << "Ö÷ÔªºÍ×ÔÓÉÔªÖ®¼äµÄÒÀÀµ¹ØÏµ" << endl;
-    cout << "ÇëÈ·±£ÒÑ¾­ÕÆÎÕ" << endl;
+    cout << "æœ€åŽä¸€ä¸ªä¾‹å­é‡Œ" << endl;
+    cout << "ä¸»å…ƒx1å’Œx2ï¼Œä¸å—å…¶ä»–è‡ªç”±å…ƒå½±å“ï¼Œå€¼å¯ä»¥ç›´æŽ¥ç¡®å®š" << endl;
+    cout << "ä½†æ˜¯ä¸»å…ƒx3ï¼Œå—åˆ°è‡ªç”±å…ƒx4çš„å½±å“ï¼Œx3 ^ x4 = 1" << endl;
+    cout << "åªæœ‰è‡ªç”±å…ƒx4ç¡®å®šäº†å€¼ï¼Œä¸»å…ƒx3çš„å€¼æ‰èƒ½ç¡®å®š" << endl;
+    cout << "è¿™é‡Œæ˜¯æƒ³è¯´ï¼Œæ¶ˆå…ƒå®ŒæˆåŽï¼Œå¦‚æžœç»“è®ºæ˜¯å¤šè§£ï¼Œé‚£ä¹ˆ" << endl;
+    cout << "æœ‰äº›ä¸»å…ƒçš„å€¼å¯ä»¥ç›´æŽ¥ç¡®å®š" << endl;
+    cout << "æœ‰äº›ä¸»å…ƒçš„å€¼éœ€è¦è‹¥å¹²è‡ªç”±å…ƒç¡®å®šä¹‹åŽæ‰èƒ½ç¡®å®š" << endl;
+    cout << "è¿™å°±æ˜¯ä¸ŠèŠ‚è¯¾è®²è§£çš„å†…å®¹ï¼š" << endl;
+    cout << "ä¸»å…ƒå’Œè‡ªç”±å…ƒä¹‹é—´çš„ä¾èµ–å…³ç³»" << endl;
+    cout << "è¯·ç¡®ä¿å·²ç»æŽŒæ¡" << endl;
 
     return 0;
 }
