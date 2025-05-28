@@ -44,7 +44,6 @@ long long c(int n, int k) {
     return (((fac[n] * inv[k]) % MOD) * inv[n - k]) % MOD;
 }
 
-
 int main()
 {
     int a,b,k,n,m;

@@ -65,6 +65,7 @@ long long crt(int n) {
         // ai逆元，在%m[i]意义下的逆元
         exgcd(ai, m[i]);
         // ci = (ri *   ai * ai逆元(即x)  ) % lcm
+        //这里之所以要%lcm  是因为我们要求的是最小的符合要求的正整数  所有符合要求的可以表示为特解加上任意个lcm
         ci = multiply(r[i], multiply(ai, x, lcm), lcm);
         ans = (ans + ci) % lcm;
     }

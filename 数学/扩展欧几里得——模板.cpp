@@ -19,6 +19,11 @@ void exgcd(long long a, long long b) {
     } else {
         exgcd(b, a % b);
         //这个过程在向上的时候逐步更新
+        //d=x'*a'+y'*b'
+        // =x'*b+y'*(a-(a/b)*b)
+        // =y'*a+(x'-(a/b)*y')b
+        // =x*a+y*b
+        //x=y'   y=x'-(a/b)*y'
         px = x;
         py = y;
         x = py;
