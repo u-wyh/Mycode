@@ -71,6 +71,7 @@ long long excrt(int n) {
         // ax + by = gcd(a,b)，特解是，x变量
         // ax + by = c，特解是，x变量 * (c/d)
         // ax + by = c，最小非负特解x0 = (x * (c/d)) % (b/d) 取非负余数
+        //特解是x0
         // 通解 = x0 + (b/d) * n
         x0 = multiply(x, c / d, b / d);
         // ans = lcm * x + tail，带入通解

@@ -4,6 +4,7 @@
 // 2 <= a、b <= 2 * 10^9
 // 测试链接 : https://www.luogu.com.cn/problem/P1082
 // 提交以下的code，提交时请把类名改成"Main"，可以通过所有测试用例
+//在exgcd之后 求出来的特解x实际上是a在%b意义下的逆元
 #include<bits/stdc++.h>
 using namespace std;
 
