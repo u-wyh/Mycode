@@ -1,10 +1,11 @@
-// ×î´óÒì»òºÍ
-// ¸ø¶¨Ò»¸ö³¤¶ÈÎªnµÄÊý×éarr£¬arrÖÐ¶¼ÊÇlongÀàÐÍµÄ·Ç¸ºÊý£¬¿ÉÄÜÓÐÖØ¸´Öµ
-// ÔÚÕâÐ©ÊýÖÐÑ¡È¡ÈÎÒâ¸ö£¬Ê¹µÃÒì»òºÍ×î´ó£¬·µ»Ø×î´óµÄÒì»òºÍ
+// æœ€å¤§å¼‚æˆ–å’Œ
+// ç»™å®šä¸€ä¸ªé•¿åº¦ä¸ºnçš„æ•°ç»„arrï¼Œarrä¸­éƒ½æ˜¯longç±»åž‹çš„éžè´Ÿæ•°ï¼Œå¯èƒ½æœ‰é‡å¤å€¼
+// åœ¨è¿™äº›æ•°ä¸­é€‰å–ä»»æ„ä¸ªï¼Œä½¿å¾—å¼‚æˆ–å’Œæœ€å¤§ï¼Œè¿”å›žæœ€å¤§çš„å¼‚æˆ–å’Œ
 // 1 <= n <= 50
 // 0 <= arr[i] <= 2^50
-// ²âÊÔÁ´½Ó : https://www.luogu.com.cn/problem/P3812
-// Ìá½»ÒÔÏÂµÄcode£¬Ìá½»Ê±Çë°ÑÀàÃû¸Ä³É"Main"£¬¿ÉÒÔÍ¨¹ýËùÓÐ²âÊÔÓÃÀý
+// æµ‹è¯•é“¾æŽ¥ : https://www.luogu.com.cn/problem/P3812
+// æäº¤ä»¥ä¸‹çš„codeï¼Œæäº¤æ—¶è¯·æŠŠç±»åæ”¹æˆ"Main"ï¼Œå¯ä»¥é€šè¿‡æ‰€æœ‰æµ‹è¯•ç”¨ä¾‹
+//æ™®é€šçš„æ¶ˆå…ƒè¶³å¤Ÿè§£å†³å¾ˆå¤šé—®é¢˜  
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 51;
@@ -14,7 +15,7 @@ long arr[MAXN];
 long basis[BIT + 1];
 int n;
 
-// ÏßÐÔ»ùÀï²åÈënum£¬Èç¹ûÏßÐÔ»ùÔö¼ÓÁË·µ»Øtrue£¬·ñÔò·µ»Øfalse
+// çº¿æ€§åŸºé‡Œæ’å…¥numï¼Œå¦‚æžœçº¿æ€§åŸºå¢žåŠ äº†è¿”å›žtrueï¼Œå¦åˆ™è¿”å›žfalse
 bool insert(long num) {
 	for (int i = BIT; i >= 0; i--) {
 		if (num >> i == 1) {
@@ -28,8 +29,8 @@ bool insert(long num) {
 	return false;
 }
 
-// ÆÕÍ¨ÏûÔª
-// ¼ÆËã×î´óÒì»òºÍ
+// æ™®é€šæ¶ˆå…ƒ
+// è®¡ç®—æœ€å¤§å¼‚æˆ–å’Œ
 long compute() {
 	for (int i = 1; i <= n; i++) {
 		insert(arr[i]);
@@ -38,7 +39,7 @@ long compute() {
 	for (int i = BIT; i >= 0; i--) {
 		ans = max(ans, ans ^ basis[i]);
 	}
-	//Èç¹û¿ÉÒÔÊ¹´ð°¸Ôö¼Ó  ÄÇÃ´¾ÍÒì»òÉÏÕâ¸öÊý×Ö
+	//å¦‚æžœå¯ä»¥ä½¿ç­”æ¡ˆå¢žåŠ   é‚£ä¹ˆå°±å¼‚æˆ–ä¸Šè¿™ä¸ªæ•°å­—
 	return ans;
 }
 

@@ -1,34 +1,34 @@
-// ·���������(�ݹ��)
-// һ����n���㣬���1~n����m�����������
-// ÿ������Ȩֵ�����뱣֤ͼ����ͨ�ģ������л�
-// �ҵ�1��n��һ��·����·�������ظ�����ĳЩ����
-// ��һ������·���г����˶��ʱ������ʱ��ҲҪ����
-// ϣ���ҵ�һ����1��n��·�������б�Ȩ���;����󣬷�������������
+// 路径最大异或和(递归版)
+// 一共有n个点，编号1~n，由m条无向边连接
+// 每条边有权值，输入保证图是连通的，可能有环
+// 找到1到n的一条路径，路径可以重复经过某些点或边
+// 当一条边在路径中出现了多次时，异或的时候也要算多次
+// 希望找到一条从1到n的路径，所有边权异或和尽量大，返回这个最大异或和
 // 1 <= n <= 50000
 // 1 <= m <= 100000
-// 0 <= ��Ȩ <= 10^18
-// �������� : https://www.luogu.com.cn/problem/P4151
-// �ύ���µ�code���ύʱ��������ĳ�"Main"
-// C++��ôд��ͨ����java����Ϊ�ݹ����̫�����ջ
-// java��ͨ����д���ο����ڿ�Code04_MaximumXorOfPath2�ļ�
+// 0 <= 边权 <= 10^18
+// 测试链接 : https://www.luogu.com.cn/problem/P4151
+// 提交以下的code，提交时请把类名改成"Main"
+// C++这么写能通过，java会因为递归层数太多而爆栈
+// java能通过的写法参考本节课Code04_MaximumXorOfPath2文件
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 50001;
 const int MAXM = 200002;
 const int BIT = 60;
 
-// ��ʽǰ����
+// 链式前向星
 int head[MAXN];
 int Next[MAXM];
 int to[MAXM];
 long weight[MAXM];
 int cnt=1;
 
-// ���л������͹��������Ի�
+// 所有环的异或和构建的线性基
 long basis[BIT + 1];
-// ĳ���ڵ���dfs�������Ƿ񱻷��ʹ�
+// 某个节点在dfs过程中是否被访问过
 bool visited[MAXN];
-// ��ͷ��㵽��ǰ�ڵ������
+// 从头结点到当前节点的异或和
 long path[MAXN];
 
 void addEdge(int u, int v, long w) {
@@ -58,7 +58,7 @@ void dfs(int u, int f, long p) {
 		if (v != f) {
 			long eor = p ^ weight[e];
 			if (visited[v]) {
-                //�������ʹ���  ˵�������һ����
+                //这个点访问过了  说明这就是一个环
 				insert(eor ^ path[v]);
 			} else {
 				dfs(v, u, eor);
