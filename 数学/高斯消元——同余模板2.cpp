@@ -1,17 +1,17 @@
-// ���߹���
-// һ����n�ֹ��ߣ����1~n��һ����m����¼������һ����¼��ʽ���£�
+// 工具工厂
+// 一共有n种工具，编号1~n，一共有m条记录，其中一条记录格式如下：
 // 4 WED SUN 13 18 1 13
-// ��ʾ�и�����һ���ӹ���4�����ߣ���ĳ����������ʼ��������ĳ���������������
-// �ӹ��Ĺ�������Ϊ13�š�18�š�1�š�13��
-// ÿ�������ڹ����ڼ䲻��Ϣ��ÿ�����߶��Ǵ��мӹ��ģ����һ����ſ�ʼ��һ��
-// ÿ�ֹ������������ǹ̶��ģ������κι��ߵ�������������3�졢���9��
-// �������ݶ�ʧ�ˣ�����������Ҫ���ݼ�¼���ƶϳ�ÿ�ֹ��ߵ���������
-// �����¼֮�����ì�ܣ���ӡ"Inconsistent data."
-// �����¼�޷�ȷ��ÿ�ֹ��ߵ�������������ӡ"Multiple solutions."
-// �����¼�ܹ�ȷ��ÿ�ֹ��ߵ�������������ӡ���н��
-// 1 <= n��m <= 300
-// �������� : http://poj.org/problem?id=2947
-// �ύ���µ�code���ύʱ��������ĳ�"Main"������ͨ�����в�������
+// 表示有个工人一共加工了4件工具，从某个星期三开始工作，到某个星期天结束工作
+// 加工的工具依次为13号、18号、1号、13号
+// 每个工人在工作期间不休息，每件工具都是串行加工的，完成一件后才开始下一件
+// 每种工具制作天数是固定的，并且任何工具的制作天数最少3天、最多9天
+// 但该数据丢失了，所以现在需要根据记录，推断出每种工具的制作天数
+// 如果记录之间存在矛盾，打印"Inconsistent data."
+// 如果记录无法确定每种工具的制作天数，打印"Multiple solutions."
+// 如果记录能够确定每种工具的制作天数，打印所有结果
+// 1 <= n、m <= 300
+// 测试链接 : http://poj.org/problem?id=2947
+// 提交以下的code，提交时请把类名改成"Main"，可以通过所有测试用例
 #include<bits/stdc++.h>
 using namespace std;
 const int MOD = 7;
@@ -60,15 +60,15 @@ void prepare() {
 	}
 }
 
-// ��˹��Ԫ���ͬ�෽����ģ�棬��֤��ʼϵ��û�и���
+// 高斯消元解决同余方程组模版，保证初始系数没有负数
 void gauss(int n) {
     for (int i = 1; i <= n; i++) {
         for (int j = 1; j <= n; j++) {
-            // �Ѿ���Ϊ��Ԫ���в�����
+            // 已经成为主元的行不参与
             if (j < i && mat[j][j] != 0) {
                 continue;
             }
-            // �ҵ�ϵ��������0��������Ԫ����
+            // 找到系数不等于0的行做主元即可
             if (mat[j][i] != 0) {
                 swap(i,j);
                 break;
@@ -81,13 +81,13 @@ void gauss(int n) {
                     int a = mat[i][i] / gcd_val;
                     int b = mat[j][i] / gcd_val;
                     if (j < i && mat[j][j] != 0) {
-                        // ���j������Ԫ����ô��j�е�i-1�е�����ϵ�� * a
-                        // ��ȷ������Ԫ������Ԫ֮��Ĺ�ϵ
+                        // 如果j行有主元，那么从j列到i-1列的所有系数 * a
+                        // 正确更新主元和自由元之间的关系
                         for (int k = j; k < i; k++) {
                             mat[j][k] = (mat[j][k] * a) % MOD;
                         }
                     }
-                    // ������Ԫ
+                    // 正常消元
                     for (int k = i; k <= n + 1; k++) {
                         mat[j][k] = ((mat[j][k] * a - mat[i][k] * b) % MOD + MOD) % MOD;
                     }
@@ -97,9 +97,9 @@ void gauss(int n) {
     }
     for (int i = 1; i <= n; i++) {
         if (mat[i][i] != 0) {
-            // ��鵱ǰ��Ԫ�Ƿ���������ԪӰ��
-            // �����ǰ��Ԫ��������ԪӰ�죬��ô����ȷ����ǰ��Ԫ��ֵ
-            // ����������Ӱ�죬��ȷ��ʾ��Ԫ������Ԫ�Ĺ�ϵ
+            // 检查当前主元是否被若干自由元影响
+            // 如果当前主元不受自由元影响，那么可以确定当前主元的值
+            // 否则保留这种影响，正确显示主元和自由元的关系
             bool flag = false;
             for (int j = i + 1; j <= n; j++) {
                 if (mat[i][j] != 0) {
@@ -108,7 +108,7 @@ void gauss(int n) {
                 }
             }
             if (!flag) {
-                // ��ģ������Ӧ������Ԫ��(a / b) % MOD = (a * b����Ԫ) % MOD
+                // 在模意义下应该求逆元，(a / b) % MOD = (a * b的逆元) % MOD
                 mat[i][n + 1] = (mat[i][n + 1] * inv[mat[i][i]]) % MOD;
                 mat[i][i] = 1;
             }
@@ -161,7 +161,7 @@ int main()
             }
             cout<<mat[n][s + 1]<<endl<<endl;
         }
-        // ��һ��n��m
+        // 下一组n和m
         cin>>n>>m;
     }
     return 0;

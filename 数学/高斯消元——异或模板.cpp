@@ -8,6 +8,11 @@
 // 1 <= m <= 595
 // 测试链接 : https://www.luogu.com.cn/problem/P2962
 // 提交以下的code，提交时请把类名改成"Main"，可以通过所有测试用例
+//最终的结果是1  表示需要发生变化 即从0->1 1->0
+//初始时全都是0  最终要变成1  都发生了变化  也就是最后一列全都是1
+//这道题目说了一定不会存在矛盾
+//如果是唯一解 那么很简单 直接输出最终位上有多少个1
+//否则通过dfs来暴力选择每个自由元要或者不要
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 37;
@@ -52,6 +57,7 @@ void gauss(int n) {
     }
 }
 
+//表示当前来到了第i号元  已经改了num次
 void dfs(int i, int num) {
     if (num >= ans) { // 剪枝
         return;
@@ -115,6 +121,7 @@ int main()
         }
     } else {
         // 多解
+        //暴力dfs  寻找最小的答案
         ans = n;//最多只有n次
         dfs(n, 0);
     }
