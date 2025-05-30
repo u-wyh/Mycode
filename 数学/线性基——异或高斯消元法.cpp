@@ -31,7 +31,7 @@ void compute() {
     for (int i = BIT; i >= 0; i--) {
         for (int j = len; j <= n; j++) {
             if (arr[j] & (1LL << i)) {
-                swap(j, len);
+                swap(j, len);//这里是对的 改成swap(arr[j], arr[len]);也可以通过
                 break;
             }
         }
