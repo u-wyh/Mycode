@@ -1,9 +1,9 @@
 //P6464
-//������ǿ����޸�һ����Ȩ  Ȼ����ȫ����ͨ��Сֵ
-//����޸�һ���߾���һ��floyd  ��ôʱ�临�ӶȲ�����
-//����������ö���޸���������֮��ıߵ�ʱ�� 
-//����������ڵ�֮��ľ����С  ��ô˵����ö�ٵ���������һ����һ���Ǻ��������������ת��
-//�������ǿ�����Ϊ������ö�ٵ����floyd�㷨�е�bridge  Ȼ�󿼲���Щ��֮����Ա�����
+//这道题是可以修改一条边权  然后求全局联通最小值
+//如果修改一条边就跑一遍floyd  那么时间复杂度不允许
+//所以我们在枚举修改哪两个点之间的边的时候 
+//如果有两个节点之间的距离变小  那么说明这枚举的两个点中一定有一个是后来这两个点的中转点
+//所以我们可以认为这外层的枚举点就是floyd算法中的bridge  然后考察哪些点之间可以被减少
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -12,7 +12,7 @@ int F[105][105];
 int f[105][105];
 
 void floyd() {
-    for (int bridge = 1; bridge <= n; bridge++) { // ����
+    for (int bridge = 1; bridge <= n; bridge++) { // 跳板
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= n; j++) {
                 if (f[i][bridge] != INT_MAX && f[bridge][j] != INT_MAX && f[i][j] > f[i][bridge] + f[bridge][j]) {

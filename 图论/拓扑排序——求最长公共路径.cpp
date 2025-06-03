@@ -1,6 +1,6 @@
 //P2149
-//ÕâµÀÌâÄ¿ÆäÊµÖ÷Òª¿¼²éµÄÊÇ×î³¤¹«¹²Â·¾¶
-//ÍØÆËÅÅĞòÒ²ºÜÖØÒª
+//è¿™é“é¢˜ç›®å…¶å®ä¸»è¦è€ƒæŸ¥çš„æ˜¯æœ€é•¿å…¬å…±è·¯å¾„
+//æ‹“æ‰‘æ’åºä¹Ÿå¾ˆé‡è¦
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 1500;
@@ -27,7 +27,7 @@ int st1,en1,st2,en2;
 int n,m;
 
 auto compare = [](const pair<int, int>& left, const pair<int, int>& right) {
-    return left.second > right.second; // ×¢ÒâÕâÀïÊÇ´óÓÚ£¬ÒòÎªÎÒÃÇÏëÒªĞ¡¸ù¶Ñ
+    return left.second > right.second; // æ³¨æ„è¿™é‡Œæ˜¯å¤§äºï¼Œå› ä¸ºæˆ‘ä»¬æƒ³è¦å°æ ¹å †
 };
 priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(compare)> heap(compare);
 
@@ -44,7 +44,7 @@ inline int read(){
     return x*f;
 }
 
-//Ô­Ê¼±ß½¨Í¼
+//åŸå§‹è¾¹å»ºå›¾
 void addedge(int u,int v,int w){
     Next[cnt]=head[u];
     to[cnt]=v;
@@ -52,7 +52,7 @@ void addedge(int u,int v,int w){
     head[u]=cnt++;
 }
 
-//¹«¹²±ß½¨Í¼
+//å…¬å…±è¾¹å»ºå›¾
 void addedge1(int u,int v,int w){
     Next1[cnt1]=head1[u];
     to1[cnt1]=v;
@@ -127,7 +127,7 @@ int main()
             int v=to[j];
             if(dis[1][i]+weight[j]+dis[2][v]==dis[1][en1]){
                 if(dis[3][i]+weight[j]+dis[4][v]==dis[3][en2]){
-                    //ËµÃ÷ÕâÌõ±ß¿ÉÒÔÊÇ¹«¹²±ß  
+                    //è¯´æ˜è¿™æ¡è¾¹å¯ä»¥æ˜¯å…¬å…±è¾¹  
                     addedge1(i,v,weight[j]);
                 }
             }
@@ -138,7 +138,7 @@ int main()
     for(int i=1;i<=n;i++){
         ans=max(ans,len[i]);
     }
-    //³õÊ¼»¯
+    //åˆå§‹åŒ–
     for(int i=1;i<=n;i++){
         len[i]=0;
         in[i]=0;
@@ -151,8 +151,8 @@ int main()
             int v=to[j];
             if(dis[1][i]+weight[j]+dis[2][v]==dis[1][en1]){
                 if(dis[4][i]+weight[j]+dis[3][v]==dis[3][en2]){
-                    //ÉÏÃæÊÇ²¢ĞĞµÄÇé¿ö ÕâÖÖÊÇÏàÓö  ÕâÁ½ÖÖ¶¼Ëã
-                    //×îÖÕÇó³öÀ´µÄÁ´Ò»¶¨²»¿ÉÄÜÊÇ ¼ÈÓĞÏàÓö ÓÖÓĞ²¢ĞĞ  ·ñÔò²»¾ÍÊÇÔÚ×ßÒ»¸ö»·Âğ
+                    //ä¸Šé¢æ˜¯å¹¶è¡Œçš„æƒ…å†µ è¿™ç§æ˜¯ç›¸é‡  è¿™ä¸¤ç§éƒ½ç®—
+                    //æœ€ç»ˆæ±‚å‡ºæ¥çš„é“¾ä¸€å®šä¸å¯èƒ½æ˜¯ æ—¢æœ‰ç›¸é‡ åˆæœ‰å¹¶è¡Œ  å¦åˆ™ä¸å°±æ˜¯åœ¨èµ°ä¸€ä¸ªç¯å—
                     addedge1(i,v,weight[j]);
                 }
             }

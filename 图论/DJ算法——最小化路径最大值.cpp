@@ -1,12 +1,12 @@
-// ��С��������·��
-// ��׼���μ�һ��Զ��������һ����ά rows x columns �ĵ�ͼ heights
-// ���� heights[row][col] ��ʾ���� (row, col) �ĸ߶�
-// һ��ʼ���������Ͻǵĸ��� (0, 0) ������ϣ��ȥ�����½ǵĸ��� (rows-1, columns-1)
-// ��ע���±�� 0 ��ʼ��ţ�����ÿ�ο����� �ϣ��£����� �ĸ�����֮һ�ƶ�
-// ����Ҫ�ҵ��ķ� ���� ��С��һ��·��
-// һ��·���ķѵ�����ֵ��·���ϣ����ڸ���֮��߶Ȳ����ֵ�����ֵ
-// ���㷵�ش����Ͻ��ߵ����½ǵ���С ��������ֵ
-// �������� ��https://leetcode.cn/problems/path-with-minimum-effort/
+// 最小体力消耗路径
+// 你准备参加一场远足活动。给你一个二维 rows x columns 的地图 heights
+// 其中 heights[row][col] 表示格子 (row, col) 的高度
+// 一开始你在最左上角的格子 (0, 0) ，且你希望去最右下角的格子 (rows-1, columns-1)
+// （注意下标从 0 开始编号）。你每次可以往 上，下，左，右 四个方向之一移动
+// 你想要找到耗费 体力 最小的一条路径
+// 一条路径耗费的体力值是路径上，相邻格子之间高度差绝对值的最大值
+// 请你返回从左上角走到右下角的最小 体力消耗值
+// 测试链接 ：https://leetcode.cn/problems/path-with-minimum-effort/
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 105;
@@ -15,20 +15,20 @@ const int MAXM = 105;
 struct Range {
     int i,j,val;
 };
-// �ȽϺ���������С���ѣ��� l ֵ���ʱ������ͨ�����Ӷ���ıȽ��������ȶ���
+// 比较函数，用于小根堆，当 l 值相等时，可以通过添加额外的比较来保持稳定性
 bool compare(const Range& a, const Range& b) {
-    return a.val > b.val; // ע�������Ǵ��ںţ���Ϊ����Ҫʹ�� greater<> �����С����
+    return a.val > b.val; // 注意这里是大于号，因为我们要使用 greater<> 来获得小根堆
 }
 priority_queue<Range, vector<Range>, decltype(&compare)> heap(compare);
 
 int n,m;
 int walk[4][2]={{1,0},{-1,0},{0,1},{0,-1}};
 int height[MAXN][MAXM];
-//��¼�����ط��ĺ���
+//记录各个地方的海拔
 int dis[MAXN][MAXM];
-//��¼�ӿ�ʼ����Ŀǰ�������С�����߶Ȳ�
+//记录从开始到达目前这个点最小的最大高度差
 bool visit[MAXN][MAXM];
-//��¼������Ƿ񱻷���
+//记录这个点是否被访问
 
 int main()
 {
@@ -43,7 +43,7 @@ int main()
             dis[i][j]=INT_MAX;
         }
     }
-    //��ʼ��
+    //初始化
 
     dis[0][0]=0;
     heap.push({0,0,0});
@@ -61,7 +61,7 @@ int main()
             cout<<c;
             return 0;
         }
-        //�������Ŀ��ֱ�ӵ���
+        //如果到达目标直接弹出
         for (int i = 0; i < 4; i++) {
             int nx = x + walk[i][0];
             int ny = y + walk[i][1];
