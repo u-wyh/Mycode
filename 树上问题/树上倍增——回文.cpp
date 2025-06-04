@@ -1,16 +1,16 @@
-// ����������ڵ���·���Ƿ��ǻ���
-// һ��������n���ڵ㣬���1~n
-// ��������Ϊn������parent, parent[i]��ʾ�ڵ�i�ĸ��ڵ���
-// ��������Ϊn������s, s[i]��ʾ�ڵ�i����ʲô�ַ�
-// �ӽڵ�a���ڵ�b�����ڵ����ٵ�·������a��b��·��
-// һ����m����ѯ��ÿ����ѯ(a,b)��a��b��·���ַ����Ƿ��ǻ���
-// �ǻ��Ĵ�ӡ"YES"�����ǻ��Ĵ�ӡ"NO"
+// 检查树上两节点间的路径是否是回文
+// 一颗树上有n个节点，编号1~n
+// 给定长度为n的数组parent, parent[i]表示节点i的父节点编号
+// 给定长度为n的数组s, s[i]表示节点i上是什么字符
+// 从节点a到节点b经过节点最少的路，叫做a和b的路径
+// 一共有m条查询，每条查询(a,b)，a和b的路径字符串是否是回文
+// 是回文打印"YES"，不是回文打印"NO"
 // 1 <= n <= 10^5
 // 1 <= m <= 10^5
-// parent[1] = 0������������ͷ�ڵ�һ����1�Žڵ�
-// ÿ���ڵ��ϵ��ַ�һ����Сд��ĸa~z
-// �������� : https://ac.nowcoder.com/acm/contest/78807/G
-// �ύ���µ�code���ύʱ��������ĳ�"Main"������ֱ��ͨ��
+// parent[1] = 0，即整棵树的头节点一定是1号节点
+// 每个节点上的字符一定是小写字母a~z
+// 测试链接 : https://ac.nowcoder.com/acm/contest/78807/G
+// 提交以下的code，提交时请把类名改成"Main"，可以直接通过
 
 #include<bits/stdc++.h>
 using namespace std;
@@ -26,7 +26,7 @@ int Next[MAXN << 1];
 int cnt=1;
 int deep[MAXN];
 int jump[MAXN][LIMIT];
-// kpow[i] = k��i�η�
+// kpow[i] = k的i次方
 long kpow[MAXN];
 long stup[MAXN][LIMIT];
 long stdown[MAXN][LIMIT];
@@ -63,7 +63,7 @@ int lca(int a, int b) {
 }
 
 long ha(int from, int lca, int to) {
-    // up������hashֵ
+    // up是上坡hash值
     long up = s[from];
     for (int p = power; p >= 0; p--) {
         if (deep[jump[from][p]] >= deep[lca]) {
@@ -74,9 +74,9 @@ long ha(int from, int lca, int to) {
     if (to == lca) {
         return up;
     }
-    // down������hashֵ
+    // down是下坡hash值
     long down = s[to];
-    // height��Ŀǰ���µ��ܸ߶�
+    // height是目前下坡的总高度
     int height = 1;
     for (int p = power; p >= 0; p--) {
         if (deep[jump[to][p]] > deep[lca]) {

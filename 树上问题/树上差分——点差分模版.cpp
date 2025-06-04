@@ -1,14 +1,14 @@
-// ���ϵ���ģ��(�ݹ��)
-// ��n���ڵ��γ�һ������һ��ʼ���е�Ȩ����0
-// �����ܶ������ÿ������(a,b)��ʾ��a��b·�������е�ĵ�Ȩ����1
-// ���в�����ɺ󣬷������ϵ�����Ȩ
-// �������� : https://www.luogu.com.cn/problem/P3128
-// �ύ���µ�code���ύʱ��������ĳ�"Main"
-// C++��ôд��ͨ����java����Ϊ�ݹ����̫�����ջ
-// java��ͨ����д���ο����ڿ�Code01_MaxFlow2�ļ�
-//�����н���a��b��·�������е�Ȩ��v  �൱��a+v b+v  lca-v  lcafa-v
-//���ͳ�Ƶ�ʱ�� ����һ���ڵ�  �ȱ��������ӽڵ�  Ȼ������ڵ�����ӽڵ�ĵ�Ȩ
-//���յõ��Լ��ĵ�Ȩ
+// 树上点差分模版(递归版)
+// 有n个节点形成一棵树，一开始所有点权都是0
+// 给定很多操作，每个操作(a,b)表示从a到b路径上所有点的点权增加1
+// 所有操作完成后，返回树上的最大点权
+// 测试链接 : https://www.luogu.com.cn/problem/P3128
+// 提交以下的code，提交时请把类名改成"Main"
+// C++这么写能通过，java会因为递归层数太多而爆栈
+// java能通过的写法参考本节课Code01_MaxFlow2文件
+//点差分中将从a到b的路径上所有点权加v  相当于a+v b+v  lca-v  lcafa-v
+//最后统计的时候 来到一个节点  先遍历他的子节点  然后这个节点加上子节点的点权
+//最终得到自己的点权
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 50005;
@@ -23,21 +23,21 @@ int cnt=1;
 
 int deep[MAXN],stjump[MAXN][LIMIT];
 int power;
-int num[MAXN];//��¼��Ȩ
+int num[MAXN];//记录点权
 
-//��������������ǽ���deep  st����Ϣ
+//这个函数的作用是建立deep  st的信息
 void dfs1(int u, int f) {
     deep[u] = deep[f] + 1;
     stjump[u][0] = f;
     for (int p = 1; p <= power; p++) {
         stjump[u][p] = stjump[stjump[u][p - 1]][p - 1];
     }
-    //���u��deep  stjump
+    //完成u的deep  stjump
     for (int e = head[u]; e != 0; e = Next[e]) {
         if (to[e] != f) {
             dfs1(to[e], u);
         }
-        //���µݹ�
+        //向下递归
     }
 }
 
@@ -47,29 +47,29 @@ int lca(int a, int b) {
         a = b;
         b = tmp;
     }
-    //ȷ����С��ϵ
+    //确定大小关系
     for (int p = power; p >= 0; p--) {
         if (deep[stjump[a][p]] >= deep[b]) {
             a = stjump[a][p];
         }
     }
-    //���Ƚ����߱�Ϊͬһ�߶�
+    //首先将两者变为同一高度
     if (a == b) {
         return a;
     }
-    //�����ͬ˵���������ȹ�ϵ
+    //如果相同说明就是祖先关系
     for (int p = power; p >= 0; p--) {
         if (stjump[a][p] != stjump[b][p]) {
             a = stjump[a][p];
             b = stjump[b][p];
         }
-        //�ж�������Ƿ���Ϲ���
+        //判断跳完后是否符合规则
     }
     return stjump[a][0];
-    //���ǽ�ͷ������������Ϊ0  ʵ����û��0
+    //我们将头结点的祖先设置为0  实际上没有0
 }
 
-//�����޸ĺ����Ϣ
+//更新修改后的信息
 void dfs2(int u,int f){
     for(int i=head[u];i>0;i=Next[i]){
         int v=to[i];

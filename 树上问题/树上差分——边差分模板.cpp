@@ -1,13 +1,13 @@
-// ����ƻ�(������)
-// ��n���ڵ㣬����n-1����ʹ�����ӳ�һ������ÿ������������Ȩ
-// �����ܶ�����ƻ���ÿ������ƻ�(a,b)��ʾ��aȥ��b
-// ÿ������ƻ��Ĵ��۾�����;��Ȩ�ͣ�����ƻ�֮����ȫ��������
-// ��ֻ��ѡ��һ���ߣ������Ȩ���0
-// ���Ŀ��������������ƻ����۵����ֵ����С
-// ������������ƻ����۵����ֵ��С���Ƕ���
-// �������� : https://www.luogu.com.cn/problem/P2680
-// �ύ���µ�code���ύʱ��������ĳ�"Main"������ͨ����������
-//�߲�ֵı���Ϣ�����ɺ��ӽڵ�洢�� 
+// 运输计划(迭代版)
+// 有n个节点，给定n-1条边使其连接成一棵树，每条边有正数边权
+// 给定很多运输计划，每个运输计划(a,b)表示从a去往b
+// 每个运输计划的代价就是沿途边权和，运输计划之间完全互不干扰
+// 你只能选择一条边，将其边权变成0
+// 你的目的是让所有运输计划代价的最大值尽量小
+// 返回所有运输计划代价的最大值最小能是多少
+// 测试链接 : https://www.luogu.com.cn/problem/P2680
+// 提交以下的code，提交时请把类名改成"Main"，可以通过所有用例
+//边差分的边信息都是由孩子节点存储的 
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 300001;
@@ -15,17 +15,17 @@ const int MAXM = 300001;
 
 int n,m;
 
-// num[i] : i�ڵ���丸�ڵ�ıߣ��ж��ٴ���>=limit������ƻ��õ�
+// num[i] : i节点和其父节点的边，有多少代价>=limit的运输计划用到
 int num[MAXN];
 
-// ��ʽǰ���ǽ�ͼ��Ҫ
+// 链式前向星建图需要
 int headEdge[MAXN];
 int edgeNext[MAXN << 1];
 int edgeTo[MAXN << 1];
 int edgeWeight[MAXN << 1];
 int tcnt=1;
 
-// tarjan�㷨��Ҫ
+// tarjan算法需要
 int headQuery[MAXN];
 int queryNext[MAXM << 1];
 int queryTo[MAXM << 1];
@@ -37,17 +37,17 @@ int fa[MAXN];
 int quesu[MAXM];
 int quesv[MAXM];
 
-// distance[i] : ͷ�ڵ㵽i�ŵ�ľ��룬tarjan�㷨�����и���   �������u��v�Ļ���
+// distance[i] : 头节点到i号点的距离，tarjan算法过程中更新   用于求从u到v的花费
 int dis[MAXN];
-// lca[i] : ��i������ƻ������˵�lca��tarjan�㷨�����и���
+// lca[i] : 第i号运输计划的两端点lca，tarjan算法过程中更新
 int lca[MAXM];
-// cost[i] : ��i������ƻ������Ƕ��٣�tarjan�㷨�����и���
+// cost[i] : 第i号运输计划代价是多少，tarjan算法过程中更新
 int cost[MAXM];
-// ��������ƻ��������ۣ�tarjan�㷨�����и���
+// 所有运输计划的最大代价，tarjan算法过程中更新
 int maxCost;
-// ����Ҫ���ٶ��ٱ�Ȩ  ��ô�����ڿ���ɾ����һ���ߵ�ʱ�� ��Ȩ��������ľͲ��ÿ�����
+// 至少要减少多少边权  那么我们在考虑删除那一条边的时候 边权低于这个的就不用考虑了
 int atLeast;
-// ����Ҫ�������ƻ��м���
+// 超过要求的运输计划有几个
 int beyond;
 
 inline int read(){
@@ -105,7 +105,7 @@ void tarjan(int u, int f, int w) {
     fa[u] = f;
 }
 
-//��ʾ����u��f������ȨֵΪw�ı�ɾ���Ƿ������������  
+//表示将从u到f的这条权值为w的边删掉是否可以满足条件  
 bool dfs(int u, int f, int w) {
     for (int e = headEdge[u], v; e != 0; e = edgeNext[e]) {
         v = edgeTo[e];
@@ -122,18 +122,18 @@ bool dfs(int u, int f, int w) {
         }
     }
     return num[u] == beyond && w >= atLeast;
-    //��ʱ��num[u]��ʾ��u��fһ������Ӱ���������  ���ж��������õ�
+    //此时的num[u]表示从u到f一共可以影响多少条边  即有多少条边用到
 }
 
-// ֻ�ܰ�һ���ߵ�Ȩֵ���0
-// ��Ҫ��ÿ������ƻ��Ĵ��۶�Ҫ<=limit
-// �����ܲ�������
+// 只能把一条边的权值变成0
+// 还要求每个运输计划的代价都要<=limit
+// 返回能不能做到
 bool f(int limit) {
 	atLeast = maxCost - limit;
 	for(int i=1;i<=n;i++){
         num[i]=0;
 	}
-	beyond = 0;//��ʾ�ж�����·�߻��ѳ�����limit
+	beyond = 0;//表示有多少条路线花费超过了limit
 	for (int i = 1; i <= m; i++) {
 		if (cost[i] > limit) {
 			num[quesu[i]]++;

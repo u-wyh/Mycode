@@ -1,15 +1,15 @@
-// Êé¼Ü(C++°æ)
-// ¸ø¶¨Ò»¸ö³¤¶ÈÎªnµÄÅÅÁÐ£¬ÓÉÊý×Ö1¡¢2¡¢3...n×é³É£¬ÊµÏÖÈçÏÂÎåÖÖ²Ù×÷
-// Top s      : Êý×ÖsÒÆ¶¯µ½×î×ó±ß
-// Bottom s   : Êý×ÖsÒÆ¶¯µ½×îÓÒ±ß
-// Insert s t : Êý×ÖsÎ»ÖÃ¼ÙÉèÎªrank£¬ÏÖÔÚÒÆ¶¯µ½rank+tÎ»ÖÃ
-// Ask s      : ²éÑ¯Êý×Ös×ó±ßÓÐ¶àÉÙÊý×Ö
-// Query s    : ²éÑ¯´Ó×óÍùÓÒµÚsÎ»µÄÊý×Ö
-// ËùÓÐ²Ù×÷±£Ö¤¶¼ÊÇºÏ·¨µÄ
-// ²âÊÔÁ´½Ó : https://www.luogu.com.cn/problem/P2596
-// ÈçÏÂÊµÏÖÊÇC++µÄ°æ±¾£¬C++°æ±¾ºÍjava°æ±¾Âß¼­ÍêÈ«Ò»Ñù
-// Ìá½»ÈçÏÂ´úÂë£¬¿ÉÒÔÍ¨¹ýËùÓÐ²âÊÔÓÃÀý
-//Õâ¸öÎÊÌâÖ÷ÒªÊÇÇø¼äÒÆ¶¯  Õâ¸ö³ÌÐòÊÇµ¥µãÒÆ¶¯
+// ä¹¦æž¶(C++ç‰ˆ)
+// ç»™å®šä¸€ä¸ªé•¿åº¦ä¸ºnçš„æŽ’åˆ—ï¼Œç”±æ•°å­—1ã€2ã€3...nç»„æˆï¼Œå®žçŽ°å¦‚ä¸‹äº”ç§æ“ä½œ
+// Top s      : æ•°å­—sç§»åŠ¨åˆ°æœ€å·¦è¾¹
+// Bottom s   : æ•°å­—sç§»åŠ¨åˆ°æœ€å³è¾¹
+// Insert s t : æ•°å­—sä½ç½®å‡è®¾ä¸ºrankï¼ŒçŽ°åœ¨ç§»åŠ¨åˆ°rank+tä½ç½®
+// Ask s      : æŸ¥è¯¢æ•°å­—så·¦è¾¹æœ‰å¤šå°‘æ•°å­—
+// Query s    : æŸ¥è¯¢ä»Žå·¦å¾€å³ç¬¬sä½çš„æ•°å­—
+// æ‰€æœ‰æ“ä½œä¿è¯éƒ½æ˜¯åˆæ³•çš„
+// æµ‹è¯•é“¾æŽ¥ : https://www.luogu.com.cn/problem/P2596
+// å¦‚ä¸‹å®žçŽ°æ˜¯C++çš„ç‰ˆæœ¬ï¼ŒC++ç‰ˆæœ¬å’Œjavaç‰ˆæœ¬é€»è¾‘å®Œå…¨ä¸€æ ·
+// æäº¤å¦‚ä¸‹ä»£ç ï¼Œå¯ä»¥é€šè¿‡æ‰€æœ‰æµ‹è¯•ç”¨ä¾‹
+//è¿™ä¸ªé—®é¢˜ä¸»è¦æ˜¯åŒºé—´ç§»åŠ¨  è¿™ä¸ªç¨‹åºæ˜¯å•ç‚¹ç§»åŠ¨
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 80005;
@@ -114,24 +114,24 @@ int query(int s) {
     return num[i];
 }
 
-// ÖÐÐòÅÅÃûÎªaµÄ½Úµã£¬ÒÆ¶¯µ½ÖÐÐòÅÅÃûÎªbµÄÎ»ÖÃ
-// ×¢Òâa²»»áÊÇ1ºÍnÎ»ÖÃ£¬bÒ²Èç´Ë
-// ÒòÎª1Î»ÖÃºÍnÎ»ÖÃÌáÇ°¼ÓÈëÁËÔ¤±¸Öµ£¬ÓÀÔ¶²»»áÐÞ¸Ä
-//ÆäÊµ¼´Ê¹ÒÆ¶¯µÄÊÇÇø¼ä ÄÇÃ´Ò²ÊÇ²î²»¶àµÄ
+// ä¸­åºæŽ’åä¸ºaçš„èŠ‚ç‚¹ï¼Œç§»åŠ¨åˆ°ä¸­åºæŽ’åä¸ºbçš„ä½ç½®
+// æ³¨æ„aä¸ä¼šæ˜¯1å’Œnä½ç½®ï¼Œbä¹Ÿå¦‚æ­¤
+// å› ä¸º1ä½ç½®å’Œnä½ç½®æå‰åŠ å…¥äº†é¢„å¤‡å€¼ï¼Œæ°¸è¿œä¸ä¼šä¿®æ”¹
+//å…¶å®žå³ä½¿ç§»åŠ¨çš„æ˜¯åŒºé—´ é‚£ä¹ˆä¹Ÿæ˜¯å·®ä¸å¤šçš„
 void move(int a, int b) {
     int l = find(a - 1);
     int r = find(a + 1);
     splay(l, 0);
     splay(r, l);
-    int i = ls[r];//Õâ¸ö¾ÍÊÇaËùÔÚµÄÎ»ÖÃ  ½«Õâ¸ö½Úµãµ¥¶ÀÄÃ³öÀ´
-    ls[r] = 0;//½«a½ÚµãÔÚ´ËÊ±µÄÍ¼ÖÐÔÝÊ±É¾³ý
+    int i = ls[r];//è¿™ä¸ªå°±æ˜¯aæ‰€åœ¨çš„ä½ç½®  å°†è¿™ä¸ªèŠ‚ç‚¹å•ç‹¬æ‹¿å‡ºæ¥
+    ls[r] = 0;//å°†aèŠ‚ç‚¹åœ¨æ­¤æ—¶çš„å›¾ä¸­æš‚æ—¶åˆ é™¤
     up(r);
     up(l);
     l = find(b - 1);
     r = find(b);
     splay(l, 0);
     splay(r, l);
-    ls[r] = i;//ÖØÐÂ¼ÓÈëaºÅ½Úµã
+    ls[r] = i;//é‡æ–°åŠ å…¥aå·èŠ‚ç‚¹
     fa[i] = r;
     up(r);
     up(l);
@@ -142,32 +142,32 @@ int main() {
     cin.tie(nullptr);
     int n, m;
     cin >> n >> m;
-    add(0);//¿ªÍ·¼ÓÒ»¸ö
+    add(0);//å¼€å¤´åŠ ä¸€ä¸ª
     for (int i = 1, x; i <= n; i++) {
         cin >> x;
         add(x);
     }
-    add(n + 1);//½áÎ²¼ÓÒ»¸ö
+    add(n + 1);//ç»“å°¾åŠ ä¸€ä¸ª
     n = n + 2;
     for (int i = 1, s, t, rank; i <= m; i++) {
         string op;
         cin >> op >> s;
         rank = ask(s) + 1;
         if (op == "Top") {
-            // ÒòÎªÓÐ×î×ó²àµÄ×¼±¸Öµ£¬ËùÒÔ¿ªÍ·ÊÇÖÐÐòÅÅÃû2µÄÎ»ÖÃ
+            // å› ä¸ºæœ‰æœ€å·¦ä¾§çš„å‡†å¤‡å€¼ï¼Œæ‰€ä»¥å¼€å¤´æ˜¯ä¸­åºæŽ’å2çš„ä½ç½®
             move(rank, 2);
         } else if (op == "Bottom") {
-            // ÒòÎªÓÐ×îÓÒ²àµÄ×¼±¸Öµ£¬ËùÒÔ½áÎ²ÊÇÖÐÐòÅÅÃûn-1µÄÎ»ÖÃ
+            // å› ä¸ºæœ‰æœ€å³ä¾§çš„å‡†å¤‡å€¼ï¼Œæ‰€ä»¥ç»“å°¾æ˜¯ä¸­åºæŽ’ån-1çš„ä½ç½®
             move(rank, n - 1);
         } else if (op == "Insert") {
             cin >> t;
             move(rank, rank + t);
         } else if (op == "Ask") {
-            // rank´ú±íµ±Ç°Êý×ÖµÄÅÅÃû£¬ÒòÎªÓÐ×î×ó²àµÄ×¼±¸Öµ
-            // ËùÒÔÅÅÃûÆäÊµÊÇrank-1£¬ÌâÄ¿Òª·µ»ØÐ¡ÓÚµÄÊýÁ¿£¬ËùÒÔÊÇrank - 2
+            // rankä»£è¡¨å½“å‰æ•°å­—çš„æŽ’åï¼Œå› ä¸ºæœ‰æœ€å·¦ä¾§çš„å‡†å¤‡å€¼
+            // æ‰€ä»¥æŽ’åå…¶å®žæ˜¯rank-1ï¼Œé¢˜ç›®è¦è¿”å›žå°äºŽçš„æ•°é‡ï¼Œæ‰€ä»¥æ˜¯rank - 2
             cout << rank - 2 << endl;
         } else {
-            // ÒòÎªÓÐ×î×ó²àµÄ×¼±¸Öµ£¬ËùÒÔ²és+1ÃûµÄÊý×Ö
+            // å› ä¸ºæœ‰æœ€å·¦ä¾§çš„å‡†å¤‡å€¼ï¼Œæ‰€ä»¥æŸ¥s+1åçš„æ•°å­—
             cout << query(s + 1) << endl;
         }
     }

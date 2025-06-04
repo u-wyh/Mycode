@@ -1,10 +1,10 @@
-// �߲��ʵս
-// ʹͼ����ͨ�ķ�����
-// ��n���ڵ㣬����n-1���ϱ�ʹ�����ӳ�һ�������ٸ���m���±߶����������
-// ������ж������������ͼ����ͨ���жϵ������߱�����һ���ϱߺ�һ���±�
-// ���ط�����
-// �������� : http://poj.org/problem?id=3417
-// �ύ���µ�code���ύʱ��������ĳ�"Main"������ͨ����������
+// 边差分实战
+// 使图不连通的方法数
+// 有n个节点，给定n-1条老边使其连接成一棵树，再给定m条新边额外加在树上
+// 你可以切断两条边让这个图不连通，切断的两条边必须是一条老边和一条新边
+// 返回方法数
+// 测试链接 : http://poj.org/problem?id=3417
+// 提交以下的code，提交时请把类名改成"Main"，可以通过所有用例
 #include<iostream>
 #include<cmath>
 #include<cstdio>
@@ -38,15 +38,15 @@ void dfs1(int u, int f) {
     for (int p = 1; p <= power; p++) {
         stjump[u][p] = stjump[stjump[u][p - 1]][p - 1];
     }
-    //���u��deep  stjump
+    //完成u的deep  stjump
     for (int e = head[u]; e != 0; e = Next[e]) {
         if (to[e] != f) {
             dfs1(to[e], u);
         }
-        //���µݹ�
+        //向下递归
     }
 }
-//��������������ǽ���deep  st����Ϣ
+//这个函数的作用是建立deep  st的信息
 
 int lca(int a, int b) {
     if (deep[a] < deep[b]) {
@@ -54,26 +54,26 @@ int lca(int a, int b) {
         a = b;
         b = tmp;
     }
-    //ȷ����С��ϵ
+    //确定大小关系
     for (int p = power; p >= 0; p--) {
         if (deep[stjump[a][p]] >= deep[b]) {
             a = stjump[a][p];
         }
     }
-    //���Ƚ����߱�Ϊͬһ�߶�
+    //首先将两者变为同一高度
     if (a == b) {
         return a;
     }
-    //�����ͬ˵���������ȹ�ϵ
+    //如果相同说明就是祖先关系
     for (int p = power; p >= 0; p--) {
         if (stjump[a][p] != stjump[b][p]) {
             a = stjump[a][p];
             b = stjump[b][p];
         }
-        //�ж�������Ƿ���Ϲ���
+        //判断跳完后是否符合规则
     }
     return stjump[a][0];
-    //���ǽ�ͷ������������Ϊ0  ʵ����û��0
+    //我们将头结点的祖先设置为0  实际上没有0
 }
 
 void dfs2(int u, int f) {

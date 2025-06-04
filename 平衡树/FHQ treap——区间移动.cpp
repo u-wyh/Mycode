@@ -1,15 +1,15 @@
-// �ı��༭����FHQ-Treapʵ�������ƶ���C++�汾
-// һ��ʼ�ı�Ϊ�գ�������ı���ͷ��Ҳ����1λ�ã���ʵ������6�ֲ���
-// Move k     : ������ƶ�����k���ַ�֮�󣬲�����֤��겻�ᵽ�Ƿ�λ��
-// Insert n s : �ڹ�괦���볤��Ϊn���ַ���s�����λ�ò���
-// Delete n   : ɾ�������n���ַ������λ�ò��䣬������֤���㹻�ַ�
-// Get n      : ��������n���ַ������λ�ò��䣬������֤���㹻�ַ�
-// Prev       : ���ǰ��һ���ַ���������֤��겻�ᵽ�Ƿ�λ��
-// Next       : ������һ���ַ���������֤��겻�ᵽ�Ƿ�λ��
-// Insert����ʱ���ַ���s��ASCII����[32,126]��Χ�ϵ��ַ�һ����n���������ַ�����˵�
-// �������� : https://www.luogu.com.cn/problem/P4008
-// ����ʵ����C++�İ汾��C++�汾��java�汾�߼���ȫһ��
-// �ύ���´��룬����ͨ�����в�������
+// 文本编辑器，FHQ-Treap实现区间移动，C++版本
+// 一开始文本为空，光标在文本开头，也就是1位置，请实现如下6种操作
+// Move k     : 将光标移动到第k个字符之后，操作保证光标不会到非法位置
+// Insert n s : 在光标处插入长度为n的字符串s，光标位置不变
+// Delete n   : 删除光标后的n个字符，光标位置不变，操作保证有足够字符
+// Get n      : 输出光标后的n个字符，光标位置不变，操作保证有足够字符
+// Prev       : 光标前移一个字符，操作保证光标不会到非法位置
+// Next       : 光标后移一个字符，操作保证光标不会到非法位置
+// Insert操作时，字符串s中ASCII码在[32,126]范围上的字符一定有n个，其他字符请过滤掉
+// 测试链接 : https://www.luogu.com.cn/problem/P4008
+// 如下实现是C++的版本，C++版本和java版本逻辑完全一样
+// 提交如下代码，可以通过所有测试用例
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 2000001;
@@ -28,8 +28,8 @@ void up(int i) {
     size[i] = size[ls[i]] + size[rs[i]] + 1;
 }
 
-//�������ⶼ�ǰ��մ�С  ��������ǰ���λ��
-//������������
+//其他的题都是按照大小  而这道题是按照位置
+//按照排名分裂
 void split(int l, int r, int i, int rank) {
     if (i == 0) {
         rs[l] = ls[r] = 0;
@@ -45,7 +45,7 @@ void split(int l, int r, int i, int rank) {
     }
 }
 
-//merge������Ϊ��������/��ֵ����һ��  ��ֻ�ǰ������ȼ���ʵ��
+//merge不会因为按照排名/键值而不一样  他只是按照优先级来实现
 int merge(int l, int r) {
     if (l == 0 || r == 0) {
         return l + r;
@@ -61,7 +61,7 @@ int merge(int l, int r) {
     }
 }
 
-//������� ��¼��
+//中序遍历 记录答案
 void inorder(int i) {
     if (i != 0) {
         inorder(ls[i]);

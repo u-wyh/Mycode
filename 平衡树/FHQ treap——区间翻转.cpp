@@ -1,12 +1,12 @@
-// ÎÄÒÕÆ½ºâÊ÷£¬FHQ-TreapÊµÏÖ·¶Î§·­×ª£¬C++°æ±¾
-// ³¤¶ÈÎªnµÄÐòÁÐ£¬ÏÂ±ê´Ó1¿ªÊ¼£¬Ò»¿ªÊ¼ÐòÁÐÎª1, 2, ..., n
-// ½ÓÏÂÀ´»áÓÐk¸ö²Ù×÷£¬Ã¿¸ö²Ù×÷¸ø¶¨l£¬r£¬±íÊ¾´Ólµ½r·¶Î§ÉÏµÄËùÓÐÊý×Ö·­×ª
-// ×öÍêk´Î²Ù×÷ºó£¬´Ó×óµ½ÓÒ´òÓ¡ËùÓÐÊý×Ö
+// æ–‡è‰ºå¹³è¡¡æ ‘ï¼ŒFHQ-Treapå®žçŽ°èŒƒå›´ç¿»è½¬ï¼ŒC++ç‰ˆæœ¬
+// é•¿åº¦ä¸ºnçš„åºåˆ—ï¼Œä¸‹æ ‡ä»Ž1å¼€å§‹ï¼Œä¸€å¼€å§‹åºåˆ—ä¸º1, 2, ..., n
+// æŽ¥ä¸‹æ¥ä¼šæœ‰kä¸ªæ“ä½œï¼Œæ¯ä¸ªæ“ä½œç»™å®šlï¼Œrï¼Œè¡¨ç¤ºä»Žlåˆ°rèŒƒå›´ä¸Šçš„æ‰€æœ‰æ•°å­—ç¿»è½¬
+// åšå®Œkæ¬¡æ“ä½œåŽï¼Œä»Žå·¦åˆ°å³æ‰“å°æ‰€æœ‰æ•°å­—
 // 1 <= n, k <= 10^5
-// ²âÊÔÁ´½Ó : https://www.luogu.com.cn/problem/P3391
-// ÈçÏÂÊµÏÖÊÇC++µÄ°æ±¾£¬C++°æ±¾ºÍjava°æ±¾Âß¼­ÍêÈ«Ò»Ñù
-// Ìá½»ÈçÏÂ´úÂë£¬¿ÉÒÔÍ¨¹ýËùÓÐ²âÊÔÓÃÀý
-//Ö÷ÒªÔËÓÃµ½ÁËÀÁ¸üÐÂË¼Ïë
+// æµ‹è¯•é“¾æŽ¥ : https://www.luogu.com.cn/problem/P3391
+// å¦‚ä¸‹å®žçŽ°æ˜¯C++çš„ç‰ˆæœ¬ï¼ŒC++ç‰ˆæœ¬å’Œjavaç‰ˆæœ¬é€»è¾‘å®Œå…¨ä¸€æ ·
+// æäº¤å¦‚ä¸‹ä»£ç ï¼Œå¯ä»¥é€šè¿‡æ‰€æœ‰æµ‹è¯•ç”¨ä¾‹
+//ä¸»è¦è¿ç”¨åˆ°äº†æ‡’æ›´æ–°æ€æƒ³
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 100001;
@@ -18,7 +18,7 @@ int ls[MAXN];
 int rs[MAXN];
 int size[MAXN];
 double priority[MAXN];
-bool rev[MAXN];//ÀÁ¸üÐÂÐÅÏ¢
+bool rev[MAXN];//æ‡’æ›´æ–°ä¿¡æ¯
 int ans[MAXN];
 int ansi;
 
@@ -26,7 +26,7 @@ void up(int i) {
     size[i] = size[ls[i]] + size[rs[i]] + 1;
 }
 
-//ÀÁ¸üÐÂµÄÏÂ·¢
+//æ‡’æ›´æ–°çš„ä¸‹å‘
 void down(int i) {
     if (rev[i]) {
         swap(ls[i], rs[i]);
@@ -36,9 +36,9 @@ void down(int i) {
     }
 }
 
-//ÕâµÀÌâÒ²ÊÇ¸ù¾ÝÅÅÃû·ÖÁÑ
-//ÕâµÀÌâÀûÓÃµÄÒ²ÊÇÎ»ÖÃÐÅÏ¢ ËùÒÔÊ¹ÓÃÅÅÃû
-//Ê¹ÓÃÖÐÐò±éÀúµÃµ½´ð°¸
+//è¿™é“é¢˜ä¹Ÿæ˜¯æ ¹æ®æŽ’ååˆ†è£‚
+//è¿™é“é¢˜åˆ©ç”¨çš„ä¹Ÿæ˜¯ä½ç½®ä¿¡æ¯ æ‰€ä»¥ä½¿ç”¨æŽ’å
+//ä½¿ç”¨ä¸­åºéåŽ†å¾—åˆ°ç­”æ¡ˆ
 void split(int l, int r, int i, int rank) {
     if (i == 0) {
         rs[l] = ls[r] = 0;
@@ -60,7 +60,7 @@ int merge(int l, int r) {
         return l + r;
     }
     if (priority[l] >= priority[r]) {
-        down(l);//ÏÂ·¢ÀÁÐÅÏ¢
+        down(l);//ä¸‹å‘æ‡’ä¿¡æ¯
         rs[l] = merge(rs[l], r);
         up(l);
         return l;
@@ -96,11 +96,11 @@ int main() {
     for (int i = 1, x, y, l, m, lm, r; i <= k; i++) {
         cin >> x >> y;
         split(0, 0, head, y);
-        lm = rs[0];//±íÊ¾<=yµÄÊ÷µÄÍ·½áµã
-        r = ls[0];//±íÊ¾>yµÄÊ÷µÄÍ·½áµã
+        lm = rs[0];//è¡¨ç¤º<=yçš„æ ‘çš„å¤´ç»“ç‚¹
+        r = ls[0];//è¡¨ç¤º>yçš„æ ‘çš„å¤´ç»“ç‚¹
         split(0, 0, lm, x - 1);
-        l = rs[0];//±íÊ¾<=x-1µÄÊ÷µÄÍ·½áµã
-        m = ls[0];//±íÊ¾>=xµÄÊ÷µÄÍ·½áµã
+        l = rs[0];//è¡¨ç¤º<=x-1çš„æ ‘çš„å¤´ç»“ç‚¹
+        m = ls[0];//è¡¨ç¤º>=xçš„æ ‘çš„å¤´ç»“ç‚¹
         rev[m] ^= 1;
         head = merge(merge(l, m), r);
     }

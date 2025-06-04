@@ -1,16 +1,16 @@
-// SplayÊ÷µÄÊµÏÖ£¬²»ÓÃ´ÊÆµÑ¹Ëõ£¬C++°æ
-// ÊµÏÖÒ»ÖÖ½á¹¹£¬Ö§³ÖÈçÏÂ²Ù×÷£¬ÒªÇóµ¥´Îµ÷ÓÃµÄÊ±¼ä¸´ÔÓ¶ÈO(log n)
-// 1£¬Ôö¼Óx£¬ÖØ¸´¼ÓÈëËã¶à¸ö´ÊÆµ
-// 2£¬É¾³ýx£¬Èç¹ûÓÐ¶à¸ö£¬Ö»É¾µôÒ»¸ö
-// 3£¬²éÑ¯xµÄÅÅÃû£¬xµÄÅÅÃûÎª£¬±ÈxÐ¡µÄÊýµÄ¸öÊý+1
-// 4£¬²éÑ¯Êý¾ÝÖÐÅÅÃûÎªxµÄÊý
-// 5£¬²éÑ¯xµÄÇ°Çý£¬xµÄÇ°ÇýÎª£¬Ð¡ÓÚxµÄÊýÖÐ×î´óµÄÊý£¬²»´æÔÚ·µ»ØÕûÊý×îÐ¡Öµ
-// 6£¬²éÑ¯xµÄºó¼Ì£¬xµÄºó¼ÌÎª£¬´óÓÚxµÄÊýÖÐ×îÐ¡µÄÊý£¬²»´æÔÚ·µ»ØÕûÊý×î´óÖµ
-// ËùÓÐ²Ù×÷µÄ´ÎÊý <= 10^5
+// Splayæ ‘çš„å®žçŽ°ï¼Œä¸ç”¨è¯é¢‘åŽ‹ç¼©ï¼ŒC++ç‰ˆ
+// å®žçŽ°ä¸€ç§ç»“æž„ï¼Œæ”¯æŒå¦‚ä¸‹æ“ä½œï¼Œè¦æ±‚å•æ¬¡è°ƒç”¨çš„æ—¶é—´å¤æ‚åº¦O(log n)
+// 1ï¼Œå¢žåŠ xï¼Œé‡å¤åŠ å…¥ç®—å¤šä¸ªè¯é¢‘
+// 2ï¼Œåˆ é™¤xï¼Œå¦‚æžœæœ‰å¤šä¸ªï¼Œåªåˆ æŽ‰ä¸€ä¸ª
+// 3ï¼ŒæŸ¥è¯¢xçš„æŽ’åï¼Œxçš„æŽ’åä¸ºï¼Œæ¯”xå°çš„æ•°çš„ä¸ªæ•°+1
+// 4ï¼ŒæŸ¥è¯¢æ•°æ®ä¸­æŽ’åä¸ºxçš„æ•°
+// 5ï¼ŒæŸ¥è¯¢xçš„å‰é©±ï¼Œxçš„å‰é©±ä¸ºï¼Œå°äºŽxçš„æ•°ä¸­æœ€å¤§çš„æ•°ï¼Œä¸å­˜åœ¨è¿”å›žæ•´æ•°æœ€å°å€¼
+// 6ï¼ŒæŸ¥è¯¢xçš„åŽç»§ï¼Œxçš„åŽç»§ä¸ºï¼Œå¤§äºŽxçš„æ•°ä¸­æœ€å°çš„æ•°ï¼Œä¸å­˜åœ¨è¿”å›žæ•´æ•°æœ€å¤§å€¼
+// æ‰€æœ‰æ“ä½œçš„æ¬¡æ•° <= 10^5
 // -10^7 <= x <= +10^7
-// ²âÊÔÁ´½Ó : https://www.luogu.com.cn/problem/P3369
-// ÈçÏÂÊµÏÖÊÇC++µÄ°æ±¾£¬C++°æ±¾ºÍjava°æ±¾Âß¼­ÍêÈ«Ò»Ñù
-// Ìá½»ÈçÏÂ´úÂë£¬¿ÉÒÔÍ¨¹ýËùÓÐ²âÊÔÓÃÀý
+// æµ‹è¯•é“¾æŽ¥ : https://www.luogu.com.cn/problem/P3369
+// å¦‚ä¸‹å®žçŽ°æ˜¯C++çš„ç‰ˆæœ¬ï¼ŒC++ç‰ˆæœ¬å’Œjavaç‰ˆæœ¬é€»è¾‘å®Œå…¨ä¸€æ ·
+// æäº¤å¦‚ä¸‹ä»£ç ï¼Œå¯ä»¥é€šè¿‡æ‰€æœ‰æµ‹è¯•ç”¨ä¾‹
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -60,7 +60,7 @@ void rotate(int i) {
     up(i);
 }
 
-//Ìá¸ù²»»á¸Ä±äÊ÷µÄÕýÈ·ÐÔ  Ö»»áÊ¹Ê÷¸ü¼ÓÆ½ÎÈ  ËùÒÔÎÒÃÇ¶ÔÃ¿¸ö²éÑ¯²Ù×÷¶¼»á½øÐÐsplay
+//ææ ¹ä¸ä¼šæ”¹å˜æ ‘çš„æ­£ç¡®æ€§  åªä¼šä½¿æ ‘æ›´åŠ å¹³ç¨³  æ‰€ä»¥æˆ‘ä»¬å¯¹æ¯ä¸ªæŸ¥è¯¢æ“ä½œéƒ½ä¼šè¿›è¡Œsplay
 void splay(int i, int goal) {
     int f = fa[i], g = fa[f];
     while (f != goal) {
@@ -80,10 +80,10 @@ void splay(int i, int goal) {
     }
 }
 
-// Õû¿ÃÊ÷ÉÏÕÒµ½ÖÐÐòÅÅÃûÎªrankµÄ½Úµã£¬·µ»Ø½Úµã±àºÅ
-// Õâ¸ö·½·¨²»ÊÇÌâÄ¿ÒªÇóµÄ²éÑ¯²Ù×÷£¬×÷ÎªÄÚ²¿·½·¨Ê¹ÓÃ
-// ÎªÊ²Ã´¸Ã·½·¨²»½øÐÐÌá¸ù²Ù×÷£¿
-// ÒòÎªremove·½·¨Ê¹ÓÃ¸Ã·½·¨Ê±£¬ÒªÇófind²»ÄÜÌá¸ù£¡
+// æ•´æ£µæ ‘ä¸Šæ‰¾åˆ°ä¸­åºæŽ’åä¸ºrankçš„èŠ‚ç‚¹ï¼Œè¿”å›žèŠ‚ç‚¹ç¼–å·
+// è¿™ä¸ªæ–¹æ³•ä¸æ˜¯é¢˜ç›®è¦æ±‚çš„æŸ¥è¯¢æ“ä½œï¼Œä½œä¸ºå†…éƒ¨æ–¹æ³•ä½¿ç”¨
+// ä¸ºä»€ä¹ˆè¯¥æ–¹æ³•ä¸è¿›è¡Œææ ¹æ“ä½œï¼Ÿ
+// å› ä¸ºremoveæ–¹æ³•ä½¿ç”¨è¯¥æ–¹æ³•æ—¶ï¼Œè¦æ±‚findä¸èƒ½ææ ¹ï¼
 int find(int rank) {
     int i = head;
     while (i != 0) {
@@ -101,15 +101,15 @@ int find(int rank) {
 
 void add(int num) {
     key[++cnt] = num;
-    size[cnt] = 1;//½¨Á¢½Úµã
+    size[cnt] = 1;//å»ºç«‹èŠ‚ç‚¹
     if (head == 0) {
-        //Èç¹û´ËÊ±Ê÷Îª¿Õ
+        //å¦‚æžœæ­¤æ—¶æ ‘ä¸ºç©º
         head = cnt;
     } else {
         int f = 0, i = head, son = 0;
-        //son¼ÇÂ¼Õâ¸ö½ÚµãÊÇ¸¸Ç×½ÚµãµÄ×óº¢×Ó»¹ÊÇÓÒº¢×Ó
+        //sonè®°å½•è¿™ä¸ªèŠ‚ç‚¹æ˜¯çˆ¶äº²èŠ‚ç‚¹çš„å·¦å­©å­è¿˜æ˜¯å³å­©å­
         while (i != 0) {
-            //Ò»Ö±ÍùÏÂÕÒ Ö±µ½ÊÇÒ¶½Úµã
+            //ä¸€ç›´å¾€ä¸‹æ‰¾ ç›´åˆ°æ˜¯å¶èŠ‚ç‚¹
             f = i;
             if (key[i] <= num) {
                 son = 1;
@@ -119,13 +119,13 @@ void add(int num) {
                 i = ls[i];
             }
         }
-        //¸ù¾ÝÊÇ×óÓÒº¢×Ó½¨Á¢¸¸Ç×½ÚµãµÄÐÅÏ¢
+        //æ ¹æ®æ˜¯å·¦å³å­©å­å»ºç«‹çˆ¶äº²èŠ‚ç‚¹çš„ä¿¡æ¯
         if (son == 1) {
             rs[f] = cnt;
         } else {
             ls[f] = cnt;
         }
-        fa[cnt] = f;//½¨Á¢¸¸Ç×ÐÅÏ¢
+        fa[cnt] = f;//å»ºç«‹çˆ¶äº²ä¿¡æ¯
         splay(cnt, 0);
     }
 }
@@ -187,17 +187,17 @@ int post(int num) {
 void remove(int num) {
     int kth = getRank(num);
     if (kth != getRank(num + 1)) {
-        //±íÊ¾¸Ã½Úµã´æÔÚ
+        //è¡¨ç¤ºè¯¥èŠ‚ç‚¹å­˜åœ¨
         int i = find(kth);
-        splay(i, 0);//¸÷ÖÖ²Ù×÷ÖÐµÄÌá¸ù²Ù×÷ÊÇÎªÁË·ÀÖ¹Êý¾Ý±ä³ÉÒ»Ìõ³¤Á´  ²»Ò×²éÑ¯
+        splay(i, 0);//å„ç§æ“ä½œä¸­çš„ææ ¹æ“ä½œæ˜¯ä¸ºäº†é˜²æ­¢æ•°æ®å˜æˆä¸€æ¡é•¿é“¾  ä¸æ˜“æŸ¥è¯¢
         if (ls[i] == 0) {
             head = rs[i];
         } else if (rs[i] == 0) {
             head = ls[i];
         } else {
-            //¼ÈÓÐ×ó¶ù×Ó  ÓÖÓÐÓÒ¶ù×Ó
+            //æ—¢æœ‰å·¦å„¿å­  åˆæœ‰å³å„¿å­
             int j = find(kth + 1);
-            splay(j, i);//½«jÌáµ½iµÄÏÂÃæ
+            splay(j, i);//å°†jæåˆ°içš„ä¸‹é¢
             ls[j] = ls[i];
             fa[ls[j]] = j;
             up(j);
