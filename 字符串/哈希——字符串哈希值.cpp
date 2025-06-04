@@ -1,8 +1,8 @@
-// ͳ���ж��ٸ���ͬ���ַ���
-// �������� : https://www.luogu.com.cn/problem/P3370
-// ��ͬѧ����زο����´����й������롢����Ĵ���
-// ���������������Ч�ʺܸߵ�д��
-// �ύ���µ�code���ύʱ��������ĳ�"Main"������ֱ��ͨ��
+// 统计有多少个不同的字符串
+// 测试链接 : https://www.luogu.com.cn/problem/P3370
+// 请同学们务必参考如下代码中关于输入、输出的处理
+// 这是输入输出处理效率很高的写法
+// 提交以下的code，提交时请把类名改成"Main"，可以直接通过
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -31,14 +31,14 @@ long long value(const string& s) {
 }
 
 //long long value(const string& s) {
-//    long long ans = v(s[0]);//����һ��ʼ��������Ϊ0  �����0��ʼ
+//    long long ans = v(s[0]);//这里一开始可以设置为0  下面从0开始
 //    for (size_t i = 1; i < s.length(); i++) {
 //        ans = ans * BASE + v(s[i]);
 //    }
 //    return ans;
 //}
 
-// ���� + ��д + Сд
+// 数字 + 大写 + 小写
 // '0' -> 1
 // '1' -> 2
 // ...

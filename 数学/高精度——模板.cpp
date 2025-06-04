@@ -1,22 +1,22 @@
-//Õâ¸ö´úÂëµÄÈ±µã¾ÍÊÇÃ»ÓĞ´¦Àí·ûºÅÎ»
-// ÓÃµÄÊ±ºò×Ô¼º×¢ÒâÒ»ÏÂ  Èç¹ûÊÇ³Ë·¨³ı·¨×îºó¸Ä±äÒ»ÏÂ·ûºÅÎ»¼´¿É
-// ¼Ó·¨µÄ»°  Í¬ºÅµÄ»°Ö±½Ó¼Ó  ÒìºÅµÄ»°¾ÍÊÇ¼õ
-// ¼õ·¨µÄ»°  Í¬ºÅÖ±½Ó¼õ  ÒìºÅÖ±½Ó¼Ó
+//è¿™ä¸ªä»£ç çš„ç¼ºç‚¹å°±æ˜¯æ²¡æœ‰å¤„ç†ç¬¦å·ä½
+// ç”¨çš„æ—¶å€™è‡ªå·±æ³¨æ„ä¸€ä¸‹  å¦‚æœæ˜¯ä¹˜æ³•é™¤æ³•æœ€åæ”¹å˜ä¸€ä¸‹ç¬¦å·ä½å³å¯
+// åŠ æ³•çš„è¯  åŒå·çš„è¯ç›´æ¥åŠ   å¼‚å·çš„è¯å°±æ˜¯å‡
+// å‡æ³•çš„è¯  åŒå·ç›´æ¥å‡  å¼‚å·ç›´æ¥åŠ 
 #include <iostream>
 #include <vector>
 #include <string>
 #include <algorithm>
-#include <utility> // ÓÃÓÚpair
+#include <utility> // ç”¨äºpair
 using namespace std;
 
-// ÒÆ³ıÇ°µ¼Áã
+// ç§»é™¤å‰å¯¼é›¶
 void removeLeadingZeros(vector<int>& num) {
     while (num.size() > 1 && num.back() == 0) {
         num.pop_back();
     }
 }
 
-// ±È½ÏÁ½¸ö´óÕûÊıµÄ´óĞ¡£¬·µ»Ø1±íÊ¾a>b£¬0±íÊ¾a==b£¬-1±íÊ¾a<b
+// æ¯”è¾ƒä¸¤ä¸ªå¤§æ•´æ•°çš„å¤§å°ï¼Œè¿”å›1è¡¨ç¤ºa>bï¼Œ0è¡¨ç¤ºa==bï¼Œ-1è¡¨ç¤ºa<b
 int compare(const vector<int>& a, const vector<int>& b) {
     if (a.size() != b.size()) {
         return a.size() > b.size() ? 1 : -1;
@@ -29,7 +29,7 @@ int compare(const vector<int>& a, const vector<int>& b) {
     return 0;
 }
 
-// ´óÕûÊı¼Ó·¨
+// å¤§æ•´æ•°åŠ æ³•
 vector<int> add(const vector<int>& a, const vector<int>& b) {
     vector<int> res;
     int carry = 0;
@@ -42,7 +42,7 @@ vector<int> add(const vector<int>& a, const vector<int>& b) {
     return res;
 }
 
-// ´óÕûÊı¼õ·¨ (¼ÙÉèa >= b)
+// å¤§æ•´æ•°å‡æ³• (å‡è®¾a >= b)
 vector<int> sub(const vector<int>& a, const vector<int>& b) {
     vector<int> res;
     int carry = 0;
@@ -50,13 +50,13 @@ vector<int> sub(const vector<int>& a, const vector<int>& b) {
         carry = a[i] - carry;
         if (i < (int)b.size()) carry -= b[i];
         res.push_back((carry + 10) % 10);
-        carry = carry < 0 ? 1 : 0;//Èç¹ûcarry<0  ËµÃ÷ÒªÏòÉÏ½èÎ»
+        carry = carry < 0 ? 1 : 0;//å¦‚æœcarry<0  è¯´æ˜è¦å‘ä¸Šå€Ÿä½
     }
     removeLeadingZeros(res);
     return res;
 }
 
-// ´óÕûÊı³ËÒÔĞ¡ÕûÊı
+// å¤§æ•´æ•°ä¹˜ä»¥å°æ•´æ•°
 vector<int> mul(const vector<int>& a, int b) {
     vector<int> res;
     int carry = 0;
@@ -69,7 +69,7 @@ vector<int> mul(const vector<int>& a, int b) {
     return res;
 }
 
-// ´óÕûÊı³ËÒÔ´óÕûÊı
+// å¤§æ•´æ•°ä¹˜ä»¥å¤§æ•´æ•°
 vector<int> mul(const vector<int>& a, const vector<int>& b) {
     vector<int> res(a.size() + b.size(), 0);
     for (int i = 0; i < a.size(); ++i) {
@@ -83,7 +83,7 @@ vector<int> mul(const vector<int>& a, const vector<int>& b) {
     return res;
 }
 
-// ´óÕûÊı³ıÒÔĞ¡ÕûÊı£¬·µ»ØÉÌºÍÓàÊı
+// å¤§æ•´æ•°é™¤ä»¥å°æ•´æ•°ï¼Œè¿”å›å•†å’Œä½™æ•°
 pair<vector<int>, int> div(const vector<int>& a, int b) {
     vector<int> res;
     int remainder = 0;
@@ -97,7 +97,7 @@ pair<vector<int>, int> div(const vector<int>& a, int b) {
     return make_pair(res, remainder);
 }
 
-// ´óÕûÊı³ıÒÔ´óÕûÊı (¼òµ¥ÊµÏÖ£¬Ğ§ÂÊ²»¸ß)
+// å¤§æ•´æ•°é™¤ä»¥å¤§æ•´æ•° (ç®€å•å®ç°ï¼Œæ•ˆç‡ä¸é«˜)
 vector<int> div(const vector<int>& a, const vector<int>& b) {
     vector<int> res;
     vector<int> current;
@@ -119,8 +119,8 @@ vector<int> div(const vector<int>& a, const vector<int>& b) {
     return res;
 }
 
-// ×Ö·û´®×ª´óÕûÊı
-//ÕâÀïÓĞµãÎÊÌâ  ¾ÍÊÇÃ»ÓĞ¿¼ÂÇ¸ºÊı
+// å­—ç¬¦ä¸²è½¬å¤§æ•´æ•°
+//è¿™é‡Œæœ‰ç‚¹é—®é¢˜  å°±æ˜¯æ²¡æœ‰è€ƒè™‘è´Ÿæ•°
 vector<int> strToNum(const string& s) {
     vector<int> num;
     for (int i =(int) s.size() - 1; i >= 0; --i) {
@@ -131,7 +131,7 @@ vector<int> strToNum(const string& s) {
     return num;
 }
 
-// ´óÕûÊı×ª×Ö·û´®
+// å¤§æ•´æ•°è½¬å­—ç¬¦ä¸²
 string numToStr(const vector<int>& num) {
     string s;
     for (int i = num.size() - 1; i >= 0; --i) {
@@ -140,44 +140,44 @@ string numToStr(const vector<int>& num) {
     return s;
 }
 
-// Ê¾ÀıÊ¹ÓÃ
+// ç¤ºä¾‹ä½¿ç”¨
 int main() {
     string s1, s2;
-    cout << "ÊäÈëÁ½¸ö´óÕûÊı:" << endl;
+    cout << "è¾“å…¥ä¸¤ä¸ªå¤§æ•´æ•°:" << endl;
     cin >> s1 >> s2;
     
     vector<int> a = strToNum(s1);
     vector<int> b = strToNum(s2);
     
-    // ¼Ó·¨
+    // åŠ æ³•
     vector<int> sum = add(a, b);
-    cout << "¼Ó·¨½á¹û: " << numToStr(sum) << endl;
+    cout << "åŠ æ³•ç»“æœ: " << numToStr(sum) << endl;
     
-    // ¼õ·¨ (È·±£a >= b)
+    // å‡æ³• (ç¡®ä¿a >= b)
     if (compare(a, b) >= 0) {
         vector<int> diff = sub(a, b);
-        cout << "¼õ·¨½á¹û: " << numToStr(diff) << endl;
+        cout << "å‡æ³•ç»“æœ: " << numToStr(diff) << endl;
     } else {
-        cout << "¼õ·¨½á¹û: -" << numToStr(sub(b, a)) << endl;
+        cout << "å‡æ³•ç»“æœ: -" << numToStr(sub(b, a)) << endl;
     }
     
-    // ³Ë·¨
+    // ä¹˜æ³•
     vector<int> product = mul(a, b);
-    cout << "³Ë·¨½á¹û: " << numToStr(product) << endl;
+    cout << "ä¹˜æ³•ç»“æœ: " << numToStr(product) << endl;
     
-    // ³ı·¨ (´óÊı³ıÒÔĞ¡Êı)
+    // é™¤æ³• (å¤§æ•°é™¤ä»¥å°æ•°)
     if (b.size() == 1) {
         pair<vector<int>, int> divisionResult = div(a, b[0]);
-        cout << "³ı·¨½á¹û(ÉÌ): " << numToStr(divisionResult.first) 
-             << " ÓàÊı: " << divisionResult.second << endl;
+        cout << "é™¤æ³•ç»“æœ(å•†): " << numToStr(divisionResult.first) 
+             << " ä½™æ•°: " << divisionResult.second << endl;
     }
     
-    // ³ı·¨ (´óÊı³ıÒÔ´óÊı)
-    if (compare(b, vector<int>(1, 0)) != 0) {  // ³ıÊı²»Îª0
+    // é™¤æ³• (å¤§æ•°é™¤ä»¥å¤§æ•°)
+    if (compare(b, vector<int>(1, 0)) != 0) {  // é™¤æ•°ä¸ä¸º0
         vector<int> quotient = div(a, b);
-        cout << "³ı·¨½á¹û(ÉÌ): " << numToStr(quotient) << endl;
+        cout << "é™¤æ³•ç»“æœ(å•†): " << numToStr(quotient) << endl;
     } else {
-        cout << "³ıÊı²»ÄÜÎª0" << endl;
+        cout << "é™¤æ•°ä¸èƒ½ä¸º0" << endl;
     }
     
     return 0;

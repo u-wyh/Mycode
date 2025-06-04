@@ -1,13 +1,13 @@
-// ´®ÁªËùÓĞµ¥´ÊµÄ×Ó´®
-// ¸ø¶¨Ò»¸ö×Ö·û´®sºÍÒ»¸ö×Ö·û´®Êı×éwords
-// wordsÖĞËùÓĞ×Ö·û´®³¤¶ÈÏàÍ¬
-// sÖĞµÄ´®Áª×Ó´®ÊÇÖ¸Ò»¸ö°üº¬ wordsÖĞËùÓĞ×Ö·û´®ÒÔÈÎÒâË³ĞòÅÅÁĞÁ¬½ÓÆğÀ´µÄ×Ó´®
-// ÀıÈçwords = { "ab","cd","ef" }
-// ÄÇÃ´"abcdef"¡¢"abefcd"¡¢"cdabef"¡¢"cdefab"¡¢"efabcd"¡¢"efcdab"¶¼ÊÇ´®Áª×Ó´®¡£
-// "acdbef"²»ÊÇ´®Áª×Ó´®£¬ÒòÎªËû²»ÊÇÈÎºÎwordsÅÅÁĞµÄÁ¬½Ó
-// ·µ»ØËùÓĞ´®Áª×Ó´®ÔÚsÖĞµÄ¿ªÊ¼Ë÷Òı
-// Äã¿ÉÒÔÒÔÈÎÒâË³Ğò·µ»Ø´ğ°¸
-// ²âÊÔÁ´½Ó : https://leetcode.cn/problems/substring-with-concatenation-of-all-words/
+// ä¸²è”æ‰€æœ‰å•è¯çš„å­ä¸²
+// ç»™å®šä¸€ä¸ªå­—ç¬¦ä¸²så’Œä¸€ä¸ªå­—ç¬¦ä¸²æ•°ç»„words
+// wordsä¸­æ‰€æœ‰å­—ç¬¦ä¸²é•¿åº¦ç›¸åŒ
+// sä¸­çš„ä¸²è”å­ä¸²æ˜¯æŒ‡ä¸€ä¸ªåŒ…å« wordsä¸­æ‰€æœ‰å­—ç¬¦ä¸²ä»¥ä»»æ„é¡ºåºæ’åˆ—è¿æ¥èµ·æ¥çš„å­ä¸²
+// ä¾‹å¦‚words = { "ab","cd","ef" }
+// é‚£ä¹ˆ"abcdef"ã€"abefcd"ã€"cdabef"ã€"cdefab"ã€"efabcd"ã€"efcdab"éƒ½æ˜¯ä¸²è”å­ä¸²ã€‚
+// "acdbef"ä¸æ˜¯ä¸²è”å­ä¸²ï¼Œå› ä¸ºä»–ä¸æ˜¯ä»»ä½•wordsæ’åˆ—çš„è¿æ¥
+// è¿”å›æ‰€æœ‰ä¸²è”å­ä¸²åœ¨sä¸­çš„å¼€å§‹ç´¢å¼•
+// ä½ å¯ä»¥ä»¥ä»»æ„é¡ºåºè¿”å›ç­”æ¡ˆ
+// æµ‹è¯•é“¾æ¥ : https://leetcode.cn/problems/substring-with-concatenation-of-all-words/
 #include <iostream>
 #include <vector>
 #include <unordered_map>
@@ -32,28 +32,28 @@ void build(const string& str) {
     }
 }
 
-// ÈçÏÂ´úÂëÊÇ×Ö·û´®¹şÏ£µÄÔ­ÀíºÍÄ£°æ
-// ±ÈÈç£¬base = 499, Ò²¾ÍÊÇ¿ÎÉÏËµµÄÑ¡ÔñµÄÖÊÊı½øÖÆ
-// ÔÙ±ÈÈç×Ö·û´®sÈçÏÂ
+// å¦‚ä¸‹ä»£ç æ˜¯å­—ç¬¦ä¸²å“ˆå¸Œçš„åŸç†å’Œæ¨¡ç‰ˆ
+// æ¯”å¦‚ï¼Œbase = 499, ä¹Ÿå°±æ˜¯è¯¾ä¸Šè¯´çš„é€‰æ‹©çš„è´¨æ•°è¿›åˆ¶
+// å†æ¯”å¦‚å­—ç¬¦ä¸²så¦‚ä¸‹
 // " c a b e f "
 //   0 1 2 3 4
-// hash[0] = 3 * baseµÄ0´Î·½
-// hash[1] = 3 * baseµÄ1´Î·½ + 1 * baseµÄ0´Î·½
-// hash[2] = 3 * baseµÄ2´Î·½ + 1 * baseµÄ1´Î·½ + 2 * baseµÄ0´Î·½
-// hash[3] = 3 * baseµÄ3´Î·½ + 1 * baseµÄ2´Î·½ + 2 * baseµÄ1´Î·½ + 5 * baseµÄ0´Î·½
-// hash[4] = 3 * baseµÄ4´Î·½ + 1 * baseµÄ3´Î·½ + 2 * baseµÄ2´Î·½ + 5 * baseµÄ1´Î·½ + 6 *
-// baseµÄ0´Î·½
-// hash[i] = hash[i-1] * base + s[i] - 'a' + 1£¬¾ÍÊÇÉÏÃæËµµÄÒâË¼
-// Ïë¼ÆËã×Ó´®"be"µÄ¹şÏ£Öµ -> 2 * baseµÄ1´Î·½ + 5 * baseµÄ0´Î·½
-// ×Ó´®"be"µÄ¹şÏ£Öµ = hash[3] - hash[1] * baseµÄ2´Î·½(×Ó´®"be"µÄ³¤¶È´Î·½)
-// hash[1] = 3 * baseµÄ1´Î·½ + 1 * baseµÄ0´Î·½
-// hash[1] * baseµÄ2´Î·½ = 3 * baseµÄ3´Î·½ + 1 * baseµÄ2´Î·½
-// hash[3] = 3 * baseµÄ3´Î·½ + 1 * baseµÄ2´Î·½ + 2 * baseµÄ1´Î·½ + 5 * baseµÄ0´Î·½
-// hash[3] - hash[1] * baseµÄ2´Î·½ = 2 * baseµÄ1´Î·½ + 5 * baseµÄ0´Î·½
-// ÕâÑù¾ÍµÃµ½×Ó´®"be"µÄ¹şÏ£ÖµÁË
-// ×Ó´®s[l...r]µÄ¹şÏ£Öµ = hash[r] - hash[l-1] * baseµÄ(r-l+1)´Î·½£¬¾ÍÊÇÉÏÃæËµµÄÒâË¼
+// hash[0] = 3 * baseçš„0æ¬¡æ–¹
+// hash[1] = 3 * baseçš„1æ¬¡æ–¹ + 1 * baseçš„0æ¬¡æ–¹
+// hash[2] = 3 * baseçš„2æ¬¡æ–¹ + 1 * baseçš„1æ¬¡æ–¹ + 2 * baseçš„0æ¬¡æ–¹
+// hash[3] = 3 * baseçš„3æ¬¡æ–¹ + 1 * baseçš„2æ¬¡æ–¹ + 2 * baseçš„1æ¬¡æ–¹ + 5 * baseçš„0æ¬¡æ–¹
+// hash[4] = 3 * baseçš„4æ¬¡æ–¹ + 1 * baseçš„3æ¬¡æ–¹ + 2 * baseçš„2æ¬¡æ–¹ + 5 * baseçš„1æ¬¡æ–¹ + 6 *
+// baseçš„0æ¬¡æ–¹
+// hash[i] = hash[i-1] * base + s[i] - 'a' + 1ï¼Œå°±æ˜¯ä¸Šé¢è¯´çš„æ„æ€
+// æƒ³è®¡ç®—å­ä¸²"be"çš„å“ˆå¸Œå€¼ -> 2 * baseçš„1æ¬¡æ–¹ + 5 * baseçš„0æ¬¡æ–¹
+// å­ä¸²"be"çš„å“ˆå¸Œå€¼ = hash[3] - hash[1] * baseçš„2æ¬¡æ–¹(å­ä¸²"be"çš„é•¿åº¦æ¬¡æ–¹)
+// hash[1] = 3 * baseçš„1æ¬¡æ–¹ + 1 * baseçš„0æ¬¡æ–¹
+// hash[1] * baseçš„2æ¬¡æ–¹ = 3 * baseçš„3æ¬¡æ–¹ + 1 * baseçš„2æ¬¡æ–¹
+// hash[3] = 3 * baseçš„3æ¬¡æ–¹ + 1 * baseçš„2æ¬¡æ–¹ + 2 * baseçš„1æ¬¡æ–¹ + 5 * baseçš„0æ¬¡æ–¹
+// hash[3] - hash[1] * baseçš„2æ¬¡æ–¹ = 2 * baseçš„1æ¬¡æ–¹ + 5 * baseçš„0æ¬¡æ–¹
+// è¿™æ ·å°±å¾—åˆ°å­ä¸²"be"çš„å“ˆå¸Œå€¼äº†
+// å­ä¸²s[l...r]çš„å“ˆå¸Œå€¼ = hash[r] - hash[l-1] * baseçš„(r-l+1)æ¬¡æ–¹ï¼Œå°±æ˜¯ä¸Šé¢è¯´çš„æ„æ€
 
-// ·¶Î§ÊÇs[l,r)£¬×ó±ÕÓÒ¿ª
+// èŒƒå›´æ˜¯s[l,r)ï¼Œå·¦é—­å³å¼€
 long long getHash(int l, int r) {
     long long ans = hash_val[r - 1];
     if (l > 0) {
@@ -62,7 +62,7 @@ long long getHash(int l, int r) {
     return ans;
 }
 
-// ¼ÆËãÒ»¸ö×Ö·û´®µÄ¹şÏ£Öµ
+// è®¡ç®—ä¸€ä¸ªå­—ç¬¦ä¸²çš„å“ˆå¸Œå€¼
 long long hashString(const string& str) {
     if (str.empty()) {
         return 0;
@@ -80,7 +80,7 @@ vector<int> findSubstring(const string& s, const vector<string>& words) {
     if (s.empty() || words.empty()) {
         return ans;
     }
-    // wordsµÄ´ÊÆµ±í
+    // wordsçš„è¯é¢‘è¡¨
     unordered_map<long long, int> map;
     for (const string& key : words) {
         long long v = hashString(key);
@@ -91,12 +91,12 @@ vector<int> findSubstring(const string& s, const vector<string>& words) {
     int wordLen = words[0].length();
     int wordNum = words.size();
     int allLen = wordLen * wordNum;
-    // ´°¿ÚµÄ´ÊÆµ±í
+    // çª—å£çš„è¯é¢‘è¡¨
     unordered_map<long long, int> window;
-    for (int init = 0; init < wordLen && init + allLen <= n; ++init) { // Í¬Óà·Ö×é
-        // initÊÇµ±Ç°×éµÄÊ×¸ö¿ªÍ·
+    for (int init = 0; init < wordLen && init + allLen <= n; ++init) { // åŒä½™åˆ†ç»„
+        // initæ˜¯å½“å‰ç»„çš„é¦–ä¸ªå¼€å¤´
         int debt = wordNum;
-        // ½¨Á¢Æğ´°¿Ú
+        // å»ºç«‹èµ·çª—å£
         for (int l = init, r = init + wordLen, part = 0; part < wordNum; l += wordLen, r += wordLen, ++part) {
             long long cur = getHash(l, r);
             window[cur]++;
@@ -107,7 +107,7 @@ vector<int> findSubstring(const string& s, const vector<string>& words) {
         if (debt == 0) {
             ans.push_back(init);
         }
-        // ½ÓÏÂÀ´´°¿Ú½øÒ»¸ö¡¢³öÒ»¸ö
+        // æ¥ä¸‹æ¥çª—å£è¿›ä¸€ä¸ªã€å‡ºä¸€ä¸ª
         for (int l1 = init, r1 = init + wordLen, l2 = init + allLen,
              r2 = init + allLen + wordLen; r2 <= n; l1 += wordLen, r1 += wordLen, l2 += wordLen, r2 += wordLen) {
             long long out = getHash(l1, r1);
@@ -146,12 +146,12 @@ int main() {
     cout << endl;
     return 0;
 }
-// Èç¹ûsµÄ³¤¶ÈÎªn£¬wordsÀïËùÓĞµ¥´ÊµÄ×Ü³¤¶ÈÎªm
-// Ê±¼ä¸´ÔÓ¶ÈO(n + m)£¬×îÓÅ½âµÄÊ±¼ä¸´ÔÓ¶ÈÓëµ¥´Ê¸öÊı¡¢µ¥´Ê³¤¶ÈÊÇÎŞ¹ØµÄ
-// ËùÓĞÌâ½â¶¼Ã»ÓĞ×öµ½Õâ¸ö¸´ÔÓ¶ÈµÄ
-// ËäÈ»Õâ¸ö×ö·¨´ò°Ü±ÈÀıÃ»ÓĞµ½100%£¬µ«ÄÇÊÇÒòÎª²âÊÔÊı¾İÁ¿²»¹»´ó
-// ËùÒÔ×îÓÅ½âµÄÊ±¼ä¸´ÔÓ¶ÈÓÅÊÆÃ»ÓĞÌåÏÖ³öÀ´
-// Õâ¸ö·½·¨¾ø¶ÔÊÇ×îÓÅ½â£¬Ö»ÓĞÍ¬Óà·Ö×é + ×Ö·û´®¹şÏ££¬Ê±¼ä¸´ÔÓ¶È²ÅÄÜµ½×îÓÅ
+// å¦‚æœsçš„é•¿åº¦ä¸ºnï¼Œwordsé‡Œæ‰€æœ‰å•è¯çš„æ€»é•¿åº¦ä¸ºm
+// æ—¶é—´å¤æ‚åº¦O(n + m)ï¼Œæœ€ä¼˜è§£çš„æ—¶é—´å¤æ‚åº¦ä¸å•è¯ä¸ªæ•°ã€å•è¯é•¿åº¦æ˜¯æ— å…³çš„
+// æ‰€æœ‰é¢˜è§£éƒ½æ²¡æœ‰åšåˆ°è¿™ä¸ªå¤æ‚åº¦çš„
+// è™½ç„¶è¿™ä¸ªåšæ³•æ‰“è´¥æ¯”ä¾‹æ²¡æœ‰åˆ°100%ï¼Œä½†é‚£æ˜¯å› ä¸ºæµ‹è¯•æ•°æ®é‡ä¸å¤Ÿå¤§
+// æ‰€ä»¥æœ€ä¼˜è§£çš„æ—¶é—´å¤æ‚åº¦ä¼˜åŠ¿æ²¡æœ‰ä½“ç°å‡ºæ¥
+// è¿™ä¸ªæ–¹æ³•ç»å¯¹æ˜¯æœ€ä¼˜è§£ï¼Œåªæœ‰åŒä½™åˆ†ç»„ + å­—ç¬¦ä¸²å“ˆå¸Œï¼Œæ—¶é—´å¤æ‚åº¦æ‰èƒ½åˆ°æœ€ä¼˜
 /*
 barfoothefoobarman
 2

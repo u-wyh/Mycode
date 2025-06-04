@@ -10,8 +10,8 @@ long long power(long long a,long long b){
         if(b&1){
             ans=((ans*a)%MOD+MOD)%MOD;
         }
-        a=((a*a)%MOD+MOD)%MOD;//aÃ¿´ÎÏàµ±ÓÚ±¶Ôö  Ö»ÓĞbµÄÕâÒ»Î»ÉÏÓĞ1µÄÊ±ºò ²Å»á½«a³Ë½øansÖĞ
-        b>>=1;//bÏëÓÒÒÆ¶¯Ò»Î»
+        a=((a*a)%MOD+MOD)%MOD;//aæ¯æ¬¡ç›¸å½“äºå€å¢  åªæœ‰bçš„è¿™ä¸€ä½ä¸Šæœ‰1çš„æ—¶å€™ æ‰ä¼šå°†aä¹˜è¿›ansä¸­
+        b>>=1;//bæƒ³å³ç§»åŠ¨ä¸€ä½
     }
     return ans;
 }
@@ -32,18 +32,18 @@ vector<vector<int>> multiply(vector<vector<int>>& a,const vector<vector<int>>& b
     return ans;
 }
 
-// ¾ØÕó¿ìËÙÃİ
+// çŸ©é˜µå¿«é€Ÿå¹‚
 vector<vector<int>> power(vector<vector<int>>& m, int p) {
     int n = m.size();
     vector<vector<int>> ans(n, vector<int>(n, 0));
     for (int i = 0; i < n; i++) {
-        ans[i][i] = 1;//µ¥Î»¾ØÕó Ïàµ±ÓÚ³Ë·¨¿ìËÙÃİÖĞµÄ1
+        ans[i][i] = 1;//å•ä½çŸ©é˜µ ç›¸å½“äºä¹˜æ³•å¿«é€Ÿå¹‚ä¸­çš„1
     }
     for (; p != 0; p >>= 1) {
         if ((p & 1) != 0) {
             ans = multiply(ans, m);
         }
-        m = multiply(m, m);//Ã¿´Î¶¼ÊÇ±¶Ôö
+        m = multiply(m, m);//æ¯æ¬¡éƒ½æ˜¯å€å¢
     }
     return ans;
 }
