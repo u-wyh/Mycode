@@ -16,11 +16,11 @@ const int MAXN = 200001;
 
 // 位置i，数值v
 struct Number {
-   int i, v;
+    int i, v;
 };
 
 bool NumberCmp(Number x, Number y) {
-   return x.v < y.v;
+    return x.v < y.v;
 }
 
 int n, m;
@@ -44,86 +44,86 @@ int rset[MAXN];
 int ans[MAXN];
 
 int lowbit(int i) {
-   return i & -i;
+    return i & -i;
 }
 
 void add(int i, int v) {
-   while (i <= n) {
-       tree[i] += v;
-       i += lowbit(i);
-   }
+    while (i <= n) {
+        tree[i] += v;
+        i += lowbit(i);
+    }
 }
 
 int sum(int i) {
-   int ret = 0;
-   while (i > 0) {
-       ret += tree[i];
-       i -= lowbit(i);
-   }
-   return ret;
+    int ret = 0;
+    while (i > 0) {
+        ret += tree[i];
+        i -= lowbit(i);
+    }
+    return ret;
 }
 
 int query(int l, int r) {
-   return sum(r) - sum(l - 1);
+    return sum(r) - sum(l - 1);
 }
 
 //第二种写法
 //和第一种方法的区别就是他不要更改k  而是通过used判断当前在树状数组中的是不是满足要求
 void compute(int ql, int qr, int vl, int vr) {
-   if (ql > qr) {
-       return;
-   }
-   if (vl == vr) {
-       for (int i = ql; i <= qr; i++) {
-           ans[qid[i]] = arr[vl].v;
-       }
-   } else {
-       int mid = (vl + vr) / 2;
-       while (used < mid) {
-           used++;
-           add(arr[used].i, 1);
-       }
-       while (used > mid) {
-           add(arr[used].i, -1);
-           used--;
-       }
-       int lsiz = 0, rsiz = 0;
-       for (int i = ql; i <= qr; i++) {
-           int id = qid[i];
-           int satisfy = query(l[id], r[id]);
-           if (satisfy >= k[id]) {
-               lset[++lsiz] = id;
-           } else {
-               rset[++rsiz] = id;
-           }
-       }
-       for (int i = 1; i <= lsiz; i++) {
-           qid[ql + i - 1] = lset[i];
-       }
-       for (int i = 1; i <= rsiz; i++) {
-           qid[ql + lsiz + i - 1] = rset[i];
-       }
-       compute(ql, ql + lsiz - 1, vl, mid);
-       compute(ql + lsiz, qr, mid + 1, vr);
-   }
+    if (ql > qr) {
+        return;
+    }
+    if (vl == vr) {
+        for (int i = ql; i <= qr; i++) {
+            ans[qid[i]] = arr[vl].v;
+        }
+    } else {
+        int mid = (vl + vr) / 2;
+        while (used < mid) {
+            used++;
+            add(arr[used].i, 1);
+        }
+        while (used > mid) {
+            add(arr[used].i, -1);
+            used--;
+        }
+        int lsiz = 0, rsiz = 0;
+        for (int i = ql; i <= qr; i++) {
+            int id = qid[i];
+            int satisfy = query(l[id], r[id]);
+            if (satisfy >= k[id]) {
+                lset[++lsiz] = id;
+            } else {
+                rset[++rsiz] = id;
+            }
+        }
+        for (int i = 1; i <= lsiz; i++) {
+            qid[ql + i - 1] = lset[i];
+        }
+        for (int i = 1; i <= rsiz; i++) {
+            qid[ql + lsiz + i - 1] = rset[i];
+        }
+        compute(ql, ql + lsiz - 1, vl, mid);
+        compute(ql + lsiz, qr, mid + 1, vr);
+    }
 }
 
 int main() {
-   ios::sync_with_stdio(false);
-   cin.tie(nullptr);
-   cin >> n >> m;
-   for (int i = 1; i <= n; i++) {
-       arr[i].i = i;
-       cin >> arr[i].v;
-   }
-   for (int i = 1; i <= m; i++) {
-       qid[i] = i;
-       cin >> l[i] >> r[i] >> k[i];
-   }
-   sort(arr + 1, arr + n + 1, NumberCmp);
-   compute(1, m, 1, n);
-   for (int i = 1; i <= m; i++) {
-       cout << ans[i] << '\n';
-   }
-   return 0;
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cin >> n >> m;
+    for (int i = 1; i <= n; i++) {
+        arr[i].i = i;
+        cin >> arr[i].v;
+    }
+    for (int i = 1; i <= m; i++) {
+        qid[i] = i;
+        cin >> l[i] >> r[i] >> k[i];
+    }
+    sort(arr + 1, arr + n + 1, NumberCmp);
+    compute(1, m, 1, n);
+    for (int i = 1; i <= m; i++) {
+        cout << ans[i] << '\n';
+    }
+    return 0;
 }

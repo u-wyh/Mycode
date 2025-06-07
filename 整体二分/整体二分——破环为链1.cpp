@@ -117,31 +117,31 @@ void compute(int ql, int qr, int vl, int vr) {
 }
 
 int main() {
-   ios::sync_with_stdio(false);
-   cin.tie(nullptr);
-   cin >> n >> m;
-   for (int i = 1, nation; i <= m; i++) {
-       cin >> nation;
-       addEdge(nation, i);//增加每个国家的所属区域
-   }
-   for (int i = 1; i <= n; i++) {
-       qid[i] = i;
-       cin >> need[i];
-   }
-   cin >> k;
-   for (int i = 1; i <= k; i++) {
-       cin >> rainl[i] >> rainr[i] >> num[i];
-       if (rainr[i] < rainl[i]) {
-           rainr[i] += m;//破环为链
-       }
-   }
-   compute(1, n, 1, k + 1);
-   for (int i = 1; i <= n; i++) {
-       if (ans[i] == k + 1) {//表示不可能
-           cout << "NIE" << '\n';
-       } else {
-           cout << ans[i] << '\n';
-       }
-   }
-   return 0;
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cin >> n >> m;
+    for (int i = 1, nation; i <= m; i++) {
+        cin >> nation;
+        addEdge(nation, i);//增加每个国家的所属区域
+    }
+    for (int i = 1; i <= n; i++) {
+        qid[i] = i;
+        cin >> need[i];
+    }
+    cin >> k;
+    for (int i = 1; i <= k; i++) {
+        cin >> rainl[i] >> rainr[i] >> num[i];
+        if (rainr[i] < rainl[i]) {
+            rainr[i] += m;//破环为链
+        }
+    }
+    compute(1, n, 1, k + 1);
+    for (int i = 1; i <= n; i++) {
+        if (ans[i] == k + 1) {//表示不可能
+            cout << "NIE" << '\n';
+        } else {
+            cout << ans[i] << '\n';
+        }
+    }
+    return 0;
 }
