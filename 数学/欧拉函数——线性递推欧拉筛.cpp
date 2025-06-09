@@ -1,3 +1,7 @@
+//https://www.luogu.com.cn/problem/P1891
+//这道题需要快速求出连续数字的欧拉函数值
+//时间复杂度要求我们必须做到线性
+//我们利用欧拉函数的性质  结合 欧拉筛完成
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 1e6+5;

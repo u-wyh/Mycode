@@ -1,18 +1,18 @@
-// Ê¹Íø¸ñÍ¼ÖÁÉÙÓÐÒ»ÌõÓÐÐ§Â·¾¶µÄ×îÐ¡´ú¼Û
-// ¸øÄãÒ»¸ö m * n µÄÍø¸ñÍ¼ grid ¡£ grid ÖÐÃ¿¸ö¸ñ×Ó¶¼ÓÐÒ»¸öÊý×Ö
-// ¶ÔÓ¦×Å´Ó¸Ã¸ñ×Ó³ö·¢ÏÂÒ»²½×ßµÄ·½Ïò¡£ grid[i][j] ÖÐµÄÊý×Ö¿ÉÄÜÎªÒÔÏÂ¼¸ÖÖÇé¿ö£º
-// 1 £¬ÏÂÒ»²½ÍùÓÒ×ß£¬Ò²¾ÍÊÇÄã»á´Ó grid[i][j] ×ßµ½ grid[i][j + 1]
-// 2 £¬ÏÂÒ»²½Íù×ó×ß£¬Ò²¾ÍÊÇÄã»á´Ó grid[i][j] ×ßµ½ grid[i][j - 1]
-// 3 £¬ÏÂÒ»²½ÍùÏÂ×ß£¬Ò²¾ÍÊÇÄã»á´Ó grid[i][j] ×ßµ½ grid[i + 1][j]
-// 4 £¬ÏÂÒ»²½ÍùÉÏ×ß£¬Ò²¾ÍÊÇÄã»á´Ó grid[i][j] ×ßµ½ grid[i - 1][j]
-// ×¢ÒâÍø¸ñÍ¼ÖÐ¿ÉÄÜ»áÓÐ ÎÞÐ§Êý×Ö £¬ÒòÎªËüÃÇ¿ÉÄÜÖ¸Ïò grid ÒÔÍâµÄÇøÓò
-// Ò»¿ªÊ¼£¬Äã»á´Ó×î×óÉÏ½ÇµÄ¸ñ×Ó (0,0) ³ö·¢
-// ÎÒÃÇ¶¨ÒåÒ»Ìõ ÓÐÐ§Â·¾¶ Îª´Ó¸ñ×Ó (0,0) ³ö·¢£¬Ã¿Ò»²½¶¼Ë³×ÅÊý×Ö¶ÔÓ¦·½Ïò×ß
-// ×îÖÕÔÚ×îÓÒÏÂ½ÇµÄ¸ñ×Ó (m - 1, n - 1) ½áÊøµÄÂ·¾¶
-// ÓÐÐ§Â·¾¶ ²»ÐèÒªÊÇ×î¶ÌÂ·¾¶
-// Äã¿ÉÒÔ»¨·Ñ1µÄ´ú¼ÛÐÞ¸ÄÒ»¸ö¸ñ×ÓÖÐµÄÊý×Ö£¬µ«Ã¿¸ö¸ñ×ÓÖÐµÄÊý×Ö Ö»ÄÜÐÞ¸ÄÒ»´Î
-// ÇëÄã·µ»ØÈÃÍø¸ñÍ¼ÖÁÉÙÓÐÒ»ÌõÓÐÐ§Â·¾¶µÄ×îÐ¡´ú¼Û
-// ²âÊÔÁ´½Ó : https://leetcode.cn/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid/
+// ä½¿ç½‘æ ¼å›¾è‡³å°‘æœ‰ä¸€æ¡æœ‰æ•ˆè·¯å¾„çš„æœ€å°ä»£ä»·
+// ç»™ä½ ä¸€ä¸ª m * n çš„ç½‘æ ¼å›¾ grid ã€‚ grid ä¸­æ¯ä¸ªæ ¼å­éƒ½æœ‰ä¸€ä¸ªæ•°å­—
+// å¯¹åº”ç€ä»Žè¯¥æ ¼å­å‡ºå‘ä¸‹ä¸€æ­¥èµ°çš„æ–¹å‘ã€‚ grid[i][j] ä¸­çš„æ•°å­—å¯èƒ½ä¸ºä»¥ä¸‹å‡ ç§æƒ…å†µï¼š
+// 1 ï¼Œä¸‹ä¸€æ­¥å¾€å³èµ°ï¼Œä¹Ÿå°±æ˜¯ä½ ä¼šä»Ž grid[i][j] èµ°åˆ° grid[i][j + 1]
+// 2 ï¼Œä¸‹ä¸€æ­¥å¾€å·¦èµ°ï¼Œä¹Ÿå°±æ˜¯ä½ ä¼šä»Ž grid[i][j] èµ°åˆ° grid[i][j - 1]
+// 3 ï¼Œä¸‹ä¸€æ­¥å¾€ä¸‹èµ°ï¼Œä¹Ÿå°±æ˜¯ä½ ä¼šä»Ž grid[i][j] èµ°åˆ° grid[i + 1][j]
+// 4 ï¼Œä¸‹ä¸€æ­¥å¾€ä¸Šèµ°ï¼Œä¹Ÿå°±æ˜¯ä½ ä¼šä»Ž grid[i][j] èµ°åˆ° grid[i - 1][j]
+// æ³¨æ„ç½‘æ ¼å›¾ä¸­å¯èƒ½ä¼šæœ‰ æ— æ•ˆæ•°å­— ï¼Œå› ä¸ºå®ƒä»¬å¯èƒ½æŒ‡å‘ grid ä»¥å¤–çš„åŒºåŸŸ
+// ä¸€å¼€å§‹ï¼Œä½ ä¼šä»Žæœ€å·¦ä¸Šè§’çš„æ ¼å­ (0,0) å‡ºå‘
+// æˆ‘ä»¬å®šä¹‰ä¸€æ¡ æœ‰æ•ˆè·¯å¾„ ä¸ºä»Žæ ¼å­ (0,0) å‡ºå‘ï¼Œæ¯ä¸€æ­¥éƒ½é¡ºç€æ•°å­—å¯¹åº”æ–¹å‘èµ°
+// æœ€ç»ˆåœ¨æœ€å³ä¸‹è§’çš„æ ¼å­ (m - 1, n - 1) ç»“æŸçš„è·¯å¾„
+// æœ‰æ•ˆè·¯å¾„ ä¸éœ€è¦æ˜¯æœ€çŸ­è·¯å¾„
+// ä½ å¯ä»¥èŠ±è´¹1çš„ä»£ä»·ä¿®æ”¹ä¸€ä¸ªæ ¼å­ä¸­çš„æ•°å­—ï¼Œä½†æ¯ä¸ªæ ¼å­ä¸­çš„æ•°å­— åªèƒ½ä¿®æ”¹ä¸€æ¬¡
+// è¯·ä½ è¿”å›žè®©ç½‘æ ¼å›¾è‡³å°‘æœ‰ä¸€æ¡æœ‰æ•ˆè·¯å¾„çš„æœ€å°ä»£ä»·
+// æµ‹è¯•é“¾æŽ¥ : https://leetcode.cn/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid/
 #include <iostream>
 #include <vector>
 #include <deque>
@@ -21,11 +21,11 @@
 using namespace std;
 
 int minCost(vector<vector<int>>& grid) {
-    // ¸ñ×ÓµÄÊýÖµ :
-    // 1 ÓÒ
-    // 2 ×ó
-    // 3 ÏÂ
-    // 4 ÉÏ
+    // æ ¼å­çš„æ•°å€¼ :
+    // 1 å³
+    // 2 å·¦
+    // 3 ä¸‹
+    // 4 ä¸Š
     //                0      1         2          3         4
     vector<vector<int>> move = { {}, { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 } };
     int m = grid.size();

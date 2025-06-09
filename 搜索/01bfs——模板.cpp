@@ -1,26 +1,26 @@
-// µ½´ï½ÇÂäÐèÒªÒÆ³ýÕÏ°­ÎïµÄ×îÐ¡ÊýÄ¿
-// ¸øÄãÒ»¸öÏÂ±ê´Ó 0 ¿ªÊ¼µÄ¶þÎ¬ÕûÊýÊý×é grid £¬Êý×é´óÐ¡Îª m x n
-// Ã¿¸öµ¥Ôª¸ñ¶¼ÊÇÁ½¸öÖµÖ®Ò»£º
-// 0 ±íÊ¾Ò»¸ö ¿Õ µ¥Ôª¸ñ£¬
-// 1 ±íÊ¾Ò»¸ö¿ÉÒÔÒÆ³ýµÄ ÕÏ°­Îï
-// Äã¿ÉÒÔÏòÉÏ¡¢ÏÂ¡¢×ó¡¢ÓÒÒÆ¶¯£¬´ÓÒ»¸ö¿Õµ¥Ôª¸ñÒÆ¶¯µ½ÁíÒ»¸ö¿Õµ¥Ôª¸ñ¡£
-// ÏÖÔÚÄãÐèÒª´Ó×óÉÏ½Ç (0, 0) ÒÆ¶¯µ½ÓÒÏÂ½Ç (m - 1, n - 1)
-// ·µ»ØÐèÒªÒÆ³ýµÄÕÏ°­ÎïµÄ×îÐ¡ÊýÄ¿
-// ²âÊÔÁ´½Ó : https://leetcode.cn/problems/minimum-obstacle-removal-to-reach-corner/
+// åˆ°è¾¾è§’è½éœ€è¦ç§»é™¤éšœç¢ç‰©çš„æœ€å°æ•°ç›®
+// ç»™ä½ ä¸€ä¸ªä¸‹æ ‡ä»Ž 0 å¼€å§‹çš„äºŒç»´æ•´æ•°æ•°ç»„ grid ï¼Œæ•°ç»„å¤§å°ä¸º m x n
+// æ¯ä¸ªå•å…ƒæ ¼éƒ½æ˜¯ä¸¤ä¸ªå€¼ä¹‹ä¸€ï¼š
+// 0 è¡¨ç¤ºä¸€ä¸ª ç©º å•å…ƒæ ¼ï¼Œ
+// 1 è¡¨ç¤ºä¸€ä¸ªå¯ä»¥ç§»é™¤çš„ éšœç¢ç‰©
+// ä½ å¯ä»¥å‘ä¸Šã€ä¸‹ã€å·¦ã€å³ç§»åŠ¨ï¼Œä»Žä¸€ä¸ªç©ºå•å…ƒæ ¼ç§»åŠ¨åˆ°å¦ä¸€ä¸ªç©ºå•å…ƒæ ¼ã€‚
+// çŽ°åœ¨ä½ éœ€è¦ä»Žå·¦ä¸Šè§’ (0, 0) ç§»åŠ¨åˆ°å³ä¸‹è§’ (m - 1, n - 1)
+// è¿”å›žéœ€è¦ç§»é™¤çš„éšœç¢ç‰©çš„æœ€å°æ•°ç›®
+// æµ‹è¯•é“¾æŽ¥ : https://leetcode.cn/problems/minimum-obstacle-removal-to-reach-corner/
 #include<bits/stdc++.h>
 using namespace std;
 
 int minimumObstacles(vector<vector<int>>& grid) {
-    int move[5] = {-1, 0, 1, 0, -1}; // ·½ÏòÊý×é£ºÉÏ¡¢ÓÒ¡¢ÏÂ¡¢×ó
+    int move[5] = {-1, 0, 1, 0, -1}; // æ–¹å‘æ•°ç»„ï¼šä¸Šã€å³ã€ä¸‹ã€å·¦
     int m = grid.size();
     int n = grid[0].size();
 
-    // ³õÊ¼»¯¾àÀëÊý×é
+    // åˆå§‹åŒ–è·ç¦»æ•°ç»„
     vector<vector<int>> distance(m, vector<int>(n, INT_MAX));
     distance[0][0] = 0;
 
-    // Ë«¶Ë¶ÓÁÐ£¬´æ´¢µ±Ç°´ý´¦ÀíµÄ½Úµã
-    deque<pair<int, int>> dq; // ½« deque ¸ÄÎª dq
+    // åŒç«¯é˜Ÿåˆ—ï¼Œå­˜å‚¨å½“å‰å¾…å¤„ç†çš„èŠ‚ç‚¹
+    deque<pair<int, int>> dq; // å°† deque æ”¹ä¸º dq
     dq.push_front({0, 0});
 
     while (!dq.empty()) {
@@ -29,22 +29,22 @@ int minimumObstacles(vector<vector<int>>& grid) {
         int x = record.first;
         int y = record.second;
 
-        // Èç¹ûµ½´ïÖÕµã£¬·µ»Øµ±Ç°¾àÀë
+        // å¦‚æžœåˆ°è¾¾ç»ˆç‚¹ï¼Œè¿”å›žå½“å‰è·ç¦»
         if (x == m - 1 && y == n - 1) {
             return distance[x][y];
         }
 
-        // ±éÀúËÄ¸ö·½Ïò
+        // éåŽ†å››ä¸ªæ–¹å‘
         for (int i = 0; i < 4; i++) {
             int nx = x + move[i];
             int ny = y + move[i + 1];
 
-            // ¼ì²éÐÂ×ø±êÊÇ·ñÔÚÍø¸ñ·¶Î§ÄÚ
+            // æ£€æŸ¥æ–°åæ ‡æ˜¯å¦åœ¨ç½‘æ ¼èŒƒå›´å†…
             if (nx >= 0 && nx < m && ny >= 0 && ny < n) {
-                // Èç¹ûÐÂ¾àÀë¸üÐ¡£¬¸üÐÂ¾àÀë
+                // å¦‚æžœæ–°è·ç¦»æ›´å°ï¼Œæ›´æ–°è·ç¦»
                 if (distance[x][y] + grid[nx][ny] < distance[nx][ny]) {
                     distance[nx][ny] = distance[x][y] + grid[nx][ny];
-                    // Èç¹ûÊÇ¿ÕµØ£¨0£©£¬¼ÓÈë¶ÓÁÐÇ°¶Ë£»·ñÔò¼ÓÈë¶ÓÁÐºó¶Ë
+                    // å¦‚æžœæ˜¯ç©ºåœ°ï¼ˆ0ï¼‰ï¼ŒåŠ å…¥é˜Ÿåˆ—å‰ç«¯ï¼›å¦åˆ™åŠ å…¥é˜Ÿåˆ—åŽç«¯
                     if (grid[nx][ny] == 0) {
                         dq.push_front({nx, ny});
                     } else {
@@ -55,16 +55,16 @@ int minimumObstacles(vector<vector<int>>& grid) {
         }
     }
 
-    // Èç¹ûÎÞ·¨µ½´ïÖÕµã£¬·µ»Ø -1
+    // å¦‚æžœæ— æ³•åˆ°è¾¾ç»ˆç‚¹ï¼Œè¿”å›ž -1
     return -1;
 }
 
 int main() {
-    // ÊäÈëÍø¸ñ´óÐ¡
+    // è¾“å…¥ç½‘æ ¼å¤§å°
     int m, n;
     cin >> m >> n;
 
-    // ÊäÈëÍø¸ñÊý¾Ý
+    // è¾“å…¥ç½‘æ ¼æ•°æ®
     vector<vector<int>> grid(m, vector<int>(n));
     for (int i = 0; i < m; i++) {
         for (int j = 0; j < n; j++) {
@@ -72,7 +72,7 @@ int main() {
         }
     }
 
-    // ¼ÆËã²¢Êä³ö½á¹û
+    // è®¡ç®—å¹¶è¾“å‡ºç»“æžœ
     int result = minimumObstacles(grid);
     cout << result << endl;
 
