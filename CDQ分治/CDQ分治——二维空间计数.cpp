@@ -9,20 +9,20 @@
 // 提交如下代码，可以通过所有测试用例
 //这道题我最初的时候想用的是离散化 但是即使离散化也是无法完成的
 //需要使用cdq分治  按照x分组  y重新排序
-//这里由于没有使用到高级数据结构 为了维护时间复杂度  没有使用内置函数 
+//这里由于没有使用到高级数据结构 为了维护时间复杂度  没有使用内置sort函数 
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 500001 * 5;
 
 struct Node {
-   int op, x, y, v, q;
+   	int op, x, y, v, q;
 };
 
 bool NodeCmp(Node a, Node b) {
-   if (a.x != b.x) {
-       return a.x < b.x;
-   }
-   return a.op < b.op;
+	if (a.x != b.x) {
+		return a.x < b.x;
+	}
+	return a.op < b.op;
 }
 
 int n, m;
