@@ -21,44 +21,44 @@ void build(){
 void dfs(int u, int f) {
     deep[u] = deep[f] + 1;
     stjump[u][0] = f;
+    //完成u的deep  stjump
     for (int p = 1; p <= log_2[n]; p++) {
         stjump[u][p] = stjump[stjump[u][p - 1]][p - 1];
     }
-    //完成u的deep  stjump
     for (int e = head[u]; e != 0; e = Next[e]) {
+        //向下递归
         if (to[e] != f) {
             dfs(to[e], u);
         }
-        //向下递归
     }
 }
 
 int lca(int a, int b) {
+    //确定大小关系
     if (deep[a] < deep[b]) {
         int tmp = a;
         a = b;
         b = tmp;
     }
-    //确定大小关系
+    //首先将两者变为同一高度
     for (int p = log_2[n]; p >= 0; p--) {
         if (deep[stjump[a][p]] >= deep[b]) {
             a = stjump[a][p];
         }
     }
-    //首先将两者变为同一高度
+    //如果相同说明就是祖先关系
     if (a == b) {
         return a;
     }
-    //如果相同说明就是祖先关系
     for (int p = log_2[n]; p >= 0; p--) {
+        //判断跳完后是否符合规则
         if (stjump[a][p] != stjump[b][p]) {
             a = stjump[a][p];
             b = stjump[b][p];
         }
-        //判断跳完后是否符合规则
     }
+    //我们将头结点的祖先设置为0  实际上没有0  这里大多数都是直接返回st[a][0]
     return stjump[a][0]==0?root:stjump[a][0];
-    //我们将头结点的祖先设置为0  实际上没有0
 }
 
 int main()

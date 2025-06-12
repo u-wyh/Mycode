@@ -1,30 +1,30 @@
-//https://www.lanqiao.cn/problems/3506/learning/
-//ÕâµÀÌâÊ®·ÖµÄ¾­µä
-//ÓÉÓÚÊý¾Ý·¶Î§¹ý´ó  ±©Á¦Ëã·¨¹ý²»ÁË
-//ËùÒÔÎÒÃÇÊ¹ÓÃÁË  ±¶Ôö ×îÐ¡Éú³ÉÊ÷ lca ²¢²é¼¯ ÁÚ½Ó±íµÈËã·¨¸¨Öú
-//
-//Ê×ÏÈÒª½¨Á¢Ò»¿ÃÊ÷  ÎªÁË½ÓÏÂÀ´µÄlca²Ù×÷
-//ÄÇÃ´ÎÒÃÇ±ØÐëÒªÅÅÒ»ÏÂÐò  ¼´×îÐ¡Éú³ÉÊ÷  ¸ù¾ÝÌâÒâ¿ÉÒÔÈ·¶¨ÅÅÐò·½Ê½
-//³ý´ËÖ®Íâ »¹Òª×¢ÒâµÄÊÇ  ¿ÉÄÜµÃµ½µÄ²»ÊÇÒ»¿ÃÊ÷  ¼´½ÚµãÖ®¼ä²¢²»ÊÇÒ»¶¨ÁªÍ¨µÄ
-//ÎÒÃÇµÄfaÊý×é½ö½öÊÇÓÃÀ´½¨Á¢Ê÷µÄ  ³ý´ËÖ®Íâ Ã»ÓÐ°ïÖúÒ²¾ÍÊÇºóÃæ²»»áÓÃµ½ÁË
-//µ±kruskal½áÊøÖ®ºó ÎÒÃÇµÄÊ÷Ò²¾Í½¨Á¢ºÃÁË
-//±ßµÄÐÅÏ¢´æ´¢ÔÚÁÚ½Ó±íÖÐ
-//
-//×¼±¸Á½¸öst±í
-//st[i][j]ÓÃÀ´´æ´¢½ÚµãiµÄµÚ 2µÄj´Î·½ µÄ¸¸Ç×½ÚµãÊÇÊ²Ã´½Úµã
-//val[i][j]ÓÃÀ´´æ´¢   ½Úµãi  µ½  (½Úµãi µÄµÚ 2µÄj´Î·½ µÄ¸¸Ç×½Úµã)Ö®¼ä×îÐ¡µÄÖµÊÇÊ²Ã´(ÆäËûµÄÌâ¿ÉÄÜ»áÓÃÀ´´æ×î´óµÄÖµ  Õâ¸ö¸ù¾ÝÌâÒâ )
-//
-//deepÊý×éÓÃÀ´´æÖü¸÷¸ö½ÚµãµÄÉî¶È ÓÃÓÚÇólca
-//visÊý×éÊÇÓÃÓÚ½â¾ö¿ÉÄÜ»áÓÐ¶à¿ÃÊ÷  ËùÒÔÅÐ¶ÏÒ»ÏÂÕâ¸ö½ÚµãÓÐÃ»ÓÐ±»Ê÷Ëù°üº¬ Ã»ÓÐµÄ»°¾ÍÒªÐÂ½¨Ò»¿ÃÊ÷
-//Ê£ÏÂµÄÐ¡Ï¸½ÚÈ«ÔÚ´úÂëÀïÁË
-//
-//ÎªÊ²Ã´ÒªÕâÃ´×ö
-//ÒòÎªÊý¾ÝÌ«´ó ÎÒÃÇÐèÒªÊ¹ÓÃ±¶Ôö
-//ÎÒÃÇÊ×ÏÈÒªµÃµ½ËûÃÇ¸¸Ç×½ÚµãµÄÐÅÏ¢  µ«ÊÇÕâ½ö½öÊÇµÃµ½¸¸Ç×½ÚµãµÄ±àºÅ  ÕâÊÇ²»¹»µÄ
-//ËùÒÔÎÒÃÇ»¹ÒªµÃµ½valÊý×é
-//ÄÇÃ´¼´Ê¹Èç´Ë  ÎÒÃÇ»¹ÊÇÒª½¨Á¢Ò»Ìõ´Óaµ½bµÄÂ·¾¶  ÕâÌõÂ·¾¶¿ÉÄÜÊÇ^  ÕâÖÖÐÎ×´µÄ  ÏÈÉÏºóÏÂÐÍµÄ  ÓÐ×ªÕÛ
-//ÎÒÃÇÖ»ÓÐÏòÉÏµÄ¸¸Ç×ÐÅÏ¢  Ã»ÓÐÏòÏÂµÄ  ÕâÊÇ²»·½±ãµÄ  ËùÒÔlcaÒ²¾ÍºôÖ®Óû³öÁË
+// https://www.lanqiao.cn/problems/3506/learning/
+// è¿™é“é¢˜ååˆ†çš„ç»å…¸
+// ç”±äºŽæ•°æ®èŒƒå›´è¿‡å¤§  æš´åŠ›ç®—æ³•è¿‡ä¸äº†
+// æ‰€ä»¥æˆ‘ä»¬ä½¿ç”¨äº†  å€å¢ž æœ€å°ç”Ÿæˆæ ‘ lca å¹¶æŸ¥é›† é‚»æŽ¥è¡¨ç­‰ç®—æ³•è¾…åŠ©
 
+// é¦–å…ˆè¦å»ºç«‹ä¸€æ£µæ ‘  ä¸ºäº†æŽ¥ä¸‹æ¥çš„lcaæ“ä½œ
+// é‚£ä¹ˆæˆ‘ä»¬å¿…é¡»è¦æŽ’ä¸€ä¸‹åº  å³æœ€å°ç”Ÿæˆæ ‘  æ ¹æ®é¢˜æ„å¯ä»¥ç¡®å®šæŽ’åºæ–¹å¼
+// é™¤æ­¤ä¹‹å¤– è¿˜è¦æ³¨æ„çš„æ˜¯  å¯èƒ½å¾—åˆ°çš„ä¸æ˜¯ä¸€æ£µæ ‘  å³èŠ‚ç‚¹ä¹‹é—´å¹¶ä¸æ˜¯ä¸€å®šè”é€šçš„
+// æˆ‘ä»¬çš„faæ•°ç»„ä»…ä»…æ˜¯ç”¨æ¥å»ºç«‹æ ‘çš„  é™¤æ­¤ä¹‹å¤– æ²¡æœ‰å¸®åŠ©ä¹Ÿå°±æ˜¯åŽé¢ä¸ä¼šç”¨åˆ°äº†
+// å½“kruskalç»“æŸä¹‹åŽ æˆ‘ä»¬çš„æ ‘ä¹Ÿå°±å»ºç«‹å¥½äº†
+// è¾¹çš„ä¿¡æ¯å­˜å‚¨åœ¨é‚»æŽ¥è¡¨ä¸­
+
+// å‡†å¤‡ä¸¤ä¸ªstè¡¨
+// st[i][j]ç”¨æ¥å­˜å‚¨èŠ‚ç‚¹içš„ç¬¬ 2çš„jæ¬¡æ–¹ çš„çˆ¶äº²èŠ‚ç‚¹æ˜¯ä»€ä¹ˆèŠ‚ç‚¹
+// val[i][j]ç”¨æ¥å­˜å‚¨   èŠ‚ç‚¹i  åˆ°  (èŠ‚ç‚¹i çš„ç¬¬ 2çš„jæ¬¡æ–¹ çš„çˆ¶äº²èŠ‚ç‚¹)ä¹‹é—´æœ€å°çš„å€¼æ˜¯ä»€ä¹ˆ(å…¶ä»–çš„é¢˜å¯èƒ½ä¼šç”¨æ¥å­˜æœ€å¤§çš„å€¼  è¿™ä¸ªæ ¹æ®é¢˜æ„ )
+
+// deepæ•°ç»„ç”¨æ¥å­˜è´®å„ä¸ªèŠ‚ç‚¹çš„æ·±åº¦ ç”¨äºŽæ±‚lca
+// visæ•°ç»„æ˜¯ç”¨äºŽè§£å†³å¯èƒ½ä¼šæœ‰å¤šæ£µæ ‘  æ‰€ä»¥åˆ¤æ–­ä¸€ä¸‹è¿™ä¸ªèŠ‚ç‚¹æœ‰æ²¡æœ‰è¢«æ ‘æ‰€åŒ…å« æ²¡æœ‰çš„è¯å°±è¦æ–°å»ºä¸€æ£µæ ‘
+// å‰©ä¸‹çš„å°ç»†èŠ‚å…¨åœ¨ä»£ç é‡Œäº†
+
+// ä¸ºä»€ä¹ˆè¦è¿™ä¹ˆåš
+// å› ä¸ºæ•°æ®å¤ªå¤§ æˆ‘ä»¬éœ€è¦ä½¿ç”¨å€å¢ž
+// æˆ‘ä»¬é¦–å…ˆè¦å¾—åˆ°ä»–ä»¬çˆ¶äº²èŠ‚ç‚¹çš„ä¿¡æ¯  ä½†æ˜¯è¿™ä»…ä»…æ˜¯å¾—åˆ°çˆ¶äº²èŠ‚ç‚¹çš„ç¼–å·  è¿™æ˜¯ä¸å¤Ÿçš„
+// æ‰€ä»¥æˆ‘ä»¬è¿˜è¦å¾—åˆ°valæ•°ç»„
+// é‚£ä¹ˆå³ä½¿å¦‚æ­¤  æˆ‘ä»¬è¿˜æ˜¯è¦å»ºç«‹ä¸€æ¡ä»Žaåˆ°bçš„è·¯å¾„  è¿™æ¡è·¯å¾„å¯èƒ½æ˜¯^  è¿™ç§å½¢çŠ¶çš„  å…ˆä¸ŠåŽä¸‹åž‹çš„  æœ‰è½¬æŠ˜
+// æˆ‘ä»¬åªæœ‰å‘ä¸Šçš„çˆ¶äº²ä¿¡æ¯  æ²¡æœ‰å‘ä¸‹çš„  è¿™æ˜¯ä¸æ–¹ä¾¿çš„  æ‰€ä»¥lcaä¹Ÿå°±å‘¼ä¹‹æ¬²å‡ºäº†
+//è¿™é“é¢˜å¯ä»¥ä½¿ç”¨kruskalé‡æž„æ ‘è§£å†³
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 1e5+5;
@@ -34,18 +34,18 @@ const int LIMIT = 17;
 int n,m,q;
 struct node{
     int u,v,w;
-}edge[MAXM];//Ò»¿ªÊ¼ËùÓÐ±ßµÄÐÅÏ¢
-int fa[MAXN];//ÓÃÓÚ½¨Á¢Ê÷
+}edge[MAXM];//ä¸€å¼€å§‹æ‰€æœ‰è¾¹çš„ä¿¡æ¯
+int fa[MAXN];//ç”¨äºŽå»ºç«‹æ ‘
 bool vis[MAXN];
 int st[MAXN][LIMIT+1];
-int val[MAXN][LIMIT+1];//ÕâÀïÒª×¢ÒâÈç¹ûÊÇlimit  ÄÇÃ´ÏÂÃæ´úÂëÖÐ¾Í²»ÄÜ·ÃÎÊval[i][limit] Ô½½çÁË
+int val[MAXN][LIMIT+1];//è¿™é‡Œè¦æ³¨æ„å¦‚æžœæ˜¯limit  é‚£ä¹ˆä¸‹é¢ä»£ç ä¸­å°±ä¸èƒ½è®¿é—®val[i][limit] è¶Šç•Œäº†
 int deep[MAXN];
 vector<pair<int,int>>path[MAXN];
 
 bool cmp(node a,node b){
     return a.w>b.w;
 }
-//½«±ßÅÅÐò
+//å°†è¾¹æŽ’åº
 
 int find(int i){
     if (i != fa[i]){
@@ -65,7 +65,7 @@ void un(int x,int y){
         fa[fx]=fy;
     }
 }
-//ÒÔÉÏÈý¸ö³ÌÐò¶¼ÊÇÎªÁËÉú³ÉÊ÷µÄ²¢²é¼¯²Ù×÷
+//ä»¥ä¸Šä¸‰ä¸ªç¨‹åºéƒ½æ˜¯ä¸ºäº†ç”Ÿæˆæ ‘çš„å¹¶æŸ¥é›†æ“ä½œ
 
 void kruskal(){
     for(int i=1;i<=m;i++){
@@ -79,14 +79,14 @@ void kruskal(){
         }
     }
 }
-//½¨Á¢Ê÷
+//å»ºç«‹æ ‘
 
 void dfs(int u,int f){
     vis[u]=true;
     st[u][0]=f;
     deep[u]=deep[f]+1;
     for(int i=1;i<=LIMIT;i++){
-        //Õâ¸öÑ­»·¿ÉÒÔ·ÅÔÚÅÜÍê×Ó½ÚµãdfsÖ®ºó  ¿ÉÄÜÐèÒª¸Ä±äÒ»µã´úÂë
+        //è¿™ä¸ªå¾ªçŽ¯å¯ä»¥æ”¾åœ¨è·‘å®Œå­èŠ‚ç‚¹dfsä¹‹åŽ  å¯èƒ½éœ€è¦æ”¹å˜ä¸€ç‚¹ä»£ç 
         if(st[u][i-1]>0){
             st[u][i]=st[st[u][i-1]][i-1];
             val[u][i]=min(val[st[u][i-1]][i-1],val[u][i-1]);
@@ -101,7 +101,7 @@ void dfs(int u,int f){
         }
     }
 }
-//Íê³É±¶Ôö±íµÄÐÅÏ¢ÌîÐ´
+//å®Œæˆå€å¢žè¡¨çš„ä¿¡æ¯å¡«å†™
 
 int lca(int a, int b) {
     int ans=INT_MAX;
@@ -110,30 +110,30 @@ int lca(int a, int b) {
         a = b;
         b = tmp;
     }
-    //È·¶¨´óÐ¡¹ØÏµ  ½«aÓÀÔ¶±äÎªÉî¶È¸üÉîµÄµã(ÓëbÏà±È)  ÕâÑù½ö½öÊÇÎªÁË·½±ã²Ù×÷
+    //ç¡®å®šå¤§å°å…³ç³»  å°†aæ°¸è¿œå˜ä¸ºæ·±åº¦æ›´æ·±çš„ç‚¹(ä¸Žbç›¸æ¯”)  è¿™æ ·ä»…ä»…æ˜¯ä¸ºäº†æ–¹ä¾¿æ“ä½œ
     for (int p = LIMIT ;p >= 0; p--) {
         if (deep[st[a][p]] >= deep[b]) {
             ans=min(ans,val[a][p]);
             a = st[a][p];
-            //×¢ÒâÕâÁ½ÐÐ´úÂë  ²»Òª»»Î»ÖÃ ²»È»a·¢Éú¸Ä±ä  µÃµ½µÄans²»ÊÇÎÒÃÇÏëÒªµÄ
+            //æ³¨æ„è¿™ä¸¤è¡Œä»£ç   ä¸è¦æ¢ä½ç½® ä¸ç„¶aå‘ç”Ÿæ”¹å˜  å¾—åˆ°çš„ansä¸æ˜¯æˆ‘ä»¬æƒ³è¦çš„
         }
     }
-    //Ê×ÏÈ½«Á½Õß±äÎªÍ¬Ò»¸ß¶È
+    //é¦–å…ˆå°†ä¸¤è€…å˜ä¸ºåŒä¸€é«˜åº¦
     if (a == b) {
         return ans;
     }
-    //Èç¹ûÏàÍ¬ËµÃ÷¾ÍÊÇ×æÏÈ¹ØÏµ  ÊÇ×æÏÈ¹ØÏµÖ±½Ó·µ»Øans¾Í¿ÉÒÔÁË
-    //Èç¹û²»Àí½âµÄ»°  ×ÐÏ¸ÏëÏëvalÕâ¸ö±¶Ôö±íµÄº¬Òå
+    //å¦‚æžœç›¸åŒè¯´æ˜Žå°±æ˜¯ç¥–å…ˆå…³ç³»  æ˜¯ç¥–å…ˆå…³ç³»ç›´æŽ¥è¿”å›žanså°±å¯ä»¥äº†
+    //å¦‚æžœä¸ç†è§£çš„è¯  ä»”ç»†æƒ³æƒ³valè¿™ä¸ªå€å¢žè¡¨çš„å«ä¹‰
     for (int p = LIMIT; p >= 0; p--) {
         if (st[a][p] != st[b][p]) {
             ans=min(ans,min(val[a][p],val[b][p]));
             a = st[a][p];
             b = st[b][p];
         }
-        //ÅÐ¶ÏÌøÍêºóÊÇ·ñ·ûºÏ¹æÔò
+        //åˆ¤æ–­è·³å®ŒåŽæ˜¯å¦ç¬¦åˆè§„åˆ™
     }
-    //ÅÜµ½ÁËÕâÀï  ÄÇÃ´fa[a][0]ºÍfa[b][0]ÊÇÒ»ÑùµÄ  ¾ÍÊÇËûÃÇµÄ×æÏÈ
-    //²»»áµÄ»°½¨ÒéÑ§Ò»ÏÂlca
+    //è·‘åˆ°äº†è¿™é‡Œ  é‚£ä¹ˆfa[a][0]å’Œfa[b][0]æ˜¯ä¸€æ ·çš„  å°±æ˜¯ä»–ä»¬çš„ç¥–å…ˆ
+    //ä¸ä¼šçš„è¯å»ºè®®å­¦ä¸€ä¸‹lca
     ans = min(ans,min(val[a][0],val[b][0]));
     return ans;
 }
@@ -149,7 +149,7 @@ int main()
     }
     sort(edge+1,edge+m+1,cmp);
     kruskal();
-    //½¨Ê÷
+    //å»ºæ ‘
     for(int i=1;i<=n;i++){
         if(!vis[i]){
             dfs(i,0);
@@ -159,7 +159,7 @@ int main()
         int u,v;
         cin>>u>>v;
         if(find(u)!=find(v)){
-            //Èç¹û²»ÁªÍ¨µÄ»° Ö±½Ó·µ»Ø-1
+            //å¦‚æžœä¸è”é€šçš„è¯ ç›´æŽ¥è¿”å›ž-1
             cout<<-1<<endl;
         }
         else{

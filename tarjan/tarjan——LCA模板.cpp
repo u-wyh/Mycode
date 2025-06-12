@@ -1,37 +1,38 @@
-//P3379
-// tarjan�㷨�ⷨ
-// �������� : https://www.luogu.com.cn/problem/P3379
-// �ύ���µ�code���ύʱ��������ĳ�"Main"
-// C++��ôд��ͨ����java����Ϊ�ݹ����̫�����ջ
-// java��ͨ����д���ο����ڿ�Code03_Tarjan2�ļ�
-//tarjan�㷨��lca�����߲���  ����˼��Ҳ�ܼ� lca����˵��������������ͬʱ������lca��������
-//�����ܱ���������  ��Ȼ����Ҳ��ͬʱ������lca�����Ƚڵ��������  ��������̫����
-//�����������  ��Ѱ������ͬʱ���ֵ�������ͷ��� ��lca
+// tarjan算法解法
+// 测试链接 : https://www.luogu.com.cn/problem/P3379
+// 提交以下的code，提交时请把类名改成"Main"
+// C++这么写能通过，java会因为递归层数太多而爆栈
+// java能通过的写法参考本节课Code03_Tarjan2文件
+//tarjan算法求lca是离线操作  他的思想也很简单 lca就是说明这两个点最早同时出现于lca的子树中
+//不可能比这个点更早  当然他们也会同时出现于lca的祖先节点的子树中  但是那就太晚了
+//根据这个性质  即寻找最早同时出现的子树的头结点 求lca
+//这种方法适用于存在多次查询操作 可以离线处理的情况
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 1000005;
 const int LIMIT = 20;
 
 int n,m,root;
+
+//建图的链式前向星
 int head[MAXN];
 int Next[MAXN];
 int to[MAXN];
 int tcnt=1;
-//��ͼ����ʽǰ����
 
+//问题的链式前向星   包含一个问题的编号数组  用来填答案
 int headQuery[MAXN];
 int queryNext[MAXN << 1];
 int queryTo[MAXN << 1];
-// ����ı�ţ�һ���д𰸿���֪����д����
+// 问题的编号，一旦有答案可以知道填写在哪
 int queryIndex[MAXN << 1];
 int qcnt=1;
-//�������ʽǰ����   ����һ������ı������  �������
 
-// ĳ���ڵ��Ƿ���ʹ�
+// 某个节点是否访问过
 bool visited[MAXN];
-// ���鼯
+// 并查集
 int father[MAXN];
-// �ռ��Ĵ�
+// 收集的答案
 int ans[MAXN];
 
 void build(){
@@ -52,16 +53,16 @@ void tarjan(int u, int f) {
     for (int e = head[u], v; e != 0; e = Next[e]) {
         v = to[e];
         if (v != f) {
-            tarjan(v, u);//���µݹ�  ֱ��Ҷ�ڵ�
+            tarjan(v, u);//向下递归  直到叶节点
             father[v] = u;
         }
     }
     for (int e = headQuery[u], v; e != 0; e = queryNext[e]) {
         v = queryTo[e];
         if (visited[v]) {
-            //���˵�������ڵ��Ѿ������ʹ�  �ſ��Խ��д���д
+            //如果说这个问题节点已经被访问过  才可以进行答案填写
+            //填写的答案是这个节点所在并查集的头结点
             ans[queryIndex[e]] = Find(v);
-            //��д�Ĵ�������ڵ����ڲ��鼯��ͷ���
         }
     }
 }
