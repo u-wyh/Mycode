@@ -19,11 +19,11 @@ int n, m;
 
 // 果汁有三个参数，美味度d、每升价格p、添加上限l
 struct Juice {
-   int d, p, l;
+    int d, p, l;
 };
 
 bool JuiceCmp(Juice x, Juice y) {
-   return x.d > y.d;
+    return x.d > y.d;
 }
 
 Juice juice[MAXN];

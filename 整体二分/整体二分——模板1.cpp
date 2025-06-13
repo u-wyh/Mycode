@@ -26,7 +26,7 @@ int n, m;
 Number arr[MAXN];
 
 // 查询
-//qid可能会发生变化 但是l r k则会保持不变
+//qid可能会发生变化 但是l r k则会保持不变  这里的不变指的是下标不变  k的值是会发生变化的
 int qid[MAXN];
 int l[MAXN];
 int r[MAXN];
@@ -115,21 +115,21 @@ void compute(int ql, int qr, int vl, int vr) {
 }
 
 int main() {
-   ios::sync_with_stdio(false);
-   cin.tie(nullptr);
-   cin >> n >> m;
-   for (int i = 1; i <= n; i++) {
-       arr[i].i = i;
-       cin >> arr[i].v;
-   }
-   for (int i = 1; i <= m; i++) {
-       qid[i] = i;
-       cin >> l[i] >> r[i] >> k[i];
-   }
-   sort(arr + 1, arr + n + 1, NumberCmp);
-   compute(1, m, 1, n);
-   for (int i = 1; i <= m; i++) {
-       cout << ans[i] << '\n';
-   }
-   return 0;
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cin >> n >> m;
+    for (int i = 1; i <= n; i++) {
+        arr[i].i = i;
+        cin >> arr[i].v;
+    }
+    for (int i = 1; i <= m; i++) {
+        qid[i] = i;
+        cin >> l[i] >> r[i] >> k[i];
+    }
+    sort(arr + 1, arr + n + 1, NumberCmp);
+    compute(1, m, 1, n);
+    for (int i = 1; i <= m; i++) {
+        cout << ans[i] << '\n';
+    }
+    return 0;
 }

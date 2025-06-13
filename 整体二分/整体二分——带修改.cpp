@@ -86,7 +86,7 @@ void compute(int el, int er, int vl, int vr) {
         int lsiz = 0, rsiz = 0;
         for (int i = el; i <= er; i++) {
             int id = eid[i];
-            //保证操作顺序相对不变
+            //保证操作顺序相对不变  即保证时序性没有被破坏
             if (op[id] == 1) {
                 if (y[id] <= mid) {
                     add(x[id], v[id]);

@@ -1,8 +1,13 @@
-// �����ܳ���(��Ȳ���)
-// �������� : https://www.luogu.com.cn/problem/P1856
-// ��ͬѧ����زο����´����й������롢����Ĵ���
-// ���������������Ч�ʺܸߵ�д��
-// �ύ���µ�code���ύʱ��������ĳ�"Main"������ֱ��ͨ��
+// 矩形周长并
+// 测试链接 : https://www.luogu.com.cn/problem/P1856
+// 请同学们务必参考如下代码中关于输入、输出的处理
+// 这是输入输出处理效率很高的写法
+// 提交以下的code，提交时请把类名改成"Main"，可以直接通过
+//这个逻辑是只要有周长的长度发生了变化  那么要么是加边 要么是删边
+//无论是什么样的  都会增加边界的周长
+//注意 这里其实是写错了  测试数据有这个a[0]=b[0]的   
+//为什么要先加后减   因为如果一条边是内部的边 如果先减后加  就会导致答案增大
+//如果不是内部的边  其实是无所谓的
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 20001;
@@ -12,11 +17,11 @@ struct Line{
     int a1,a2,a3,a4;
 }line[MAXN];
 int vsort[MAXN];
-// �߶���ĳ��Χ�ܳ���
+// 线段树某范围总长度
 int length[MAXN << 2];
-// �߶���ĳ��Χ���ǳ���
+// 线段树某范围覆盖长度
 int cover[MAXN << 2];
-// �߶���ĳ��Χ���Ǵ���
+// 线段树某范围覆盖次数
 int times[MAXN << 2];
 
 int prepare(int n) {
@@ -87,17 +92,17 @@ bool cmp(Line a,Line b){
 long scan(int n) {
     int m = prepare(n);
     build(1, m, 1);
-    // �����и���
-    // ������ʱ�����ͬһ��λ�õ�ɨ�����ж�����Ҳ����a[0] == b[0]ʱ
-    // Ӧ���ȴ������串��+1��ɨ���ߣ�Ȼ���ٴ������串��-1��ɨ����
-    // ��ȻͶӰ���Ȼ�Ƶ���仯�����´𰸴���
-    // �����������ݲ�û�а����ⷽ��Ĳ���
+    // 这里有个坑
+    // 在排序时，如果同一个位置的扫描线有多条，也就是a[0] == b[0]时
+    // 应该先处理区间覆盖+1的扫描线，然后再处理区间覆盖-1的扫描线
+    // 不然投影长度会频繁变化，导致答案错误
+    // 不过测试数据并没有安排这方面的测试
     sort(line+ 1,line+ n + 1, cmp);
     long ans = 0;
     for (int i = 1, pre; i <= n; i++) {
         pre = cover[1];
         add(Rank(m, line[i].a2), Rank(m, line[i].a3) - 1, line[i].a4, 1, m, 1);
-        ans += abs(cover[1] - pre);//ÿ���ۼӱ仯�ľ���ֵ
+        ans += abs(cover[1] - pre);//每次累加变化的绝对值
     }
     return ans;
 }
@@ -124,7 +129,7 @@ long scanX(int n) {
 
 
 long compute(int n) {
-    return scanY(n) + scanX(n);//ɨ����
+    return scanY(n) + scanX(n);//扫两遍
 }
 
 int main()
@@ -132,14 +137,12 @@ int main()
     int n ;
     cin>>n;
     for (int i = 1; i <= n; i++) {
-        // ���½��±�
+        // 左下角下标
         cin>>rec[i][0];
         cin>>rec[i][1];
-        // ���Ͻ��±�
+        // 右上角下标
         cin>>rec[i][2];
         cin>>rec[i][3];
     }
     cout<<compute(n)<<endl;
 }
-
-
