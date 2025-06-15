@@ -23,6 +23,7 @@ void euler(int n){
             vis[i*prime[j]]=1;
             if(i%prime[j]==0){
                 phi[i*prime[j]]=prime[j]*phi[i];
+                break;
             }
             else{
                 phi[i*prime[j]]=(prime[j]-1)*phi[i];
@@ -44,13 +45,12 @@ inline int read(){
     return x*f;
 }
 
-
 int main()
 {
     int n=1000000;
     euler(n);
     for(int i=1;i<=n;i++){
-        f[i]+=1;
+        f[i]+=1;//这是为了解决每个数字都存在1这个因子 但是1的话 要特殊处理
     }
     for(int i=2;i<=n;i++){
         for(int j=i;j<=n;j+=i){

@@ -9,6 +9,7 @@
 //经过推演知道：
 //n为合数时  f(n)=n*f(n-1)
 //n为素数时  f(n)=(n-1)*f(n-1)
+// 代码有点小问题 还没有搞好  见hack数据（下面）
 #include<bits/stdc++.h>
 using namespace std;
 #define int long long
@@ -30,7 +31,7 @@ void prepare(int n){
             prime[++cnt]=i;
         }
         for(int j=1;j<=cnt&&i*prime[j]<=n;j++){
-            isprime[i*prime[j]]=prime[j];
+            isprime[i*prime[j]]=1;
             if(i%prime[j]==0){
                 break;
             }
@@ -79,3 +80,9 @@ signed main()
     }
     return 0;
 }
+/*
+hack:
+1 3
+4 3
+ans:1
+*/
