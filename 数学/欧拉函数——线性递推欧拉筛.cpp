@@ -32,6 +32,27 @@ void euler(int n){
     }
 }
 
+//单个数字求欧拉函数值
+int geteuler(int n){
+	int ans=1;
+	int tmp=n;
+	for(int i=2;i*i<=tmp;i++){
+		if(tmp%i){
+			continue;
+		}
+		ans*=(i-1);
+		tmp/=i;
+		while(tmp%i==0){
+			ans*=i;
+			tmp/=i;
+		}
+	}
+	if(tmp>1){
+		ans*=(tmp-1);
+	}
+	return ans;
+}
+
 inline int read(){
     int x=0,f=1;
     char ch=getchar();
