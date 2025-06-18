@@ -1,5 +1,5 @@
-//P2709
-//ÕâµÀÌâÊÇÄª¶ÓËã·¨µÄÄ£°åÌâ  ²ÉÓÃÁËÆæÅ¼ĞÔÅÅĞòÓÅ»¯
+//https://www.luogu.com.cn/problem/P2709
+//è¿™é“é¢˜æ˜¯è«é˜Ÿç®—æ³•çš„æ¨¡æ¿é¢˜  é‡‡ç”¨äº†å¥‡å¶æ€§æ’åºä¼˜åŒ–
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 5e4+5;
@@ -11,9 +11,9 @@ struct node{
 int arr[MAXN];
 int pos[MAXN],cnt[MAXN];
 long long ans[MAXN];
-long long res;//¼ÆËã½áÓà  Ò²¾ÍÊÇ´ğ°¸
+long long res;//è®¡ç®—ç»“ä½™  ä¹Ÿå°±æ˜¯ç­”æ¡ˆ
 
-//ÆæÅ¼ĞÔÅÅĞòÓÅ»¯
+//å¥‡å¶æ€§æ’åºä¼˜åŒ–
 bool cmp2(node a,node b) {
 	return (pos[a.l] ^ pos[b.l]) ? pos[a.l] < pos[b.l] : ((pos[a.l] & 1) ? a.r < b.r : a.r > b.r);
 }
@@ -28,13 +28,13 @@ bool cmp(node a,node b){
 }
 
 void Add(int n){
-    //½«Ò»¸öÊı×Ö¼ÓÈë  ²¢¼ÆËã¹±Ï×
+    //å°†ä¸€ä¸ªæ•°å­—åŠ å…¥  å¹¶è®¡ç®—è´¡çŒ®
     cnt[arr[n]]++;
     res+=(cnt[arr[n]]*cnt[arr[n]]-(cnt[arr[n]]-1)*(cnt[arr[n]]-1));
 }
 
 void Sub(int n){
-    //¼õÈ¥Ò»¸öÊı×Ö   ²¢´¦ÀíÓ°Ïì
+    //å‡å»ä¸€ä¸ªæ•°å­—   å¹¶å¤„ç†å½±å“
     cnt[arr[n]]--;
     res-=((cnt[arr[n]]+1)*(cnt[arr[n]]+1)-cnt[arr[n]]*cnt[arr[n]]);
 }
@@ -42,25 +42,25 @@ void Sub(int n){
 int main()
 {
     cin>>n>>m>>k;
-    int siz=sqrt(n);//È·Á¢¿éµÄ´óĞ¡
+    int siz=sqrt(n);//ç¡®ç«‹å—çš„å¤§å°
     for(int i=1;i<=n;i++){
         cin>>arr[i];
-        pos[i]=i/siz;//È·¶¨·Ö×éĞÅÏ¢
+        pos[i]=i/siz;//ç¡®å®šåˆ†ç»„ä¿¡æ¯
     }
     for(int i=1;i<=m;i++){
         cin>>nums[i].l>>nums[i].r;
         nums[i].sub=i;
     }
-    sort(nums+1,nums+m+1,cmp);
-    //½«ÎÊÌâÅÅĞò
-    //Èç¹û·Ö×éÏàÍ¬  °´ÕÕÓÒ¶ËµãÅÅĞò  ·ñÔò°´ÕÕ×é´óĞ¡ÅÅĞò
+    sort(nums+1,nums+m+1,cmp2);
+    //å°†é—®é¢˜æ’åº
+    //å¦‚æœåˆ†ç»„ç›¸åŒ  æŒ‰ç…§å³ç«¯ç‚¹æ’åº  å¦åˆ™æŒ‰ç…§ç»„å¤§å°æ’åº
     int l=1,r=0;
     for(int i=1;i<=m;i++){
         while(nums[i].l<l) Add(--l);
         while(nums[i].r>r) Add(++r);
         while(nums[i].l>l) Sub(l++);
         while(nums[i].r<r) Sub(r--);
-        //Æ¥ÅäÇø¼ä  µÃµ½´ğ°¸
+        //åŒ¹é…åŒºé—´  å¾—åˆ°ç­”æ¡ˆ
         ans[nums[i].sub]=res;
     }
     for(int i=1;i<=m;i++){

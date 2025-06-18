@@ -1,6 +1,6 @@
-//P4462
-//Õâ¸öÆäÊµºÍÄ£°åºÜÏñ »ù±¾ÉÏÒ»Ñù
-//Õâ¸öÍ³¼ÆµÄÊÇÃ¿¸öÒì»òÖµÊÇ¶àÉÙ
+//https://www.luogu.com.cn/problem/P4462
+//è¿™ä¸ªå…¶å®žå’Œæ¨¡æ¿å¾ˆåƒ åŸºæœ¬ä¸Šä¸€æ ·
+//è¿™ä¸ªç»Ÿè®¡çš„æ˜¯æ¯ä¸ªå¼‚æˆ–å€¼æ˜¯å¤šå°‘
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 1e5+5;
@@ -35,13 +35,13 @@ bool cmp(node a,node b){
 }
 
 void Add(int n){
-    //½«Ò»¸öÊý×Ö¼ÓÈë  ²¢¼ÆËã¹±Ï×
+    //å°†ä¸€ä¸ªæ•°å­—åŠ å…¥  å¹¶è®¡ç®—è´¡çŒ®
     sum+=tot[arr[n]^k];
     tot[arr[n]]++;
 }
 
 void Sub(int n){
-    //¼õÈ¥Ò»¸öÊý×Ö   ²¢´¦ÀíÓ°Ïì
+    //å‡åŽ»ä¸€ä¸ªæ•°å­—   å¹¶å¤„ç†å½±å“
     tot[arr[n]]--;
     sum-=tot[arr[n]^k];
 }
@@ -68,7 +68,7 @@ int main()
         while(nums[i].r>r) Add(++r);
         while(nums[i].l-1>l) Sub(l++);
         while(nums[i].r<r) Sub(r--);
-        //Æ¥ÅäÇø¼ä  µÃµ½´ð°¸
+        //åŒ¹é…åŒºé—´  å¾—åˆ°ç­”æ¡ˆ
         ans[nums[i].id]=sum;
     }
     for(int i=1;i<=m;i++){

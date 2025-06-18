@@ -1,9 +1,10 @@
-//Äª¶ÓËã·¨Ò²ËãÊÇÒ»ÖÖ±©Á¦Ëã·¨ ºÜÈÝÒ×±»¿¨µô µ«ÊÇËûÓÐÒ»¸ö¾Þ´óÓÅÊÆ ¾ÍÊÇ¼òµ¥
-//½â¾öµÄÎÊÌâÊÇÇø¼äÀëÏß²éÑ¯ÀàÎÊÌâ
-//ËûÓÐÁ½¸öÖ÷Òªº¯Êý add  sub  ÓÃÓÚÇø¼ä±ß½çÒÆ¶¯µÄÊ±ºò½øÐÐÐÞÕý´ð°¸
-//´ð°¸¼ÇÂ¼ÔÚÈ«¾Ö±äÁ¿ÖÐ  Ã¿ÒÆ¶¯Ò»ÏÂÎ»ÖÃ ÐÞÕýÒ»ÏÂÕâ¸öÓ°Ïì
-//¹Ø¼ü¾ÍÔÚÓÚÈçºÎ½«Õâ¸öÓ°ÏìÐÞÕýÕýÈ·
-//ºÍçæ¶äÀòÊ÷Ò»Ñù  ¾ÍÊÇ±©Á¦Ëã·¨¶øÒÑ  Ö÷Òª¾ÍÊÇ¼òµ¥¸ßÐ§
+//èŽ«é˜Ÿç®—æ³•ä¹Ÿç®—æ˜¯ä¸€ç§æš´åŠ›ç®—æ³• å¾ˆå®¹æ˜“è¢«å¡æŽ‰ ä½†æ˜¯ä»–æœ‰ä¸€ä¸ªå·¨å¤§ä¼˜åŠ¿ å°±æ˜¯ç®€å•
+//è§£å†³çš„é—®é¢˜æ˜¯åŒºé—´ç¦»çº¿æŸ¥è¯¢ç±»é—®é¢˜
+//ä»–æœ‰ä¸¤ä¸ªä¸»è¦å‡½æ•° add  sub  ç”¨äºŽåŒºé—´è¾¹ç•Œç§»åŠ¨çš„æ—¶å€™è¿›è¡Œä¿®æ­£ç­”æ¡ˆ
+//ç­”æ¡ˆè®°å½•åœ¨å…¨å±€å˜é‡ä¸­  æ¯ç§»åŠ¨ä¸€ä¸‹ä½ç½® ä¿®æ­£ä¸€ä¸‹è¿™ä¸ªå½±å“
+//å…³é”®å°±åœ¨äºŽå¦‚ä½•å°†è¿™ä¸ªå½±å“ä¿®æ­£æ­£ç¡®
+//å’Œç‚æœµèŽ‰æ ‘ä¸€æ ·  å°±æ˜¯æš´åŠ›ç®—æ³•è€Œå·²  ä¸»è¦å°±æ˜¯ç®€å•é«˜æ•ˆ
+//æ—¶é—´å¤æ‚åº¦æ˜¯ O(n^1.5)
 #include<bits/stdc++.h>
 using namespace std;
 #define int long long
@@ -30,7 +31,7 @@ inline int gcd(int a, int b) {
     return b == 0 ? a : gcd(b, a % b);
 }
 
-//ÆæÅ¼ÐÔÅÅÐòÓÅ»¯
+//å¥‡å¶æ€§æŽ’åºä¼˜åŒ–
 inline bool cmp(node a,node b) {
 	return (pos[a.l] ^ pos[b.l]) ? pos[a.l] < pos[b.l] : ((pos[a.l] & 1) ? a.r < b.r : a.r > b.r);
 }
@@ -72,7 +73,7 @@ signed main()
         while(nums[i].r>r) Add(++r);
         while(nums[i].l>l) Sub(l++);
         while(nums[i].r<r) Sub(r--);
-        //Æ¥ÅäÇø¼ä  µÃµ½´ð°¸
+        //åŒ¹é…åŒºé—´  å¾—åˆ°ç­”æ¡ˆ
         if(nums[i].l==nums[i].r){
             nums[i].a=0;
 			nums[i].b=1;

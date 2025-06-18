@@ -1,10 +1,11 @@
-//P5268
-//��������õ��˲��  ����Ҫ����ʽ������
-//������Ҫ����� 1��l  �����ϵ����ִ�Ƶ  �� 1��r  ��������Ӧ���ִ�Ƶ�ĳ˻�֮��
-//��ô����ⲻ���� l��r  �����ϵ����ִ�Ƶ  ���Բ�ʹ��һ���ģ��  ��Ҫ�Լ���д
-//���ÿ����һ����  ��ô�Դ𰸵Ĺ��׾����ұ���Ӧ���ֵĴ�Ƶ
-//û����һ������  �Դ𰸵�Ӱ������ұ���Ӧ���ֵĴ�Ƶ
-//���Ǹ��ݴ˽���Ī��
+//https://www.luogu.com.cn/problem/P5268
+//这道题主要的难点是将复杂的式子变成简单的查询
+//这道题运用到了差分  首先要将公式整理简化
+//我们想要求的是 1到l  区间上的数字词频  和 1到r  区间上相应数字词频的乘积之和
+//那么这道题不是求 l到r  区间上的数字词频  所以不使用一般的模板  需要自己手写
+//左边每增加一个数  那么对答案的贡献就是右边相应数字的词频
+//每减少一个数字  对答案的影响就是右边相应数字的词频
+//我们根据此建立莫队
 #include<bits/stdc++.h>
 using namespace std;
 #define int long long
@@ -21,16 +22,16 @@ int cntl[MAXN],cntr[MAXN];
 int res;
 int ans[MAXN];
 
-//��ż�������Ż�
+//奇偶性排序优化
+//对于左端点在同一奇数块的区间，右端点按升序排列，反之降序。这个东西也是看着没用，但实际效果显著。
 bool cmp(node a,node b) {
 	return (pos[a.l] ^ pos[b.l]) ? pos[a.l] < pos[b.l] : ((pos[a.l] & 1) ? a.r < b.r : a.r > b.r);
 }
-//������˵���ͬһ����������䣬�Ҷ˵㰴�������У���֮�����������Ҳ�ǿ���û�ã���ʵ��Ч��������
 
 void Add(int op,int n){
-    //��һ�����ּ���  �����㹱��
+    //将一个数字加入  并计算贡献
     if(op==1){
-        //�ж�����߼��뻹���ұ߼���
+        //判断是左边加入还是右边加入
         cntl[arr[n]]++;
         res+=cntr[arr[n]];
     }
@@ -41,7 +42,7 @@ void Add(int op,int n){
 }
 
 void Sub(int op,int n){
-    //��ȥһ������   ������Ӱ��
+    //减去一个数字   并处理影响
     if(op==1){
         cntl[arr[n]]--;
         res-=cntr[arr[n]];
@@ -83,8 +84,8 @@ signed main()
         while(nums[i].r>r) Add(-1,++r);
         while(nums[i].l>l) Add(1,++l);
         while(nums[i].r<r) Sub(-1,r--);
-        //ע�����������䲻��l��r  ����1��l��1��r  ����������������
-        //ƥ������  �õ���
+        //注意这道题的区间不是l到r  而是1到l和1到r  不能用正常做法做
+        //匹配区间  得到答案
         if(nums[i].op==1){
             ans[nums[i].id]+=res;
         }
