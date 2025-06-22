@@ -1,5 +1,5 @@
 //P2375
-// ÕâµÀÌâÄ¿¿ÉÒÔÓÃ×÷Ê§ÅäÊ÷µÄÁ·Ï°Ìâ ¼ÓÉîÀí½â
+// è¿™é“é¢˜ç›®å¯ä»¥ç”¨ä½œå¤±é…æ ‘çš„ç»ƒä¹ é¢˜ åŠ æ·±ç†è§£
 #include<bits/stdc++.h>
 using namespace std;
 const int MOD = 1e9+7;
@@ -10,7 +10,7 @@ char s1[MAXN];
 char s2[MAXN];
 int Next[MAXN];
 int n;
-int num[MAXN];//±íÊ¾Ç°i-1¸ö×Ö·ûÖĞ Ç°ºó×ºÆ¥ÅäµÄ·½°¸ÓĞ¶àÉÙ  °üº¬È«Ñ¡
+int num[MAXN];//è¡¨ç¤ºå‰i-1ä¸ªå­—ç¬¦ä¸­ å‰åç¼€åŒ¹é…çš„æ–¹æ¡ˆæœ‰å¤šå°‘  åŒ…å«å…¨é€‰
 
 int head[MAXN];
 int nxt[MAXN];
@@ -30,7 +30,7 @@ inline int read(){
     return x*f;
 }
 
-// ¼ÆËãnextÊı×é
+// è®¡ç®—nextæ•°ç»„
 void nextArray(const char *s, int m) {
     if (m == 1) {
         Next[0] = -1;
@@ -40,8 +40,8 @@ void nextArray(const char *s, int m) {
     Next[0] = -1;
     Next[1] = 0;
     int i = 2, cn = 0;
-    // i±íÊ¾µ±Ç°ÒªÇónextÖµµÄÎ»ÖÃ
-    // cn±íÊ¾µ±Ç°ÒªºÍÇ°Ò»¸ö×Ö·û±È¶ÔµÄÏÂ±ê
+    // iè¡¨ç¤ºå½“å‰è¦æ±‚nextå€¼çš„ä½ç½®
+    // cnè¡¨ç¤ºå½“å‰è¦å’Œå‰ä¸€ä¸ªå­—ç¬¦æ¯”å¯¹çš„ä¸‹æ ‡
     while (i < m) {
         if (s[i - 1] == s[cn]) {
             Next[i] = ++cn;
@@ -60,22 +60,22 @@ int main()
     cin>>T;
     while(T--){
         memset(num,0,sizeof(num));
-        scanf("%s",s1+1);//´Ó1¿ªÊ¼¶ÁÈë¸ü·½±ã
+        scanf("%s",s1+1);//ä»1å¼€å§‹è¯»å…¥æ›´æ–¹ä¾¿
         n=strlen(s1+1);
         nextArray(s1+1,n+1);
         for(int i=1;i<=n;i++){
-            num[i]++;//Õâ¸ö¼ÓµÄÊÇËü±¾ÉíÕûÌå
+            num[i]++;//è¿™ä¸ªåŠ çš„æ˜¯å®ƒæœ¬èº«æ•´ä½“
             //cout<<num[i]<<' '<<Next[i]<<endl;
         }
         int j=0;
         long long ans=1;
-        for(int i=2;i<=n;i++){//Çó½ânum
-            while(j&&(s1[i]!=s1[j+1]))//Èç¹ûÃ»ÓĞÆ¥ÅäÉÏ ÄÇÃ´¾ÍÌø×ª
+        for(int i=2;i<=n;i++){//æ±‚è§£num
+            while(j&&(s1[i]!=s1[j+1]))//å¦‚æœæ²¡æœ‰åŒ¹é…ä¸Š é‚£ä¹ˆå°±è·³è½¬
                 j=Next[j];
-            j+=(s1[i]==s1[j+1]);//Æ¥ÅäÉÏ ¾ÍÍùºóÒÆ¶¯Ò»Î»
+            j+=(s1[i]==s1[j+1]);//åŒ¹é…ä¸Š å°±å¾€åç§»åŠ¨ä¸€ä½
             while((j<<1)>i)
                 j=Next[j];
-            ans=(ans*(num[j]+1))%MOD;//¼ÇµÃ+1
+            ans=(ans*(num[j]+1))%MOD;//è®°å¾—+1
         }
         cout<<ans<<endl;
     }

@@ -70,16 +70,16 @@ int main()
     */
     for(int i=1,j=1;i<=m;i++){
         //从小到大依次输出扫描线
+        //将符合要求的区间加入到小根堆中
         while(dot[i].value>=range[j].l&&j<=n){
             pq.push(range[j]);
             j++;
         }
-        //将符合要求的区间加入到小根堆中
         //cout<<pq.top()<<endl;
+        //只需要判断小根堆的顶端的区间是不是符合要求的  不是就弹出
         while(!pq.empty()&&pq.top().r<dot[i].value){
             pq.pop();
         }
-        //只需要判断小根堆的顶端的区间是不是符合要求的  不是就弹出
         if(!pq.empty()){
             ans[dot[i].subscript]=pq.top().len;
         }else{
