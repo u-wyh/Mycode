@@ -2,6 +2,7 @@
 //这道题是三分函数最基础的应用
 //二分无法解决  所以只能使用三分函数
 //这道题目实际要求的是每个函数的最大值的最小值
+//还有例题比如 P
 #include<bits/stdc++.h>
 using namespace std;
 const double eps=1e-9;
