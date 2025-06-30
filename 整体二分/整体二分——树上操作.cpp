@@ -87,26 +87,26 @@ void dfs(int u, int f) {
 }
 
 int lca(int a, int b) {
-   if (dep[a] < dep[b]) {
-       int tmp = a;
-       a = b;
-       b = tmp;
-   }
-   for (int p = MAXH - 1; p >= 0; p--) {
-       if (dep[stjump[a][p]] >= dep[b]) {
-           a = stjump[a][p];
-       }
-   }
-   if (a == b) {
-       return a;
-   }
-   for (int p = MAXH - 1; p >= 0; p--) {
-       if (stjump[a][p] != stjump[b][p]) {
-           a = stjump[a][p];
-           b = stjump[b][p];
-       }
-   }
-   return stjump[a][0];
+    if (dep[a] < dep[b]) {
+        int tmp = a;
+        a = b;
+        b = tmp;
+    }
+    for (int p = MAXH - 1; p >= 0; p--) {
+        if (dep[stjump[a][p]] >= dep[b]) {
+            a = stjump[a][p];
+        }
+    }
+    if (a == b) {
+        return a;
+    }
+    for (int p = MAXH - 1; p >= 0; p--) {
+        if (stjump[a][p] != stjump[b][p]) {
+            a = stjump[a][p];
+            b = stjump[b][p];
+        }
+    }
+    return stjump[a][0];
 }
 
 int lowbit(int i) {
