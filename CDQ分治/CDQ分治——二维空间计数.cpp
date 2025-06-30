@@ -14,6 +14,8 @@
 using namespace std;
 const int MAXN = 500001 * 5;
 
+// op == 1代表树木，x、y
+// op == 2代表查询，x、y、效果v、查询编号q
 struct Node {
    	int op, x, y, v, q;
 };
@@ -27,8 +29,6 @@ bool NodeCmp(Node a, Node b) {
 
 int n, m;
 
-// op == 1代表树木，x、y
-// op == 2代表查询，x、y、效果v、查询编号q
 Node arr[MAXN];
 
 int cnt = 0;
