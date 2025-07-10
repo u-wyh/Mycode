@@ -6,7 +6,8 @@ using namespace std;
 const int MAXN = 105;
 
 vector<int>vec[MAXN];
-//dfn表示的就是dfn序  而low数组表示的是这个节点沿着边可以走到的最小的dfn序
+//dfn表示的就是dfn序  
+//而low数组表示的是这个节点沿着边可以走到的最小的dfn序   是自己祖先的dfn中最小的  
 //dfn一旦确定了 就不会改变了  而low数组可能会发生变化
 int dfn[MAXN],low[MAXN];
 int st[MAXN],top;
@@ -29,11 +30,13 @@ void tarjan(int x){
             low[x]=min(low[x],low[v]);
         }
         else if(instack[v]){
+            //意思是访问过了  并且还在栈中   那么一定是祖先
             //表示这个属于是回溯了 一定是同一个环上的
             //这里之所以不用low[v]  是因为这里的含义就是dfn序号  其实就算改成low也不影响
             //不过这里最好写成这样 因为其他的要求可能会导致写成low出错
             low[x]=min(low[x],dfn[v]);
         }
+        //否则就是访问过了  但是不在栈中   那么基本上没有什么关系了
     }
     if(dfn[x]==low[x]){
         col[x]=++color;

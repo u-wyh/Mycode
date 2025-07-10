@@ -1,4 +1,4 @@
-//P1656
+//https://www.luogu.com.cn/problem/P1656
 // 桥其实和tarjan没有什么本质上的区别  都是一样的
 // 桥的判断方法是对于一条边  如果下面的点的low大于上面点的dfn  说明是桥
 // 如果这条边是回溯的  那不算
@@ -41,7 +41,7 @@ void tarjan(int u,int id){
             }
         }
         else if(w!=id){
-            //不能走回头路
+            //不能走回头路  其实也就是为了防止走上父亲的点
             low[u]=min(low[u],dfn[v]);
         }
     }

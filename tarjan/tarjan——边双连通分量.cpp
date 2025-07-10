@@ -47,10 +47,12 @@ void tarjan(int u, int f, int tot) {
     // 遍历u的所有邻接边
     for(int i = head[u]; i; i = Next[i]) {
         int v = to[i];
+        
         // 如果是父边且不是反向边（处理无向图的重边）
         if(v == f && (i - 1) == ((tot - 1) ^ 1)) {
             continue;
         }
+
         if(!dfn[v]) {         // 如果v未被访问
             tarjan(v, u, i);  // 递归访问v
             low[u] = min(low[u], low[v]); // 更新low[u]

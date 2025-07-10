@@ -28,16 +28,20 @@ void tarjan(int u,int r) {
 		if (!dfn[v]) {
 			tarjan(v, r);
 			low[u] = min(low[u], low[v]);
-			if (low[v] >= dfn[u] && u != r)
+			if (low[v] >= dfn[u] && u != r){
                 cut[u] = true;//不是根而且他的孩子无法跨越他回到祖先
+            }
 			if (r == u){
                 child++; //如果是搜索树的根，统计孩子数目
                 //其实所有的节点都可以统计孩子的数量 但是非根节点统计后没有什么作用
             }
 		}
-		low[u] = min(low[u], dfn[v]);//这里要特别注意 不能变成low[v]
-        // 举个例子 比如a-b-c-d-b  并且还存在b-e-a
-        // 那么首先b是一个割点  可是如果改成low[v] 那么low[d]=dfn[a]  导致b无法成为一个割点
+        else {
+            low[u] = min(low[u], dfn[v]);//这里要特别注意 不能变成low[v]
+            // 举个例子 比如a-b-c-d-b  并且还存在b-e-a
+            // 那么首先b是一个割点  可是如果改成low[v] 那么low[d]=dfn[a]  导致b无法成为一个割点
+            //可以简单的认为这个v是已访问过的   比如说父亲节点  父亲的其他儿子可以走向祖先  但是这个儿子不通过父亲无法走到
+        }
 	}
 	if (child >= 2 && u == r){
         cut[r] = true;//对应第一种情况

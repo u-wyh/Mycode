@@ -1,4 +1,4 @@
-//P8435
+//https://www.luogu.com.cn/problem/P8435
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 5e5+5;
@@ -56,10 +56,11 @@ void tarjan(int u, int f){
             if(low[v] >= dfn[u]){
                 color++;      // 新的点双编号
                 // 弹出栈中节点，直到v被弹出（包括v）
-                while(st[top+1] != v){ // 注意：st[top+1]是哨兵
-                    //弹出 v，并显式加入 u
+                while(st[top] != v){ // 注意：st[top+1]是哨兵
                     ans[color].push_back(st[top--]);
                 }
+                ans[color].push_back(st[top--]);//弹出 v，并显式加入 u
+                
                 ans[color].push_back(u); // 割点u属于当前点双
             }
         }
