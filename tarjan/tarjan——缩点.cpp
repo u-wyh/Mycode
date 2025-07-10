@@ -1,4 +1,6 @@
 //https://www.luogu.com.cn/problem/P2746
+//这个可以被看做是强连通分量的模板
+//我们会使用强连通分量来进行缩点
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 105;
