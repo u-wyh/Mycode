@@ -1,4 +1,4 @@
-//P5782
+// https://www.luogu.com.cn/problem/P5782
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 2e6+5;

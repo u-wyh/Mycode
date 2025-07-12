@@ -1,4 +1,5 @@
 //https://acm.hdu.edu.cn/showproblem.php?pid=3062
+// 连的有向边是推导关系  即从u一定可以得到v
 #include <algorithm>
 #include <cstring>
 #include <iostream>
