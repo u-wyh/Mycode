@@ -42,20 +42,20 @@ void tarjan(int x){
     for(int i=head[x];i;i=Next[i]){
         int v=to[i];
         if(!dfn[v]){
-            //±íÊ¾Õâ¸ö½ÚµãÃ»ÓÐ±»·ÃÎÊ¹ý
+            //è¡¨ç¤ºè¿™ä¸ªèŠ‚ç‚¹æ²¡æœ‰è¢«è®¿é—®è¿‡
             tarjan(v);
             low[x]=min(low[x],low[v]);
         }
         else if(instack[v]){
-            //±íÊ¾Õâ¸öÊôÓÚÊÇ»ØËÝÁË Ò»¶¨ÊÇÍ¬Ò»¸ö»·ÉÏµÄ
+            //è¡¨ç¤ºè¿™ä¸ªå±žäºŽæ˜¯å›žæº¯äº† ä¸€å®šæ˜¯åŒä¸€ä¸ªçŽ¯ä¸Šçš„
             low[x]=min(low[x],dfn[v]);
         }
     }
     if(dfn[x]==low[x]){
         col[x]=++color;
-        //½«ËùÓÐ½Úµã°´ÕÕÑÕÉ«·ÖÀà  Íê³ÉËõµã
+        //å°†æ‰€æœ‰èŠ‚ç‚¹æŒ‰ç…§é¢œè‰²åˆ†ç±»  å®Œæˆç¼©ç‚¹
         while(st[top]!=x){
-            //ÊôÓÚÍ¬Ò»¸öÇ¿ÁªÍ¨·ÖÁ¿
+            //å±žäºŽåŒä¸€ä¸ªå¼ºè”é€šåˆ†é‡
             col[st[top]]=color;
             instack[st[top]]=false;
             top--;
@@ -70,16 +70,16 @@ int main()
     n=read(),m=read();
     for(int i=1;i<=m;i++){
         int a,b,x,y;
-        a=read(),x=read(),b=read(),y=read();//aÎªx  »òÕß  bÎªy
-        //ÆäÖÐ 1~nÊÇÈ¡0  n+1~2*nÊÇÈ¡1
+        a=read(),x=read(),b=read(),y=read();//aä¸ºx  æˆ–è€…  bä¸ºy
+        //å…¶ä¸­ 1~næ˜¯å–0  n+1~2*næ˜¯å–1
         if(x==1&&y==1){
-            //Á½Õß±ØÐëÓÐÖÁÉÙÒ»¸öÊÇ1
-            addedge(a,b+n);//ÄÇÃ´aÈ¡0  ¿ÉÒÔµÃ³öbÒ»¶¨ÊÇ1
+            //ä¸¤è€…å¿…é¡»æœ‰è‡³å°‘ä¸€ä¸ªæ˜¯1
+            addedge(a,b+n);//é‚£ä¹ˆaå–0  å¯ä»¥å¾—å‡ºbä¸€å®šæ˜¯1
             addedge(b,a+n);
         }
         else if(x==0&&y==1){
-            //aÊÇ0  »òÕß  bÊÇ1
-            addedge(a+n,b+n);//ÄÇÃ´aÈ¡1  bÒ»¶¨µÃÊÇ1  ÒòÎªa²»·ûºÏÈ¡0µÄÒªÇó
+            //aæ˜¯0  æˆ–è€…  bæ˜¯1
+            addedge(a+n,b+n);//é‚£ä¹ˆaå–1  bä¸€å®šå¾—æ˜¯1  å› ä¸ºaä¸ç¬¦åˆå–0çš„è¦æ±‚
             addedge(b,a);
         }
         else if(x==1&&y==0){
@@ -98,18 +98,18 @@ int main()
     }
     for(int i=1;i<=n;i++){
         if(col[i]==col[i+n]){
-            //²»·ûºÏÒªÇó Ö±½ÓÍË³ö
+            //ä¸ç¬¦åˆè¦æ±‚ ç›´æŽ¥é€€å‡º
             cout<<"IMPOSSIBLE"<<endl;
             return 0;
         }
     }
     cout<<"POSSIBLE"<<endl;
-    //Êä³ö´ð°¸Çó½â
-    //ÒªÊ¹ÓÃµ½ÍØÆËÅÅÐò   µ«ÊÇÊµ¼ÊÉÏÍØÆËÒ²¾ÍÊÇÎªÁË·ÀÖ¹³öÏÖ a->b->a'  ¼´a->a' ÕâÖÖ¿ÉÄÜ»áµ¼ÖÂ´íÎóÇé¿ö
-    //ËùÒÔÎÒÃÇÑ¡ÔñÍØÆËÐò¾¡Á¿´óµÄ  ¼´¾¡Á¿ÔÚºóÃæµÄ  a'Ò»¶¨ÎÞ·¨ÍÆµ¼³öa£¨Èç¹ûa'µÄÍØÆËÐò¸ü´óµÄ»°£©
-    //ÒòÎªºóÃæÎÞ·¨Ö¸ÏòÇ°Ãæ  ·ñÔò²»¾ÍÊÇÔÚÒ»¸ö»·ÀïÃæÁËÂð  ÄÇÕâÑù¾ÍÊÇ´íÎóµÄ
-    //ÍØÆËÐò¾¡Á¿´óµÄ  ÆäÊµÑÕÉ«±àºÅÊÇ¾¡Á¿Ð¡µÄ  ÒòÎªtarjanµÄÊ±ºò  ÏÈ½«Î²²¿µÄÄÇÐ©Êý×Ö·ÃÎÊµ½  È»ºó½«ËûÃÇÏÈËõµãÁË
-    //ËùÒÔËäÈ»ÔÚÓÐµÄÊ±ºò  Ñ¡Ôñ½ÏÐ¡µÄÑÕÉ«±àºÅÊÇ¶ÔµÄ  µ«²»ÊÇ×îÓÅµÄ
+    //è¾“å‡ºç­”æ¡ˆæ±‚è§£
+    //è¦ä½¿ç”¨åˆ°æ‹“æ‰‘æŽ’åº   ä½†æ˜¯å®žé™…ä¸Šæ‹“æ‰‘ä¹Ÿå°±æ˜¯ä¸ºäº†é˜²æ­¢å‡ºçŽ° a->b->a'  å³a->a' è¿™ç§å¯èƒ½ä¼šå¯¼è‡´é”™è¯¯æƒ…å†µ
+    //æ‰€ä»¥æˆ‘ä»¬é€‰æ‹©æ‹“æ‰‘åºå°½é‡å¤§çš„  å³å°½é‡åœ¨åŽé¢çš„  a'ä¸€å®šæ— æ³•æŽ¨å¯¼å‡ºaï¼ˆå¦‚æžœa'çš„æ‹“æ‰‘åºæ›´å¤§çš„è¯ï¼‰
+    //å› ä¸ºåŽé¢æ— æ³•æŒ‡å‘å‰é¢  å¦åˆ™ä¸å°±æ˜¯åœ¨ä¸€ä¸ªçŽ¯é‡Œé¢äº†å—  é‚£è¿™æ ·å°±æ˜¯é”™è¯¯çš„
+    //æ‹“æ‰‘åºå°½é‡å¤§çš„  å…¶å®žé¢œè‰²ç¼–å·æ˜¯å°½é‡å°çš„  å› ä¸ºtarjançš„æ—¶å€™  å…ˆå°†å°¾éƒ¨çš„é‚£äº›æ•°å­—è®¿é—®åˆ°  ç„¶åŽå°†ä»–ä»¬å…ˆç¼©ç‚¹äº†
+    //æ‰€ä»¥è™½ç„¶åœ¨æœ‰çš„æ—¶å€™  é€‰æ‹©è¾ƒå°çš„é¢œè‰²ç¼–å·æ˜¯å¯¹çš„  ä½†ä¸æ˜¯æœ€ä¼˜çš„
     for(int i=1;i<=n;i++){
         if(col[i]>col[i+n])
             printf("1 ");

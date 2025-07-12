@@ -3,7 +3,7 @@
 #include <cstring>
 #include <iostream>
 using namespace std;
-const int MAXN = 2005;//×î¶àÓĞ1000¶Ô·òÆŞ ²ğ¿ª¾ÍÊÇ2000ÈË
+const int MAXN = 2005;//æœ€å¤šæœ‰1000å¯¹å¤«å¦» æ‹†å¼€å°±æ˜¯2000äºº
 const int MAXM = 4000040;
 
 int dfn[MAXN],low[MAXN];
@@ -43,20 +43,20 @@ void tarjan(int x){
     for(int i=head[x];i;i=Next[i]){
         int v=to[i];
         if(!dfn[v]){
-            //±íÊ¾Õâ¸ö½ÚµãÃ»ÓĞ±»·ÃÎÊ¹ı
+            //è¡¨ç¤ºè¿™ä¸ªèŠ‚ç‚¹æ²¡æœ‰è¢«è®¿é—®è¿‡
             tarjan(v);
             low[x]=min(low[x],low[v]);
         }
         else if(instack[v]){
-            //±íÊ¾Õâ¸öÊôÓÚÊÇ»ØËİÁË Ò»¶¨ÊÇÍ¬Ò»¸ö»·ÉÏµÄ
+            //è¡¨ç¤ºè¿™ä¸ªå±äºæ˜¯å›æº¯äº† ä¸€å®šæ˜¯åŒä¸€ä¸ªç¯ä¸Šçš„
             low[x]=min(low[x],dfn[v]);
         }
     }
     if(dfn[x]==low[x]){
         col[x]=++color;
-        //½«ËùÓĞ½Úµã°´ÕÕÑÕÉ«·ÖÀà  Íê³ÉËõµã
+        //å°†æ‰€æœ‰èŠ‚ç‚¹æŒ‰ç…§é¢œè‰²åˆ†ç±»  å®Œæˆç¼©ç‚¹
         while(st[top]!=x){
-            //ÊôÓÚÍ¬Ò»¸öÇ¿ÁªÍ¨·ÖÁ¿
+            //å±äºåŒä¸€ä¸ªå¼ºè”é€šåˆ†é‡
             col[st[top]]=color;
             instack[st[top]]=false;
             top--;
@@ -74,7 +74,7 @@ int main()
         for(int i=1;i<=m;i++){
             int a1,a2,c1,c2;
             cin>>a1>>a2>>c1>>c2;
-            // ¶ÔÓÚµÚ i ¶Ô·ò¸¾£¬ÎÒÃÇÓÃ 2i+1 ±íÊ¾ÕÉ·ò£¬2i ±íÊ¾ÆŞ×Ó¡£
+            // å¯¹äºç¬¬ i å¯¹å¤«å¦‡ï¼Œæˆ‘ä»¬ç”¨ 2i+1 è¡¨ç¤ºä¸ˆå¤«ï¼Œ2i è¡¨ç¤ºå¦»å­ã€‚
             addedge(2*a1+c1,2*a2+1-c2);
             addedge(2*a2+c2,2*a1+1-c1);
         }
@@ -86,7 +86,7 @@ int main()
         bool flag=true;
         for(int i=0;i<2*n;i+=2){
             if(col[i]==col[i+1]){
-                //Èç¹û·òÆŞÊÇÒ»¸öÑÕÉ« Ò»¶¨²»¶Ô
+                //å¦‚æœå¤«å¦»æ˜¯ä¸€ä¸ªé¢œè‰² ä¸€å®šä¸å¯¹
                 flag=false;
                 cout<<"NO"<<endl;
                 break;
