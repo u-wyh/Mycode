@@ -8,7 +8,7 @@ typedef struct TreeNode {
     struct TreeNode *right;
 } TreeNode;
 
-// ����1: �����ݹ�
+// 方法1: 暴力递归
 int same(TreeNode *a, TreeNode *b) {
     if (a == NULL && b == NULL) return 1;
     if (a == NULL || b == NULL) return 0;
@@ -20,8 +20,8 @@ int isSubtree(TreeNode *t1, TreeNode *t2) {
     return same(t1, t2) || isSubtree(t1->left, t2) || isSubtree(t1->right, t2);
 }
 
-// ����2: �������������л� + KMP�㷨ƥ��
-// ע�⣺����Ϊ�˼򻯣�����ֱ��ʹ���ַ���������ģ��ArrayList<String>
+// 方法2: 二叉树先序序列化 + KMP算法匹配
+// 注意：这里为了简化，我们直接使用字符串数组来模拟ArrayList<String>
 #define MAX_NODES 1000
 char *serialized[MAX_NODES];
 int serial_index = 0;
@@ -30,7 +30,7 @@ void serial(TreeNode *head, char ***path) {
     if (head == NULL) {
         serialized[serial_index++] = strdup("null");
     } else {
-        char val_str[12]; // ��������ֵ���ᳬ��10λ
+        char val_str[12]; // 假设整数值不会超过10位
         sprintf(val_str, "%d", head->val);
         serialized[serial_index++] = strdup(val_str);
         serial(head->left, path);
@@ -38,25 +38,25 @@ void serial(TreeNode *head, char ***path) {
     }
 }
 
-// KMP�㷨��غ������򻯰棩
-// ... ����ʡ��KMP�㷨��ʵ�֣���Ϊ����Ը�������Ҫ����ռ�
+// KMP算法相关函数（简化版）
+// ... 这里省略KMP算法的实现，因为它相对复杂且需要额外空间
 
-// ע�⣺����KMP�㷨ʵ�ֽ�Ϊ���ӣ����ﲻչ����������Ҫ�Լ�ʵ����
-// ��������Կ���ʹ�������ַ���ƥ���㷨�������ص��ַ���ƥ��
+// 注意：由于KMP算法实现较为复杂，这里不展开，但你需要自己实现它
+// 或者你可以考虑使用其他字符串匹配算法，如朴素的字符串匹配
 
-// ʾ�������������ڲ���
+// 示例主函数，用于测试
 int main() {
-    // ������Ҫ����һЩTreeNodeʵ������������Ȼ�����isSubtree
-    // ����ƪ�����ƣ����ﲻչ�����������������
+    // 这里需要创建一些TreeNode实例并构建树，然后调用isSubtree
+    // 由于篇幅限制，这里不展开具体的树构建过程
 
-    // ����t1��t2���Ѿ������õ���
+    // 假设t1和t2是已经构建好的树
     // TreeNode *t1 = ...;
     // TreeNode *t2 = ...;
 
-    // ���Է���1
+    // 测试方法1
     printf("Method 1: %s\n", isSubtree(t1, t2) ? "true" : "false");
 
-    // ע�⣺���ڷ���2��KMP�㷨δʵ�֣����ﲻ���Է���2
+    // 注意：由于方法2的KMP算法未实现，这里不测试方法2
 
     return 0;
 }

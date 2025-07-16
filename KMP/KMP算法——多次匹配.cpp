@@ -8,7 +8,7 @@ char s2[MAXN];
 int Next[MAXN];
 int n,m;
 
-// ¼ÆËãnextÊı×é
+// è®¡ç®—nextæ•°ç»„
 void nextArray() {
     if (m == 1) {
         Next[0] = -1;
@@ -30,23 +30,23 @@ void nextArray() {
     }
 }
 
-// KMPËã·¨µÄºËĞÄº¯Êı
+// KMPç®—æ³•çš„æ ¸å¿ƒå‡½æ•°
 void kmp() {
     n = strlen(s1), m = strlen(s2);
     int x = 0, y = 0;
     nextArray();
-    // s1ÖĞµ±Ç°±È¶ÔµÄÎ»ÖÃÊÇx
-    // s2ÖĞµ±Ç°±È¶ÔµÄÎ»ÖÃÊÇy
+    // s1ä¸­å½“å‰æ¯”å¯¹çš„ä½ç½®æ˜¯x
+    // s2ä¸­å½“å‰æ¯”å¯¹çš„ä½ç½®æ˜¯y
     while (x < n) {
         if (s1[x] == s2[y]) {
             x++;
             y++;
         } else if (y == 0) {
             x++;
-            //±íÊ¾s2ÒÑ¾­ÔÚµÚÒ»¸öÎ»ÖÃÁË
+            //è¡¨ç¤ºs2å·²ç»åœ¨ç¬¬ä¸€ä¸ªä½ç½®äº†
         } else {
             y = Next[y];
-            //±íÊ¾s2ÍùÇ°Ìø
+            //è¡¨ç¤ºs2å¾€å‰è·³
         }
         if(y==m){
             cout<<x-y+1<<endl;
@@ -67,4 +67,3 @@ int main()
     cout<<endl;
     return 0;
 }
-

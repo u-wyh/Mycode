@@ -3,7 +3,7 @@
 #include<stdlib.h>
 #define MAX 1000000+5
 
-// ¼ÆËãnextÊı×é
+// è®¡ç®—nextæ•°ç»„
 int* nextArray(const char *s, int m) {
     if (m == 1) {
         int *next = (int*)malloc(sizeof(int));
@@ -29,30 +29,30 @@ int* nextArray(const char *s, int m) {
     return next;
 }
 
-// KMPËã·¨µÄºËĞÄº¯Êı
+// KMPç®—æ³•çš„æ ¸å¿ƒå‡½æ•°
 int kmp(const char *s1, const char *s2) {
     int n = strlen(s1), m = strlen(s2), x = 0, y = 0;
     int *next = nextArray(s2, m);
-    // s1ÖĞµ±Ç°±È¶ÔµÄÎ»ÖÃÊÇx
-    // s2ÖĞµ±Ç°±È¶ÔµÄÎ»ÖÃÊÇy
+    // s1ä¸­å½“å‰æ¯”å¯¹çš„ä½ç½®æ˜¯x
+    // s2ä¸­å½“å‰æ¯”å¯¹çš„ä½ç½®æ˜¯y
     while (x < n && y < m) {
         if (s1[x] == s2[y]) {
             x++;
             y++;
         } else if (y == 0) {
             x++;
-            //±íÊ¾s2ÒÑ¾­ÔÚµÚÒ»¸öÎ»ÖÃÁË
+            //è¡¨ç¤ºs2å·²ç»åœ¨ç¬¬ä¸€ä¸ªä½ç½®äº†
         } else {
             y = next[y];
-            //±íÊ¾s2ÍùÇ°Ìø
+            //è¡¨ç¤ºs2å¾€å‰è·³
         }
     }
 
-    free(next); // ÊÍ·ÅnextÊı×éÕ¼ÓÃµÄÄÚ´æ
+    free(next); // é‡Šæ”¾nextæ•°ç»„å ç”¨çš„å†…å­˜
     return y == m ? x - y : -1;
 }
 
-// Ö÷º¯Êı£¬ÓÃÓÚ²âÊÔ
+// ä¸»å‡½æ•°ï¼Œç”¨äºæµ‹è¯•
 int main() {
     const char s1[MAX],s2[MAX];
     scanf("%s",s1);

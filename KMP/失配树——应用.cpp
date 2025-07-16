@@ -1,4 +1,4 @@
-//P2375
+//https://www.luogu.com.cn/problem/P2375
 // 这道题目可以用作失配树的练习题 加深理解
 #include<bits/stdc++.h>
 using namespace std;

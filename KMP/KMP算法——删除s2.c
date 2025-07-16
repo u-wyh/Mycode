@@ -8,7 +8,7 @@ int stack1 [MAX];
 int stack2 [MAX];
 int next [MAX];
 
-// 计算next数组
+// ????next????
 void nextArray() {
     int m=strlen(s2);
     if (m == 1) {
@@ -51,7 +51,7 @@ void compute() {
             y = next[y];
         }
         if (y == m) {
-            // 相当于栈直接弹出了m条记录
+            // ?????????????m?????
             size -= m;
             y = size > 0 ? (stack2[size - 1] + 1) : 0;
         }
@@ -62,7 +62,7 @@ void compute() {
 }
 
 
-// 主函数，用于测试
+// ???????????????
 int main()
 {
     scanf("%s",s1);
@@ -70,4 +70,3 @@ int main()
     compute();
     return 0;
 }
-

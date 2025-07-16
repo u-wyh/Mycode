@@ -3,7 +3,7 @@
 #include<stdlib.h>
 #define MAX 1000000+5
 
-// ¼ÆËãnextÊý×é
+// è®¡ç®—nextæ•°ç»„
 int* nextArray(char *s, int m) {
     if (m == 1) {
         int *next = (int*)malloc(sizeof(int));
@@ -36,4 +36,3 @@ int main() {
     printf("%d\n",n-next[n]);
     return 0;
 }
-
