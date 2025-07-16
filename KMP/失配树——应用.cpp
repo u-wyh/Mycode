@@ -1,5 +1,6 @@
 //https://www.luogu.com.cn/problem/P2375
 // 这道题目可以用作失配树的练习题 加深理解
+//我突然觉得这道题就是一个kmp  不能算作是失配树
 #include<bits/stdc++.h>
 using namespace std;
 const int MOD = 1e9+7;
@@ -10,25 +11,12 @@ char s1[MAXN];
 char s2[MAXN];
 int Next[MAXN];
 int n;
-int num[MAXN];//表示前i-1个字符中 前后缀匹配的方案有多少  包含全选
+int num[MAXN];//表示前i-1个字符中 前后缀匹配的方案有多少  包含全选   这个可以不用考虑i/2的限制
 
 int head[MAXN];
 int nxt[MAXN];
 int to[MAXN];
 int cnt=1;
-
-inline int read(){
-    int x=0,f=1;
-    char ch=getchar();
-    while(ch<'0'||ch>'9'){
-        if(ch=='-')
-            f=-1;
-        ch=getchar();
-    }
-    while(ch>='0' && ch<='9')
-        x=x*10+ch-'0',ch=getchar();
-    return x*f;
-}
 
 // 计算next数组
 void nextArray(const char *s, int m) {
@@ -69,6 +57,7 @@ int main()
         }
         int j=0;
         long long ans=1;
+        //在这里 其实是一个类似于kmp的应用
         for(int i=2;i<=n;i++){//求解num
             while(j&&(s1[i]!=s1[j+1]))//如果没有匹配上 那么就跳转
                 j=Next[j];
