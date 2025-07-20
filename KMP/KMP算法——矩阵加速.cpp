@@ -69,6 +69,7 @@ signed main()
     scanf("%s %lld",s+1,&n);
     m=strlen(s+1);
     calcnext();
+    //得到一个转换表  对于s2当前匹配的位置是i 如果填字母c会跳转到哪里
     vector<vector<int>>trans(m+1,vector<int>(26,0));
     for(int i=0;i<=m;i++){
         for(int c=0;c<26;c++){
@@ -87,6 +88,7 @@ signed main()
             }
         }
     }
+    //这个就是状态转移矩阵  也可以被称之为kmp自动机
     vector<vector<int>>mat(4*m,vector<int>(4*m,0));
     for(int cnt=0;cnt<=3;cnt++){
         for(int pos=0;pos<m;pos++){
@@ -97,20 +99,23 @@ signed main()
                     newcnt=min(newcnt+1,3ll);
                     newpos=nxt[m];
                 }
-                int from=cnt*m+pos;
-                int to=newcnt*m+newpos;
+                int from=cnt*m+pos;//转移前的状态
+                int to=newcnt*m+newpos;//转移后的状态
                 mat[from][to]=(mat[from][to]+1)%MOD;
             }
         }
     }
-    vector<vector<int>>res=power(mat,n);
-    vector<vector<int>>vec(1,vector<int>(4*m,0));
-    vec[0][0]=1;
-    vec=multiply(vec,res);
+    mat=power(mat,n);
+    //其实如果单按数值来看的话   使用vec数组就是多此一举
+    //因为使用mat的n次方  然后计算特定位置的值   也是一样的
+    //但是从规范的角度来讲  这是不合适的    
+    vector<vector<int>>res(1,vector<int>(4*m,0));
+    res[0][0]=1;
+    res=multiply(res,mat);
     int ans=0;
     for(int pos=0;pos<m;pos++){
         int sta=2*m+pos;
-        ans=(ans+vec[0][sta])%MOD;
+        ans=(ans+res[0][sta])%MOD;
     }
     cout<<ans<<endl;
     return 0;
