@@ -1,24 +1,24 @@
-// Bellman-FordËã·¨Ó¦ÓÃ£¨²»ÊÇÄ£°æ£©
-// kÕ¾ÖÐ×ªÄÚ×î±ãÒËµÄº½°à
-// ÓÐ n ¸ö³ÇÊÐÍ¨¹ýÒ»Ð©º½°àÁ¬½Ó¡£¸øÄãÒ»¸öÊý×é flights
-// ÆäÖÐ flights[i] = [fromi, toi, pricei]
-// ±íÊ¾¸Ãº½°à¶¼´Ó³ÇÊÐ fromi ¿ªÊ¼£¬ÒÔ¼Û¸ñ pricei µÖ´ï toi¡£
-// ÏÖÔÚ¸ø¶¨ËùÓÐµÄ³ÇÊÐºÍº½°à£¬ÒÔ¼°³ö·¢³ÇÊÐ src ºÍÄ¿µÄµØ dst£¬ÄãµÄÈÎÎñÊÇÕÒµ½³öÒ»Ìõ×î¶à¾­¹ý k Õ¾ÖÐ×ªµÄÂ·Ïß
-// Ê¹µÃ´Ó src µ½ dst µÄ ¼Û¸ñ×î±ãÒË £¬²¢·µ»Ø¸Ã¼Û¸ñ¡£ Èç¹û²»´æÔÚÕâÑùµÄÂ·Ïß£¬ÔòÊä³ö -1¡£
-// ²âÊÔÁ´½Ó : https://leetcode.cn/problems/cheapest-flights-within-k-stops/
+// Bellman-Fordç®—æ³•åº”ç”¨ï¼ˆä¸æ˜¯æ¨¡ç‰ˆï¼‰
+// kç«™ä¸­è½¬å†…æœ€ä¾¿å®œçš„èˆªç­
+// æœ‰ n ä¸ªåŸŽå¸‚é€šè¿‡ä¸€äº›èˆªç­è¿žæŽ¥ã€‚ç»™ä½ ä¸€ä¸ªæ•°ç»„ flights
+// å…¶ä¸­ flights[i] = [fromi, toi, pricei]
+// è¡¨ç¤ºè¯¥èˆªç­éƒ½ä»ŽåŸŽå¸‚ fromi å¼€å§‹ï¼Œä»¥ä»·æ ¼ pricei æŠµè¾¾ toiã€‚
+// çŽ°åœ¨ç»™å®šæ‰€æœ‰çš„åŸŽå¸‚å’Œèˆªç­ï¼Œä»¥åŠå‡ºå‘åŸŽå¸‚ src å’Œç›®çš„åœ° dstï¼Œä½ çš„ä»»åŠ¡æ˜¯æ‰¾åˆ°å‡ºä¸€æ¡æœ€å¤šç»è¿‡ k ç«™ä¸­è½¬çš„è·¯çº¿
+// ä½¿å¾—ä»Ž src åˆ° dst çš„ ä»·æ ¼æœ€ä¾¿å®œ ï¼Œå¹¶è¿”å›žè¯¥ä»·æ ¼ã€‚ å¦‚æžœä¸å­˜åœ¨è¿™æ ·çš„è·¯çº¿ï¼Œåˆ™è¾“å‡º -1ã€‚
+// æµ‹è¯•é“¾æŽ¥ : https://leetcode.cn/problems/cheapest-flights-within-k-stops/
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 101;
 const int MAXM = 10001;
 
 int n,m,k,st,en;
-//Ò»¹²ÓÐn¸öÕ¾µã  ÓÐmÌõÂ·ÏßÏàÁ¬   ×î¶à¿ÉÒÔÖÐ×ªk¸ö
-//´Óstµ½en
+//ä¸€å…±æœ‰nä¸ªç«™ç‚¹  æœ‰mæ¡è·¯çº¿ç›¸è¿ž   æœ€å¤šå¯ä»¥ä¸­è½¬kä¸ª
+//ä»Žståˆ°en
 int cur[MAXN],Next[MAXN];
-//NextÊÇÒ»¸ö¸¨ÖúÊý×é  ×÷ÓÃÏÂÃæËµ
+//Nextæ˜¯ä¸€ä¸ªè¾…åŠ©æ•°ç»„  ä½œç”¨ä¸‹é¢è¯´
 int edge[MAXM][3];
-//ÔÚBellmanËã·¨ÖÐ  ÎÒÃÇ²»ÐèÒª½¨Á¢ÁÚ½Ó¾ØÕó ÁÚ½Ó±íµÈµÈ
-//ÎÒÃÇÊÇ¸ù¾ÝÂ·ÏßµÄÌõÊý½øÐÐÇø·ÖµÄ
+//åœ¨Bellmanç®—æ³•ä¸­  æˆ‘ä»¬ä¸éœ€è¦å»ºç«‹é‚»æŽ¥çŸ©é˜µ é‚»æŽ¥è¡¨ç­‰ç­‰
+//æˆ‘ä»¬æ˜¯æ ¹æ®è·¯çº¿çš„æ¡æ•°è¿›è¡ŒåŒºåˆ†çš„
 
 int main()
 {
@@ -27,7 +27,7 @@ int main()
         cur[i]=INT_MAX;
     }
     cur[st]=0;
-    //curÊý×é¼ÇÂ¼µÄÊÇÃ¿¸öµãµ½stµÄ¾àÀë  ³õÊ¼»¯ÎªÕýÎÞÇî
+    //curæ•°ç»„è®°å½•çš„æ˜¯æ¯ä¸ªç‚¹åˆ°stçš„è·ç¦»  åˆå§‹åŒ–ä¸ºæ­£æ— ç©·
     for(int i=1;i<=m;i++){
         cin>>edge[i][0]>>edge[i][1]>>edge[i][2];
     }
@@ -35,19 +35,19 @@ int main()
         for(int j=1;j<=n;j++){
             Next[j]=cur[j];
         }
-        //ÎÒÃÇÒª½¨Á¢NextÊý×é  ÒòÎª´æÔÚÒ»ÖÖ¿ÉÄÜÐÔ  ¾ÍÊÇÔÚÒ»ÂÖÓÅ»¯ÖÐ  Í¬Ê±ÊµÏÖÁËÁ½¸öµã  ÕâÑù²»ÀûÓÚÎÒÃÇÍ³¼Æk
+        //æˆ‘ä»¬è¦å»ºç«‹Nextæ•°ç»„  å› ä¸ºå­˜åœ¨ä¸€ç§å¯èƒ½æ€§  å°±æ˜¯åœ¨ä¸€è½®ä¼˜åŒ–ä¸­  åŒæ—¶å®žçŽ°äº†ä¸¤ä¸ªç‚¹  è¿™æ ·ä¸åˆ©äºŽæˆ‘ä»¬ç»Ÿè®¡k
         for(int j=1;j<=m;j++){
             if (cur[edge[j][0]] != INT_MAX) {
-                //Èç¹û²»ÊÇÕýÎÞÇî  ËµÃ÷¿ÉÒÔµ½´ïedge[j][0]  ÄÇÃ´¿ÉÒÔ¼ÌÐø³¢ÊÔÓÅ»¯ÏÂÒ»¸öedge[j][1]
+                //å¦‚æžœä¸æ˜¯æ­£æ— ç©·  è¯´æ˜Žå¯ä»¥åˆ°è¾¾edge[j][0]  é‚£ä¹ˆå¯ä»¥ç»§ç»­å°è¯•ä¼˜åŒ–ä¸‹ä¸€ä¸ªedge[j][1]
                 Next[edge[j][1]] = min(Next[edge[j][1]], cur[edge[j][0]] + edge[j][2]);
-                //ÕâÒ»ÂÖµ½´ïedge[j][1] µÄ¾àÀëÊÇÔ­À´µÄÖµ  ºÍ  µ½´ïedge[j][0]µÄÖµ¼ÓÉÏ´Óedge[j][0]µ½edge[j][1]
+                //è¿™ä¸€è½®åˆ°è¾¾edge[j][1] çš„è·ç¦»æ˜¯åŽŸæ¥çš„å€¼  å’Œ  åˆ°è¾¾edge[j][0]çš„å€¼åŠ ä¸Šä»Žedge[j][0]åˆ°edge[j][1]
             }
         }
-        //Èç¹ûÐÞ¸ÄÖµµÄ»°£¬´ÓcurÊý×éÖÐÄÃÊý×Ö
+        //å¦‚æžœä¿®æ”¹å€¼çš„è¯ï¼Œä»Žcuræ•°ç»„ä¸­æ‹¿æ•°å­—
         for(int j=1;j<=n;j++){
             cur[j]=Next[j];
         }
-        //½«cur¸üÐÂÎªNextÊý×é
+        //å°†curæ›´æ–°ä¸ºNextæ•°ç»„
     }
     if(cur[en]==INT_MAX){
         cur[en]=-1;
