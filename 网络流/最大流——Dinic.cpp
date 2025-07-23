@@ -26,12 +26,16 @@ int to[MAXM];
 int now[MAXM];//表示现在的流量
 int cap[MAXM];//表示流量限制
 
-void addedge(int u,int v,int k,int w){
+void addedge(int u,int v,int w){
     nxt[cnt]=head[u];
     to[cnt]=v;
-    now[cnt]=k;
     cap[cnt]=w;
     head[u]=cnt++;
+
+    nxt[cnt]=head[v];
+    to[cnt]=u;
+    cap[cnt]=0;
+    head[v]=cnt++;
 }
 
 //BFS构建分层图，并判断是否存在增广路径
@@ -109,8 +113,7 @@ signed main()
     for(int i=1;i<=m;i++){
         int u,v,w;
         cin>>u>>v>>w;
-        addedge(u,v,0,w);
-        addedge(v,u,0,0);
+        addedge(u,v,w);
     }
     cout<<maxflow()<<endl;
     return 0;
