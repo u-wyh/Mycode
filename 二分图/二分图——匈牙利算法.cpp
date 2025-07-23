@@ -32,7 +32,7 @@ bool dfs(int u){
         }
         // 标记v为已访问    这样的话接下来的点就不会访问他
         vis[v]=true;
-        // 如果v未被匹配，或者已匹配但可以找到新匹配
+        // 如果v未被匹配，或者已匹配但原来的匹配点可以找到新匹配
         if(match[v]==0||dfs(match[v])){
             match[v]=u;
             return true;
