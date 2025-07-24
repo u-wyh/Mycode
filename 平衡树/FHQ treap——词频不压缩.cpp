@@ -21,14 +21,17 @@ int cnt = 0;
 int key[MAXN];
 int ls[MAXN];
 int rs[MAXN];
-int size[MAXN];
+int sz[MAXN];
 double priority[MAXN];
 
 //没有词频压缩  所以出现次数就是1
 void up(int i) {
-    size[i] = size[ls[i]] + size[rs[i]] + 1;
+    sz[i] = sz[ls[i]] + sz[rs[i]] + 1;
 }
 
+//根据值分裂树
+//这里当前来到了i节点  <=num的目前到达的节点是l  >num的目前到达的节点是r
+//分裂过程中左右树的头结点其实并不重要  重要的是当前来到的节点
 void split(int l, int r, int i, int num) {
     if (i == 0) {
         rs[l] = ls[r] = 0;
@@ -63,7 +66,7 @@ int merge(int l, int r) {
 void add(int num) {
     split(0, 0, head, num);
     key[++cnt] = num;
-    size[cnt] = 1;
+    sz[cnt] = 1;
     priority[cnt] = (double)rand() / RAND_MAX;
     head = merge(merge(rs[0], cnt), ls[0]);
 }
@@ -82,16 +85,16 @@ void remove(int num) {
 
 int getRank(int num) {
     split(0, 0, head, num - 1);
-    int ans = size[rs[0]] + 1;
+    int ans = sz[rs[0]] + 1;
     head = merge(rs[0], ls[0]);
     return ans;
 }
 
 int index(int i, int x) {
-    if (size[ls[i]] >= x) {
+    if (sz[ls[i]] >= x) {
         return index(ls[i], x);
-    } else if (size[ls[i]] + 1 < x) {
-        return index(rs[i], x - size[ls[i]] - 1);
+    } else if (sz[ls[i]] + 1 < x) {
+        return index(rs[i], x - sz[ls[i]] - 1);
     } else {
         return key[i];
     }

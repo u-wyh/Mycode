@@ -24,11 +24,11 @@ int key[MAXN];
 int key_count[MAXN];
 int ls[MAXN];
 int rs[MAXN];
-int size[MAXN];
+int sz[MAXN];
 double priority[MAXN];
 
 void up(int i) {
-    size[i] = size[ls[i]] + size[rs[i]] + key_count[i];
+    sz[i] = sz[ls[i]] + sz[rs[i]] + key_count[i];
 }
 
 //根据值分裂树
@@ -114,7 +114,7 @@ void add(int num) {
         //right[0] 是<num  头结点  因为没有num
         //left[0]  是>num  头结点
         key[++cnt] = num;
-        key_count[cnt] = size[cnt] = 1;
+        key_count[cnt] = sz[cnt] = 1;
         priority[cnt] = (double)rand() / RAND_MAX;
         //生成一个新节点  将该节点与<num的树合并  然后和>num的树合并
         head = merge(merge(rs[0], cnt), ls[0]);
@@ -148,7 +148,7 @@ int small(int i, int num) {
     if (key[i] >= num) {
         return small(ls[i], num);
     } else {
-        return size[ls[i]] + key_count[i] + small(rs[i], num);
+        return sz[ls[i]] + key_count[i] + small(rs[i], num);
     }
 }
 
@@ -157,10 +157,10 @@ int getRank(int num) {
 }
 
 int index(int i, int x) {
-    if (size[ls[i]] >= x) {
+    if (sz[ls[i]] >= x) {
         return index(ls[i], x);
-    } else if (size[ls[i]] + key_count[i] < x) {
-        return index(rs[i], x - size[ls[i]] - key_count[i]);
+    } else if (sz[ls[i]] + key_count[i] < x) {
+        return index(rs[i], x - sz[ls[i]] - key_count[i]);
     }
     return key[i];
 }
