@@ -1,4 +1,4 @@
-//P5018  有点问题
+//https://www.luogu.com.cn/problem/P5018  有点问题
 //这道题的特别之处就是使用了双哈希
 //并且通过不同的base来区别不同的遍历顺序
 //并且左子树采用先序遍历  右子树采用后序遍历
@@ -45,7 +45,6 @@ inline int read()
         x=x*10+ch-'0',ch=getchar();
     return x*f;
 }
-
 
 void dfs(int u,int f){
     if(lson[u]){

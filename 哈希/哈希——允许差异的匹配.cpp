@@ -1,95 +1,100 @@
-// ¸ù¾İÆ¥Åä¶¨ÒåÇóÆ¥Åä×Ó´®µÄÊıÁ¿
-// ¸ø¶¨³¤ÎªnµÄ×Ö·û´®s£¬ÒÔ¼°³¤¶ÈÎªmµÄ×Ö·û´®p£¬»¹ÓĞÒ»¸öÕıÊık
-// s'ÓësÆ¥ÅäµÄ¶¨ÒåÎª£¬s'Óës³¤¶ÈÏàÍ¬£¬ÇÒ×î¶àÓĞk¸öÎ»ÖÃ×Ö·û²»Í¬
-// ÒªÇó²éÕÒ×Ö·û´®sÖĞÓĞ¶àÉÙ×Ó´®Óë×Ö·û´®pÆ¥Åä
-// ²âÊÔÁ´½Ó : https://www.luogu.com.cn/problem/P3763
-// ÇëÍ¬Ñ§ÃÇÎñ±Ø²Î¿¼ÈçÏÂ´úÂëÖĞ¹ØÓÚÊäÈë¡¢Êä³öµÄ´¦Àí
-// ÕâÊÇÊäÈëÊä³ö´¦ÀíĞ§ÂÊºÜ¸ßµÄĞ´·¨
-// Ìá½»ÒÔÏÂµÄcode£¬Ìá½»Ê±Çë°ÑÀàÃû¸Ä³É"Main"£¬¿ÉÒÔÖ±½ÓÍ¨¹ı
-#include <iostream>
-#include <string>
-#include <vector>
+// æ ¹æ®åŒ¹é…å®šä¹‰æ±‚åŒ¹é…å­ä¸²çš„æ•°é‡
+// ç»™å®šé•¿ä¸ºnçš„å­—ç¬¦ä¸²sï¼Œä»¥åŠé•¿åº¦ä¸ºmçš„å­—ç¬¦ä¸²pï¼Œè¿˜æœ‰ä¸€ä¸ªæ­£æ•°k
+// s'ä¸såŒ¹é…çš„å®šä¹‰ä¸ºï¼Œs'ä¸sé•¿åº¦ç›¸åŒï¼Œä¸”æœ€å¤šæœ‰kä¸ªä½ç½®å­—ç¬¦ä¸åŒ
+// è¦æ±‚æŸ¥æ‰¾å­—ç¬¦ä¸²sä¸­æœ‰å¤šå°‘å­ä¸²ä¸å­—ç¬¦ä¸²påŒ¹é…
+// æµ‹è¯•é“¾æ¥ : https://www.luogu.com.cn/problem/P3763
+// è¯·åŒå­¦ä»¬åŠ¡å¿…å‚è€ƒå¦‚ä¸‹ä»£ç ä¸­å…³äºè¾“å…¥ã€è¾“å‡ºçš„å¤„ç†
+// è¿™æ˜¯è¾“å…¥è¾“å‡ºå¤„ç†æ•ˆç‡å¾ˆé«˜çš„å†™æ³•
+// æäº¤ä»¥ä¸‹çš„codeï¼Œæäº¤æ—¶è¯·æŠŠç±»åæ”¹æˆ"Main"ï¼Œå¯ä»¥ç›´æ¥é€šè¿‡
+//è¿™é“é¢˜æ˜¯é€šè¿‡äºŒåˆ†æ¥æ£€æµ‹æ˜¯å¦æœ‰ä¸è¶…è¿‡kä¸ªçš„ä¸åŒ
+#include<bits/stdc++.h>
 using namespace std;
-const int MAXN = 100001;
-const int base = 499;
+#define int long long
+const int MAXN = 1e5+5;
+const int BASE = 499;
 
-vector<long long> pow(MAXN), hashs(MAXN), hashp(MAXN);//hashs hsahp·Ö±ğÊÇs p µÄ¹şÏ£Êı×é
+int n,m,k;
+int p[MAXN];
+int hs[MAXN];
+int ht[MAXN];
+char s[MAXN];
+char t[MAXN];
 
-void build(const string& s, const string& p) {
-    pow[0] = 1;
-    for (int j = 1; j < MAXN; j++) {
-        pow[j] = pow[j - 1] * base;
+void prepare(){
+    for(int i=1;i<=n;i++){
+        hs[i]=hs[i-1]*BASE+s[i]-'A'+1;
     }
-
-    int n = s.size(), m = p.size();
-    hashs[0] = s[0] - 'a' + 1;
-    for (int j = 1; j < n; j++) {
-        hashs[j] = hashs[j - 1] * base + s[j] - 'a' + 1;
-    }
-
-    hashp[0] = p[0] - 'a' + 1;
-    for (int j = 1; j < m; j++) {
-        hashp[j] = hashp[j - 1] * base + p[j] - 'a' + 1;
+    for(int i=1;i<=n;i++){
+        ht[i]=ht[i-1]*BASE+t[i]-'A'+1;
     }
 }
 
-long long hash1(const vector<long long>& hash, int l, int r) {
-    long long ans = hash[r];
-    if (l > 0) ans -= hash[l - 1] * pow[r - l + 1];
-    return ans;
+int gethash(int l,int r,int op){
+    if(op==1){
+        return hs[r]-hs[l-1]*p[r-l+1];
+    }
+    else{
+        return ht[r]-ht[l-1]*p[r-l+1];
+    }
 }
 
-bool same(int l1, int l2, int len) {
-    return hash1(hashs, l1, l1 + len - 1) == hash1(hashp, l2, l2 + len - 1);
-}
-
-//¼ì²âsÖĞ´Ól1 µ½ r1  ºÍ   p ´Ó l2µ½m-1  (m-1-l2)==(r1-l1)  ÕâÁ½¶Î×Ö·û´®µÄ²îÒìÊÇ·ñĞ¡ÓÚk
-bool check(const string& s, const string& p, int l1, int r1, int k) {
-    int l2 = 0, diff = 0;
-    while (l1 <= r1 && diff <= k) {
-        int left = 1, right = r1 - l1 + 1, len = 0;
-        //Ã¿´Î¶ş·ÖÃ¶¾ÙÏÂÒ»¸ö²»Í¬µÄ×Ö·û³öÏÖµÄÎ»ÖÃ
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            if (same(l1, l2, mid)) {
-                len = mid;
-                left = mid + 1;
-            } else {
-                right = mid - 1;
+// s[l...r] å’Œ t[1...m] å–ç­‰é•¿çš„ä¸¤æ®µ
+// è¿”å›è¿™ä¸¤æ®µä¸Šå­—ç¬¦ä¸ä¸€æ ·çš„ä½ç½®æ˜¯ä¸æ˜¯<=kä¸ª
+bool check(int l,int r,int k){
+    int le=1;//tæ•°ç»„çš„ç›®å‰åŒ¹é…ä½ç½®
+    int diff=0;
+    while(l<=r&&diff<=k){
+        int lt=1,rt=r-l+1,len=0;
+        while(lt<=rt){
+            //äºŒåˆ†æ‰¾åˆ°ç¬¬ä¸€ä¸ªä¸ä¸€æ ·çš„ä½ç½®
+            int mid=(lt+rt)>>1;
+            if(gethash(l,l+mid-1,1)==gethash(le,le+mid-1,2)){
+                len=mid;
+                lt=mid+1;
+            }
+            else{
+                rt=mid-1;
             }
         }
-        if (l1 + len <= r1) {
+        if(l+len<=r){
             diff++;
         }
-        l1 += len + 1;
-        l2 += len + 1;
+        l+=len+1;
+        le+=len+1;
     }
-    return diff <= k;
+    return diff<=k;
 }
 
-int compute(const string& s, const string& p, int k) {
-    //±íÊ¾¼ì²âsÖĞ  ÓĞ¶àÉÙ¸öºÍ  p ´æÔÚ²îÒìĞ¡ÓÚ k ¸öµÄ×Ó´®
-    int n = s.size(), m = p.size();
-    if (n < m)
+// sä¸­æœ‰å¤šå°‘å­ä¸²ä¿®æ”¹æœ€å¤škä¸ªä½ç½®çš„å­—ç¬¦å°±å¯ä»¥å˜æˆt
+// sé•¿åº¦ä¸ºnï¼Œté•¿åº¦ä¸ºmï¼Œæ—¶é—´å¤æ‚åº¦O(n * k * logm)
+int compute(int k){
+    n=strlen(s+1);
+    m=strlen(t+1);
+    if(n<m){
         return 0;
-    build(s, p);//Íê³É¹şÏ£º¯Êı
-    int ans = 0;
-    for (int i = 0; i <= n - m; i++) {
-        if (check(s, p, i, i + m - 1, k)) {
+    }
+    prepare();
+    int ans=0;
+    for(int i=1;i<=n-m+1;i++){
+        if(check(i,i+m-1,k)){
             ans++;
         }
     }
     return ans;
 }
 
-int main() {
-    int n;
-    string s, p;
-    cin >> n ;
-    int k=3;
-    for (int i = 0; i < n; i++) {
-        cin >> s >> p;
-        cout << compute(s, p, k) << endl;
+signed main()
+{
+    p[0]=1;
+    for(int i=1;i<MAXN;i++){
+        p[i]=(p[i-1]*BASE);
+    }
+    int T;
+    scanf("%lld",&T);
+    k=3;//æœ€å¤šå¯ä»¥ä¸åŒçš„ä½ç½®ä¸ªæ•°   è¿™é“é¢˜æ˜ç¡®è®¾ç½®ä¸º3
+    while(T--){
+        scanf("%s %s",s+1,t+1);
+        cout<<compute(k)<<endl;
     }
     return 0;
 }

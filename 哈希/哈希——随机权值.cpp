@@ -1,4 +1,4 @@
-//P11262
+//https://www.luogu.com.cn/problem/P11262
 //这道题目和线段树结合  利用的是 区间和 和 区间平方和
 //这道题目要求区间里面必须要一个是不一样的
 //我们的整体思路是求  两个区间的 平方和 和 区间和
@@ -85,14 +85,6 @@ int main()
         }
         sum[i]=sum[i-1]+h[arr[i]];
     }
-//    for(int i=1;i<=n;i++){
-//        cout<<h[arr[i]]<<' ';
-//    }
-//    cout<<endl;
-//    for(int i=1;i<=n;i++){
-//        cout<<sum[i]<<' ';
-//    }
-//    cout<<endl;
     build(1,n,1);
     for(int i=1;i<=m;i++){
         int u,v,x,y;

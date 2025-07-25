@@ -7,10 +7,10 @@
 #include <iomanip>
 #include <cmath>
 
-// ¹şÏ£º¯ÊıÀà
+// å“ˆå¸Œå‡½æ•°ç±»
 class Hash {
 public:
-    // ¹¹Ôìº¯Êı£¬Ê¹ÓÃÖ¸¶¨µÄ¹şÏ£Ëã·¨
+    // æ„é€ å‡½æ•°ï¼Œä½¿ç”¨æŒ‡å®šçš„å“ˆå¸Œç®—æ³•
     Hash(const std::string& algorithm) {
         if (algorithm == "MD5") {
             md_ctx = EVP_MD_CTX_new();
@@ -20,12 +20,12 @@ public:
         }
     }
 
-    // Îö¹¹º¯Êı£¬ÊÍ·Å×ÊÔ´
+    // ææ„å‡½æ•°ï¼Œé‡Šæ”¾èµ„æº
     ~Hash() {
         EVP_MD_CTX_free(md_ctx);
     }
 
-    // ÊäÈë×Ö·û´®£¬·µ»Ø¹şÏ£Öµ
+    // è¾“å…¥å­—ç¬¦ä¸²ï¼Œè¿”å›å“ˆå¸Œå€¼
     std::string hashValue(const std::string& input) {
         unsigned char hash[EVP_MAX_MD_SIZE];
         unsigned int hash_len;
@@ -43,7 +43,7 @@ private:
     EVP_MD_CTX* md_ctx;
 };
 
-// Éú³ÉËùÓĞ¿ÉÄÜµÄ×Ö·û´®
+// ç”Ÿæˆæ‰€æœ‰å¯èƒ½çš„å­—ç¬¦ä¸²
 std::vector<std::string> generateStrings(const std::vector<char>& arr, int n) {
     std::vector<std::string> ans;
     std::string path;
@@ -64,8 +64,8 @@ void generateStringsHelper(const std::vector<char>& arr, int i, int n, std::stri
 }
 
 int main() {
-    std::cout << "Ö§³ÖµÄ¹şÏ£Ëã·¨£¨½öMD5ÔÚ´ËÊ¾ÀıÖĞÖ§³Ö£©:" << std::endl;
-    // ×¢Òâ£ºC++ÖĞÃ»ÓĞÄÚÖÃµÄ·½·¨À´ÁĞ³öËùÓĞÖ§³ÖµÄ¹şÏ£Ëã·¨£¬ÕâÀï½öËµÃ÷
+    std::cout << "æ”¯æŒçš„å“ˆå¸Œç®—æ³•ï¼ˆä»…MD5åœ¨æ­¤ç¤ºä¾‹ä¸­æ”¯æŒï¼‰:" << std::endl;
+    // æ³¨æ„ï¼šC++ä¸­æ²¡æœ‰å†…ç½®çš„æ–¹æ³•æ¥åˆ—å‡ºæ‰€æœ‰æ”¯æŒçš„å“ˆå¸Œç®—æ³•ï¼Œè¿™é‡Œä»…è¯´æ˜
     std::cout << "MD5" << std::endl << std::endl;
 
     try {
@@ -79,7 +79,7 @@ int main() {
         std::string str6 = "zuochengyunzuochengyunzuochengyUn3";
         std::string str7 = "zuochengyunzuochengyunzuochengyun1";
 
-        std::cout << "7¸ö×Ö·û´®µÃµ½µÄ¹şÏ£Öµ:" << std::endl;
+        std::cout << "7ä¸ªå­—ç¬¦ä¸²å¾—åˆ°çš„å“ˆå¸Œå€¼:" << std::endl;
         std::cout << hash.hashValue(str1) << std::endl;
         std::cout << hash.hashValue(str2) << std::endl;
         std::cout << hash.hashValue(str3) << std::endl;
@@ -91,22 +91,22 @@ int main() {
         std::vector<char> arr = {'a', 'b'};
         int n = 20;
 
-        std::cout << "Éú³É³¤¶ÈÎª" << n << "£¬×Ö·ûÀ´×Ôarr£¬ËùÓĞ¿ÉÄÜµÄ×Ö·û´®" << std::endl;
+        std::cout << "ç”Ÿæˆé•¿åº¦ä¸º" << n << "ï¼Œå­—ç¬¦æ¥è‡ªarrï¼Œæ‰€æœ‰å¯èƒ½çš„å­—ç¬¦ä¸²" << std::endl;
         std::vector<std::string> strs = generateStrings(arr, n);
-        std::cout << "²»Í¬×Ö·û´®µÄÊıÁ¿:" << strs.size() << std::endl;
+        std::cout << "ä¸åŒå­—ç¬¦ä¸²çš„æ•°é‡:" << strs.size() << std::endl;
 
         std::set<std::string> hashSet;
         for (const std::string& str : strs) {
             hashSet.insert(hash.hashValue(str));
         }
 
-        // ×¢Òâ£ºÕâÀïÓĞÒ»¸ö´íÎó£¬Ó¦¸ÃÊ¹ÓÃhashSet.size()¶ø²»ÊÇstrs.size()
-        std::cout << "²»Í¬¹şÏ£ÖµµÄÊıÁ¿:" << hashSet.size() << std::endl << std::endl;
+        // æ³¨æ„ï¼šè¿™é‡Œæœ‰ä¸€ä¸ªé”™è¯¯ï¼Œåº”è¯¥ä½¿ç”¨hashSet.size()è€Œä¸æ˜¯strs.size()
+        std::cout << "ä¸åŒå“ˆå¸Œå€¼çš„æ•°é‡:" << hashSet.size() << std::endl << std::endl;
 
         int m = 13;
         std::vector<int> cnts(m, 0);
 
-        std::cout << "ÏÖÔÚ¿´¿´ÕâĞ©¹şÏ£Öµ£¬% " << m << " Ö®ºóµÄÓàÊı·Ö²¼Çé¿ö" << std::endl;
+        std::cout << "ç°åœ¨çœ‹çœ‹è¿™äº›å“ˆå¸Œå€¼ï¼Œ% " << m << " ä¹‹åçš„ä½™æ•°åˆ†å¸ƒæƒ…å†µ" << std::endl;
         for (const std::string& hashCode : hashSet) {
             unsigned long long hashValue = std::stoull(hashCode, nullptr, 16);
             int ans = hashValue % m;
@@ -114,7 +114,7 @@ int main() {
         }
 
         for (int i = 0; i < m; ++i) {
-            std::cout << "ÓàÊı " << i << " ³öÏÖÁË " << cnts[i] << " ´Î" << std::endl;
+            std::cout << "ä½™æ•° " << i << " å‡ºç°äº† " << cnts[i] << " æ¬¡" << std::endl;
         }
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;

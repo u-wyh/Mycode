@@ -1,5 +1,5 @@
 // https://www.luogu.com.cn/problem/CF1746F
-// 这道题的思路是进行T次检测  看看每次是否符合K倍的要求
+// 这道题的思路是进行T次独立检测 出现了k次的倍数 那么看看每次哈希值是否符合K倍的要求
 #include<bits/stdc++.h>
 using namespace std;
 #define int long long

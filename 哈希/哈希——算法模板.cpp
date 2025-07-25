@@ -8,16 +8,11 @@
 // 返回所有串联子串在s中的开始索引
 // 你可以以任意顺序返回答案
 // 测试链接 : https://leetcode.cn/problems/substring-with-concatenation-of-all-words/
-#include <iostream>
-#include <vector>
-#include <unordered_map>
-#include <string>
-#include <cmath>
-
+#include <bits/stdc++.h>
 using namespace std;
-
 const int MAXN = 10001;
 const int BASE = 499;
+
 long long power[MAXN];
 long long hash_val[MAXN];
 
