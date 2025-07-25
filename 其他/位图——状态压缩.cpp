@@ -23,7 +23,7 @@ int main()
         if(one[i]==n-m){
             //cout<<' '<<i<<endl;
             bitset<2010> b;
-            b[0]=1;//±ØÐëÓÐÒ»¸ö1³õÊ¼»¯  ·ñÔòºóÃæ¸ù±¾¼Ó²»ÉÏ»ò²Ù×÷
+            b[0]=1;//å¿…é¡»æœ‰ä¸€ä¸ª1åˆå§‹åŒ–  å¦åˆ™åŽé¢æ ¹æœ¬åŠ ä¸ä¸Šæˆ–æ“ä½œ
             for(int j=0;j<n;j++){
                 if(i&(1<<j)){
                     b=b|(b<<value[j]);

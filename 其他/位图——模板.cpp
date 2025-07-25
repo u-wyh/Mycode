@@ -1,58 +1,56 @@
-#include <iostream>
-#include <vector>
-#include <unordered_set>
-#include <cstdlib>
-#include <ctime>
-#include <cmath>
-#include <iomanip>
+#include <bits/stdc++.h>
 using namespace std;
 
-// Î»Í¼µÄÊµÏÖ
+// ä½å›¾çš„å®ç°
 class Bitset {
 public:
     std::vector<int> set;
 
-    // n¸öÊı×Ö : 0~n-1
+    // nä¸ªæ•°å­— : 0~n-1
     Bitset(int n) {
-        // a/bÈç¹û½á¹ûÏëÏòÉÏÈ¡Õû£¬¿ÉÒÔĞ´³É : (a+b-1)/b
-        // Ç°ÌáÊÇaºÍb¶¼ÊÇ·Ç¸ºÊı
+        // a/bå¦‚æœç»“æœæƒ³å‘ä¸Šå–æ•´ï¼Œå¯ä»¥å†™æˆ : (a+b-1)/b
+        // å‰ææ˜¯aå’Œbéƒ½æ˜¯éè´Ÿæ•°
         set.resize((n + 31) / 32);
     }
 
+    //åœ¨numä½ä¸Šè®¾ç½®ä¸º1
     void add(int num) {
         set[num / 32] |= 1 << (num % 32);
     }
 
+    //åœ¨numä½ä¸Šè®¾ç½®ä¸º0
     void remove(int num) {
         set[num / 32] &= ~(1 << (num % 32));
     }
 
+    //numä½ä¸Šçš„æ•°å­—ç¿»è½¬
     void reverse(int num) {
         set[num / 32] ^= 1 << (num % 32);
     }
 
+    //numä½ä¸Šçš„çŠ¶æ€æ˜¯ä»€ä¹ˆ
     bool contains(int num) const {
         return ((set[num / 32] >> (num % 32)) & 1) == 1;
     }
 };
 
-// ¶ÔÊıÆ÷²âÊÔ
+// å¯¹æ•°å™¨æµ‹è¯•
 int main() {
-    srand(time(0)); // ³õÊ¼»¯Ëæ»úÊıÖÖ×Ó
+    srand(time(0)); // åˆå§‹åŒ–éšæœºæ•°ç§å­
 
     int n = 1000;
     int testTimes = 10000;
-    std::cout << "²âÊÔ¿ªÊ¼" << std::endl;
+    std::cout << "æµ‹è¯•å¼€å§‹" << std::endl;
 
-    // ÊµÏÖµÄÎ»Í¼½á¹¹
+    // å®ç°çš„ä½å›¾ç»“æ„
     Bitset bitSet(n);
-    // Ö±½ÓÓÃunordered_set×ö¶Ô±È²âÊÔ
+    // ç›´æ¥ç”¨unordered_setåšå¯¹æ¯”æµ‹è¯•
     std::unordered_set<int> hashSet;
 
-    std::cout << "µ÷ÓÃ½×¶Î¿ªÊ¼" << std::endl;
+    std::cout << "è°ƒç”¨é˜¶æ®µå¼€å§‹" << std::endl;
     for (int i = 0; i < testTimes; i++) {
         double decide = static_cast<double>(rand()) / RAND_MAX;
-        // number -> 0 ~ n-1£¬µÈ¸ÅÂÊµÃµ½
+        // number -> 0 ~ n-1ï¼Œç­‰æ¦‚ç‡å¾—åˆ°
         int number = rand() % n;
         if (decide < 0.333) {
             bitSet.add(number);
@@ -69,19 +67,19 @@ int main() {
             }
         }
     }
-    std::cout << "µ÷ÓÃ½×¶Î½áÊø" << std::endl;
-    std::cout << "ÑéÖ¤½×¶Î¿ªÊ¼" << std::endl;
+    std::cout << "è°ƒç”¨é˜¶æ®µç»“æŸ" << std::endl;
+    std::cout << "éªŒè¯é˜¶æ®µå¼€å§‹" << std::endl;
     for (int i = 0; i < n; i++) {
         if (bitSet.contains(i) != (hashSet.find(i) != hashSet.end())) {
-            std::cout << "³ö´íÁË!" << std::endl;
-            break; // ¿ÉÒÔÑ¡ÔñÔÚÕâÀïÖÕÖ¹³ÌĞò£¬»òÕß¼ÌĞø¼ì²éËùÓĞÔªËØ
+            std::cout << "å‡ºé”™äº†!" << std::endl;
+            break; // å¯ä»¥é€‰æ‹©åœ¨è¿™é‡Œç»ˆæ­¢ç¨‹åºï¼Œæˆ–è€…ç»§ç»­æ£€æŸ¥æ‰€æœ‰å…ƒç´ 
         }
         else{
-            cout<<"µÚ"<<setw(4)<<i<<"×é²âÊÔÕıÈ·"<<endl;
+            cout<<"ç¬¬"<<setw(4)<<i<<"ç»„æµ‹è¯•æ­£ç¡®"<<endl;
         }
     }
-    std::cout << "ÑéÖ¤½×¶Î½áÊø" << std::endl;
-    std::cout << "²âÊÔ½áÊø" << std::endl;
+    std::cout << "éªŒè¯é˜¶æ®µç»“æŸ" << std::endl;
+    std::cout << "æµ‹è¯•ç»“æŸ" << std::endl;
 
     return 0;
 }
