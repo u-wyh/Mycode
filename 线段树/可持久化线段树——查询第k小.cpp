@@ -28,7 +28,7 @@ int ls[MAXT];
 int rs[MAXT];
 
 // 排名范围内收集了多少个数字
-int size[MAXT];
+int sz[MAXT];
 int cnt;
 
 // 返回num在所有值中排名多少
@@ -49,7 +49,7 @@ int kth(int num) {
 // 排名范围l~r，建立线段树，返回头节点编号
 int build(int l, int r) {
     int rt = ++cnt;
-    size[rt] = 0;
+    sz[rt] = 0;
     if (l < r) {
         int mid = (l + r) / 2;
         ls[rt] = build(l, mid);
@@ -64,7 +64,7 @@ int insert(int jobi, int l, int r, int i) {
     int rt = ++cnt;
     ls[rt] = ls[i];
     rs[rt] = rs[i];
-    size[rt] = size[i] + 1;//新加一个元素  大小加一
+    sz[rt] = sz[i] + 1;//新加一个元素  大小加一
     if (l < r) {
         int mid = (l + r) / 2;
         if (jobi <= mid) {
@@ -82,13 +82,13 @@ int query(int jobk, int l, int r, int u, int v) {
     if (l == r) {
         return l;
     }
-    int lsize = size[ls[v]] - size[ls[u]];
+    int lsz = sz[ls[v]] - sz[ls[u]];
     int mid = (l + r) / 2;
-    if (lsize >= jobk) {
+    if (lsz >= jobk) {
         //如果左半边排名足够 那么就在左半边找
         return query(jobk, l, mid, ls[u], ls[v]);
     } else {
-        return query(jobk - lsize, mid + 1, r, rs[u], rs[v]);
+        return query(jobk - lsz, mid + 1, r, rs[u], rs[v]);
     }
 }
 
