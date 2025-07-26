@@ -1,12 +1,12 @@
-// ³¤¶ÈÇ°kÃûµÄÆæÊý³¤¶È»ØÎÄ×Ó´®³¤¶È³Ë»ý
-// ¸ø¶¨Ò»¸ö×Ö·û´®sºÍÊýÖµk£¬Ö»¹ØÐÄËùÓÐÆæÊý³¤¶ÈµÄ»ØÎÄ×Ó´®
-// ·µ»ØÆäÖÐ³¤¶ÈÇ°kÃûµÄ»ØÎÄ×Ó´®µÄ³¤¶È³Ë»ýÊÇ¶àÉÙ
-// Èç¹ûÆæÊý³¤¶ÈµÄ»ØÎÄ×Ó´®¸öÊý²»¹»k¸ö£¬·µ»Ø-1
-// ²âÊÔÁ´½Ó : https://www.luogu.com.cn/problem/P1659
-// ´ð°¸¶Ô19930726È¡Ä£
-// ÇëÍ¬Ñ§ÃÇÎñ±Ø²Î¿¼ÈçÏÂ´úÂëÖÐ¹ØÓÚÊäÈë¡¢Êä³öµÄ´¦Àí
-// ÕâÊÇÊäÈëÊä³ö´¦ÀíÐ§ÂÊºÜ¸ßµÄÐ´·¨
-// Ìá½»ÒÔÏÂµÄcode£¬Ìá½»Ê±Çë°ÑÀàÃû¸Ä³É"Main"£¬¿ÉÒÔÖ±½ÓÍ¨¹ý
+// é•¿åº¦å‰kåçš„å¥‡æ•°é•¿åº¦å›žæ–‡å­ä¸²é•¿åº¦ä¹˜ç§¯
+// ç»™å®šä¸€ä¸ªå­—ç¬¦ä¸²så’Œæ•°å€¼kï¼Œåªå…³å¿ƒæ‰€æœ‰å¥‡æ•°é•¿åº¦çš„å›žæ–‡å­ä¸²
+// è¿”å›žå…¶ä¸­é•¿åº¦å‰kåçš„å›žæ–‡å­ä¸²çš„é•¿åº¦ä¹˜ç§¯æ˜¯å¤šå°‘
+// å¦‚æžœå¥‡æ•°é•¿åº¦çš„å›žæ–‡å­ä¸²ä¸ªæ•°ä¸å¤Ÿkä¸ªï¼Œè¿”å›ž-1
+// æµ‹è¯•é“¾æŽ¥ : https://www.luogu.com.cn/problem/P1659
+// ç­”æ¡ˆå¯¹19930726å–æ¨¡
+// è¯·åŒå­¦ä»¬åŠ¡å¿…å‚è€ƒå¦‚ä¸‹ä»£ç ä¸­å…³äºŽè¾“å…¥ã€è¾“å‡ºçš„å¤„ç†
+// è¿™æ˜¯è¾“å…¥è¾“å‡ºå¤„ç†æ•ˆçŽ‡å¾ˆé«˜çš„å†™æ³•
+// æäº¤ä»¥ä¸‹çš„codeï¼Œæäº¤æ—¶è¯·æŠŠç±»åæ”¹æˆ"Main"ï¼Œå¯ä»¥ç›´æŽ¥é€šè¿‡
 #include<bits/stdc++.h>
 using namespace std;
 const int MOD = 19930726;
@@ -14,9 +14,9 @@ const int MAXN = 10000005;
 
 int n,m;
 long k;
-char ss[MAXN << 1];//Õâ¸öÊý×éÖÐ¼äÌí¼ÓÁË#
-char a[MAXN];//Ô­Ê¼Êý×é
-int p[MAXN << 1];//°ë¾¶Êý×é
+char ss[MAXN << 1];//è¿™ä¸ªæ•°ç»„ä¸­é—´æ·»åŠ äº†#
+char a[MAXN];//åŽŸå§‹æ•°ç»„
+int p[MAXN << 1];//åŠå¾„æ•°ç»„
 int cnt[MAXN];
 
 void manacherss() {
@@ -29,25 +29,26 @@ void manacherss() {
 int manacher() {
     manacherss();
     int maxans = 0;
-    for (int i = 0, c = 0, r = 0, len; i < n; i++) {//iÊÇ´ËÊ±À´µ½µÄÖÐÐÄÎ»ÖÃ
-        len = r > i ? min(p[2 * c - i], r - i) : 1;//Õâ¸öÖµÊÇ»ù±¾Öµ  Èç¹û°ü×¡ÁË  ÄÇÃ´»ù±¾Öµ¾ÍÊÇ×îÖÕÖµ  ·ñÔòºóÐøÔÙ¼Ó
+    for (int i = 0, c = 0, r = 0, len; i < n; i++) {//iæ˜¯æ­¤æ—¶æ¥åˆ°çš„ä¸­å¿ƒä½ç½®
+        len = r > i ? min(p[2 * c - i], r - i) : 1;//è¿™ä¸ªå€¼æ˜¯åŸºæœ¬å€¼  å¦‚æžœåŒ…ä½äº†  é‚£ä¹ˆåŸºæœ¬å€¼å°±æ˜¯æœ€ç»ˆå€¼  å¦åˆ™åŽç»­å†åŠ 
         while (i + len < n && i - len >= 0 && ss[i + len] == ss[i - len]) {
             len++;
-            //Èç¹û±»°ü×¡ÁË  ÄÇÃ´Ö±½ÓÌø³öÀ´ÁË
+            //å¦‚æžœè¢«åŒ…ä½äº†  é‚£ä¹ˆç›´æŽ¥è·³å‡ºæ¥äº†
         }
-        //´ËÊ±ÒÑ¾­Çó³öÁËÒÔiÎªÖÐÐÄµÄ»ØÎÄ°ë¾¶´óÐ¡
+        //æ­¤æ—¶å·²ç»æ±‚å‡ºäº†ä»¥iä¸ºä¸­å¿ƒçš„å›žæ–‡åŠå¾„å¤§å°
         if (i + len > r) {
             r = i + len;
             c = i;
-            //Èç¹û¸üÐÂÁËÓÒ±ß½ç  ÄÇÃ´c¾ÍÊÇi  r¾ÍÊÇi+len
+            //å¦‚æžœæ›´æ–°äº†å³è¾¹ç•Œ  é‚£ä¹ˆcå°±æ˜¯i  rå°±æ˜¯i+len
         }
         maxans = max(maxans, len);
         p[i] = len;
-        //µÃµ½»ØÎÄ°ë¾¶
+        //å¾—åˆ°å›žæ–‡åŠå¾„
     }
     return maxans - 1;
 }
 
+//å¿«é€Ÿå¹‚
 long power(long x, long n) {
     long ans = 1;
     while (n > 0) {
@@ -58,7 +59,7 @@ long power(long x, long n) {
         n >>= 1;
     }
     return ans;
-}//¿ìËÙÃÝ
+}
 
 int main()
 {
@@ -67,7 +68,7 @@ int main()
     manacher();
     for(int i=1;i<n;i+=2){
         cnt[p[i]-1]++;
-        //Í³¼Æ³ö×Ö·û´®³¤¶È
+        //ç»Ÿè®¡å‡ºå­—ç¬¦ä¸²é•¿åº¦
     }
     long ans=1;
     long sum=0;

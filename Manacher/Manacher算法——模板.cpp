@@ -1,17 +1,16 @@
-// Manacher�㷨ģ��
-// ���ַ���s��������Ӵ��ĳ���
-// �������� : https://www.luogu.com.cn/problem/P3805
-// ��ͬѧ����زο����´����й������롢����Ĵ���
-// ���������������Ч�ʺܸߵ�д��
-// �ύ���µ�code���ύʱ��������ĳ�"Main"������ֱ��ͨ��
-
+// Manacher算法模版
+// 求字符串s中最长回文子串的长度
+// 测试链接 : https://www.luogu.com.cn/problem/P3805
+// 请同学们务必参考如下代码中关于输入、输出的处理
+// 这是输入输出处理效率很高的写法
+// 提交以下的code，提交时请把类名改成"Main"，可以直接通过
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 11000001;
 
-char ss[MAXN << 1];//��������м�������#
-char a[MAXN];//ԭʼ����
-int p[MAXN << 1];//�뾶����
+char ss[MAXN << 1];//这个数组中间添加了#
+char a[MAXN];//原始数组
+int p[MAXN << 1];//半径数组
 int n;
 
 void manacherss() {
@@ -24,21 +23,24 @@ void manacherss() {
 int manacher() {
     manacherss();
     int maxans = 0;
-    for (int i = 0, c = 0, r = 0, len; i < n; i++) {//i�Ǵ�ʱ����������λ��
-        len = r > i ? min(p[2 * c - i], r - i) : 1;//���ֵ�ǻ���ֵ  �����ס��  ��ô����ֵ��������ֵ  ��������ټ�
+    for (int i = 0, c = 0, r = 0, len; i < n; i++) {
+        //i是此时来到的中心位置
+        len = r > i ? min(p[2 * c - i], r - i) : 1;
+        //这个值是基本值  如果包住了  那么基本值就是最终值  否则后续继续扩展
+        //如果是撞线了  那么基本长度就是 r-i(等于p[2*c-i])  否则就是白手起家长度为1
         while (i + len < n && i - len >= 0 && ss[i + len] == ss[i - len]) {
             len++;
-            //�������ס��  �����ͽ�����
+            //如果被包住了  根本就进不来
         }
-        //��ʱ�Ѿ��������iΪ���ĵĻ��İ뾶��С
+        //此时已经求出了以i为中心的回文半径大小
         if (i + len > r) {
             r = i + len;
-            c = i;//c��ʾ��������r�����Ǹ���Ϊ���ĵ��ұ߽�
-            //����������ұ߽�  ��ôc����i  r����i+len
+            c = i;//c表示的是如今的r是以那个点为中心的右边界
+            //如果更新了右边界  那么c就是i  r就是i+len
         }
         maxans = max(maxans, len);
         p[i] = len;
-        //�õ����İ뾶
+        //得到回文半径
     }
     return maxans - 1;
 }
