@@ -7,6 +7,7 @@
 // 这是输入输出处理效率很高的写法
 // 提交以下的code，提交时请把类名改成"Main"，可以直接通过
 //这道题的关键是求l r数组  主要用到了Manacher的性质
+//这道题告诉我们如何求#左右两边的最长回文串长度
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 1e5+5;
@@ -27,7 +28,6 @@ void manacherss() {
 
 void manacher() {
     manacherss();
-    int maxans = 0;
     for (int i = 0, c = 0, r = 0, len; i < n; i++) {//i是此时来到的中心位置
         len = r > i ? min(p[2 * c - i], r - i) : 1;//这个值是基本值  如果包住了  那么基本值就是最终值  否则后续再加
         while (i + len < n && i - len >= 0 && ss[i + len] == ss[i - len]) {
@@ -40,11 +40,9 @@ void manacher() {
             c = i;
             //如果更新了右边界  那么c就是i  r就是i+len
         }
-        maxans = max(maxans, len);
         p[i] = len;
         //得到回文半径
     }
-    //return maxans - 1;
 }
 
 int main()
