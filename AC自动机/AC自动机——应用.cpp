@@ -1,4 +1,4 @@
-//P3082
+// https://www.luogu.com.cn/problem/P3082
 #include<bits/stdc++.h>
 using namespace std;
 // 所有目标字符串的总字符数量
@@ -57,7 +57,6 @@ void setFail() {
         }
     }
 }
-//报警标志的迁移
 
 int main()
 {

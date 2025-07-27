@@ -1,4 +1,4 @@
-//P2536
+// https://www.luogu.com.cn/problem/P2536
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 250005;
@@ -34,6 +34,8 @@ void insert(string word){
     en[cur]++;
 }
 
+//匹配成功就减去这个字符串
+//这是为了不使通配符可以无限循环下去
 void dfs(int now,int cur){
     //now表示现在到了模版串的第几个字符
     //cur表示现在到了字典树的那个节点
@@ -79,8 +81,6 @@ void dfs(int now,int cur){
         if(tree[cur][i])
             sz[cur]+=sz[tree[cur][i]];
 }
-//匹配成功就减去这个字符串
-//这是为了不使通配符可以无限循环下去
 
 int main()
 {

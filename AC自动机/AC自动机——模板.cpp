@@ -5,9 +5,9 @@
 // 请同学们务必参考如下代码中关于输入、输出的处理
 // 这是输入输出处理效率很高的写法
 // 提交以下的code，提交时请把类名改成"Main"，可以直接通过
+//优化直通表加反图
 #include<bits/stdc++.h>
 using namespace std;
-
 const int MAXN = 200001;
 // 所有目标字符串的总字符数量
 const int MAXS = 200001;
@@ -53,6 +53,7 @@ void insert(int i,string word){
 // 加入所有目标字符串之后
 // 设置fail指针 以及 设置直接直通表
 // 做了AC自动机固定的优化
+//完成直通表  和  fail表    所有的AC自动机都是可以这样优化的
 void setFail() {
     // box当做队列来使用
     int l = 0;
@@ -68,6 +69,7 @@ void setFail() {
         int u = box[l++];
         for (int i = 0; i <= 25; i++) {
             if (tree[u][i] == 0) {
+                //这个选择没有  那么就是拷贝自己的失败节点的信息
                 tree[u][i] = tree[fail[u]][i];
             } else {
                 fail[tree[u][i]] = tree[fail[u]][i];//设置这个孩子节点的fail指针   直通表辅助不用绕环
@@ -76,7 +78,6 @@ void setFail() {
         }
     }
 }
-//完成直通表  和  fail表
 
 void addEdge(int u, int v) {
     Next[++edge] = head[u];
@@ -84,9 +85,10 @@ void addEdge(int u, int v) {
     to[edge] = v;
 }
 
-void f1(int u) {
+//遍历收集词频
+void dfs(int u) {
     for (int i = head[u]; i > 0; i = Next[i]) {
-        f1(to[i]);
+        dfs(to[i]);
         times[u] += times[to[i]];
     }
 }
@@ -114,7 +116,7 @@ int main()
     }
     // 遍历fail指针建的树
     // 汇总每个节点的词频
-    f1(0);
+    dfs(0);
     for(int i=1;i<=n;i++){
         cout<<times[en[i]]<<endl;
     }
