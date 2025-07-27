@@ -1,16 +1,16 @@
-// ǰm���������ֵ�ĺͣ�C++��
-// ����ֻ�õ��˾���ǰ׺����û���õ��ɳ־û�ǰ׺��
-// ����һ������Ϊn������arr���±�1~n
-// ���������ѡ������ͬλ�õ����ֽ�����򣬵õ��������ֵ��˳��ͬ�Ļ�������һ���������ֵ
-// ��ô���������ֵ�����е�1�󡢵�2��...
-// ����ǰk���������ֵ���ۼӺͣ��𰸶�1000000007ȡģ
+// 前m大两两异或值的和，C++版
+// 本题只用到了经典前缀树，没有用到可持久化前缀树
+// 给定一个长度为n的数组arr，下标1~n
+// 你可以随意选两个不同位置的数字进行异或，得到两两异或值，顺序不同的话，算做一个两两异或值
+// 那么，两两异或值，就有第1大、第2大...
+// 返回前k大两两异或值的累加和，答案对1000000007取模
 // 1 <= n <= 5 * 10^4
 // 0 <= k <= n * (n-1) / 2
 // 0 <= arr[i] <= 10^9
-// �������� : https://www.luogu.com.cn/problem/CF241B
-// �������� : https://codeforces.com/problemset/problem/241/B
-// ����ʵ����C++�İ汾��C++�汾��java�汾�߼���ȫһ��
-// �ύ���´��룬����ͨ�����в�������
+// 测试链接 : https://www.luogu.com.cn/problem/CF241B
+// 测试链接 : https://codeforces.com/problemset/problem/241/B
+// 如下实现是C++的版本，C++版本和java版本逻辑完全一样
+// 提交如下代码，可以通过所有测试用例
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 50001;
