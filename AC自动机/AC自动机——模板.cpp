@@ -65,6 +65,7 @@ void setFail() {
             //这个队列里面存储过的所有节点都要有fail
         }
     }
+    //最开始加入的这些节点的fail并不是没有设置  而是本来就是0  没有设置的必要
     while (l < r) {
         int u = box[l++];
         for (int i = 0; i <= 25; i++) {
