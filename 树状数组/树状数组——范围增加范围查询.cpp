@@ -1,11 +1,11 @@
-// ��״���鷶Χ���ӡ���Χ��ѯģ��
-// �������� : https://www.luogu.com.cn/problem/P3372
-// ��ͬѧ����زο����´����й������롢����Ĵ���
-// ���������������Ч�ʺܸߵ�д��
-// �ύ���µ�code���ύʱ��������ĳ�"Main"������ֱ��ͨ��
-//��Χ���ӷ�Χ��ѯ��һ�����Ѷ�  ����һ�����߶������
-//��Ȼ��״����Ҳͬ������ʵ��  ������Ҫ��ʽ�Ƶ�
-//ά��������״����
+// 树状数组范围增加、范围查询模版
+// 测试链接 : https://www.luogu.com.cn/problem/P3372
+// 请同学们务必参考如下代码中关于输入、输出的处理
+// 这是输入输出处理效率很高的写法
+// 提交以下的code，提交时请把类名改成"Main"，可以直接通过
+//范围增加范围查询有一定的难度  我们一般用线段树完成
+//当然树状数组也同样可以实现  不过需要公式推导
+//维持两颗树状数组
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 100005;
@@ -21,7 +21,7 @@ void add(long *tree,int i,long  v){
     while(i<=n){
         tree[i]+=v;
         i+=lowbit(i);
-        //ÿһ�ζ������Լ����Ҳ��1
+        //每一次都加上自己最右侧的1
     }
 }
 
@@ -30,25 +30,25 @@ long sum(long *tree,int i){
     while(i>0){
         ans+=tree[i];
         i-=lowbit(i);
-        //ÿһ�ζ���ȥ�Լ����Ҳ��1
+        //每一次都减去自己最右侧的1
     }
     return ans;
 }
 
 void Add(int l, int r, long v) {
-    //��һ���������
+    //第一个数组更新
     add(tree1, l, v);
     add(tree1, r + 1, -v);
 
-    //�ڶ����������
+    //第二个数组更新
     add(tree2, l, (l - 1) * v);
     add(tree2, r + 1, -(r * v));
 }
 
-//�����l��r���ۼӺ�
+//计算从l到r的累加和
 long range(int l, int r) {
     return (sum(tree1, r) * r - sum(tree2, r)) - (sum(tree1, l - 1) * (l - 1) - sum(tree2, l - 1));
-    //�� ��1��r���ۼӺ�  ��ȥ��1��l-1���ۼӺ�
+    //即 从1到r的累加和  减去从1到l-1的累加和
 }
 
 int main()
