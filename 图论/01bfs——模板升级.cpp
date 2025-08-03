@@ -13,10 +13,7 @@
 // 你可以花费1的代价修改一个格子中的数字，但每个格子中的数字 只能修改一次
 // 请你返回让网格图至少有一条有效路径的最小代价
 // 测试链接 : https://leetcode.cn/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid/
-#include <iostream>
-#include <vector>
-#include <deque>
-#include <climits>
+#include <bits/stdc++.h>
 
 using namespace std;
 

@@ -1,4 +1,4 @@
-//P10193
+//https://www.luogu.com.cn/problem/P10193
 // 这道题目很创新 考察对DJ算法的理解程度
 // 他的源点不再仅仅只是一个了  而是有很多个
 #include<bits/stdc++.h>
