@@ -9,9 +9,9 @@
 // 测试链接 : https://www.luogu.com.cn/problem/P3603
 // 如下实现是C++的版本，C++版本和java版本逻辑完全一样
 // 提交如下代码，可以通过所有测试用例
-//这道题需要借助位图来实现
-//分块的时候 是按照dfn序来组织的
-//每次求答案的时候 需要把ans位图清空   预处理出的位图是dfn序号连续的块的位图
+// 这道题需要借助位图来实现
+// 分块的时候 是按照dfn序来组织的
+// 每次求答案的时候 需要把ans位图清空   预处理出的位图是dfn序号连续的块的位图
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 100001;
@@ -99,6 +99,7 @@ void query(int l, int r) {
         for (int i = bl[bi[r]]; i <= r; i++) {
             ans[val[i]] = 1;
         }
+        //块间操作
         for (int i = bi[l] + 1; i <= bi[r] - 1; i++) {
             ans |= bitSet[i];
         }
