@@ -9,21 +9,21 @@ int arr[20];
 int mod;
 
 long long dfs(int len,int sum,int st,bool limit){
-    //��ʾ����lenλû����  Ŀǰ�ܺ���sum  Ŀǰ�Ѿ���õ�����ģmod�ĺ���st
-    //��ʵ���st����û��ʲô���� ��ֻ������ж��Ƿ����ģmod��ʱ���õ�
-    //st�ǳ˷�ͬ�������  ����34567%8��3���Կ�����3*10*10*10*10%8
-    //�� 3%8 * 10%8 * 10%8 * 10%8 * 10%8
+    //表示还有len位没有填  目前总和是sum  目前已经填好的数字模mod的和是st
+    //其实这个st基本没有什么作用 他只在最后判断是否可以模mod的时候用到
+    //st是乘法同余的体现  比如34567%8中3可以看成是3*10*10*10*10%8
+    //即 3%8 * 10%8 * 10%8 * 10%8 * 10%8
     if(sum+9*len<mod){
-        //���ʣ�µ�λ��ȫ����9���޷����� ˵��һ������
+        //如果剩下的位置全部填9都无法满足 说明一定不行
         return 0;
     }
     if(!limit&&f[len][sum][st]!=-1){
-        //�ڿ�������ѡ�������¼���f
-        //����  ����ִ���Ĵ𰸱�ͳ��  ������f��ʱ���������  �����ڲ�������
+        //在可以自由选择的情况下加上f
+        //否则  会出现错误的答案被统计  即在填f的时候可以自由  而现在不能自由
         return f[len][sum][st];
     }
     if(len==0){
-        //������е�λ����������  ֻ����λ����sum����st%mod==0  �ſ��Լ�һ
+        //如果所有的位数都用完了  只有数位和是sum并且st%mod==0  才可以加一
         return sum==mod&&st==0;
     }
     int num=limit?arr[len]:9;
@@ -32,8 +32,8 @@ long long dfs(int len,int sum,int st,bool limit){
         ans+=dfs(len-1,sum+i,(st*10+i)%mod,limit&&(i==num));
     }
     if(!limit){
-        //����Ҫ�ڿ�������ѡ��������ͳ��f
-        //����  ���������ѡ�����ֹ������ܵ���λ����mod  Ҳ�ᱻ����ļӽ�����
+        //必须要在可以自由选择的情况下统计f
+        //否则  如果接下来选的数字过大但是总的数位和是mod  也会被错误的加进答案中
         f[len][sum][st]=ans;
     }
     return ans;
@@ -42,12 +42,12 @@ long long dfs(int len,int sum,int st,bool limit){
 long long compute(long long x){
     for(len=0;x;x/=10){
         arr[++len]=x%10;
-        //���Ƚ����ַֽ������
+        //首先将数字分解成数组
     }
     long long ans=0;
     for(mod=1;mod<=9*len;mod++){
-        //��Ȼ��Ҫ�������λ�ϵĺ�  ��ô����ֱ��ö�ٸ�����λ�ϵĺ���ֵ
-        //��ֻ����λ����mod�����ָ���
+        //既然是要求各个数位上的和  那么我们直接枚举各个数位上的和数值
+        //即只求数位和是mod的数字个数
         memset(f,0xff,sizeof(f));
         ans+=dfs(len,0,0,1);
     }

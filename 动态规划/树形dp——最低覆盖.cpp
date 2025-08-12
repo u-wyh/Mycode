@@ -1,4 +1,4 @@
-//P2279
+//https://www.luogu.com.cn/problem/P2279
 #include<iostream>
 #include<cstdio>
 #include<algorithm>

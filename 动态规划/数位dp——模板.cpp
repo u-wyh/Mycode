@@ -6,6 +6,7 @@
 // 我们可以写数字，如 '13', '551', 和 '1351315'
 // 返回 可以生成的小于或等于给定整数 n 的正整数的个数
 // 测试链接 : https://leetcode.cn/problems/numbers-at-most-n-given-digit-set/
+//这一种写法是在运算的过程中计算所有合法的方案  即从高位往低位遍历
 #include<bits/stdc++.h>
 using namespace std;
 
