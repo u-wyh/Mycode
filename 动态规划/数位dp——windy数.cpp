@@ -2,14 +2,16 @@
 // 不含前导零且相邻两个数字之差至少为2的正整数被称为windy数
 // windy想知道[a,b]范围上总共有多少个windy数
 // 测试链接 : https://www.luogu.com.cn/problem/P2657
+// https://www.luogu.com.cn/problem/P13085
 // 请同学们务必参考如下代码中关于输入、输出的处理
 // 这是输入输出处理效率很高的写法
 // 提交以下的code，提交时请把类名改成"Main"，可以直接通过
 #include<bits/stdc++.h>
 using namespace std;
+#define int long long
 
 int a,b;
-int dp[11][11][2];
+int dp[20][11][2];
 
 void build(int len) {
     for (int i = 0; i <= len; i++) {
@@ -27,8 +29,11 @@ void build(int len) {
 // 如果之前的位和num一样，那么free == 0，表示接下的数字不能大于num当前位的数字
 // 返回<=num的windy数有多少个
 int f(int num, int offset, int len, int pre, int free) {
+    // 其实这里还要判断一下pre是不是等于10  即前面有没有数字  但是这种情况在r  和  l-1中都存在 所以不写也不错
     if (len == 0) {
-        return 1;
+        if (pre != 10) 
+            return 1;
+        return 0;
     }
     if (dp[len][pre][free] != -1) {
         return dp[len][pre][free];
@@ -43,8 +48,10 @@ int f(int num, int offset, int len, int pre, int free) {
                 ans += f(num, offset / 10, len - 1, i, 1);
                 //添上的数比当前的数字小
             }
-            ans += f(num, offset / 10, len - 1, cur, 0);
             //添上的数等于当前的数字
+            if(cur!=0){
+                ans += f(num, offset / 10, len - 1, cur, 0);
+            }
         } else {
             // 之前的位和num一样，此时不能随意选择数字，
             // 之前选择过数字pre
@@ -83,10 +90,10 @@ int f(int num, int offset, int len, int pre, int free) {
     return ans;
 }
 
-
 int cnt(int num){
+    //这里是关键  如果认为0当做合法的数字  那么上面就不需要判断
     if(num==0){
-        return 1;
+        return 0;
     }
     int len = 1;
     int offset = 1;
@@ -101,7 +108,7 @@ int cnt(int num){
     return f(num,offset,len,10, 0);
 }
 
-int main()
+signed main()
 {
     cin>>a>>b;
     cout<<cnt(b)-cnt(a-1)<<endl;
