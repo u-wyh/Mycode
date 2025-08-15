@@ -9,15 +9,8 @@
 // 测试链接 : https://www.luogu.com.cn/problem/P5854
 // 如下实现是C++的版本，C++版本和java版本逻辑完全一样
 // 提交如下代码，可以通过所有测试用例
-#include <iostream>
-#include <vector>
-#include <stack>
-#include <cstdio>
-
-#define LL long long
-
+#include <bits/stdc++.h>
 using namespace std;
-
 const int MAXN = 10000001;
 
 int arr[MAXN];
@@ -28,22 +21,28 @@ int n;
 
 //如果没有变小的数字  那么建树就是一直往右边节点建立
 //也不会有节点从栈中弹出
+//利用单调栈建立笛卡尔树
 void build() {
     int top = 0;
     for (int i = 1; i <= n; i++) {
         int pos = top;
+
         while (pos > 0 && arr[sta[pos]] > arr[i]) {
             //单调栈  弹出不符合的元素
             pos--;
         }
+
+        // 插入一个元素 它是连接在哪个节点的右孩子上的   哪些节点连接到它的左孩子
         if (pos > 0) {
             //那么就是没有弹干净   那么当前节点就会成为栈顶节点的右孩子
             rs[sta[pos]] = i;
         }
+
         if (pos < top) {
             //表示有元素弹出 那么一定是当前节点的左孩子节点
             ls[i] = sta[pos + 1];
         }
+
         sta[++pos] = i;//加入栈中
         top = pos;
     }

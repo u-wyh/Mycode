@@ -11,11 +11,14 @@
 // 测试链接 : https://www.luogu.com.cn/problem/P3369
 // 如下实现是C++的版本，C++版本和java版本逻辑完全一样
 // 提交如下代码，可以通过所有测试用例
+// 旋转使"重要节点"（高优先级）靠近根部，形成自然平衡  高优先级越接近根部  
+// 那么插入元素的时候  比目前根优先级大的概率实际上不大了  也就是类似于按照他们的key值分流左右
+// 从而保证了类似于完全二叉树
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 100001;
 
-//treap树按照随机生成的节点权值组织堆结构  不是按照子树大小
+//treap树按照随机生成的节点权值组织堆结构  不是按照子树大小或者层高
 int cnt = 0;
 int head = 0;
 int key[MAXN];//按照搜索二叉树组织
@@ -23,12 +26,13 @@ int key_count[MAXN];
 int ls[MAXN];
 int rs[MAXN];
 int sz[MAXN];
-double priority[MAXN];//按照堆组织
+double priority[MAXN];//按照堆组织  随机生成
 
 void up(int i) {
     sz[i] = sz[ls[i]] + sz[rs[i]] + key_count[i];
 }
 
+// 只会在删除元素的时候使用左右旋  而且使用起来也很简单  不想avl树那样恶心
 int leftRotate(int i) {
     int r = rs[i];
     rs[i] = ls[r];
@@ -153,6 +157,7 @@ int remove(int i, int num) {
             } else if (ls[i] == 0 && rs[i] != 0) {
                 i = rs[i];
             } else {
+                // 选择一个优先级大的孩子顶替上来 自己旋转下去
                 if (priority[ls[i]] >= priority[rs[i]]) {
                     i = rightRotate(i);//将原来的头结点下调一层  在右孩子树上删除它
                     rs[i] = remove(rs[i], num);

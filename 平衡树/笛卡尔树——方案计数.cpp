@@ -9,19 +9,16 @@
 // 测试链接 : https://www.luogu.com.cn/problem/CF1748E
 // 测试链接 : https://codeforces.com/problemset/problem/1748/E
 // 提交以下的code，提交时请把类名改成"Main"，可以通过所有测试用例
-#include <iostream>
-#include <vector>
-#include <algorithm>
-
+// 这道题需要借助笛卡尔树辅助思路
+#include <bits/stdc++.h>
 using namespace std;
-
 const int MOD = 1000000007;
 const int MAXN = 1000001;
 
 int arr[MAXN];
 int ls[MAXN];
 int rs[MAXN];
-int stack[MAXN];
+int st[MAXN];
 long long tmp[MAXN];
 int n, m;
 
@@ -29,16 +26,17 @@ void build() {
     int top = 0, pos;
     for (int i = 1; i <= n; i++) {
         pos = top;
-        while (pos > 0 && arr[stack[pos]] < arr[i]) {
+        while (pos > 0 && arr[st[pos]] < arr[i]) {
+            // 这道题可以接受相等压相等
             pos--;
         }
         if (pos > 0) {
-            rs[stack[pos]] = i;
+            rs[st[pos]] = i;
         }
         if (pos < top) {
-            ls[i] = stack[pos + 1];
+            ls[i] = st[pos + 1];
         }
-        stack[++pos] = i;
+        st[++pos] = i;
         top = pos;
     }
 }
@@ -68,9 +66,9 @@ long long compute() {
     for (int j = 0; j <= m; j++) {
         dp[0][j] = 1; // 没有节点时，默认有1种形态
     }
-    dfs(stack[1], dp);
+    dfs(st[1], dp);
     clear();
-    return dp[stack[1]][m];
+    return dp[st[1]][m];
 }
 
 int main() {
