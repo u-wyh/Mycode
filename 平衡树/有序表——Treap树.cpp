@@ -1,36 +1,32 @@
-// TreapÊ÷µÄÊµÏÖ(C++°æ)
-// ÊµÏÖÒ»ÖÖ½á¹¹£¬Ö§³ÖÈçÏÂ²Ù×÷£¬ÒªÇóµ¥´Îµ÷ÓÃµÄÊ±¼ä¸´ÔÓ¶ÈO(log n)
-// 1£¬Ôö¼Óx£¬ÖØ¸´¼ÓÈëËã¶à¸ö´ÊÆµ
-// 2£¬É¾³ıx£¬Èç¹ûÓĞ¶à¸ö£¬Ö»É¾µôÒ»¸ö
-// 3£¬²éÑ¯xµÄÅÅÃû£¬xµÄÅÅÃûÎª£¬±ÈxĞ¡µÄÊıµÄ¸öÊı+1
-// 4£¬²éÑ¯Êı¾İÖĞÅÅÃûÎªxµÄÊı
-// 5£¬²éÑ¯xµÄÇ°Çı£¬xµÄÇ°ÇıÎª£¬Ğ¡ÓÚxµÄÊıÖĞ×î´óµÄÊı£¬²»´æÔÚ·µ»ØÕûÊı×îĞ¡Öµ
-// 6£¬²éÑ¯xµÄºó¼Ì£¬xµÄºó¼ÌÎª£¬´óÓÚxµÄÊıÖĞ×îĞ¡µÄÊı£¬²»´æÔÚ·µ»ØÕûÊı×î´óÖµ
-// ËùÓĞ²Ù×÷µÄ´ÎÊı <= 10^5
+// Treapæ ‘çš„å®ç°(C++ç‰ˆ)
+// å®ç°ä¸€ç§ç»“æ„ï¼Œæ”¯æŒå¦‚ä¸‹æ“ä½œï¼Œè¦æ±‚å•æ¬¡è°ƒç”¨çš„æ—¶é—´å¤æ‚åº¦O(log n)
+// 1ï¼Œå¢åŠ xï¼Œé‡å¤åŠ å…¥ç®—å¤šä¸ªè¯é¢‘
+// 2ï¼Œåˆ é™¤xï¼Œå¦‚æœæœ‰å¤šä¸ªï¼Œåªåˆ æ‰ä¸€ä¸ª
+// 3ï¼ŒæŸ¥è¯¢xçš„æ’åï¼Œxçš„æ’åä¸ºï¼Œæ¯”xå°çš„æ•°çš„ä¸ªæ•°+1
+// 4ï¼ŒæŸ¥è¯¢æ•°æ®ä¸­æ’åä¸ºxçš„æ•°
+// 5ï¼ŒæŸ¥è¯¢xçš„å‰é©±ï¼Œxçš„å‰é©±ä¸ºï¼Œå°äºxçš„æ•°ä¸­æœ€å¤§çš„æ•°ï¼Œä¸å­˜åœ¨è¿”å›æ•´æ•°æœ€å°å€¼
+// 6ï¼ŒæŸ¥è¯¢xçš„åç»§ï¼Œxçš„åç»§ä¸ºï¼Œå¤§äºxçš„æ•°ä¸­æœ€å°çš„æ•°ï¼Œä¸å­˜åœ¨è¿”å›æ•´æ•°æœ€å¤§å€¼
+// æ‰€æœ‰æ“ä½œçš„æ¬¡æ•° <= 10^5
 // -10^7 <= x <= +10^7
-// ²âÊÔÁ´½Ó : https://www.luogu.com.cn/problem/P3369
-// ÈçÏÂÊµÏÖÊÇC++µÄ°æ±¾£¬C++°æ±¾ºÍjava°æ±¾Âß¼­ÍêÈ«Ò»Ñù
-// Ìá½»ÈçÏÂ´úÂë£¬¿ÉÒÔÍ¨¹ıËùÓĞ²âÊÔÓÃÀı
-#include <iostream>
-#include <algorithm>
-#include <cstring>
-#include <random>
-#include <climits>
+// æµ‹è¯•é“¾æ¥ : https://www.luogu.com.cn/problem/P3369
+// å¦‚ä¸‹å®ç°æ˜¯C++çš„ç‰ˆæœ¬ï¼ŒC++ç‰ˆæœ¬å’Œjavaç‰ˆæœ¬é€»è¾‘å®Œå…¨ä¸€æ ·
+// æäº¤å¦‚ä¸‹ä»£ç ï¼Œå¯ä»¥é€šè¿‡æ‰€æœ‰æµ‹è¯•ç”¨ä¾‹
+#include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 100001;
 
-//treapÊ÷°´ÕÕËæ»úÉú³ÉµÄ½ÚµãÈ¨Öµ×éÖ¯¶Ñ½á¹¹  ²»ÊÇ°´ÕÕ×ÓÊ÷´óĞ¡
+//treapæ ‘æŒ‰ç…§éšæœºç”Ÿæˆçš„èŠ‚ç‚¹æƒå€¼ç»„ç»‡å †ç»“æ„  ä¸æ˜¯æŒ‰ç…§å­æ ‘å¤§å°
 int cnt = 0;
 int head = 0;
-int key[MAXN];//°´ÕÕËÑË÷¶ş²æÊ÷×éÖ¯
+int key[MAXN];//æŒ‰ç…§æœç´¢äºŒå‰æ ‘ç»„ç»‡
 int key_count[MAXN];
 int ls[MAXN];
 int rs[MAXN];
-int size[MAXN];
-double priority[MAXN];//°´ÕÕ¶Ñ×éÖ¯
+int sz[MAXN];
+double priority[MAXN];//æŒ‰ç…§å †ç»„ç»‡
 
 void up(int i) {
-    size[i] = size[ls[i]] + size[rs[i]] + key_count[i];
+    sz[i] = sz[ls[i]] + sz[rs[i]] + key_count[i];
 }
 
 int leftRotate(int i) {
@@ -54,7 +50,7 @@ int rightRotate(int i) {
 int add(int i, int num) {
     if (i == 0) {
         key[++cnt] = num;
-        key_count[cnt] = size[cnt] = 1;
+        key_count[cnt] = sz[cnt] = 1;
         priority[cnt] = static_cast<double>(rand()) / RAND_MAX;
         return cnt;
     }
@@ -66,7 +62,7 @@ int add(int i, int num) {
         rs[i] = add(rs[i], num);
     }
     up(i);
-    //Èç¹û½ÚµãµÄÈ¨Öµ²»¶Ô  ÄÇÃ´¾Í¿ªÊ¼µ÷Õû
+    //å¦‚æœèŠ‚ç‚¹çš„æƒå€¼ä¸å¯¹  é‚£ä¹ˆå°±å¼€å§‹è°ƒæ•´
     if (ls[i] != 0 && priority[ls[i]] > priority[i]) {
         return rightRotate(i);
     }
@@ -80,7 +76,7 @@ void add(int num) {
     head = add(head, num);
 }
 
-//²éÑ¯ÒÔiÎªÊ×µÄ×ÓÊ÷ÉÏÓĞ¶àÉÙ¸öÊı×ÖĞ¡ÓÚnum
+//æŸ¥è¯¢ä»¥iä¸ºé¦–çš„å­æ ‘ä¸Šæœ‰å¤šå°‘ä¸ªæ•°å­—å°äºnum
 int small(int i, int num) {
     if (i == 0) {
         return 0;
@@ -88,7 +84,7 @@ int small(int i, int num) {
     if (key[i] >= num) {
         return small(ls[i], num);
     } else {
-        return size[ls[i]] + key_count[i] + small(rs[i], num);
+        return sz[ls[i]] + key_count[i] + small(rs[i], num);
     }
 }
 
@@ -96,17 +92,17 @@ int getRank(int num) {
     return small(head, num) + 1;
 }
 
-//²éÑ¯ÒÔiÎªÊ×µÄ×ÓÊ÷ÉÏÅÅÃûÎªxµÄÊı×ÖÊÇ¶àÉÙ
+//æŸ¥è¯¢ä»¥iä¸ºé¦–çš„å­æ ‘ä¸Šæ’åä¸ºxçš„æ•°å­—æ˜¯å¤šå°‘
 int index(int i, int x) {
-    if (size[ls[i]] >= x) {
+    if (sz[ls[i]] >= x) {
         return index(ls[i], x);
-    } else if (size[ls[i]] + key_count[i] < x) {
-        return index(rs[i], x - size[ls[i]] - key_count[i]);
+    } else if (sz[ls[i]] + key_count[i] < x) {
+        return index(rs[i], x - sz[ls[i]] - key_count[i]);
     }
     return key[i];
 }
 
-//²éÑ¯ÅÅÃûÎªxµÄÊı×ÖÊÇ¶àÉÙ
+//æŸ¥è¯¢æ’åä¸ºxçš„æ•°å­—æ˜¯å¤šå°‘
 int index(int x) {
     return index(head, x);
 }
@@ -158,7 +154,7 @@ int remove(int i, int num) {
                 i = rs[i];
             } else {
                 if (priority[ls[i]] >= priority[rs[i]]) {
-                    i = rightRotate(i);//½«Ô­À´µÄÍ·½áµãÏÂµ÷Ò»²ã  ÔÚÓÒº¢×ÓÊ÷ÉÏÉ¾³ıËü
+                    i = rightRotate(i);//å°†åŸæ¥çš„å¤´ç»“ç‚¹ä¸‹è°ƒä¸€å±‚  åœ¨å³å­©å­æ ‘ä¸Šåˆ é™¤å®ƒ
                     rs[i] = remove(rs[i], num);
                 } else {
                     i = leftRotate(i);
@@ -182,7 +178,7 @@ void clear() {
     fill(key_count + 1, key_count + cnt + 1, 0);
     fill(ls + 1, ls + cnt + 1, 0);
     fill(rs + 1, rs + cnt + 1, 0);
-    fill(size + 1, size + cnt + 1, 0);
+    fill(sz + 1, sz + cnt + 1, 0);
     fill(priority + 1, priority + cnt + 1, 0);
     cnt = 0;
     head = 0;

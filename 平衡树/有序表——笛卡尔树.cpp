@@ -1,14 +1,14 @@
-// �ѿ�����ģ��(C++��)
-// ����һ������Ϊn������arr���±��1��ʼ
-// ����һ�ö��������±갴��������������֯��ֵ����С������֯
-// �����Ĺ���Ҫ��ʱ�临�Ӷ�O(n)
-// ����֮��Ϊ����֤
-// ��ӡ��i * (left[i] + 1)��������Ϣ���������ֵ
-// ��ӡ��i * (right[i] + 1)��������Ϣ���������ֵ
+// 笛卡尔树模版(C++版)
+// 给定一个长度为n的数组arr，下标从1开始
+// 构建一棵二叉树，下标按照搜索二叉树组织，值按照小根堆组织
+// 建树的过程要求时间复杂度O(n)
+// 建树之后，为了验证
+// 打印，i * (left[i] + 1)，所有信息异或起来的值
+// 打印，i * (right[i] + 1)，所有信息异或起来的值
 // 1 <= n <= 10^7
-// �������� : https://www.luogu.com.cn/problem/P5854
-// ����ʵ����C++�İ汾��C++�汾��java�汾�߼���ȫһ��
-// �ύ���´��룬����ͨ�����в�������
+// 测试链接 : https://www.luogu.com.cn/problem/P5854
+// 如下实现是C++的版本，C++版本和java版本逻辑完全一样
+// 提交如下代码，可以通过所有测试用例
 #include <iostream>
 #include <vector>
 #include <stack>
@@ -26,25 +26,25 @@ int rs[MAXN];
 int sta[MAXN];
 int n;
 
-//���û�б�С������  ��ô��������һֱ���ұ߽ڵ㽨��
-//Ҳ�����нڵ��ջ�е���
+//如果没有变小的数字  那么建树就是一直往右边节点建立
+//也不会有节点从栈中弹出
 void build() {
     int top = 0;
     for (int i = 1; i <= n; i++) {
         int pos = top;
         while (pos > 0 && arr[sta[pos]] > arr[i]) {
-            //����ջ  ���������ϵ�Ԫ��
+            //单调栈  弹出不符合的元素
             pos--;
         }
         if (pos > 0) {
-            //��ô����û�е��ɾ�   ��ô��ǰ�ڵ�ͻ��Ϊջ���ڵ���Һ���
+            //那么就是没有弹干净   那么当前节点就会成为栈顶节点的右孩子
             rs[sta[pos]] = i;
         }
         if (pos < top) {
-            //��ʾ��Ԫ�ص��� ��ôһ���ǵ�ǰ�ڵ�����ӽڵ�
+            //表示有元素弹出 那么一定是当前节点的左孩子节点
             ls[i] = sta[pos + 1];
         }
-        sta[++pos] = i;//����ջ��
+        sta[++pos] = i;//加入栈中
         top = pos;
     }
 }

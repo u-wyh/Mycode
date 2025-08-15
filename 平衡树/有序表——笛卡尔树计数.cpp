@@ -1,14 +1,14 @@
-// ÐòÁÐ¼ÆÊý
-// ÓÐÒ»¸ö¸ÅÄî½Ð£¬×î×ó¶Ë×î´óÖµÎ»ÖÃ£¬±íÊ¾Ò»¶Î·¶Î§ÉÏ
-// Èç¹û×î´óÖµÓÐÒ»¸ö£¬ÄÇÃ´×î´óÖµËùÔÚµÄÎ»ÖÃ£¬¾ÍÊÇ×î×ó¶Ë×î´óÖµÎ»ÖÃ
-// Èç¹û×î´óÖµÓÐ¶à¸ö£¬×î×óµÄÄÇ¸öËùÔÚµÄÎ»ÖÃ£¬¾ÍÊÇ×î×ó¶Ë×î´óÖµÎ»ÖÃ
-// ¸ø¶¨Ò»¸ö³¤¶ÈÎªnµÄÊý×éA£¬ÄÇÃ´±ØÈ»´æÔÚµÈ³¤µÄÊý×éB£¬µ±Ñ¡ÔñÍ¬ÑùµÄ×Ó·¶Î§Ê±
-// Á½ÕßÔÚÕâ¶Î·¶Î§ÉÏ£¬×î×ó¶Ë×î´óÖµÎ»ÖÃÊÇÏàÍ¬µÄ£¬²»½ö´æÔÚÕâÑùµÄÊý×éB£¬¶øÇÒÊýÁ¿ÎÞÏÞ¶à
-// ÏÖÔÚÒªÇó£¬Êý×éBÖÐµÄÃ¿¸öÖµ¶¼ÔÚ[1,m]·¶Î§£¬·µ»ØÓÐ¶àÉÙ¸öÕâÑùµÄÊý×é£¬´ð°¸¶Ô 1000000007 È¡Ä£
-// 2 <= n¡¢m <= 2 * 10^5    1 <= A[i] <= m    n * m <= 10^6
-// ²âÊÔÁ´½Ó : https://www.luogu.com.cn/problem/CF1748E
-// ²âÊÔÁ´½Ó : https://codeforces.com/problemset/problem/1748/E
-// Ìá½»ÒÔÏÂµÄcode£¬Ìá½»Ê±Çë°ÑÀàÃû¸Ä³É"Main"£¬¿ÉÒÔÍ¨¹ýËùÓÐ²âÊÔÓÃÀý
+// åºåˆ—è®¡æ•°
+// æœ‰ä¸€ä¸ªæ¦‚å¿µå«ï¼Œæœ€å·¦ç«¯æœ€å¤§å€¼ä½ç½®ï¼Œè¡¨ç¤ºä¸€æ®µèŒƒå›´ä¸Š
+// å¦‚æžœæœ€å¤§å€¼æœ‰ä¸€ä¸ªï¼Œé‚£ä¹ˆæœ€å¤§å€¼æ‰€åœ¨çš„ä½ç½®ï¼Œå°±æ˜¯æœ€å·¦ç«¯æœ€å¤§å€¼ä½ç½®
+// å¦‚æžœæœ€å¤§å€¼æœ‰å¤šä¸ªï¼Œæœ€å·¦çš„é‚£ä¸ªæ‰€åœ¨çš„ä½ç½®ï¼Œå°±æ˜¯æœ€å·¦ç«¯æœ€å¤§å€¼ä½ç½®
+// ç»™å®šä¸€ä¸ªé•¿åº¦ä¸ºnçš„æ•°ç»„Aï¼Œé‚£ä¹ˆå¿…ç„¶å­˜åœ¨ç­‰é•¿çš„æ•°ç»„Bï¼Œå½“é€‰æ‹©åŒæ ·çš„å­èŒƒå›´æ—¶
+// ä¸¤è€…åœ¨è¿™æ®µèŒƒå›´ä¸Šï¼Œæœ€å·¦ç«¯æœ€å¤§å€¼ä½ç½®æ˜¯ç›¸åŒçš„ï¼Œä¸ä»…å­˜åœ¨è¿™æ ·çš„æ•°ç»„Bï¼Œè€Œä¸”æ•°é‡æ— é™å¤š
+// çŽ°åœ¨è¦æ±‚ï¼Œæ•°ç»„Bä¸­çš„æ¯ä¸ªå€¼éƒ½åœ¨[1,m]èŒƒå›´ï¼Œè¿”å›žæœ‰å¤šå°‘ä¸ªè¿™æ ·çš„æ•°ç»„ï¼Œç­”æ¡ˆå¯¹ 1000000007 å–æ¨¡
+// 2 <= nã€m <= 2 * 10^5    1 <= A[i] <= m    n * m <= 10^6
+// æµ‹è¯•é“¾æŽ¥ : https://www.luogu.com.cn/problem/CF1748E
+// æµ‹è¯•é“¾æŽ¥ : https://codeforces.com/problemset/problem/1748/E
+// æäº¤ä»¥ä¸‹çš„codeï¼Œæäº¤æ—¶è¯·æŠŠç±»åæ”¹æˆ"Main"ï¼Œå¯ä»¥é€šè¿‡æ‰€æœ‰æµ‹è¯•ç”¨ä¾‹
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -66,7 +66,7 @@ long long compute() {
     build();
     vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
     for (int j = 0; j <= m; j++) {
-        dp[0][j] = 1; // Ã»ÓÐ½ÚµãÊ±£¬Ä¬ÈÏÓÐ1ÖÖÐÎÌ¬
+        dp[0][j] = 1; // æ²¡æœ‰èŠ‚ç‚¹æ—¶ï¼Œé»˜è®¤æœ‰1ç§å½¢æ€
     }
     dfs(stack[1], dp);
     clear();

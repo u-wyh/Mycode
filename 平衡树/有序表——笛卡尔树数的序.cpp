@@ -1,10 +1,10 @@
-// Ê÷µÄÐò
-// ¸ø¶¨Ò»¸ö³¤¶ÈÎªnµÄÊý×éarr£¬±íÊ¾ÒÀ´Î²åÈëÊý×Ö£¬»áÐÎ³ÉÒ»¿ÃËÑË÷¶þ²æÊ÷
-// Ò²ÐíÍ¬ÑùµÄÒ»¸öÐòÁÐ£¬ÒÀ´Î²åÈëÊý×Öºó£¬Ò²ÄÜÐÎ³ÉÍ¬ÑùÐÎÌ¬µÄËÑË÷¶þ²æÊ÷
-// Çë·µ»Ø×ÖµäÐò¾¡Á¿Ð¡µÄ½á¹û
+// æ ‘çš„åº
+// ç»™å®šä¸€ä¸ªé•¿åº¦ä¸ºnçš„æ•°ç»„arrï¼Œè¡¨ç¤ºä¾æ¬¡æ’å…¥æ•°å­—ï¼Œä¼šå½¢æˆä¸€æ£µæœç´¢äºŒå‰æ ‘
+// ä¹Ÿè®¸åŒæ ·çš„ä¸€ä¸ªåºåˆ—ï¼Œä¾æ¬¡æ’å…¥æ•°å­—åŽï¼Œä¹Ÿèƒ½å½¢æˆåŒæ ·å½¢æ€çš„æœç´¢äºŒå‰æ ‘
+// è¯·è¿”å›žå­—å…¸åºå°½é‡å°çš„ç»“æžœ
 // 1 <= n <= 10^5
-// ²âÊÔÁ´½Ó : https://www.luogu.com.cn/problem/P1377
-// Ìá½»ÒÔÏÂµÄcode£¬Ìá½»Ê±Çë°ÑÀàÃû¸Ä³É"Main"£¬¿ÉÒÔÍ¨¹ýËùÓÐ²âÊÔÓÃÀý
+// æµ‹è¯•é“¾æŽ¥ : https://www.luogu.com.cn/problem/P1377
+// æäº¤ä»¥ä¸‹çš„codeï¼Œæäº¤æ—¶è¯·æŠŠç±»åæ”¹æˆ"Main"ï¼Œå¯ä»¥é€šè¿‡æ‰€æœ‰æµ‹è¯•ç”¨ä¾‹
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 1e5+5;
