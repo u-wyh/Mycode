@@ -16,14 +16,14 @@ int cnt = 0;
 int key[MAXN];
 int ls[MAXN];
 int rs[MAXN];
-int size[MAXN];
+int sz[MAXN];
 double priority[MAXN];
 bool rev[MAXN];//懒更新信息
 int ans[MAXN];
 int ansi;
 
 void up(int i) {
-    size[i] = size[ls[i]] + size[rs[i]] + 1;
+    sz[i] = sz[ls[i]] + sz[rs[i]] + 1;
 }
 
 //懒更新的下发
@@ -44,9 +44,9 @@ void split(int l, int r, int i, int rank) {
         rs[l] = ls[r] = 0;
     } else {
         down(i);
-        if (size[ls[i]] + 1 <= rank) {
+        if (sz[ls[i]] + 1 <= rank) {
             rs[l] = i;
-            split(i, r, rs[i], rank - size[ls[i]] - 1);
+            split(i, r, rs[i], rank - sz[ls[i]] - 1);
         } else {
             ls[r] = i;
             split(l, i, ls[i], rank);
@@ -89,7 +89,7 @@ int main() {
     cin >> n >> k;
     for (int i = 1; i <= n; i++) {
         key[++cnt] = i;
-        size[cnt] = 1;
+        sz[cnt] = 1;
         priority[cnt] = (double)rand() / RAND_MAX;
         head = merge(head, cnt);
     }

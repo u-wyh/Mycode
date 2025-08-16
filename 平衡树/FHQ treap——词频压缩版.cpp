@@ -16,8 +16,8 @@
 //为了保证程序的正确性 我们把遍历到的小于num的节点全都放在此时小于num的子树的右边  对于0节点 我们也保持这个习惯
 #include <bits/stdc++.h>
 using namespace std;
-
 const int MAXN = 100001;
+
 int head = 0;
 int cnt = 0;
 int key[MAXN];

@@ -1,9 +1,9 @@
-// FHQ-Treapʵ����ͨ����������ô�Ƶѹ�������ݼ�ǿ�Ĳ��ԣ�C++��
-// ����ļ�����û�н����������ݼ�ǿ�ˣ�������ǿ�����ߵ�Ҫ��
-// ��������Ҫ���ǲ���ģ����Դ򿪲������Ӳ鿴
-// �������� : https://www.luogu.com.cn/problem/P6136
-// ����ʵ����C++�İ汾��C++�汾��java�汾�߼���ȫһ��
-// �ύ���´��룬����ͨ�����в�������
+// FHQ-Treap实现普通有序表，不用词频压缩，数据加强的测试，C++版
+// 这个文件课上没有讲，测试数据加强了，而且有强制在线的要求
+// 基本功能要求都是不变的，可以打开测试链接查看
+// 测试链接 : https://www.luogu.com.cn/problem/P6136
+// 如下实现是C++的版本，C++版本和java版本逻辑完全一样
+// 提交如下代码，可以通过所有测试用例
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -13,11 +13,11 @@ int cnt = 0;
 int key[MAXN];
 int ls[MAXN];
 int rs[MAXN];
-int size[MAXN];
+int sz[MAXN];
 double priority[MAXN];
 
 void up(int i) {
-    size[i] = size[ls[i]] + size[rs[i]] + 1;
+    sz[i] = sz[ls[i]] + sz[rs[i]] + 1;
 }
 
 void split(int l, int r, int i, int num) {
@@ -53,7 +53,7 @@ int merge(int l, int r) {
 void add(int num) {
     split(0, 0, head, num);
     key[++cnt] = num;
-    size[cnt] = 1;
+    sz[cnt] = 1;
     priority[cnt] = (double)rand() / RAND_MAX;
     head = merge(merge(rs[0], cnt), ls[0]);
 }
@@ -70,16 +70,16 @@ void remove(int num) {
 
 int getRank(int num) {
     split(0, 0, head, num - 1);
-    int ans = size[rs[0]] + 1;
+    int ans = sz[rs[0]] + 1;
     head = merge(rs[0], ls[0]);
     return ans;
 }
 
 int index(int i, int x) {
-    if (size[ls[i]] >= x) {
+    if (sz[ls[i]] >= x) {
         return index(ls[i], x);
-    } else if (size[ls[i]] + 1 < x) {
-        return index(rs[i], x - size[ls[i]] - 1);
+    } else if (sz[ls[i]] + 1 < x) {
+        return index(rs[i], x - sz[ls[i]] - 1);
     } else {
         return key[i];
     }

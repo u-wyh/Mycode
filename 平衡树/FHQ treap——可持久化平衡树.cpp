@@ -1,31 +1,31 @@
-// �ɳ־û�ƽ������FHQ-Treapʵ�֣����ô�Ƶѹ����C++��
-// ��Ϊһ��ʼ��0�汾������Ϊ������ʵ�����²���������һ������n��
-// v 1 x : ����v�汾����������һ��x�������°汾����
-// v 2 x : ����v�汾������ɾ��һ��x�������°汾����
-// v 3 x : ����v�汾��������ѯx�������������°汾����״��=v�汾״��
-// v 4 x : ����v�汾��������ѯ����������Ϊx�����������°汾����״��=v�汾״��
-// v 5 x : ����v�汾��������ѯx��ǰ���������°汾����״��=v�汾״��
-// v 6 x : ����v�汾��������ѯx�ĺ�̣������°汾����״��=v�汾״��
-// ����ʲô������������ĳ��v�汾��������ɺ�õ��°汾��������v�汾����仯
-// ���x��ǰ�������ڣ�����-2^31 + 1�����x�ĺ�̲����ڣ�����+2^31 - 1
+// 可持久化平衡树，FHQ-Treap实现，不用词频压缩，C++版
+// 认为一开始是0版本的树，为空树，实现如下操作，操作一共发生n次
+// v 1 x : 基于v版本的树，增加一个x，生成新版本的树
+// v 2 x : 基于v版本的树，删除一个x，生成新版本的树
+// v 3 x : 基于v版本的树，查询x的排名，生成新版本的树状况=v版本状况
+// v 4 x : 基于v版本的树，查询数据中排名为x的数，生成新版本的树状况=v版本状况
+// v 5 x : 基于v版本的树，查询x的前驱，生成新版本的树状况=v版本状况
+// v 6 x : 基于v版本的树，查询x的后继，生成新版本的树状况=v版本状况
+// 不管什么操作，都基于某个v版本，操作完成后得到新版本的树，但v版本不会变化
+// 如果x的前驱不存在，返回-2^31 + 1，如果x的后继不存在，返回+2^31 - 1
 // 1 <= n <= 5 * 10^5
 // -10^9 <= x <= +10^9
-// �������� : https://www.luogu.com.cn/problem/P3835
-// ����ʵ����C++�İ汾��C++�汾��java�汾�߼���ȫһ��
-// �ύ���´��룬����ͨ�����в�������
-//ÿ�ν����� Ҫ��ls[0]=rs[0]=0  ��Ϊ�е���Ŀ���ܻ�Ҫ��0�汾�ǿ���
-//�����еĲ���ֱ������0�汾�����Ͻ���
+// 测试链接 : https://www.luogu.com.cn/problem/P3835
+// 如下实现是C++的版本，C++版本和java版本逻辑完全一样
+// 提交如下代码，可以通过所有测试用例
+//每次结束后 要把ls[0]=rs[0]=0  因为有的题目可能会要求0版本是空树
+//并且有的操作直接是在0版本基础上进行
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 500001;
-const int MAXM = MAXN * 50;//�����������Ҫ��100��
+const int MAXM = MAXN * 50;//正常情况下是要开100倍
 
 int cnt = 0;
-int head[MAXN];//���ڼ�¼ÿһ���汾��ͷ�����ʲô
+int head[MAXN];//用于记录每一个版本的头结点是什么
 int key[MAXM];
 int ls[MAXM];
 int rs[MAXM];
-int size[MAXM];
+int sz[MAXM];
 double priority[MAXM];
 
 int copy(int i) {
@@ -33,20 +33,20 @@ int copy(int i) {
     key[cnt] = key[i];
     ls[cnt] = ls[i];
     rs[cnt] = rs[i];
-    size[cnt] = size[i];
+    sz[cnt] = sz[i];
     priority[cnt] = priority[i];
     return cnt;
 }
 
 void up(int i) {
-    size[i] = size[ls[i]] + size[rs[i]] + 1;
+    sz[i] = sz[ls[i]] + sz[rs[i]] + 1;
 }
 
 void split(int l, int r, int i, int num) {
     if (i == 0) {
         rs[l] = ls[r] = 0;
     } else {
-        i = copy(i);//ÿ�ο�ʼʱ��Ҫ�½�һ���ڵ�
+        i = copy(i);//每次开始时都要新建一个节点
         if (key[i] <= num) {
             rs[l] = i;
             split(i, r, rs[i], num);
@@ -63,6 +63,7 @@ int merge(int l, int r) {
         return l + r;
     }
     if (priority[l] >= priority[r]) {
+        // 只有真实被用到的才会被拷贝
         l = copy(l);
         rs[l] = merge(rs[l], r);
         up(l);
@@ -79,13 +80,14 @@ void add(int v, int i, int num) {
     split(0, 0, i, num);
     int l = rs[0];
     int r = ls[0];
-    ls[0] = rs[0] = 0;//ÿ����merge֮ǰҪ��� ���������
+    //每次在merge之前要清空 解决脏数据 普通的fhq不需要  因为这里的0不仅仅是0号节点  他也可以代表0版本的头结点
+    ls[0] = rs[0] = 0;
     ++cnt;
     key[cnt] = num;
-    size[cnt] = 1;
+    sz[cnt] = 1;
     priority[cnt] = (double)rand() / RAND_MAX;
-    //Ϊ�½��Ľڵ���
-    head[v] = merge(merge(l, cnt), r);//��¼�ð汾��ͷ���
+    //为新建的节点编号
+    head[v] = merge(merge(l, cnt), r);//记录该版本的头结点
 
 }
 
@@ -96,8 +98,8 @@ void remove(int v, int i, int num) {
     split(0, 0, lm, num - 1);
     int l = rs[0];
     int m = ls[0];
-    ls[0] = rs[0] = 0;//ÿ��Ҫ��� ���������
-    head[v] = merge(merge(l, merge(ls[m], rs[m])), r);//��¼�ð汾��ͷ���
+    ls[0] = rs[0] = 0;//每次要清空 解决脏数据
+    head[v] = merge(merge(l, merge(ls[m], rs[m])), r);//记录该版本的头结点
 }
 
 int small(int i, int num) {
@@ -107,15 +109,15 @@ int small(int i, int num) {
     if (key[i] >= num) {
         return small(ls[i], num);
     } else {
-        return size[ls[i]] + 1 + small(rs[i], num);
+        return sz[ls[i]] + 1 + small(rs[i], num);
     }
 }
 
 int index(int i, int x) {
-    if (size[ls[i]] >= x) {
+    if (sz[ls[i]] >= x) {
         return index(ls[i], x);
-    } else if (size[ls[i]] + 1 < x) {
-        return index(rs[i], x - size[ls[i]] - 1);
+    } else if (sz[ls[i]] + 1 < x) {
+        return index(rs[i], x - sz[ls[i]] - 1);
     } else {
         return key[i];
     }
@@ -157,8 +159,8 @@ int main() {
         } else if (op == 2) {
             remove(i, head[version], x);
         } else {
-            //���²������ǲ�ѯ����  ����ı����ݽṹ
-            //���ǻ���Ҫ��¼һ��ͷ���ı��
+            //以下操作都是查询操作  不会改变数据结构
+            //但是还是要记录一下头结点的编号
             head[i] = head[version];
             if (op == 3) {
                 cout << small(head[i], x) + 1 << "\n";

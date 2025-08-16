@@ -10,6 +10,7 @@
 // 测试链接 : https://www.luogu.com.cn/problem/P4008
 // 如下实现是C++的版本，C++版本和java版本逻辑完全一样
 // 提交如下代码，可以通过所有测试用例
+// 这道题是按照排名分裂树
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 2000001;
@@ -19,13 +20,13 @@ int cnt = 0;
 char key[MAXN];
 int ls[MAXN];
 int rs[MAXN];
-int size[MAXN];
+int sz[MAXN];
 double priority[MAXN];
 char ans[MAXN];
 int ansi;
 
 void up(int i) {
-    size[i] = size[ls[i]] + size[rs[i]] + 1;
+    sz[i] = sz[ls[i]] + sz[rs[i]] + 1;
 }
 
 //其他的题都是按照大小  而这道题是按照位置
@@ -34,9 +35,9 @@ void split(int l, int r, int i, int rank) {
     if (i == 0) {
         rs[l] = ls[r] = 0;
     } else {
-        if (size[ls[i]] + 1 <= rank) {
+        if (sz[ls[i]] + 1 <= rank) {
             rs[l] = i;
-            split(i, r, rs[i], rank - size[ls[i]] - 1);
+            split(i, r, rs[i], rank - sz[ls[i]] - 1);
         } else {
             ls[r] = i;
             split(l, i, ls[i], rank);
@@ -95,7 +96,7 @@ int main() {
                     ch = getchar();
                 }
                 key[++cnt] = ch;
-                size[cnt] = 1;
+                sz[cnt] = 1;
                 priority[cnt] = (double)rand() / RAND_MAX;
                 l = merge(l, cnt);
             }

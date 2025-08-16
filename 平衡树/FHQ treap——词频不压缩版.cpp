@@ -11,7 +11,7 @@
 // 测试链接 : https://www.luogu.com.cn/problem/P3369
 // 如下实现是C++的版本，C++版本和java版本逻辑完全一样
 // 提交如下代码，可以通过所有测试用例
-//词频不压缩的一个巨大优势是在删除和加入节点时非常方便
+//词频不压缩的一个巨大优势是在删除和加入节点时非常方便  这也是fhq最常用的方法
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -34,6 +34,7 @@ void up(int i) {
 //分裂过程中左右树的头结点其实并不重要  重要的是当前来到的节点
 void split(int l, int r, int i, int num) {
     if (i == 0) {
+        // 来到了空节点  说明分裂结束
         rs[l] = ls[r] = 0;
     } else {
         if (key[i] <= num) {
@@ -47,8 +48,10 @@ void split(int l, int r, int i, int num) {
     }
 }
 
+// 合并的时候按照优先级组织  维持整体的平衡性
 int merge(int l, int r) {
     if (l == 0 || r == 0) {
+        // 遇到了空树  直接结束
         return l + r;
     }
     if (priority[l] >= priority[r]) {
