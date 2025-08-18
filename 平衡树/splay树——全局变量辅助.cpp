@@ -1,17 +1,17 @@
-// ���Ƶĳ���Ա(C++��)
-// ���нˮΪlimit��һ��Ա��нˮ����limit��Ա������ְ��ʵ���������ֲ���
-// I x : ����Ա����ʼнˮ��x�����x����limit����Ա��������ְ��ȻҲ������ְ
-// A x : ����Ա����нˮ������x
-// S x : ����Ա����нˮ����ȥx��һ����Ա������limit��ô�ͻ���ְ
-// F x : ��ѯ��x��Ĺ��ʣ����x���ڵ�ǰԱ����������ӡ-1
-// ���в�����ɺ󣬴�ӡ�ж���Ա���ڲ����ڼ��뿪�˹�˾
-// �������� : https://www.luogu.com.cn/problem/P1486
-// ����ʵ����C++�İ汾��C++�汾��java�汾�߼���ȫһ��
-// �ύ���´��룬����ͨ�����в�������
-//������ر�ĵط�����һ��ȫ�ֱ���change����������
-//ÿһ��Ա�������ʱ���ȥchange��ά����ȷ
-//������ְ�����ǽ����߼���change �����ҵ�С�������׼�����ֵ �����ᵽ����
-//Ȼ���������ȫ��ɾ��������
+// 郁闷的出纳员(C++版)
+// 最低薪水为limit，一旦员工薪水低于limit，员工会离职，实现如下四种操作
+// I x : 新来员工初始薪水是x，如果x低于limit，该员工不会入职当然也不算离职
+// A x : 所有员工的薪水都加上x
+// S x : 所有员工的薪水都减去x，一旦有员工低于limit那么就会离职
+// F x : 查询第x多的工资，如果x大于当前员工数量，打印-1
+// 所有操作完成后，打印有多少员工在操作期间离开了公司
+// 测试链接 : https://www.luogu.com.cn/problem/P1486
+// 如下实现是C++的版本，C++版本和java版本逻辑完全一样
+// 提交如下代码，可以通过所有测试用例
+//这道题特别的地方是有一个全局变量change来辅助运算
+//每一个员工进入的时候减去change等维持正确
+//计算离职操作是将底线加上change 我们找到小于这个标准的最大值 把它提到树根
+//然后把左子树全部删掉就行了
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 300001;
@@ -22,13 +22,13 @@ int key[MAXN];
 int fa[MAXN];
 int ls[MAXN];
 int rs[MAXN];
-int size[MAXN];
+int sz[MAXN];
 int limit;
-int change = 0;//ȫ�ֱ��� ��¼Ӱ��
+int change = 0;//全局变量 记录影响
 int enter = 0;
 
 void up(int i) {
-    size[i] = size[ls[i]] + size[rs[i]] + 1;
+    sz[i] = sz[ls[i]] + sz[rs[i]] + 1;
 }
 
 int lr(int i) {
@@ -84,7 +84,7 @@ void splay(int i, int goal) {
 
 void add(int num) {
     key[++cnt] = num;
-    size[cnt] = 1;
+    sz[cnt] = 1;
     if (head == 0) {
         head = cnt;
     } else {
@@ -113,10 +113,10 @@ int index(int x) {
     int i = head, last = head;
     while (i != 0) {
         last = i;
-        if (size[ls[i]] >= x) {
+        if (sz[ls[i]] >= x) {
             i = ls[i];
-        } else if (size[ls[i]] + 1 < x) {
-            x -= size[ls[i]] + 1;
+        } else if (sz[ls[i]] + 1 < x) {
+            x -= sz[ls[i]] + 1;
             i = rs[i];
         } else {
             i = 0;
@@ -130,6 +130,7 @@ void departure() {
     int num = limit - change - 1;
     int i = head, ans = 0;
     while (i != 0) {
+        // ans要记录最后一个达标的 将这个节点设置为头结点
         if (key[i] > num) {
             ans = i;
             i = ls[i];
@@ -138,7 +139,7 @@ void departure() {
         }
     }
     if (ans == 0) {
-        //˵��û���˵����׼ ȫ����ְ
+        //说明没有人到达标准 全部离职
         head = 0;
     } else {
         splay(ans, 0);
@@ -166,13 +167,13 @@ int main() {
             change -= x;
             departure();
         } else if (op == 'F') {
-            if (x > size[head]) {
+            if (x > sz[head]) {
                 cout << -1 << endl;
             } else {
-                cout << index(size[head] - x + 1) + change << endl;
+                cout << index(sz[head] - x + 1) + change << endl;
             }
         }
     }
-    cout << enter - size[head] << endl;
+    cout << enter - sz[head] << endl;
     return 0;
 }

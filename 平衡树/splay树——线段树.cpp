@@ -1,19 +1,19 @@
-// ά������(C++��)
-// ��ʼʱ����һ�����У�ʵ���������ֲ���
-// INSERT posi tot ...  : �ڵ�posi������֮�󣬲��볤��Ϊtot�����飬��...����
-// DELETE posi tot      : �ӵ�posi�����ֿ�ʼ��ɾ������Ϊtot�Ĳ���
-// MAKE-SAME posi tot c : �ӵ�posi�����ֿ�ʼ������Ϊtot�Ĳ��֣�ֵ�����ó�c
-// REVERSE posi tot     : �ӵ�posi�����ֿ�ʼ����ת����Ϊtot�Ĳ���
-// GET-SUM posi tot     : �ӵ�posi�����ֿ�ʼ����ѯ����Ϊtot�Ĳ��ֵ��ۼӺ�
-// MAX-SUM              : ��ѯ���������У��ǿ������������ۼӺ�
-// �κ�ʱ�����뱣֤������һ�������������У��������в������Ϸ�
-// �������������ܶ࣬�����κ�ʱ�������������5 * 10^5������ʹ���ܿռ�Ҫ�͸������й�
-// �������� : https://www.luogu.com.cn/problem/P2042
-// ����ʵ����C++�İ汾��C++�汾��java�汾�߼���ȫһ��
-// �ύ���´��룬����ͨ�����в�������
-//��������ѵĲ�������MAX-SUM  �����Ҫ�߶���ȥά��
-//���Ҽ�ʹ���߶���  ���Ҳ���Ǻܺ�ά������Ϣ  ��Ҫά��ÿ���ڵ��pre suf all
-//Ȼ����ʵҲ�����ر���
+// 维护数列(C++版)
+// 初始时给定一个数列，实现如下六种操作
+// INSERT posi tot ...  : 在第posi个数字之后，插入长度为tot的数组，由...代表
+// DELETE posi tot      : 从第posi个数字开始，删除长度为tot的部分
+// MAKE-SAME posi tot c : 从第posi个数字开始，长度为tot的部分，值都设置成c
+// REVERSE posi tot     : 从第posi个数字开始，翻转长度为tot的部分
+// GET-SUM posi tot     : 从第posi个数字开始，查询长度为tot的部分的累加和
+// MAX-SUM              : 查询整个数列中，非空子数组的最大累加和
+// 任何时刻输入保证至少有一个数字在数列中，并且所有操作都合法
+// 插入数字总数很多，但是任何时刻数列中最多有5 * 10^5个数，使用总空间要和该数量有关
+// 测试链接 : https://www.luogu.com.cn/problem/P2042
+// 如下实现是C++的版本，C++版本和java版本逻辑完全一样
+// 提交如下代码，可以通过所有测试用例
+//这道题最难的操作就是MAX-SUM  这个需要线段树去维护
+//并且即使是线段树  这个也不是很好维护的信息  需要维护每个节点的pre suf all
+//然后其实也不是特别难
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 500005;
@@ -25,27 +25,27 @@ int num[MAXN];
 int fa[MAXN];
 int ls[MAXN];
 int rs[MAXN];
-int size[MAXN];
-// ����������ÿռ���  ��Ϊ�ռ�����
+int sz[MAXN];
+// 这个数组里拿空间编号  因为空间限制
 int space[MAXN], si;
-// ά�������ۼӺ���Ϣ
+// 维护区间累加和信息
 int sum[MAXN];
-// ά����������������ۼӺ���Ϣ��Ҫ����Ϊ��
+// 维护区间子数组最大累加和信息，要求不能为空
 int all[MAXN];
-// ά������ǰ׺����ۼӺ���Ϣ�����Կ�
+// 维护区间前缀最大累加和信息，可以空
 int pre[MAXN];
-// ά�������׺����ۼӺ���Ϣ�����Կ�
+// 维护区间后缀最大累加和信息，可以空
 int suf[MAXN];
-// ��������Ϣ�������Ƿ���������ֵ
+// 懒更新信息，区间是否重新设了值
 bool update[MAXN];
-// ��������Ϣ�����������������ֵ�����ó���ʲô
+// 懒更新信息，如果区间重新设了值，设置成了什么
 int change[MAXN];
-// ��������Ϣ�������Ƿ����˷�ת
+// 懒更新信息，区间是否发生了翻转
 bool rev[MAXN];
 
 void up(int i) {
     int l = ls[i], r = rs[i];
-    size[i] = size[l] + size[r] + 1;
+    sz[i] = sz[l] + sz[r] + 1;
     sum[i] = sum[l] + sum[r] + num[i];
     all[i] = max(max(all[l], all[r]), suf[l] + num[i] + pre[r]);
     pre[i] = max(pre[l], sum[l] + num[i] + pre[r]);
@@ -106,7 +106,7 @@ void setValue(int i, int val) {
         update[i] = true;
         change[i] = val;
         num[i] = val;
-        sum[i] = size[i] * val;
+        sum[i] = sz[i] * val;
         all[i] = max(sum[i], val);
         pre[i] = max(sum[i], 0);
         suf[i] = max(sum[i], 0);
@@ -136,7 +136,7 @@ void down(int i) {
 
 int init(int val) {
     int i = space[si--];
-    size[i] = 1;
+    sz[i] = 1;
     num[i] = sum[i] = all[i] = val;
     pre[i] = suf[i] = max(val, 0);
     fa[i] = ls[i] = rs[i] = 0;
@@ -163,12 +163,12 @@ int find(int rank) {
     int i = head;
     while (i != 0) {
         down(i);
-        if (size[ls[i]] + 1 == rank) {
+        if (sz[ls[i]] + 1 == rank) {
             return i;
-        } else if (size[ls[i]] >= rank) {
+        } else if (sz[ls[i]] >= rank) {
             i = ls[i];
         } else {
-            rank -= size[ls[i]] + 1;
+            rank -= sz[ls[i]] + 1;
             i = rs[i];
         }
     }

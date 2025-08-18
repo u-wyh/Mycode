@@ -10,17 +10,20 @@
 //和线段树其实没什么关系 
 //每次翻转操作只会标记第一个需要标记的节点  即头结点的右孩子的左孩子
 //只有迫不得已的时候 才会向下传递信息
+//对于区间翻转的 我们一般在开头和结尾各自加上一个数字 使得l-1 和r+1不至于为空
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 100005;
 
 int head = 0;
 int cnt = 0;
-int num[MAXN];//我们一般叫key  但是这里不是存放键值  为了减少歧义  改名num
+//我们一般叫key  但是这里不是存放键值  为了减少歧义  改名num
+//他所代表的数值是通过查询这个下标对应的值
+int num[MAXN];
 int fa[MAXN];
 int ls[MAXN];
 int rs[MAXN];
-int size[MAXN];
+int sz[MAXN];
 bool rev[MAXN];
 int sta[MAXN];
 int si;
@@ -28,7 +31,7 @@ int ans[MAXN];
 int ai;
 
 void up(int i) {
-    size[i] = size[ls[i]] + size[rs[i]] + 1;
+    sz[i] = sz[ls[i]] + sz[rs[i]] + 1;
 }
 
 int lr(int i) {
@@ -98,12 +101,12 @@ int find(int rank) {
     int i = head;
     while (i != 0) {
         down(i);//只有在被用到的时候才会向下传递
-        if (size[ls[i]] + 1 == rank) {
+        if (sz[ls[i]] + 1 == rank) {
             return i;
-        } else if (size[ls[i]] >= rank) {
+        } else if (sz[ls[i]] >= rank) {
             i = ls[i];
         } else {
-            rank -= size[ls[i]] + 1;
+            rank -= sz[ls[i]] + 1;
             i = rs[i];
         }
     }
@@ -112,7 +115,7 @@ int find(int rank) {
 
 void add(int x) {
     num[++cnt] = x;
-    size[cnt] = 1;
+    sz[cnt] = 1;
     fa[cnt] = head;
     rs[head] = cnt;
     splay(cnt, 0);

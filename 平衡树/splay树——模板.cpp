@@ -13,7 +13,6 @@
 // 提交如下代码，可以通过所有测试用例
 #include <bits/stdc++.h>
 using namespace std;
-
 const int MAXN = 100001;
 
 int head = 0;
@@ -22,10 +21,10 @@ int key[MAXN];
 int fa[MAXN];
 int ls[MAXN];
 int rs[MAXN];
-int size[MAXN];
+int sz[MAXN];
 
 void up(int i) {
-    size[i] = size[ls[i]] + size[rs[i]] + 1;
+    sz[i] = sz[ls[i]] + sz[rs[i]] + 1;
 }
 
 int lr(int i) {
@@ -84,15 +83,16 @@ void splay(int i, int goal) {
 // 这个方法不是题目要求的查询操作，作为内部方法使用
 // 为什么该方法不进行提根操作？
 // 因为remove方法使用该方法时，要求find不能提根！
+//主要是因为在remove中已经提前查询了排名 如果现在提根的话 会使树的结构变化
 int find(int rank) {
     int i = head;
     while (i != 0) {
-        if (size[ls[i]] + 1 == rank) {
+        if (sz[ls[i]] + 1 == rank) {
             return i;
-        } else if (size[ls[i]] >= rank) {
+        } else if (sz[ls[i]] >= rank) {
             i = ls[i];
         } else {
-            rank -= size[ls[i]] + 1;
+            rank -= sz[ls[i]] + 1;
             i = rs[i];
         }
     }
@@ -101,7 +101,7 @@ int find(int rank) {
 
 void add(int num) {
     key[++cnt] = num;
-    size[cnt] = 1;//建立节点
+    sz[cnt] = 1;//建立节点
     if (head == 0) {
         //如果此时树为空
         head = cnt;
@@ -138,7 +138,7 @@ int getRank(int num) {
         if (key[i] >= num) {
             i = ls[i];
         } else {
-            ans += size[ls[i]] + 1;
+            ans += sz[ls[i]] + 1;
             i = rs[i];
         }
     }

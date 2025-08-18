@@ -20,11 +20,11 @@ int num[MAXN];
 int fa[MAXN];
 int ls[MAXN];
 int rs[MAXN];
-int size[MAXN];
+int sz[MAXN];
 int pos[MAXN];
 
 void up(int i) {
-    size[i] = size[ls[i]] + size[rs[i]] + 1;
+    sz[i] = sz[ls[i]] + sz[rs[i]] + 1;
 }
 
 int lr(int i) {
@@ -81,12 +81,12 @@ void splay(int i, int goal) {
 int find(int rank) {
     int i = head;
     while (i != 0) {
-        if (size[ls[i]] + 1 == rank) {
+        if (sz[ls[i]] + 1 == rank) {
             return i;
-        } else if (size[ls[i]] >= rank) {
+        } else if (sz[ls[i]] >= rank) {
             i = ls[i];
         } else {
-            rank -= size[ls[i]] + 1;
+            rank -= sz[ls[i]] + 1;
             i = rs[i];
         }
     }
@@ -96,7 +96,7 @@ int find(int rank) {
 void add(int s) {
     num[++cnt] = s;
     pos[s] = cnt;
-    size[cnt] = 1;
+    sz[cnt] = 1;
     fa[cnt] = head;
     rs[head] = cnt;
     splay(cnt, 0);
@@ -105,7 +105,7 @@ void add(int s) {
 int ask(int s) {
     int i = pos[s];
     splay(i, 0);
-    return size[ls[i]];
+    return sz[ls[i]];
 }
 
 int query(int s) {
