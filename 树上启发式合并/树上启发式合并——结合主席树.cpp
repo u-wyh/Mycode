@@ -10,6 +10,7 @@
 // 测试链接 : https://www.luogu.com.cn/problem/P3302
 // 如下实现是C++的版本，C++版本和java版本逻辑完全一样
 // 提交如下代码，可以通过所有测试用例
+// 这道题的可持久化线段树有点类似于树上差分
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 80001;
@@ -121,6 +122,7 @@ int queryKth(int x, int y, int k) {
 }
 
 void dfs(int u, int fa, int treeh) {
+    // 根据父亲节点的信息重新建立节点信息
     root[u] = insert(arr[u], 1, diff, root[fa]);
     dep[u] = dep[fa] + 1;
     treeHead[u] = treeh;
@@ -136,11 +138,13 @@ void dfs(int u, int fa, int treeh) {
     }
 }
 
+// 在xy之间连接一条边
 void connect(int x, int y) {
     addEdge(x, y);
     addEdge(y, x);
     int fx = treeHead[x];
     int fy = treeHead[y];
+    // 将小树重新建立持久化信息
     if (setSiz[fx] >= setSiz[fy]) {
         dfs(y, x, fx);
     } else {
@@ -165,6 +169,7 @@ void prepare() {
     }
     for (int i = 1; i <= n; i++) {
         if (treeHead[i] == 0) {
+            // 初始时每棵树先建立持久化信息
             dfs(i, 0, i);
         }
     }
