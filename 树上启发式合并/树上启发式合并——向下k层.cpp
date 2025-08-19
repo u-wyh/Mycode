@@ -1,14 +1,15 @@
-// ²»Í¬Ãû×ÖÊıÁ¿£¬C++°æ
-// Ò»¹²ÓĞn¸ö½Úµã£¬±àºÅ1~n£¬¸ø¶¨Ã¿¸ö½ÚµãµÄÃû×ÖºÍ¸¸Ç×½Úµã±àºÅ
-// Ãû×ÖÊÇstringÀàĞÍ£¬Èç¹û¸¸Ç×½Úµã±àºÅÎª0£¬ËµÃ÷µ±Ç°½ÚµãÊÇÄ³¿ÃÊ÷µÄÍ·½Úµã
-// ×¢Òâ£¬n¸ö½Úµã×é³ÉµÄÊÇÉ­ÁÖ½á¹¹£¬¿ÉÄÜÓĞÈô¸É¿ÃÊ÷
-// Ò»¹²ÓĞmÌõ²éÑ¯£¬Ã¿Ìõ²éÑ¯ x k£¬º¬ÒåÈçÏÂ
-// ÒÔxÎªÍ·µÄ×ÓÊ÷ÉÏ£¬µ½x¾àÀëÎªkµÄËùÓĞ½ÚµãÖĞ£¬´òÓ¡²»Í¬Ãû×ÖµÄÊıÁ¿
-// 1 <= n¡¢m <= 10^5
-// ²âÊÔÁ´½Ó : https://www.luogu.com.cn/problem/CF246E
-// ²âÊÔÁ´½Ó : https://codeforces.com/problemset/problem/246/E
-// ÈçÏÂÊµÏÖÊÇC++µÄ°æ±¾£¬C++°æ±¾ºÍjava°æ±¾Âß¼­ÍêÈ«Ò»Ñù
-// Ìá½»ÈçÏÂ´úÂë£¬¿ÉÒÔÍ¨¹ıËùÓĞ²âÊÔÓÃÀı
+// ä¸åŒåå­—æ•°é‡ï¼ŒC++ç‰ˆ
+// ä¸€å…±æœ‰nä¸ªèŠ‚ç‚¹ï¼Œç¼–å·1~nï¼Œç»™å®šæ¯ä¸ªèŠ‚ç‚¹çš„åå­—å’Œçˆ¶äº²èŠ‚ç‚¹ç¼–å·
+// åå­—æ˜¯stringç±»å‹ï¼Œå¦‚æœçˆ¶äº²èŠ‚ç‚¹ç¼–å·ä¸º0ï¼Œè¯´æ˜å½“å‰èŠ‚ç‚¹æ˜¯æŸæ£µæ ‘çš„å¤´èŠ‚ç‚¹
+// æ³¨æ„ï¼Œnä¸ªèŠ‚ç‚¹ç»„æˆçš„æ˜¯æ£®æ—ç»“æ„ï¼Œå¯èƒ½æœ‰è‹¥å¹²æ£µæ ‘
+// ä¸€å…±æœ‰mæ¡æŸ¥è¯¢ï¼Œæ¯æ¡æŸ¥è¯¢ x kï¼Œå«ä¹‰å¦‚ä¸‹
+// ä»¥xä¸ºå¤´çš„å­æ ‘ä¸Šï¼Œåˆ°xè·ç¦»ä¸ºkçš„æ‰€æœ‰èŠ‚ç‚¹ä¸­ï¼Œæ‰“å°ä¸åŒåå­—çš„æ•°é‡
+// 1 <= nã€m <= 10^5
+// æµ‹è¯•é“¾æ¥ : https://www.luogu.com.cn/problem/CF246E
+// æµ‹è¯•é“¾æ¥ : https://codeforces.com/problemset/problem/246/E
+// å¦‚ä¸‹å®ç°æ˜¯C++çš„ç‰ˆæœ¬ï¼ŒC++ç‰ˆæœ¬å’Œjavaç‰ˆæœ¬é€»è¾‘å®Œå…¨ä¸€æ ·
+// æäº¤å¦‚ä¸‹ä»£ç ï¼Œå¯ä»¥é€šè¿‡æ‰€æœ‰æµ‹è¯•ç”¨ä¾‹
+// è¿™é“é¢˜çš„å¤§æ€è·¯æ˜¯å€ŸåŠ©setå»é‡
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 100001;
@@ -16,35 +17,35 @@ const int MAXN = 100001;
 int n, m;
 
 unordered_map<string, int> nameId;
-bool root[MAXN];//ÅĞ¶ÏÕâ¸ö½ÚµãÊÇ²»ÊÇÍ·½áµã
-int id[MAXN];//Õâ¸ö½ÚµãµÄÎÄ±¾Ãû×Ö×ª»»»ØÀ´µÄÊı×Ö±àºÅ
+bool root[MAXN];//åˆ¤æ–­è¿™ä¸ªèŠ‚ç‚¹æ˜¯ä¸æ˜¯å¤´ç»“ç‚¹
+int id[MAXN];//è¿™ä¸ªèŠ‚ç‚¹çš„æ–‡æœ¬åå­—è½¬æ¢å›æ¥çš„æ•°å­—ç¼–å·
 
-// Á´Ê½Ç°ÏòĞÇ½¨Í¼Á¬±ß
+// é“¾å¼å‰å‘æ˜Ÿå»ºå›¾è¿è¾¹
 int headg[MAXN];
 int nextg[MAXN];
 int tog[MAXN];
 int cntg;
 
-// ÎÊÌâÁĞ±í
+// é—®é¢˜åˆ—è¡¨
 int headq[MAXN];
 int nextq[MAXN];
 int ansiq[MAXN];
 int kq[MAXN];
 int cntq;
 
-// Ê÷Á´ÆÊ·Ö
+// æ ‘é“¾å‰–åˆ†
 int fa[MAXN];
 int siz[MAXN];
 int dep[MAXN];
 int son[MAXN];
 
-// Ê÷ÉÏÆô·¢Ê½ºÏ²¢
-vector<unordered_set<int>> depSet;//±íÊ¾ÔÚ²ãÊıÎªiµÄ²»Í¬Ãû×ÖµÄ¸öÊı set×Ô¶¯È¥ÖØÁË
+// æ ‘ä¸Šå¯å‘å¼åˆå¹¶
+vector<unordered_set<int>> depSet;//è¡¨ç¤ºåœ¨å±‚æ•°ä¸ºiçš„ä¸åŒåå­—çš„ä¸ªæ•° setè‡ªåŠ¨å»é‡äº†
 int ans[MAXN];
 
-//ÊäÈëÒ»¸öÃû×Ö ·µ»ØÃû×ÖµÄ±àºÅ
-//Èç¹ûÖ®Ç°ÒÑ¾­´æÔÚÕâ¸öÃû×Ö ÄÇÃ´Ö±½Ó·µ»Ø±àºÅ¼´¿É
-//Èç¹û²»´æÔÚ ÄÇÃ´ĞÂ¼ÓÈë½øÈ¥  ²¢·µ»Ø±àºÅ
+//è¾“å…¥ä¸€ä¸ªåå­— è¿”å›åå­—çš„ç¼–å·
+//å¦‚æœä¹‹å‰å·²ç»å­˜åœ¨è¿™ä¸ªåå­— é‚£ä¹ˆç›´æ¥è¿”å›ç¼–å·å³å¯
+//å¦‚æœä¸å­˜åœ¨ é‚£ä¹ˆæ–°åŠ å…¥è¿›å»  å¹¶è¿”å›ç¼–å·
 int getNameId(const string &name) {
     if (nameId.find(name) != nameId.end()) {
         return nameId[name];
@@ -54,17 +55,17 @@ int getNameId(const string &name) {
     return newId;
 }
 
-//ÔÚdeep²ã ¼ÓÈëÒ»¸öid
+//åœ¨deepå±‚ åŠ å…¥ä¸€ä¸ªid
 void addId(int deep, int id) {
     depSet[deep].insert(id);
 }
 
-//ÔÚdeep²ã É¾³ıÒ»¸öid
+//åœ¨deepå±‚ åˆ é™¤ä¸€ä¸ªid
 void removeId(int deep, int id) {
     depSet[deep].erase(id);
 }
 
-//Í³¼Ædeep²ãµÄÈ¥ÖØºóµÄ´ğ°¸
+//ç»Ÿè®¡deepå±‚çš„å»é‡åçš„ç­”æ¡ˆ
 int sizeOfDeep(int deep) {
     if (deep > n) {
         return 0;
@@ -85,7 +86,7 @@ void addQuestion(int u, int ansi, int k) {
     headq[u] = cntq;
 }
 
-//Ê÷Á´ÆÊ·Ö  Í³¼Æsz  dep sonµÈĞÅÏ¢
+//æ ‘é“¾å‰–åˆ†  ç»Ÿè®¡sz  dep sonç­‰ä¿¡æ¯
 void dfs1(int u, int f) {
     fa[u] = f;
     siz[u] = 1;
@@ -117,20 +118,20 @@ void cancle(int u) {
 }
 
 void dfs2(int u, int keep) {
-    //ÏÈÈ¥Çá¶ù×Ó
+    //å…ˆå»è½»å„¿å­
     for (int e = headg[u], v; e > 0; e = nextg[e]) {
         v = tog[e];
         if (v != son[u]) {
             dfs2(v, 0);
         }
     }
-    //ÔÙÈ¥ÖØ¶ù×Ó
+    //å†å»é‡å„¿å­
     if (son[u] != 0) {
         dfs2(son[u], 1);
     }
-    //¼ÆËãÕâ¸ö½ÚµãµÄ¹±Ï×
+    //è®¡ç®—è¿™ä¸ªèŠ‚ç‚¹çš„è´¡çŒ®
     addId(dep[u], id[u]);
-    //»ØÊÕÇá¶ù×Ó
+    //å›æ”¶è½»å„¿å­
     for (int e = headg[u], v; e > 0; e = nextg[e]) {
         v = tog[e];
         if (v != son[u]) {
@@ -138,7 +139,7 @@ void dfs2(int u, int keep) {
         }
     }
     for (int i = headq[u]; i > 0; i = nextq[i]) {
-    	ans[ansiq[i]] = sizeOfDeep(dep[u] + kq[i]);//Í³¼ÆÕâ¸öÉî¶ÈµÄ½Úµã¸öÊı
+    	ans[ansiq[i]] = sizeOfDeep(dep[u] + kq[i]);//ç»Ÿè®¡è¿™ä¸ªæ·±åº¦çš„èŠ‚ç‚¹ä¸ªæ•°
     }
     if (keep == 0) {
         cancle(u);
@@ -155,14 +156,14 @@ int main() {
         cin >> name >> father;
         id[i] = getNameId(name);
         if (father == 0) {
-        	root[i] = true;//±íÊ¾ÊÇÍ·½áµã
+        	root[i] = true;//è¡¨ç¤ºæ˜¯å¤´ç»“ç‚¹
         } else {
-            addEdge(father, i);//·ñÔòÁ¬±ß
+            addEdge(father, i);//å¦åˆ™è¿è¾¹
         }
     }
     for (int i = 1; i <= n; i++) {
         if (root[i]) {
-            //´ÓÃ¿¿ÃÊ÷µÄÍ·½áµã¿ªÊ¼Ê÷Á´ÆÊ·Ö
+            //ä»æ¯æ£µæ ‘çš„å¤´ç»“ç‚¹å¼€å§‹æ ‘é“¾å‰–åˆ†
             dfs1(i, 0);
         }
     }
@@ -170,11 +171,11 @@ int main() {
     cin >> m;
     for (int i = 1, node, k; i <= m; i++) {
         cin >> node >> k;
-        addQuestion(node, i, k);//ÎÊÌâ½¨Í¼
+        addQuestion(node, i, k);//é—®é¢˜å»ºå›¾
     }
     for (int i = 1; i <= n; i++) {
         if (root[i]) {
-            //¼ÆËã´ğ°¸
+            //è®¡ç®—ç­”æ¡ˆ
             dfs2(i, 0);
         }
     }

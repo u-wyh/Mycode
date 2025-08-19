@@ -1,15 +1,17 @@
-// ����������C++��
-// һ����n���ڵ㣬���1~n������ÿ���ڵ�ĸ��׽ڵ��ţ����׽ڵ�Ϊ0��˵����ǰ�ڵ���ĳ������ͷ
-// ע�⣬n���ڵ���ɵ���ɭ�ֽṹ�����������ɿ���
-// һ����m����ѯ��ÿ����ѯ x k����������
-// ���x������k�ľ��룬û�����Ƚڵ㣬��ӡ0
-// ���x������k�ľ��룬���ҵ����Ƚڵ�a����ô��a������k�ľ��룬����x֮�⣬���ܻ��������ڵ�
-// ��Щ�ڵ����x��k�����ף���ӡ������׵�����
-// 1 <= n��m <= 10^5
-// �������� : https://www.luogu.com.cn/problem/CF208E
-// �������� : https://codeforces.com/problemset/problem/208/E
-// ����ʵ����C++�İ汾��C++�汾��java�汾�߼���ȫһ��
-// �ύ���´��룬����ͨ�����в�������
+// 表亲数量，C++版
+// 一共有n个节点，编号1~n，给定每个节点的父亲节点编号，父亲节点为0，说明当前节点是某棵树的头
+// 注意，n个节点组成的是森林结构，可能有若干棵树
+// 一共有m条查询，每条查询 x k，含义如下
+// 如果x往上走k的距离，没有祖先节点，打印0
+// 如果x往上走k的距离，能找到祖先节点a，那么从a往下走k的距离，除了x之外，可能还有其他节点
+// 这些节点叫做x的k级表亲，打印这个表亲的数量
+// 1 <= n、m <= 10^5
+// 测试链接 : https://www.luogu.com.cn/problem/CF208E
+// 测试链接 : https://codeforces.com/problemset/problem/208/E
+// 如下实现是C++的版本，C++版本和java版本逻辑完全一样
+// 提交如下代码，可以通过所有测试用例
+// 这道题我们将他转换成查询一个节点的k级儿子的数量  我们可以查询某一层的节点个数统计
+// 但是为了避免不是自己子树中的值扰乱答案  所以我们使用树上启发式合并
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 100001;
@@ -18,26 +20,26 @@ const int MAXH = 20;
 int n, m;
 bool root[MAXN];
 
-// ��ʽǰ���ǽ�ͼ
+// 链式前向星建图
 int headg[MAXN];
 int nextg[MAXN];
 int tog[MAXN];
 int cntg;
 
-// �����б�
+// 问题列表
 int headq[MAXN];
 int nextq[MAXN];
 int ansiq[MAXN];
 int kq[MAXN];
 int cntq;
 
-// �����ʷ�
+// 树链剖分
 int siz[MAXN];
 int dep[MAXN];
 int son[MAXN];
-int stjump[MAXN][MAXH];//��ʾ����ڵ��2��j�η�����
+int stjump[MAXN][MAXH];//表示这个节点的2的j次方祖先
 
-// ��������ʽ�ϲ�
+// 树上启发式合并
 int depCnt[MAXN];
 int ans[MAXN];
 
@@ -49,7 +51,7 @@ void addEdge(int u, int v) {
 
 void addQuestion(int u, int i, int k) {
     nextq[++cntq] = headq[u];
-    ansiq[cntq] = i;//��ʾ������
+    ansiq[cntq] = i;//表示问题编号
     kq[cntq] = k;
     headq[u] = cntq;
 }
@@ -73,7 +75,7 @@ void dfs1(int u, int fa) {
     }
 }
 
-//��ѯu��k������
+//查询u的k级祖先
 int kAncestor(int u, int k) {
     for (int p = MAXH - 1; p >= 0; p--) {
         if (k >= (1 << p)) {
@@ -145,12 +147,14 @@ int main() {
         cin >> u >> k;
         kfather = kAncestor(u, k);
         if (kfather != 0) {
+            // 将问题直接挂在祖先节点之上
             addQuestion(kfather, i, k);
         }
     }
     for (int i = 1; i <= n; i++) {
         if (root[i]) {
-            dfs2(i, 0);//����ط�����Ҫд0  ��Ȼ���Ǹ�  ��Ϊ���ǲ�������Ӱ����������
+            //这个地方必须要写0  虽然他是根  因为我们不想让他影响其他的树
+            dfs2(i, 0);
         }
     }
     for (int i = 1; i <= m; i++) {
