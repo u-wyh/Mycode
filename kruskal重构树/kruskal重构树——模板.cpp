@@ -19,11 +19,11 @@ int n, m, q;
 
 // 每条边有三个信息，节点u、节点v、边权w
 struct Edge {
-   int u, v, w;
+    int u, v, w;
 };
 
 bool cmp(Edge x, Edge y) {
-   return x.w < y.w;
+    return x.w < y.w;
 }
 
 Edge edge[MAXM];
