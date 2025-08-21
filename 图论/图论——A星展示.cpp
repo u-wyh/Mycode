@@ -8,14 +8,14 @@
 
 using namespace std;
 
-// ¶¨ÒåÒÆ¶¯·½ÏòÊı×é£¬0:ÉÏ£¬1:ÓÒ£¬2:ÏÂ£¬3:×ó
+// å®šä¹‰ç§»åŠ¨æ–¹å‘æ•°ç»„ï¼Œ0:ä¸Šï¼Œ1:å³ï¼Œ2:ä¸‹ï¼Œ3:å·¦
 const int mov[5] = { -1, 0, 1, 0, -1 };
 
-// DijkstraËã·¨
-// grid[i][j] == 0 ´ú±íÕÏ°­
-// grid[i][j] == 1 ´ú±íµÀÂ·
-// Ö»ÄÜ×ßÉÏ¡¢ÏÂ¡¢×ó¡¢ÓÒ£¬²»°üÀ¨Ğ±Ïß·½Ïò
-// ·µ»Ø´Ó(startX, startY)µ½(targetX, targetY)µÄ×î¶Ì¾àÀë
+// Dijkstraç®—æ³•
+// grid[i][j] == 0 ä»£è¡¨éšœç¢
+// grid[i][j] == 1 ä»£è¡¨é“è·¯
+// åªèƒ½èµ°ä¸Šã€ä¸‹ã€å·¦ã€å³ï¼Œä¸åŒ…æ‹¬æ–œçº¿æ–¹å‘
+// è¿”å›ä»(startX, startY)åˆ°(targetX, targetY)çš„æœ€çŸ­è·ç¦»
 int minDistance1(vector<vector<int>>& grid, int startX, int startY, int targetX, int targetY) {
     if (grid[startX][startY] == 0 || grid[targetX][targetY] == 0) {
         return -1;
@@ -53,26 +53,26 @@ int minDistance1(vector<vector<int>>& grid, int startX, int startY, int targetX,
 }
 
 
-// Âü¹ş¶Ù¾àÀë
+// æ›¼å“ˆé¡¿è·ç¦»
 int f1(int x, int y, int targetX, int targetY) {
     return abs(targetX - x) + abs(targetY - y);
 }
 
-// ¶Ô½ÇÏß¾àÀë
+// å¯¹è§’çº¿è·ç¦»
 int f2(int x, int y, int targetX, int targetY) {
     return max(abs(targetX - x), abs(targetY - y));
 }
 
-// Å·Ê½¾àÀë
+// æ¬§å¼è·ç¦»
 double f3(int x, int y, int targetX, int targetY) {
     return sqrt(pow(targetX - x, 2) + pow(targetY - y, 2));
 }
 
-// A*Ëã·¨
-// grid[i][j] == 0 ´ú±íÕÏ°­
-// grid[i][j] == 1 ´ú±íµÀÂ·
-// Ö»ÄÜ×ßÉÏ¡¢ÏÂ¡¢×ó¡¢ÓÒ£¬²»°üÀ¨Ğ±Ïß·½Ïò
-// ·µ»Ø´Ó(startX, startY)µ½(targetX, targetY)µÄ×î¶Ì¾àÀë
+// A*ç®—æ³•
+// grid[i][j] == 0 ä»£è¡¨éšœç¢
+// grid[i][j] == 1 ä»£è¡¨é“è·¯
+// åªèƒ½èµ°ä¸Šã€ä¸‹ã€å·¦ã€å³ï¼Œä¸åŒ…æ‹¬æ–œçº¿æ–¹å‘
+// è¿”å›ä»(startX, startY)åˆ°(targetX, targetY)çš„æœ€çŸ­è·ç¦»
 int minDistance2(vector<vector<int>>& grid, int startX, int startY, int targetX, int targetY) {
     if (grid[startX][startY] == 0 || grid[targetX][targetY] == 0) {
         return -1;
@@ -90,7 +90,7 @@ int minDistance2(vector<vector<int>>& grid, int startX, int startY, int targetX,
     while (!heap.empty()) {
         auto cur = heap.top();
         heap.pop();
-        int d = cur.first - f1(cur.second.first, cur.second.second, targetX, targetY); // Êµ¼Ê¾àÀë
+        int d = cur.first - f1(cur.second.first, cur.second.second, targetX, targetY); // å®é™…è·ç¦»
         int x = cur.second.first;
         int y = cur.second.second;
         if (visited[x][y]) {
@@ -112,23 +112,23 @@ int minDistance2(vector<vector<int>>& grid, int startX, int startY, int targetX,
     return -1;
 }
 
-// ÎªÁË²âÊÔ
+// ä¸ºäº†æµ‹è¯•
 vector<vector<int>> randomGrid(int n) {
     vector<vector<int>> grid(n, vector<int>(n));
     srand(time(0));
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
-            grid[i][j] = rand() % 10 < 3 ? 0 : 1; // Ã¿¸ö¸ñ×ÓÓĞ30%¸ÅÂÊÊÇ0
+            grid[i][j] = rand() % 10 < 3 ? 0 : 1; // æ¯ä¸ªæ ¼å­æœ‰30%æ¦‚ç‡æ˜¯0
         }
     }
     return grid;
 }
 
-// ÎªÁË²âÊÔ
+// ä¸ºäº†æµ‹è¯•
 int main() {
     int len = 100;
     int testTime = 1000;
-    cout << "¹¦ÄÜ²âÊÔ¿ªÊ¼" << endl;
+    cout << "åŠŸèƒ½æµ‹è¯•å¼€å§‹" << endl;
     for (int i = 0; i < testTime; ++i) {
         int n = rand() % len + 2;
         vector<vector<int>> grid = randomGrid(n);
@@ -139,14 +139,14 @@ int main() {
         int ans1 = minDistance1(grid, startX, startY, targetX, targetY);
         int ans2 = minDistance2(grid, startX, startY, targetX, targetY);
         if (ans1 != ans2) {
-            cout << "³ö´íÁË!" << endl;
+            cout << "å‡ºé”™äº†!" << endl;
         }else {
-            cout << "µÚ" << setw(5) << i << "×é²âÊÔÕıÈ·£¡" << endl;
+            cout << "ç¬¬" << setw(5) << i << "ç»„æµ‹è¯•æ­£ç¡®ï¼" << endl;
         }
     }
-    cout << "¹¦ÄÜ²âÊÔ½áÊø" << endl;
+    cout << "åŠŸèƒ½æµ‹è¯•ç»“æŸ" << endl;
 
-    cout << "ĞÔÄÜ²âÊÔ¿ªÊ¼" << endl;
+    cout << "æ€§èƒ½æµ‹è¯•å¼€å§‹" << endl;
     vector<vector<int>> grid_large = randomGrid(2000);
     int startX = 0;
     int startY = 0;
@@ -156,11 +156,11 @@ int main() {
     start = clock();
     int ans1 = minDistance1(grid_large, startX, startY, targetX, targetY);
     end = clock();
-    cout << "ÔËĞĞDijkstraËã·¨½á¹û: " << ans1 << ", ÔËĞĞÊ±¼ä(ºÁÃë) : " << double(end - start) / CLOCKS_PER_SEC * 1000 << endl;
+    cout << "è¿è¡ŒDijkstraç®—æ³•ç»“æœ: " << ans1 << ", è¿è¡Œæ—¶é—´(æ¯«ç§’) : " << double(end - start) / CLOCKS_PER_SEC * 1000 << endl;
     start = clock();
     int ans2 = minDistance2(grid_large, startX, startY, targetX, targetY);
     end = clock();
-    cout << "ÔËĞĞA*Ëã·¨½á¹û: " << ans2 << ", ÔËĞĞÊ±¼ä(ºÁÃë) : " << double(end - start) / CLOCKS_PER_SEC * 1000 << endl;
-    cout << "ĞÔÄÜ²âÊÔ½áÊø" << endl;
+    cout << "è¿è¡ŒA*ç®—æ³•ç»“æœ: " << ans2 << ", è¿è¡Œæ—¶é—´(æ¯«ç§’) : " << double(end - start) / CLOCKS_PER_SEC * 1000 << endl;
+    cout << "æ€§èƒ½æµ‹è¯•ç»“æŸ" << endl;
     return 0;
 }

@@ -1,15 +1,15 @@
-// µ¥´Ê½ÓÁú
-// ×Öµä wordList ÖĞ´Óµ¥´Ê beginWord ºÍ endWord µÄ ×ª»»ĞòÁĞ
-// ÊÇÒ»¸ö°´ÏÂÊö¹æ¸ñĞÎ³ÉµÄĞòÁĞ beginWord -> s1 -> s2 -> ... -> sk £º
-// Ã¿Ò»¶ÔÏàÁÚµÄµ¥´ÊÖ»²îÒ»¸ö×ÖÄ¸¡£
-// ¶ÔÓÚ 1 <= i <= k Ê±£¬Ã¿¸ö si ¶¼ÔÚ wordList ÖĞ
-// ×¢Òâ£¬ beginWord ²»ĞèÒªÔÚ wordList ÖĞ¡£sk == endWord
-// ¸øÄãÁ½¸öµ¥´Ê beginWord ºÍ endWord ºÍÒ»¸ö×Öµä wordList
-// ·µ»Ø ´Ó beginWord µ½ endWord µÄ ×î¶Ì×ª»»ĞòÁĞ ÖĞµÄ µ¥´ÊÊıÄ¿
-// Èç¹û²»´æÔÚÕâÑùµÄ×ª»»ĞòÁĞ£¬·µ»Ø 0 ¡£
-// ²âÊÔÁ´½Ó : https://leetcode.cn/problems/word-ladder/
-//ÕâÊÇÒ»ÖÖÆÕÍ¨µÄÓÃ·¨  ×÷ÓÃ½ö½öÊÇÒ»¸öĞ¡ÓÅ»¯
-//Ã¿´Î´Ó×óÓÒÁ½±ß½ÏĞ¡µÄ·½Ïò¿ªÊ¼ËÑË÷
+// å•è¯æ¥é¾™
+// å­—å…¸ wordList ä¸­ä»å•è¯ beginWord å’Œ endWord çš„ è½¬æ¢åºåˆ—
+// æ˜¯ä¸€ä¸ªæŒ‰ä¸‹è¿°è§„æ ¼å½¢æˆçš„åºåˆ— beginWord -> s1 -> s2 -> ... -> sk ï¼š
+// æ¯ä¸€å¯¹ç›¸é‚»çš„å•è¯åªå·®ä¸€ä¸ªå­—æ¯ã€‚
+// å¯¹äº 1 <= i <= k æ—¶ï¼Œæ¯ä¸ª si éƒ½åœ¨ wordList ä¸­
+// æ³¨æ„ï¼Œ beginWord ä¸éœ€è¦åœ¨ wordList ä¸­ã€‚sk == endWord
+// ç»™ä½ ä¸¤ä¸ªå•è¯ beginWord å’Œ endWord å’Œä¸€ä¸ªå­—å…¸ wordList
+// è¿”å› ä» beginWord åˆ° endWord çš„ æœ€çŸ­è½¬æ¢åºåˆ— ä¸­çš„ å•è¯æ•°ç›®
+// å¦‚æœä¸å­˜åœ¨è¿™æ ·çš„è½¬æ¢åºåˆ—ï¼Œè¿”å› 0 ã€‚
+// æµ‹è¯•é“¾æ¥ : https://leetcode.cn/problems/word-ladder/
+//è¿™æ˜¯ä¸€ç§æ™®é€šçš„ç”¨æ³•  ä½œç”¨ä»…ä»…æ˜¯ä¸€ä¸ªå°ä¼˜åŒ–
+//æ¯æ¬¡ä»å·¦å³ä¸¤è¾¹è¾ƒå°çš„æ–¹å‘å¼€å§‹æœç´¢
 #include <iostream>
 #include <unordered_set>
 #include <vector>
@@ -19,17 +19,17 @@
 using namespace std;
 
 int ladderLength(string begin, string end, vector<string>& wordList) {
-    // ×Ü´Ê±í
+    // æ€»è¯è¡¨
     unordered_set<string> dict(wordList.begin(), wordList.end());
     if (dict.find(end) == dict.end()) {
         return 0;
     }
 
-    // ÊıÁ¿Ğ¡µÄÒ»²à
+    // æ•°é‡å°çš„ä¸€ä¾§
     unordered_set<string> smallLevel;
-    // ÊıÁ¿´óµÄÒ»²à
+    // æ•°é‡å¤§çš„ä¸€ä¾§
     unordered_set<string> bigLevel;
-    // ÓÉÊıÁ¿Ğ¡µÄÒ»²à£¬ËùÀ©Õ¹³öµÄÏÂÒ»²ãÁĞ±í
+    // ç”±æ•°é‡å°çš„ä¸€ä¾§ï¼Œæ‰€æ‰©å±•å‡ºçš„ä¸‹ä¸€å±‚åˆ—è¡¨
     unordered_set<string> nextLevel;
 
     smallLevel.insert(begin);
@@ -37,13 +37,13 @@ int ladderLength(string begin, string end, vector<string>& wordList) {
 
     for (int len = 2; !smallLevel.empty(); ++len) {
         for (const auto& w : smallLevel) {
-            // ´ÓĞ¡²àÀ©Õ¹
+            // ä»å°ä¾§æ‰©å±•
             string word = w;
             for (int j = 0; j < word.size(); ++j) {
-                // Ã¿Ò»Î»×Ö·û¶¼ÊÔ
+                // æ¯ä¸€ä½å­—ç¬¦éƒ½è¯•
                 char old = word[j];
                 for (char change = 'a'; change <= 'z'; ++change) {
-                    // Ã¿Ò»Î»×Ö·û¶¼´Óaµ½z»»Ò»±é
+                    // æ¯ä¸€ä½å­—ç¬¦éƒ½ä»aåˆ°zæ¢ä¸€é
                     if (change != old) {
                         word[j] = change;
                         string next = word;

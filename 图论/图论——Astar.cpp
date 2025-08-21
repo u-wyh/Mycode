@@ -1,10 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// 0:ÉÏ£¬1:ÓÒ£¬2:ÏÂ£¬3:×ó
+// 0:ä¸Šï¼Œ1:å³ï¼Œ2:ä¸‹ï¼Œ3:å·¦
 const int mov[5] = { -1, 0, 1, 0, -1 };
 
-// DijkstraËã·¨
+// Dijkstraç®—æ³•
 int minDistance1(const std::vector<std::vector<int>>& grid, int startX, int startY, int targetX, int targetY) {
     if (grid[startX][startY] == 0 || grid[targetX][targetY] == 0) {
         return -1;
@@ -15,7 +15,7 @@ int minDistance1(const std::vector<std::vector<int>>& grid, int startX, int star
     distance[startX][startY] = 1;
     std::vector<std::vector<bool>> visited(n, std::vector<bool>(m, false));
 
-    // ×îĞ¡¶Ñ£¬°´ÕÕ¾àÀëÅÅĞò
+    // æœ€å°å †ï¼ŒæŒ‰ç…§è·ç¦»æ’åº
     auto cmp = [](const std::tuple<int, int, int>& a, const std::tuple<int, int, int>& b) {
         return std::get<2>(a) > std::get<2>(b);
     };
@@ -46,12 +46,12 @@ int minDistance1(const std::vector<std::vector<int>>& grid, int startX, int star
     return -1;
 }
 
-// Âü¹ş¶Ù¾àÀë
+// æ›¼å“ˆé¡¿è·ç¦»
 int f1(int x, int y, int targetX, int targetY) {
     return std::abs(targetX - x) + std::abs(targetY - y);
 }
 
-// A*Ëã·¨
+// A*ç®—æ³•
 int minDistance2(const std::vector<std::vector<int>>& grid, int startX, int startY, int targetX, int targetY) {
     if (grid[startX][startY] == 0 || grid[targetX][targetY] == 0) {
         return -1;
@@ -62,7 +62,7 @@ int minDistance2(const std::vector<std::vector<int>>& grid, int startX, int star
     distance[startX][startY] = 1;
     std::vector<std::vector<bool>> visited(n, std::vector<bool>(m, false));
 
-    // ×îĞ¡¶Ñ£¬°´ÕÕ×Ü´ú¼Û£¨Êµ¼Ê´ú¼Û+Ô¤¹À´ú¼Û£©ÅÅĞò
+    // æœ€å°å †ï¼ŒæŒ‰ç…§æ€»ä»£ä»·ï¼ˆå®é™…ä»£ä»·+é¢„ä¼°ä»£ä»·ï¼‰æ’åº
     auto cmp = [](const std::tuple<int, int, int>& a, const std::tuple<int, int, int>& b) {
         return std::get<2>(a) > std::get<2>(b);
     };
@@ -93,33 +93,33 @@ int minDistance2(const std::vector<std::vector<int>>& grid, int startX, int star
     return -1;
 }
 
-// ¶Ô½ÇÏß¾àÀë
+// å¯¹è§’çº¿è·ç¦»
 int f2(int x, int y, int targetX, int targetY) {
     return std::max(std::abs(targetX - x), std::abs(targetY - y));
 }
 
-// Å·Ê½¾àÀë
+// æ¬§å¼è·ç¦»
 double f3(int x, int y, int targetX, int targetY) {
     return std::sqrt(std::pow(targetX - x, 2) + std::pow(targetY - y, 2));
 }
 
-// ÎªÁË²âÊÔ
+// ä¸ºäº†æµ‹è¯•
 std::vector<std::vector<int>> randomGrid(int n) {
     std::vector<std::vector<int>> grid(n, std::vector<int>(n));
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
-            grid[i][j] = (rand() % 10 < 2) ? 0 : 1; // Ã¿¸ö¸ñ×ÓÓĞ30%¸ÅÂÊÊÇ0
+            grid[i][j] = (rand() % 10 < 2) ? 0 : 1; // æ¯ä¸ªæ ¼å­æœ‰30%æ¦‚ç‡æ˜¯0
         }
     }
     return grid;
 }
 
-// ÎªÁË²âÊÔ
+// ä¸ºäº†æµ‹è¯•
 int main() {
     srand(time(0));
     int len = 100;
     int testTime = 1000;
-    cout << "¹¦ÄÜ²âÊÔ¿ªÊ¼" << endl;
+    cout << "åŠŸèƒ½æµ‹è¯•å¼€å§‹" << endl;
     for (int i = 0; i < testTime; ++i) {
         int n = rand() % len + 2;
         std::vector<std::vector<int>> grid = randomGrid(n);
@@ -130,33 +130,33 @@ int main() {
         int ans1 = minDistance1(grid, startX, startY, targetX, targetY);
         int ans2 = minDistance2(grid, startX, startY, targetX, targetY);
         if (ans1 != ans2) {
-            cout << "³ö´íÁË!" << endl;
+            cout << "å‡ºé”™äº†!" << endl;
         } else {
-            cout << "µÚ" << setw(5) << i << "×é²âÊÔÕıÈ·£¡" << endl;
+            cout << "ç¬¬" << setw(5) << i << "ç»„æµ‹è¯•æ­£ç¡®ï¼" << endl;
         }
     }
-    cout << "¹¦ÄÜ²âÊÔ½áÊø" << endl;
+    cout << "åŠŸèƒ½æµ‹è¯•ç»“æŸ" << endl;
 
-    cout << "ĞÔÄÜ²âÊÔ¿ªÊ¼" << endl;
+    cout << "æ€§èƒ½æµ‹è¯•å¼€å§‹" << endl;
     std::vector<std::vector<int>> grid = randomGrid(4000);
     int startX = 0;
     int startY = 0;
     int targetX = 3900;
     int targetY = 3900;
 
-    // Ê¹ÓÃ chrono ¿â½øĞĞ¸ß¾«¶ÈÊ±¼ä²âÁ¿
+    // ä½¿ç”¨ chrono åº“è¿›è¡Œé«˜ç²¾åº¦æ—¶é—´æµ‹é‡
     auto start1 = chrono::high_resolution_clock::now();
     int ans1 = minDistance1(grid, startX, startY, targetX, targetY);
     auto end1 = chrono::high_resolution_clock::now();
     chrono::duration<double, std::milli> elapsed1 = end1 - start1;
-    cout << "ÔËĞĞDijkstraËã·¨½á¹û: " << ans1 << ", ÔËĞĞÊ±¼ä(ºÁÃë) : "
+    cout << "è¿è¡ŒDijkstraç®—æ³•ç»“æœ: " << ans1 << ", è¿è¡Œæ—¶é—´(æ¯«ç§’) : "
           << elapsed1.count() << endl;
 
     auto start2 = chrono::high_resolution_clock::now();
     int ans2 = minDistance2(grid, startX, startY, targetX, targetY);
     auto end2 = chrono::high_resolution_clock::now();
     chrono::duration<double, std::milli> elapsed2 = end2 - start2;
-    cout << "ÔËĞĞA*Ëã·¨½á¹û: " << ans2 << ", ÔËĞĞÊ±¼ä(ºÁÃë) : "
+    cout << "è¿è¡ŒA*ç®—æ³•ç»“æœ: " << ans2 << ", è¿è¡Œæ—¶é—´(æ¯«ç§’) : "
           << elapsed2.count() << endl;
 
     return 0;

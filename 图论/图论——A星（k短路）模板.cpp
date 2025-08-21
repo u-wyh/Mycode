@@ -1,7 +1,7 @@
 //P2901
-//DJËã·¨¿ÉÒÔ¿´³ÉÊÇÒ»¸öA*µÄÌØÀı  ¼´ÎüÒıÁ¦Îª0µÄÇé¿ö
-//A*Ëã·¨ÔòÍ¨¹ıÎüÒıÁ¦À´¼ÓËÙ  ¼õÉÙ²»±ØÒªµÄËÑË÷
-//A*Ëã·¨Ò²±»³ÆÎªÆô·¢Ê½µÄbfs
+//DJç®—æ³•å¯ä»¥çœ‹æˆæ˜¯ä¸€ä¸ªA*çš„ç‰¹ä¾‹  å³å¸å¼•åŠ›ä¸º0çš„æƒ…å†µ
+//A*ç®—æ³•åˆ™é€šè¿‡å¸å¼•åŠ›æ¥åŠ é€Ÿ  å‡å°‘ä¸å¿…è¦çš„æœç´¢
+//A*ç®—æ³•ä¹Ÿè¢«ç§°ä¸ºå¯å‘å¼çš„bfs
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 1005;
@@ -12,7 +12,7 @@ int n,m,k;
 int ans[MAXT];
 int tot;
 
-int dis[MAXN];//ÕâÊÇÇó½Úµã1µ½¸÷¸ö½ÚµãµÄ¾àÀë  ÓÃÓÚA*
+int dis[MAXN];//è¿™æ˜¯æ±‚èŠ‚ç‚¹1åˆ°å„ä¸ªèŠ‚ç‚¹çš„è·ç¦»  ç”¨äºA*
 bool vis[MAXN];
 
 int head[MAXN];
@@ -21,7 +21,7 @@ int weight[MAXM];
 int to[MAXM];
 int cnt=1;
 
-//·´Í¼ÏµÁĞ
+//åå›¾ç³»åˆ—
 int head1[MAXN];
 int Next1[MAXM];
 int weight1[MAXM];
@@ -43,7 +43,7 @@ void Addedge(int u,int v,int w){
 }
 
 auto compare = [](const pair<int, int>& left, const pair<int, int>& right) {
-    return left.second > right.second; // ×¢ÒâÕâÀïÊÇ´óÓÚ£¬ÒòÎªÎÒÃÇÏëÒªĞ¡¸ù¶Ñ
+    return left.second > right.second; // æ³¨æ„è¿™é‡Œæ˜¯å¤§äºï¼Œå› ä¸ºæˆ‘ä»¬æƒ³è¦å°æ ¹å †
 };
 priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(compare)> heap(compare);
 
@@ -72,19 +72,19 @@ void dijkstra(){
 }
 
 auto cmp = [](const pair<int, int>& left, const pair<int, int>& right) {
-    return left.second+dis[left.first] > right.second+dis[right.first]; // ×¢ÒâÕâÀïÊÇ´óÓÚ£¬ÒòÎªÎÒÃÇÏëÒªĞ¡¸ù¶Ñ
+    return left.second+dis[left.first] > right.second+dis[right.first]; // æ³¨æ„è¿™é‡Œæ˜¯å¤§äºï¼Œå› ä¸ºæˆ‘ä»¬æƒ³è¦å°æ ¹å †
 };
 priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(cmp)> q(cmp);
 
 void Astar(){
     q.push({n,0});
     while(!q.empty()){
-        //ÒòÎªÕâ¸öÌâÄ¿²»¿ÉÄÜÓĞ»·  ¼´Ò»¸öµã²»¿ÉÄÜÓÉËû¿ÉÒÔµ½´ïµÄµãÑ¹Èë¶ÓÁĞ
-        //ËùÒÔ²»»áÏİÈëËÀÑ­»·
+        //å› ä¸ºè¿™ä¸ªé¢˜ç›®ä¸å¯èƒ½æœ‰ç¯  å³ä¸€ä¸ªç‚¹ä¸å¯èƒ½ç”±ä»–å¯ä»¥åˆ°è¾¾çš„ç‚¹å‹å…¥é˜Ÿåˆ—
+        //æ‰€ä»¥ä¸ä¼šé™·å…¥æ­»å¾ªç¯
         int u=q.top().first;
         int d=q.top().second;
         q.pop();
-        //×¢Òâ ÕâÀï²»ÄÜÓĞvisÅĞ¶Ï ÒòÎª¼´Ê¹ÔÚ¶ÓÁĞÖĞ  Ò²¿ÉÒÔÔÙ´Î½øÈë¶ÓÁĞ
+        //æ³¨æ„ è¿™é‡Œä¸èƒ½æœ‰visåˆ¤æ–­ å› ä¸ºå³ä½¿åœ¨é˜Ÿåˆ—ä¸­  ä¹Ÿå¯ä»¥å†æ¬¡è¿›å…¥é˜Ÿåˆ—
         if(u==1){
             ans[++tot]=d;
             if(tot==k){
