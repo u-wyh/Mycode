@@ -56,6 +56,10 @@ void down(int l, int r) {
     }
 }
 
+// 全包的时候  我们分为两种情况来讨论   一种是大于最大值的一半  一种是小于最大值的一半
+// 这两种情况我们分别是两种方式挂并查集  这样会不会导致死循环呢  比如fa[1]=2  fa[2]=1
+// 实际上  只要被包住了  那么这个值以后就不会再出现了
+// 其实用笔画一画就知道了 这个lazy线可以保证不会循环
 void update(int qi, int l, int r) {
     int jobl = ql[qi], jobr = qr[qi], jobx = qx[qi];
     if (jobx >= maxv - lazy || jobl > r || jobr < l) {
@@ -64,6 +68,7 @@ void update(int qi, int l, int r) {
     if (jobl <= l && r <= jobr) {
         //判断这个问题是否属于这个这个块  即整块
         if ((jobx << 1) <= maxv - lazy) {
+            // 判断值和真实的最大值的关系
             for (int v = lazy + 1; v <= lazy + jobx; v++) {
                 cntv[v + jobx] += cntv[v];
                 cntv[v] = 0;
@@ -84,6 +89,7 @@ void update(int qi, int l, int r) {
             }
         }
     } else {
+        // 先将之前的效果全部落实
         down(l, r);
         for (int i = max(l, jobl); i <= min(r, jobr); i++) {
             if (arr[i] - lazy > jobx) {
@@ -92,6 +98,7 @@ void update(int qi, int l, int r) {
                 cntv[arr[i]]++;
             }
         }
+        // 势能分析 
         for (int v = maxv; v >= 0; v--) {
             if (cntv[v] != 0) {
                 maxv = v;
@@ -101,15 +108,19 @@ void update(int qi, int l, int r) {
     }
 }
 
+// 这个这个组对这个查询的贡献
 void query(int qi, int l, int r) {
     int jobl = ql[qi], jobr = qr[qi], jobx = qx[qi];
     if (jobx == 0 || jobx > maxv - lazy || jobl > r || jobr < l) {
+        // 如果是0的查询 那么已经处理过了   如果最大值都比上如今的查询 也没有必要了
+        // 或者就是范围不符合
         return;
     }
     if (jobl <= l && r <= jobr) {
         //整块被包含
         ans[qi] += cntv[jobx + lazy];
     } else {
+        // 之前可能存在整块修改 将整块修改后的效果落实
         down(l, r);
         for (int i = max(l, jobl); i <= min(r, jobr); i++) {
             if (arr[i] - lazy == jobx) {
@@ -120,6 +131,7 @@ void query(int qi, int l, int r) {
     }
 }
 
+// 这里l和r必然是一个组的左右边界
 void compute(int l, int r) {
     memset(cntv, 0, sizeof(int) * MAXV);
     maxv = lazy = 0;
