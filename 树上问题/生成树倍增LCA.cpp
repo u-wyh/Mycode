@@ -1,4 +1,5 @@
 // https://www.lanqiao.cn/problems/3506/learning/
+// https://www.luogu.com.cn/problem/P9235
 // 这道题十分的经典
 // 由于数据范围过大  暴力算法过不了
 // 所以我们使用了  倍增 最小生成树 lca 并查集 邻接表等算法辅助
@@ -86,7 +87,6 @@ void dfs(int u,int f){
     st[u][0]=f;
     deep[u]=deep[f]+1;
     for(int i=1;i<=LIMIT;i++){
-        //这个循环可以放在跑完子节点dfs之后  可能需要改变一点代码
         if(st[u][i-1]>0){
             st[u][i]=st[st[u][i-1]][i-1];
             val[u][i]=min(val[st[u][i-1]][i-1],val[u][i-1]);
