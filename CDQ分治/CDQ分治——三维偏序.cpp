@@ -107,6 +107,7 @@ void prepare() {
 	// 根据a排序，a一样根据b排序，b一样根据c排序
 	// 排序后a、b、c一样的同组内，组前的下标得不到同组后面的统计量
 	// 所以把这部分的贡献，提前补偿给组前的下标，然后再跑CDQ分治
+	//其实一般来说 按照a排序即可  但是这里是为了解决那个小坑点  所以bc也要排序
 	sort(arr + 1, arr + n + 1, CmpAbc);
 	for (int l = 1, r = 1; l <= n; l = ++r) {
 		while (r + 1 <= n && arr[l].a == arr[r + 1].a && arr[l].b == arr[r + 1].b && arr[l].c == arr[r + 1].c) {

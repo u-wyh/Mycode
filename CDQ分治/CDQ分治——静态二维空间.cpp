@@ -7,7 +7,7 @@
 // 测试链接 : https://www.luogu.com.cn/problem/P3755
 // 如下实现是C++的版本，C++版本和java版本逻辑完全一样
 // 提交如下代码，可以通过所有测试用例
-//这道题和二维求和是一样的 无非就是多了一个权值而已
+//这道题和二维计数是一样的 无非就是多了一个权值而已
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 500001;

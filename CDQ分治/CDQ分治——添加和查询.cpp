@@ -13,7 +13,7 @@
 //既有动态的添加数据  也有二维查询
 //我们要把坐标全部加一  因为查询操作我们变成了四个  其中会有减去1
 //但是树状数组里面不要出现0  所以我们全部加一
-//时间作为第一维  x坐标第二维 在y上建立树状数组添加信息
+//时间作为第一维  x坐标第二维 在y上建立树状数组添加信息 相当于在二维偏序上加一个时间维度
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXM = 200001;
@@ -22,16 +22,16 @@ const int INF = 1000000001;
 
 int w;
 
+// op == 1表示增加事件，x、y、人数v
+// op == 2表示查询事件，x、y、效果v、查询编号q
 struct Node {
-   int op, x, y, v, q;
+   	int op, x, y, v, q;
 };
 
 bool NodeCmp(Node a, Node b) {
-   return a.x < b.x;
+   	return a.x < b.x;
 }
 
-// op == 1表示增加事件，x、y、人数v
-// op == 2表示查询事件，x、y、效果v、查询编号q
 Node arr[MAXM];
 int cnte = 0;
 int cntq = 0;
@@ -79,6 +79,7 @@ void addQuery(int x, int y, int v, int q) {
 void merge(int l, int m, int r) {
 	int p1, p2;
 	for (p1 = l - 1, p2 = m + 1; p2 <= r; p2++) {
+		// 这里不能像二维计数那样统计答案  因为这里的第二维是x坐标  第三维才是y坐标
 		while (p1 + 1 <= m && arr[p1 + 1].x <= arr[p2].x) {
 			p1++;
 			if (arr[p1].op == 1) {

@@ -10,6 +10,7 @@
 //这道题我最初的时候想用的是离散化 但是即使离散化也是无法完成的
 //需要使用cdq分治  按照x分组  y重新排序
 //这里由于没有使用到高级数据结构 为了维护时间复杂度  没有使用内置sort函数 
+//这道题只是一道二维偏序问题  按道理来说不需要cdq也可以完成
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 500001 * 5;
@@ -56,6 +57,8 @@ void addQuery(int x, int y, int v, int q) {
 void merge(int l, int m, int r) {
 	int p1, p2, tree = 0;
 	for (p1 = l - 1, p2 = m + 1; p2 <= r; p2++) {
+		// 这里是比较巧妙的  要是我的话 我会将左组的树的y全部加入树状数组中  右组的查询全部树状数组查询
+		// 这里采用的双指针不回退 保证时间复杂度更好
 		while (p1 + 1 <= m && arr[p1 + 1].y <= arr[p2].y) {
 			p1++;
 			if (arr[p1].op == 1) {

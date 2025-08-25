@@ -6,6 +6,7 @@
 // 测试链接 : https://www.luogu.com.cn/problem/P5094
 // 如下实现是C++的版本，C++版本和java版本逻辑完全一样
 // 提交如下代码，可以通过所有测试用例
+//这道题严格意义上来讲 只能算作是二维偏序
 //这道题主要是是使用cdq分治加速  第一维按照奶牛的声音排序
 //比较巧妙的是设置lsum rsum
 #include <bits/stdc++.h>
@@ -37,7 +38,7 @@ long long merge(int l, int m, int r) {
             rsum -= arr[p1].x;
             lsum += arr[p1].x;
         }
-        //计算这头牛左边的贡献 和 右边的贡献
+        //计算右组当前这头牛 左边位置的贡献 和 右边位置的贡献
         ans += ((1LL * (p1 - l + 1) * arr[p2].x - lsum) + (rsum - 1LL * (m - p1) * arr[p2].x) )* arr[p2].v;
     }
     p1 = l;

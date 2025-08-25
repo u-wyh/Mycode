@@ -43,6 +43,7 @@ Node arr[MAXN];
 
 // 树状数组维护前缀最大值  可以添加、查询 不允许修改、删除
 int tree[MAXN];
+// 以i结尾的  最多选择一个操作的最长不下降子序列长度
 int dp[MAXN];
 
 int lowbit(int i) {
@@ -101,6 +102,7 @@ void merge(int l, int m, int r) {
     for (int i = l; i <= p1; i++) {
         clear(arr[i].rv);
     }
+    // 合并结束的时候  并不需要进行同意排序 因为可能根据左右侧不同  排序也是不同的 
 }
 
 void cdq(int l, int r) {
