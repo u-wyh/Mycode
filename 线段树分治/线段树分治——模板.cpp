@@ -9,6 +9,7 @@
 // 测试链接 : https://loj.ac/p/121
 // 如下实现是C++的版本，C++版本和java版本逻辑完全一样
 // 提交如下代码，可以通过所有测试用例
+// 这道题是线段树分治结合可撤销并查集维护联通性的板子题  这就是最经典的用法
 #include <bits/stdc++.h>
 using namespace std;
 // 点的数量最大值
@@ -59,6 +60,7 @@ int find(int i) {
     return i;
 }
 
+// 必须要小挂大 不然时间复杂度会达到O(n)级别
 void Union(int x, int y) {
     int fx = find(x);
     int fy = find(y);

@@ -34,106 +34,107 @@ int cnt = 0;
 bool ans[MAXN];
 
 void addEdge(int i, int x, int y) {
-   nxt[++cnt] = head[i];
-   tox[cnt] = x;
-   toy[cnt] = y;
-   head[i] = cnt;
+    nxt[++cnt] = head[i];
+    tox[cnt] = x;
+    toy[cnt] = y;
+    head[i] = cnt;
 }
 
 int find(int i) {
-   while (i != father[i]) {
-       i = father[i];
-   }
-   return i;
+    while (i != father[i]) {
+        i = father[i];
+    }
+    return i;
 }
 
 void Union(int x, int y) {
-   int fx = find(x);
-   int fy = find(y);
-   if (siz[fx] < siz[fy]) {
-       int tmp = fx;
-       fx = fy;
-       fy = tmp;
-   }
-   father[fy] = fx;
-   siz[fx] += siz[fy];
-   rollback[++opsize][0] = fx;
-   rollback[opsize][1] = fy;
+    int fx = find(x);
+    int fy = find(y);
+    if (siz[fx] < siz[fy]) {
+        int tmp = fx;
+        fx = fy;
+        fy = tmp;
+    }
+    father[fy] = fx;
+    siz[fx] += siz[fy];
+    rollback[++opsize][0] = fx;
+    rollback[opsize][1] = fy;
 }
 
 void undo() {
-   int fx = rollback[opsize][0];
-   int fy = rollback[opsize--][1];
-   father[fy] = fy;
-   siz[fx] -= siz[fy];
+    int fx = rollback[opsize][0];
+    int fy = rollback[opsize--][1];
+    father[fy] = fy;
+    siz[fx] -= siz[fy];
 }
 
 void add(int jobl, int jobr, int jobx, int joby, int l, int r, int i) {
-   if (jobl <= l && r <= jobr) {
-       addEdge(i, jobx, joby);
-   } else {
-       int mid = (l + r) >> 1;
-       if (jobl <= mid) {
-           add(jobl, jobr, jobx, joby, l, mid, i << 1);
-       }
-       if (jobr > mid) {
-           add(jobl, jobr, jobx, joby, mid + 1, r, i << 1 | 1);
-       }
-   }
+    if (jobl <= l && r <= jobr) {
+        addEdge(i, jobx, joby);
+    } else {
+        int mid = (l + r) >> 1;
+        if (jobl <= mid) {
+            add(jobl, jobr, jobx, joby, l, mid, i << 1);
+        }
+        if (jobr > mid) {
+            add(jobl, jobr, jobx, joby, mid + 1, r, i << 1 | 1);
+        }
+    }
 }
 
 void dfs(int l, int r, int i) {
-   bool check = true;
-   int unionCnt = 0;
-   for (int ei = head[i]; ei > 0; ei = nxt[ei]) {
-       int x = tox[ei], y = toy[ei], fx = find(x), fy = find(y);
-       if (fx == fy) {
-           check = false;//表示不再是二分图了 那么之后所有的都不是二分图
-           break;
-       } else {
+    bool check = true;
+    int unionCnt = 0;
+    for (int ei = head[i]; ei > 0; ei = nxt[ei]) {
+        int x = tox[ei], y = toy[ei], fx = find(x), fy = find(y);
+        if (fx == fy) {
+            check = false;//表示不再是二分图了 那么之后所有的都不是二分图
+            break;
+        } else {
             //合并的时候要注意 x和y+n  y和x+n
-           Union(x, y + n);
-           Union(y, x + n);
-           unionCnt += 2;
-       }
-   }
-   if (check) {
-       if (l == r) {
-           ans[l] = true;
-       } else {
-           int mid = (l + r) >> 1;
-           dfs(l, mid, i << 1);
-           dfs(mid + 1, r, i << 1 | 1);
-       }
-   } else {
-       for (int k = l; k <= r; k++) {
-           ans[k] = false;
-       }
-   }
-   for (int k = 1; k <= unionCnt; k++) {
-       undo();
-   }
+            Union(x, y + n);
+            Union(y, x + n);
+            unionCnt += 2;
+        }
+    }
+    if (check) {
+        if (l == r) {
+            ans[l] = true;
+        } else {
+            int mid = (l + r) >> 1;
+            dfs(l, mid, i << 1);
+            dfs(mid + 1, r, i << 1 | 1);
+        }
+    } else {
+        // 没有必要继续遍历了  已经不是二分图了
+        for (int k = l; k <= r; k++) {
+            ans[k] = false;
+        }
+    }
+    for (int k = 1; k <= unionCnt; k++) {
+        undo();
+    }
 }
 
 int main() {
-   ios::sync_with_stdio(false);
-   cin.tie(nullptr);
-   cin >> n >> m >> k;
-   for (int i = 1; i <= n * 2; i++) {
-       father[i] = i;
-       siz[i] = 1;
-   }
-   for (int i = 1, x, y, l, r; i <= m; i++) {
-       cin >> x >> y >> l >> r;
-       add(l + 1, r, x, y, 1, k, 1);//这里时刻是 l+1~r这个区间
-   }
-   dfs(1, k, 1);
-   for (int i = 1; i <= k; i++) {
-       if (ans[i]) {
-           cout << "Yes" << "\n";
-       } else {
-           cout << "No" << "\n";
-       }
-   }
-   return 0;
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cin >> n >> m >> k;
+    for (int i = 1; i <= n * 2; i++) {
+        father[i] = i;
+        siz[i] = 1;
+    }
+    for (int i = 1, x, y, l, r; i <= m; i++) {
+        cin >> x >> y >> l >> r;
+        add(l + 1, r, x, y, 1, k, 1);//这里时刻是 l+1~r这个区间
+    }
+    dfs(1, k, 1);
+    for (int i = 1; i <= k; i++) {
+        if (ans[i]) {
+            cout << "Yes" << "\n";
+        } else {
+            cout << "No" << "\n";
+        }
+    }
+    return 0;
 }
