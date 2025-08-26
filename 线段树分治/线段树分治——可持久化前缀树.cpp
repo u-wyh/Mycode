@@ -178,6 +178,7 @@ void dfs(int l, int r, int i) {
     }
     sort(product + 1, product + pcnt + 1, ProductCmp);//将商品信息排序
     cntt = 0;
+    // 重新建立可持久化前缀树
     for (int k = 1; k <= pcnt; k++) {
         root[k] = insert(product[k].v, root[k - 1]);//每次都是基于上一个版本新建
     }
@@ -203,7 +204,8 @@ void prepare() {
         if (op[i] == 0) {
             addProduct(tim[i], i, 1, t, 1);//增加商品
         } else {
-            ans[i] = query(x[i], root[sl[i] - 1], root[sr[i]]);//查询最初商品的贡献
+            //查询最初商品的贡献  这里必须要提前查  因为每次查询都是重新建立树
+            ans[i] = query(x[i], root[sl[i] - 1], root[sr[i]]);
             int start = max(tim[i] - d[i] + 1, 1);
             if (start <= tim[i]) {
                 addBuy(start, tim[i], i, 1, t, 1);

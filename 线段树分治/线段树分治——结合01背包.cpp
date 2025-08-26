@@ -13,6 +13,8 @@
 // 如下实现是C++的版本，C++版本和java版本逻辑完全一样
 // 提交如下代码，可以通过所有测试用例
 //这道题有一个好处是每个商品只可能会被加上一次  因为编号是自增得到的
+// 这道题没有使用可撤销并查集  使用克隆操作记住来到这个节点时的信息 然后在返回上层的时候 将信息修正会原来的样子
+// 这道题就是普通的01背包和线段树分治结合而已  
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 40001;//可能的商品数量
@@ -52,110 +54,110 @@ long long backup[DEEP][MAXK];
 long long ans[MAXQ];
 
 void clone(long long* a, long long* b) {
-   for (int i = 0; i <= k; i++) {
-       a[i] = b[i];
-   }
+    for (int i = 0; i <= k; i++) {
+        a[i] = b[i];
+    }
 }
 
 void addEdge(int i, int v, int w) {
-   nxt[++cnt] = head[i];
-   tov[cnt] = v;
-   tow[cnt] = w;
-   head[i] = cnt;
+    nxt[++cnt] = head[i];
+    tov[cnt] = v;
+    tow[cnt] = w;
+    head[i] = cnt;
 }
 
 //在节点上挂上信息
 void add(int jobl, int jobr, int jobv, int jobw, int l, int r, int i) {
-   if (jobl <= l && r <= jobr) {
-       addEdge(i, jobv, jobw);
-   } else {
-       int mid = (l + r) >> 1;
-       if (jobl <= mid) {
-           add(jobl, jobr, jobv, jobw, l, mid, i << 1);
-       }
-       if (jobr > mid) {
-           add(jobl, jobr, jobv, jobw, mid + 1, r, i << 1 | 1);
-       }
-   }
+    if (jobl <= l && r <= jobr) {
+        addEdge(i, jobv, jobw);
+    } else {
+        int mid = (l + r) >> 1;
+        if (jobl <= mid) {
+            add(jobl, jobr, jobv, jobw, l, mid, i << 1);
+        }
+        if (jobr > mid) {
+            add(jobl, jobr, jobv, jobw, mid + 1, r, i << 1 | 1);
+        }
+    }
 }
 
 void dfs(int l, int r, int i, int dep) {
-   clone(backup[dep], dp);//先将加入这个节点的所有信息之前的dp表拷贝下来
-   for (int e = head[i]; e > 0; e = nxt[e]) {
-       int v = tov[e];
-       int w = tow[e];
-       //01背包
-       for (int j = k; j >= w; j--) {
-           dp[j] = max(dp[j], dp[j - w] + v);
-       }
-   }
-   if (l == r) {
-        //叶节点
-       if (op[l] == 3) {
-            //统计答案
-           long long ret = 0;
-           long long base = 1;
-           for (int j = 1; j <= k; j++) {
-               ret = (ret + dp[j] * base) % MOD;
-               base = (base * BAS) % MOD;
-           }
-           ans[l] = ret;
-       }
-   } else {
-       int mid = (l + r) >> 1;
-       dfs(l, mid, i << 1, dep + 1);
-       dfs(mid + 1, r, i << 1 | 1, dep + 1);
-   }
-   clone(dp, backup[dep]);//返回上层节点时  将dp信息设置为加入这个节点所有信息之前的状态
+    clone(backup[dep], dp);//先将加入这个节点的所有信息之前的dp表拷贝下来
+    for (int e = head[i]; e > 0; e = nxt[e]) {
+        int v = tov[e];
+        int w = tow[e];
+        //01背包
+        for (int j = k; j >= w; j--) {
+            dp[j] = max(dp[j], dp[j - w] + v);
+        }
+    }
+    if (l == r) {
+            //叶节点
+        if (op[l] == 3) {
+                //统计答案
+            long long ret = 0;
+            long long base = 1;
+            for (int j = 1; j <= k; j++) {
+                ret = (ret + dp[j] * base) % MOD;
+                base = (base * BAS) % MOD;
+            }
+            ans[l] = ret;
+        }
+    } else {
+        int mid = (l + r) >> 1;
+        dfs(l, mid, i << 1, dep + 1);
+        dfs(mid + 1, r, i << 1 | 1, dep + 1);
+    }
+    clone(dp, backup[dep]);//返回上层节点时  将dp信息设置为加入这个节点所有信息之前的状态
 }
 
 void prepare() {
-   for (int i = 1; i <= n; i++) {
-       from[i] = 1;
-       to[i] = q;
-   }
-   for (int i = 1; i <= q; i++) {
-       if (op[i] == 1) {
-           n++;
-           v[n] = x[i];
-           w[n] = y[i];
-           from[n] = i;
-           to[n] = q;//最初的全部设置为最后时刻结束
-       } else if (op[i] == 2) {
-           to[x[i]] = i - 1;//如果遇到了提前结束 那么更改设置
-       }
-   }
-   //节点上挂上区间操作信息
-   for (int i = 1; i <= n; i++) {
-       if (from[i] <= to[i]) {
-            //因为可能一开始将最初的几个点就删除了
-           add(from[i], to[i], v[i], w[i], 1, q, 1);
-       }
-   }
+    for (int i = 1; i <= n; i++) {
+        from[i] = 1;
+        to[i] = q;
+    }
+    for (int i = 1; i <= q; i++) {
+        if (op[i] == 1) {
+            n++;
+            v[n] = x[i];
+            w[n] = y[i];
+            from[n] = i;
+            to[n] = q;//最初的全部设置为最后时刻结束
+        } else if (op[i] == 2) {
+            to[x[i]] = i - 1;//如果遇到了提前结束 那么更改设置
+        }
+    }
+    //节点上挂上区间操作信息
+    for (int i = 1; i <= n; i++) {
+        if (from[i] <= to[i]) {
+            //因为可能一开始将最初的几个点就删除了  也就是第一个操作就是删除操作  把原有的直接删掉了
+            add(from[i], to[i], v[i], w[i], 1, q, 1);
+        }
+    }
 }
 
 int main() {
-   ios::sync_with_stdio(false);
-   cin.tie(nullptr);
-   cin >> n >> k;
-   for (int i = 1; i <= n; i++) {
-       cin >> v[i] >> w[i];
-   }
-   cin >> q;
-   for (int i = 1; i <= q; i++) {
-       cin >> op[i];
-       if (op[i] == 1) {
-           cin >> x[i] >> y[i];
-       } else if (op[i] == 2) {
-           cin >> x[i];
-       }
-   }
-   prepare();
-   dfs(1, q, 1, 1);
-   for (int i = 1; i <= q; i++) {
-       if (op[i] == 3) {
-           cout << ans[i] << '\n';
-       }
-   }
-   return 0;
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cin >> n >> k;
+    for (int i = 1; i <= n; i++) {
+        cin >> v[i] >> w[i];
+    }
+    cin >> q;
+    for (int i = 1; i <= q; i++) {
+        cin >> op[i];
+        if (op[i] == 1) {
+            cin >> x[i] >> y[i];
+        } else if (op[i] == 2) {
+            cin >> x[i];
+        }
+    }
+    prepare();
+    dfs(1, q, 1, 1);
+    for (int i = 1; i <= q; i++) {
+        if (op[i] == 3) {
+            cout << ans[i] << '\n';
+        }
+    }
+    return 0;
 }
