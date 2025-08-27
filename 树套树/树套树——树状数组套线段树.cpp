@@ -1,39 +1,39 @@
-// Ê÷×´Êı×éÌ×Ïß¶ÎÊ÷£¬C++°æ
-// ¸ø¶¨Ò»¸ö³¤¶ÈÎªnµÄÊı×éarr£¬ÏÂ±ê1~n£¬Ã¿Ìõ²Ù×÷¶¼ÊÇÈçÏÂ5ÖÖÀàĞÍÖĞµÄÒ»ÖÖ£¬Ò»¹²½øĞĞm´Î²Ù×÷
-// ²Ù×÷ 1 x y z : ²éÑ¯Êı×ÖzÔÚarr[x..y]ÖĞµÄÅÅÃû
-// ²Ù×÷ 2 x y z : ²éÑ¯arr[x..y]ÖĞÅÅµÚzÃûµÄÊı×Ö
-// ²Ù×÷ 3 x y   : arrÖĞxÎ»ÖÃµÄÊı×Ö¸Ä³Éy
-// ²Ù×÷ 4 x y z : ²éÑ¯Êı×ÖzÔÚarr[x..y]ÖĞµÄÇ°Çı£¬²»´æÔÚ·µ»Ø-2147483647
-// ²Ù×÷ 5 x y z : ²éÑ¯Êı×ÖzÔÚarr[x..y]ÖĞµÄºó¼Ì£¬²»´æÔÚ·µ»Ø+2147483647
-// 1 <= n¡¢m <= 5 * 10^4
-// Êı×éÖĞµÄÖµÓÀÔ¶ÔÚ[0, 10^8]·¶Î§ÄÚ
-// ²âÊÔÁ´½Ó : https://www.luogu.com.cn/problem/P3380
-// ÈçÏÂÊµÏÖÊÇC++µÄ°æ±¾£¬C++°æ±¾ºÍjava°æ±¾Âß¼­ÍêÈ«Ò»Ñù
-// Ìá½»ÈçÏÂ´úÂë£¬¿ÉÒÔÍ¨¹ıËùÓĞ²âÊÔÓÃÀı
+// æ ‘çŠ¶æ•°ç»„å¥—çº¿æ®µæ ‘ï¼ŒC++ç‰ˆ
+// ç»™å®šä¸€ä¸ªé•¿åº¦ä¸ºnçš„æ•°ç»„arrï¼Œä¸‹æ ‡1~nï¼Œæ¯æ¡æ“ä½œéƒ½æ˜¯å¦‚ä¸‹5ç§ç±»å‹ä¸­çš„ä¸€ç§ï¼Œä¸€å…±è¿›è¡Œmæ¬¡æ“ä½œ
+// æ“ä½œ 1 x y z : æŸ¥è¯¢æ•°å­—zåœ¨arr[x..y]ä¸­çš„æ’å
+// æ“ä½œ 2 x y z : æŸ¥è¯¢arr[x..y]ä¸­æ’ç¬¬zåçš„æ•°å­—
+// æ“ä½œ 3 x y   : arrä¸­xä½ç½®çš„æ•°å­—æ”¹æˆy
+// æ“ä½œ 4 x y z : æŸ¥è¯¢æ•°å­—zåœ¨arr[x..y]ä¸­çš„å‰é©±ï¼Œä¸å­˜åœ¨è¿”å›-2147483647
+// æ“ä½œ 5 x y z : æŸ¥è¯¢æ•°å­—zåœ¨arr[x..y]ä¸­çš„åç»§ï¼Œä¸å­˜åœ¨è¿”å›+2147483647
+// 1 <= nã€m <= 5 * 10^4
+// æ•°ç»„ä¸­çš„å€¼æ°¸è¿œåœ¨[0, 10^8]èŒƒå›´å†…
+// æµ‹è¯•é“¾æ¥ : https://www.luogu.com.cn/problem/P3380
+// å¦‚ä¸‹å®ç°æ˜¯C++çš„ç‰ˆæœ¬ï¼ŒC++ç‰ˆæœ¬å’Œjavaç‰ˆæœ¬é€»è¾‘å®Œå…¨ä¸€æ ·
+// æäº¤å¦‚ä¸‹ä»£ç ï¼Œå¯ä»¥é€šè¿‡æ‰€æœ‰æµ‹è¯•ç”¨ä¾‹
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 50001;
-//¿ªµãÏß¶ÎÊ÷½Úµã¸öÊı
+//å¼€ç‚¹çº¿æ®µæ ‘èŠ‚ç‚¹ä¸ªæ•°
 const int MAXT = MAXN * 160;
 const int INF = INT_MAX;
 
-//Íâ²¿µÄÊ÷×´Êı×éÊÇ¸ù¾İarrµÄÏÂ±ê×éÖ¯
-//ÄÚ²¿µÄÏß¶ÎÊ÷ÊÇ°´ÕÕÀëÉ¢»¯Êı×ÖÅÅÃû×éÖ¯
+//å¤–éƒ¨çš„æ ‘çŠ¶æ•°ç»„æ˜¯æ ¹æ®arrçš„ä¸‹æ ‡ç»„ç»‡
+//å†…éƒ¨çš„çº¿æ®µæ ‘æ˜¯æŒ‰ç…§ç¦»æ•£åŒ–æ•°å­—æ’åç»„ç»‡
 
 int n, m, s;
 int arr[MAXN];
-//ÊÕ¼¯ÎÊÌâ  ÓÃÓÚÀëÉ¢»¯
+//æ”¶é›†é—®é¢˜  ç”¨äºç¦»æ•£åŒ–
 int ques[MAXN][4];
 int sorted[MAXN * 2];
 
-//Ïß¶ÎÊ÷
+//çº¿æ®µæ ‘
 int root[MAXN];
 int sum[MAXT];
 int ls[MAXT];
 int rs[MAXT];
 int cntt = 0;
 
-//¼Ó¼õÕóÓª
+//åŠ å‡é˜µè¥
 int addTree[MAXN];
 int minusTree[MAXN];
 int cntadd;
@@ -58,7 +58,7 @@ int lowbit(int i) {
     return i & -i;
 }
 
-// µÚjobiĞ¡µÄÊı×Ö£¬Ôö¼ÓjobvµÄ¼ÆÊı£¬Êı×Ö·¶Î§l~r£¬½Úµã±àºÅi£¬·µ»ØÍ·½Úµã±àºÅ
+// ç¬¬jobiå°çš„æ•°å­—ï¼Œå¢åŠ jobvçš„è®¡æ•°ï¼Œæ•°å­—èŒƒå›´l~rï¼ŒèŠ‚ç‚¹ç¼–å·iï¼Œè¿”å›å¤´èŠ‚ç‚¹ç¼–å·
 int innerAdd(int jobi, int jobv, int l, int r, int i) {
     if (i == 0) {
         i = ++cntt;
@@ -77,8 +77,8 @@ int innerAdd(int jobi, int jobv, int l, int r, int i) {
     return i;
 }
 
-// ²éÑ¯µÚjobkĞ¡µÄÊı×Ö£¬Êı×Ö·¶Î§l~r
-// ²»ĞèÒªÍ·½Úµã±àºÅ£¬ÒòÎªÓĞ¶à¿ÃÊ÷£¬ËùÓĞµÄÍ·½Úµã¼ÇÂ¼ÔÚaddTree¡¢minusTree
+// æŸ¥è¯¢ç¬¬jobkå°çš„æ•°å­—ï¼Œæ•°å­—èŒƒå›´l~r
+// ä¸éœ€è¦å¤´èŠ‚ç‚¹ç¼–å·ï¼Œå› ä¸ºæœ‰å¤šæ£µæ ‘ï¼Œæ‰€æœ‰çš„å¤´èŠ‚ç‚¹è®°å½•åœ¨addTreeã€minusTree
 int innerQuery(int jobk, int l, int r) {
     if (l == r) {
         return l;
@@ -110,15 +110,15 @@ int innerQuery(int jobk, int l, int r) {
     }
 }
 
-// ²éÑ¯±ÈjobiĞ¡µÄÊı×Ö¸öÊı£¬Êı×Ö·¶Î§l~r
-// ²»ĞèÒªÍ·½Úµã±àºÅ£¬ÒòÎªÓĞ¶à¿ÃÊ÷£¬ËùÓĞµÄÍ·½Úµã¼ÇÂ¼ÔÚaddTree¡¢minusTree
+// æŸ¥è¯¢æ¯”jobiå°çš„æ•°å­—ä¸ªæ•°ï¼Œæ•°å­—èŒƒå›´l~r
+// ä¸éœ€è¦å¤´èŠ‚ç‚¹ç¼–å·ï¼Œå› ä¸ºæœ‰å¤šæ£µæ ‘ï¼Œæ‰€æœ‰çš„å¤´èŠ‚ç‚¹è®°å½•åœ¨addTreeã€minusTree
 int innerSmall(int jobi, int l, int r) {
     if (l == r) {
         return 0;
     }
     int mid = (l + r) / 2;
     if (jobi <= mid) {
-        //¸ü»»¼Ó¼õÕóÓªµÄÊ÷½Úµã
+        //æ›´æ¢åŠ å‡é˜µè¥çš„æ ‘èŠ‚ç‚¹
         for (int i = 1; i <= cntadd; i++) {
             addTree[i] = ls[addTree[i]];
         }
@@ -128,8 +128,8 @@ int innerSmall(int jobi, int l, int r) {
         return innerSmall(jobi, l, mid);
     } else {
         int leftsum = 0;
-        //·ñÔòÍ³¼Æ×ó±ßĞ¡ÓÚjobiµÄÊı×Ö¸öÊı È»ºó²éÑ¯ÓÒ±ßĞ¡ÓÚµÄ¸öÊı
-        //²¢¸ü»»¼Ó¼õÕóÓªµÄÊ÷½Úµã
+        //å¦åˆ™ç»Ÿè®¡å·¦è¾¹å°äºjobiçš„æ•°å­—ä¸ªæ•° ç„¶åæŸ¥è¯¢å³è¾¹å°äºçš„ä¸ªæ•°
+        //å¹¶æ›´æ¢åŠ å‡é˜µè¥çš„æ ‘èŠ‚ç‚¹
         for (int i = 1; i <= cntadd; i++) {
             leftsum += sum[ls[addTree[i]]];
             addTree[i] = rs[addTree[i]];
@@ -142,37 +142,37 @@ int innerSmall(int jobi, int l, int r) {
     }
 }
 
-// arrÖĞiÏÂ±êµÄÊı×Ö£¬Ôö¼ÓcntµÄ¼ÆÊı  ±ä»¯µÄÎ»ÖÃÊÇarr[i]  arr[i]Êµ¼ÊÉÏÊÇÅÅÃû
+// arrä¸­iä¸‹æ ‡çš„æ•°å­—ï¼Œå¢åŠ cntçš„è®¡æ•°  å˜åŒ–çš„ä½ç½®æ˜¯arr[i]  arr[i]å®é™…ä¸Šæ˜¯æ’å
 void add(int i, int cnt) {
     for (int j = i; j <= n; j += lowbit(j)) {
-        //±íÊ¾Ê÷×´Êı×éÖĞ¿ÉÒÔ°üº¬iµÄÊı×éÖĞ  arr[i]µÄ´ÊÆµ¼ÓÉÏcnt
+        //è¡¨ç¤ºæ ‘çŠ¶æ•°ç»„ä¸­å¯ä»¥åŒ…å«içš„æ•°ç»„ä¸­  arr[i]çš„è¯é¢‘åŠ ä¸Šcnt
         root[j] = innerAdd(arr[i], cnt, 1, s, root[j]);
     }
 }
 
-// arrÖĞiÏÂ±êµÄÊı×Ö£¬¸Ä³Év
+// arrä¸­iä¸‹æ ‡çš„æ•°å­—ï¼Œæ”¹æˆv
 void update(int i, int v) {
     add(i, -1);
     arr[i] = kth(v);
     add(i, 1);
 }
 
-// arr[l..r]·¶Î§ÉÏ£¬±ÈvĞ¡µÄÊı×Ö¸öÊı
+// arr[l..r]èŒƒå›´ä¸Šï¼Œæ¯”vå°çš„æ•°å­—ä¸ªæ•°
 int small(int l, int r, int v) {
     cntadd = cntminus = 0;
     for (int i = r; i > 0; i -= lowbit(i)) {
-        addTree[++cntadd] = root[i];//¼ÓÕóÓªµÄÔªËØ
+        addTree[++cntadd] = root[i];//åŠ é˜µè¥çš„å…ƒç´ 
     }
     for (int i = l - 1; i > 0; i -= lowbit(i)) {
-        minusTree[++cntminus] = root[i];//¼õÕóÓªµÄÔªËØ
+        minusTree[++cntminus] = root[i];//å‡é˜µè¥çš„å…ƒç´ 
     }
     return innerSmall(v, 1, s);
 }
 
-// arr[l..r]·¶Î§ÉÏ£¬²éÑ¯µÚkĞ¡µÄÊı×ÖÊÇÊ²Ã´
+// arr[l..r]èŒƒå›´ä¸Šï¼ŒæŸ¥è¯¢ç¬¬kå°çš„æ•°å­—æ˜¯ä»€ä¹ˆ
 int number(int l, int r, int k) {
     cntadd = cntminus = 0;
-    //ÏÈÍê³É¼Ó¼õÕóÓªÊ÷µÄÌí¼Ó
+    //å…ˆå®ŒæˆåŠ å‡é˜µè¥æ ‘çš„æ·»åŠ 
     for (int i = r; i > 0; i -= lowbit(i)) {
         addTree[++cntadd] = root[i];
     }
@@ -182,7 +182,7 @@ int number(int l, int r, int k) {
     return sorted[innerQuery(k, 1, s)];
 }
 
-// arr[l..r]·¶Î§ÉÏ£¬²éÑ¯vµÄÇ°Çı
+// arr[l..r]èŒƒå›´ä¸Šï¼ŒæŸ¥è¯¢vçš„å‰é©±
 int pre(int l, int r, int v) {
     int rank = small(l, r, v) + 1;
     if (rank == 1) {
@@ -191,20 +191,20 @@ int pre(int l, int r, int v) {
     return number(l, r, rank - 1);
 }
 
-// arr[l..r]·¶Î§ÉÏ£¬²éÑ¯vµÄºó¼Ì
+// arr[l..r]èŒƒå›´ä¸Šï¼ŒæŸ¥è¯¢vçš„åç»§
 int post(int l, int r, int v) {
     if (v == s) {
         return INF;
     }
     int sml = small(l, r, v + 1);
     if (sml == r - l + 1) {
-        //Õâ¸öÇø¼äÉÏËùÓĞÊı×Ö¶¼±ÈÄãĞ¡  ËµÃ÷Ã»ÓĞºó¼Ì
+        //è¿™ä¸ªåŒºé—´ä¸Šæ‰€æœ‰æ•°å­—éƒ½æ¯”ä½ å°  è¯´æ˜æ²¡æœ‰åç»§
         return INF;
     }
     return number(l, r, sml + 1);
 }
 
-//Íê³ÉÀëÉ¢»¯  ²¢½«Ô­Ê¼Êı×é¼ÓÈëµ½Ê÷×´Êı×éÖĞ
+//å®Œæˆç¦»æ•£åŒ–  å¹¶å°†åŸå§‹æ•°ç»„åŠ å…¥åˆ°æ ‘çŠ¶æ•°ç»„ä¸­
 void prepare() {
     s = 0;
     for (int i = 1; i <= n; i++) {

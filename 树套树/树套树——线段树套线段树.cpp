@@ -1,29 +1,30 @@
-// �߶������߶�����C++��
-// �����������ԣ����ߡ����öȡ�Ե��ֵ
-// ����Ϊint���ͣ����öȺ�Ե��ֵΪС��������1λ��double����
-// ʵ��һ�ֽṹ���ṩ�����������͵Ĳ���
-// ���� I a b c   : ����һ���ˣ�����Ϊa�����ö�Ϊb��Ե��ֵΪc
-// ���� Q a b c d : ��ѯ���߷�Χ[a,b]�����öȷ�Χ[c,d]���������е�Ե�����ֵ
-// ע�����Q�����a > b��Ҫ���������c > d��Ҫ����
-// 100 <= ���� <= 200
-// 0.0 <= ���öȡ�Ե��ֵ <= 100.0
-// �������� : https://acm.hdu.edu.cn/showproblem.php?pid=1823
-// ����ʵ����C++�İ汾��C++�汾��java�汾�߼���ȫһ��
-// �ύ���´��룬����ͨ�����в�������
+// 线段树套线段树，C++版
+// 人有三种属性，身高、活泼度、缘分值
+// 身高为int类型，活泼度和缘分值为小数点后最多1位的double类型
+// 实现一种结构，提供如下两种类型的操作
+// 操作 I a b c   : 加入一个人，身高为a，活泼度为b，缘分值为c
+// 操作 Q a b c d : 查询身高范围[a,b]，活泼度范围[c,d]，所有人中的缘分最大值
+// 注意操作Q，如果a > b需要交换，如果c > d需要交换
+// 100 <= 身高 <= 200
+// 0.0 <= 活泼度、缘分值 <= 100.0
+// 测试链接 : https://acm.hdu.edu.cn/showproblem.php?pid=1823
+// 如下实现是C++的版本，C++版本和java版本逻辑完全一样
+// 提交如下代码，可以通过所有测试用例
 #include <bits/stdc++.h>
 using namespace std;
-// ���߷�Χ���ж�������
+// 身高范围内有多少数字
 const int n = 101;
-// ���öȷ�Χ���ж�������
+// 活泼度范围内有多少数字
 const int m = 1001;
-// ���߷�Χ��Ӧ[MINX, MAXX]�����öȷ�Χ��Ӧ[MINY, MAXY]
+
+// 身高范围对应[MINX, MAXX]，活泼度范围对应[MINY, MAXY]
 int MINX = 100, MAXX = 200, MINY = 0, MAXY = 1000;
-// ����������߶������ڲ��ǻ��ö��߶���
-// ÿһ������߶����Ľڵ㣬��Ӧ��һ���ڲ��߶���
-// �ڲ��߶����ռ�Ե��ֵ
+// 外层是身高线段树，内层是活泼度线段树
+// 每一个外层线段树的节点，对应着一棵内层线段树
+// 内层线段树收集缘分值
 int tree[n << 2][m << 2];
 
-//ÿһ���ⲿ�ڵ�xi��Ҫ����һ�����߶���
+//每一个外部节点xi都要建立一整棵线段树
 void innerBuild(int yl, int yr, int xi, int yi) {
     tree[xi][yi] = -1;
     if (yl < yr) {
@@ -33,7 +34,7 @@ void innerBuild(int yl, int yr, int xi, int yi) {
     }
 }
 
-//��xi��jobiλ�ø���Ϊjobv  �����ǰ��ֵ ��ô���ǱȽ����ֵ
+//将xi的jobi位置更新为jobv  如果以前有值 那么就是比较最大值
 void innerUpdate(int jobi, int jobv, int yl, int yr, int xi, int yi) {
     if (yl == yr) {
         tree[xi][yi] = max(tree[xi][yi], jobv);
@@ -48,7 +49,7 @@ void innerUpdate(int jobi, int jobv, int yl, int yr, int xi, int yi) {
     }
 }
 
-//��xi�ڵ��ѯ����jobl��jobr���������ֵ
+//在xi节点查询介于jobl到jobr的区间最大值
 int innerQuery(int jobl, int jobr, int yl, int yr, int xi, int yi) {
     if (jobl <= yl && yr <= jobr) {
         return tree[xi][yi];
@@ -64,7 +65,7 @@ int innerQuery(int jobl, int jobr, int yl, int yr, int xi, int yi) {
     return ans;
 }
 
-//��������߶���
+//建立外层线段树
 void outerBuild(int xl, int xr, int xi) {
 	innerBuild(MINY, MAXY, xi, 1);
     if (xl < xr) {
@@ -74,7 +75,7 @@ void outerBuild(int xl, int xr, int xi) {
     }
 }
 
-//����һ�����Ϊjobx  �ڲ�Ϊjoby  ֵΪjobv�ĵ�
+//更新一个外层为jobx  内层为joby  值为jobv的点
 void outerUpdate(int jobx, int joby, int jobv, int xl, int xr, int xi) {
 	innerUpdate(joby, jobv, MINY, MAXY, xi, 1);
     if (xl < xr) {
@@ -106,7 +107,7 @@ int main() {
 	int q;
 	scanf("%d", &q);
 	while(q != 0) {
-		outerBuild(MINX, MAXX, 1);//�����߶���
+		outerBuild(MINX, MAXX, 1);//建立线段树
         for (int i = 0; i < q; i++) {
         	char op[2];
             scanf("%s", op);

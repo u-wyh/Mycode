@@ -1,41 +1,41 @@
-// k´óÊý²éÑ¯£¬C++°æ
-// ³õÊ¼Ê±ÓÐn¸ö¿Õ¼¯ºÏ£¬±àºÅ1~n£¬ÊµÏÖÈçÏÂÁ½ÖÖÀàÐÍµÄ²Ù×÷£¬²Ù×÷Ò»¹²·¢Éúm´Î
-// ²Ù×÷ 1 l r v : Êý×Öv·ÅÈë±àºÅ·¶Î§[l,r]µÄÃ¿Ò»¸ö¼¯ºÏÖÐ
-// ²Ù×÷ 2 l r k : ±àºÅ·¶Î§[l,r]µÄËùÓÐ¼¯ºÏ£¬Èç¹ûÉú³É²»È¥ÖØµÄ²¢¼¯£¬·µ»ØµÚk´óµÄÊý×Ö
-// 1 <= n¡¢m <= 5 * 10^4
+// kå¤§æ•°æŸ¥è¯¢ï¼ŒC++ç‰ˆ
+// åˆå§‹æ—¶æœ‰nä¸ªç©ºé›†åˆï¼Œç¼–å·1~nï¼Œå®žçŽ°å¦‚ä¸‹ä¸¤ç§ç±»åž‹çš„æ“ä½œï¼Œæ“ä½œä¸€å…±å‘ç”Ÿmæ¬¡
+// æ“ä½œ 1 l r v : æ•°å­—væ”¾å…¥ç¼–å·èŒƒå›´[l,r]çš„æ¯ä¸€ä¸ªé›†åˆä¸­
+// æ“ä½œ 2 l r k : ç¼–å·èŒƒå›´[l,r]çš„æ‰€æœ‰é›†åˆï¼Œå¦‚æžœç”Ÿæˆä¸åŽ»é‡çš„å¹¶é›†ï¼Œè¿”å›žç¬¬kå¤§çš„æ•°å­—
+// 1 <= nã€m <= 5 * 10^4
 // -n <= v <= +n
-// 1 <= k < 2^63£¬ÌâÄ¿±£Ö¤µÚk´óµÄÊý×ÖÒ»¶¨´æÔÚ
-// ²âÊÔÁ´½Ó : https://www.luogu.com.cn/problem/P3332
-// ÈçÏÂÊµÏÖÊÇC++µÄ°æ±¾£¬C++°æ±¾ºÍjava°æ±¾Âß¼­ÍêÈ«Ò»Ñù
-// Ìá½»ÈçÏÂ´úÂë£¬¿ÉÒÔÍ¨¹ýËùÓÐ²âÊÔÓÃÀý
-//ÕâµÀÌâµÄÍâ²ãÊÇÊý×Ö´óÐ´±ÈÈç1 2 3 ÄÚ²ã¶ÔÓ¦µÄÊÇarr
-//ÕâµÀÌâÄ¿ÊÇ¸ù¾ÝÊý×ÖµÄÅÅÃûÈ·¶¨Íâ²ãÊ÷
-//¼´Èç¹ûÔÙjoblµ½jobr¼¯ºÏÖÐ¼ÓÈëÒ»¸öÅÅÃûÎªjobvµÄÊý×Ö
-//ÄÇÃ´Íâ²ã·¶Î§ÖÐ°üº¬jobvµÄÊ÷¶¼Òª½«joblµ½jobrµÄ¼¯ºÏÖÐÔªËØ¸öÊý¼ÓÒ»
-//ÄÚ²ãÊ÷ÊÇ¸ù¾Ý¼¯ºÏµÄ±àºÅ»®·Ö
+// 1 <= k < 2^63ï¼Œé¢˜ç›®ä¿è¯ç¬¬kå¤§çš„æ•°å­—ä¸€å®šå­˜åœ¨
+// æµ‹è¯•é“¾æŽ¥ : https://www.luogu.com.cn/problem/P3332
+// å¦‚ä¸‹å®žçŽ°æ˜¯C++çš„ç‰ˆæœ¬ï¼ŒC++ç‰ˆæœ¬å’Œjavaç‰ˆæœ¬é€»è¾‘å®Œå…¨ä¸€æ ·
+// æäº¤å¦‚ä¸‹ä»£ç ï¼Œå¯ä»¥é€šè¿‡æ‰€æœ‰æµ‹è¯•ç”¨ä¾‹
+//è¿™é“é¢˜çš„å¤–å±‚æ˜¯æ•°å­—å¤§å†™æ¯”å¦‚1 2 3 å†…å±‚å¯¹åº”çš„æ˜¯arr
+//è¿™é“é¢˜ç›®æ˜¯æ ¹æ®æ•°å­—çš„æŽ’åç¡®å®šå¤–å±‚æ ‘
+//å³å¦‚æžœå†joblåˆ°jobré›†åˆä¸­åŠ å…¥ä¸€ä¸ªæŽ’åä¸ºjobvçš„æ•°å­—
+//é‚£ä¹ˆå¤–å±‚èŒƒå›´ä¸­åŒ…å«jobvçš„æ ‘éƒ½è¦å°†joblåˆ°jobrçš„é›†åˆä¸­å…ƒç´ ä¸ªæ•°åŠ ä¸€
+//å†…å±‚æ ‘æ˜¯æ ¹æ®é›†åˆçš„ç¼–å·åˆ’åˆ†
 #include <bits/stdc++.h>
 using namespace std;
-// Íâ²¿Ïß¶ÎÊ÷µÄ·¶Î§£¬Ò»¹²Ö»ÓÐm¸ö²Ù×÷£¬ËùÒÔ×î¶àÓÐmÖÖÊý×Ö
+// å¤–éƒ¨çº¿æ®µæ ‘çš„èŒƒå›´ï¼Œä¸€å…±åªæœ‰mä¸ªæ“ä½œï¼Œæ‰€ä»¥æœ€å¤šæœ‰mç§æ•°å­—
 const int MAXM = 50001;
-// ÄÚ²¿Ïß¶ÎÊ÷µÄ½ÚµãÊýÉÏÏÞ
+// å†…éƒ¨çº¿æ®µæ ‘çš„èŠ‚ç‚¹æ•°ä¸Šé™
 const int MAXT = MAXM * 230;
 
 int n, m, s;
-// ËùÓÐ²Ù×÷ÊÕ¼¯ÆðÀ´£¬ÒòÎªÇ£³¶µ½Êý×ÖÀëÉ¢»¯
+// æ‰€æœ‰æ“ä½œæ”¶é›†èµ·æ¥ï¼Œå› ä¸ºç‰µæ‰¯åˆ°æ•°å­—ç¦»æ•£åŒ–
 int ques[MAXM][4];
-// ËùÓÐ¿ÉÄÜµÄÊý×Ö£¬ÊÕ¼¯ÆðÀ´È¥ÖØ£¬·½±ãµÃµ½Êý×ÖÅÅÃû
+// æ‰€æœ‰å¯èƒ½çš„æ•°å­—ï¼Œæ”¶é›†èµ·æ¥åŽ»é‡ï¼Œæ–¹ä¾¿å¾—åˆ°æ•°å­—æŽ’å
 int sorted[MAXM];
 
-// Íâ²¿(a~b) + ÄÚ²¿(c~d)±íÊ¾£ºÊý×ÖÅÅÃû·¶Î§a~b£¬¼¯ºÏ·¶Î§c~d£¬Êý×ÖµÄ¸öÊý
-// Íâ²¿Ïß¶ÎÊ÷µÄÏÂ±ê±íÊ¾Êý×ÖµÄÅÅÃû
-// Íâ²¿(a~b)£¬¼ÙÉè¶ÔÓ¦µÄ½Úµã±àºÅÎªi£¬ÄÇÃ´root[i]¾ÍÊÇÄÚ²¿Ïß¶ÎÊ÷µÄÍ·½Úµã±àºÅ
+// å¤–éƒ¨(a~b) + å†…éƒ¨(c~d)è¡¨ç¤ºï¼šæ•°å­—æŽ’åèŒƒå›´a~bï¼Œé›†åˆèŒƒå›´c~dï¼Œæ•°å­—çš„ä¸ªæ•°
+// å¤–éƒ¨çº¿æ®µæ ‘çš„ä¸‹æ ‡è¡¨ç¤ºæ•°å­—çš„æŽ’å
+// å¤–éƒ¨(a~b)ï¼Œå‡è®¾å¯¹åº”çš„èŠ‚ç‚¹ç¼–å·ä¸ºiï¼Œé‚£ä¹ˆroot[i]å°±æ˜¯å†…éƒ¨çº¿æ®µæ ‘çš„å¤´èŠ‚ç‚¹ç¼–å·
 int root[MAXM << 2];
 
-// ÄÚ²¿Ïß¶ÎÊ÷ÊÇ¿ªµãÏß¶ÎÊ÷£¬ËùÒÔÐèÒªcntÀ´»ñµÃ½Úµã¼ÆÊý
-// ÄÚ²¿Ïß¶ÎÊ÷µÄÏÂ±ê±íÊ¾¼¯ºÏµÄ±àºÅ
-// ÄÚ²¿(c~d)£¬¼ÙÉè¶ÔÓ¦µÄ½Úµã±àºÅÎªi
-// sum[i]±íÊ¾¼¯ºÏ·¶Î§c~d£¬Ò»¹²ÊÕ¼¯ÁË¶àÉÙÊý×Ö
-// lazy[i]ÀÁ¸üÐÂÐÅÏ¢£¬¼¯ºÏ·¶Î§c~d£¬Ôö¼ÓÁË¼¸¸öÊý×Ö£¬µÈ´ýÀÁ¸üÐÂµÄÏÂ·¢
+// å†…éƒ¨çº¿æ®µæ ‘æ˜¯å¼€ç‚¹çº¿æ®µæ ‘ï¼Œæ‰€ä»¥éœ€è¦cntæ¥èŽ·å¾—èŠ‚ç‚¹è®¡æ•°
+// å†…éƒ¨çº¿æ®µæ ‘çš„ä¸‹æ ‡è¡¨ç¤ºé›†åˆçš„ç¼–å·
+// å†…éƒ¨(c~d)ï¼Œå‡è®¾å¯¹åº”çš„èŠ‚ç‚¹ç¼–å·ä¸ºi
+// sum[i]è¡¨ç¤ºé›†åˆèŒƒå›´c~dï¼Œä¸€å…±æ”¶é›†äº†å¤šå°‘æ•°å­—
+// lazy[i]æ‡’æ›´æ–°ä¿¡æ¯ï¼Œé›†åˆèŒƒå›´c~dï¼Œå¢žåŠ äº†å‡ ä¸ªæ•°å­—ï¼Œç­‰å¾…æ‡’æ›´æ–°çš„ä¸‹å‘
 int ls[MAXT];
 int rs[MAXT];
 long long sum[MAXT];
@@ -73,7 +73,7 @@ void down(int i, int ln, int rn) {
     }
 }
 
-//ÔÚÄÚ²¿¼¯ºÏjobl~jobrÖÐ¼ÓÈëÒ»¸öÊý×Ö
+//åœ¨å†…éƒ¨é›†åˆjobl~jobrä¸­åŠ å…¥ä¸€ä¸ªæ•°å­—
 int innerAdd(int jobl, int jobr, int l, int r, int i) {
     if (!i) i = ++cnt;
     if (jobl <= l && r <= jobr) {
@@ -89,7 +89,7 @@ int innerAdd(int jobl, int jobr, int l, int r, int i) {
     return i;
 }
 
-//²éÑ¯ÄÚ²¿¼¯ºÏÖÐjoblµ½jobrÇø¼äÓÐ¶àÉÙ¸öÔªËØ
+//æŸ¥è¯¢å†…éƒ¨é›†åˆä¸­joblåˆ°jobråŒºé—´æœ‰å¤šå°‘ä¸ªå…ƒç´ 
 long long innerQuery(int jobl, int jobr, int l, int r, int i) {
     if (!i) return 0;
     if (jobl <= l && r <= jobr) {
@@ -103,8 +103,8 @@ long long innerQuery(int jobl, int jobr, int l, int r, int i) {
     return ans;
 }
 
-//ÔÚÍâ²¿ÖÐ¼ÓÈëÒ»¸ö´óÐ¡ÎªjobvµÄÊý×Öµ½jobl~jobrµÄ¼¯ºÏ  Õâ¸ö¼ÓÈëµÄÊý×ÖÊÇÅÅÃû
-//Ïàµ±ÓÚ¸ù¾Ý¼¯ºÏÀïµÄÔªËØµÄÖµ  ½«¼¯ºÏ²ð·Ö¿ª
+//åœ¨å¤–éƒ¨ä¸­åŠ å…¥ä¸€ä¸ªå¤§å°ä¸ºjobvçš„æ•°å­—åˆ°jobl~jobrçš„é›†åˆ  è¿™ä¸ªåŠ å…¥çš„æ•°å­—æ˜¯æŽ’å
+//ç›¸å½“äºŽæ ¹æ®é›†åˆé‡Œçš„å…ƒç´ çš„å€¼  å°†é›†åˆæ‹†åˆ†å¼€
 void outerAdd(int jobl, int jobr, int jobv, int l, int r, int i) {
     root[i] = innerAdd(jobl, jobr, 1, n, root[i]);
     if (l < r) {
@@ -117,8 +117,8 @@ void outerAdd(int jobl, int jobr, int jobv, int l, int r, int i) {
     }
 }
 
-//²éÑ¯´Ójoblµ½jobr¼¯ºÏÖÐ  µÚjobk´óµÄÊý×ÖÊÇÊ²Ã´  £¨Êµ¼ÊÉÏ·µ»ØµÄÊÇÕâ¸öÊý×ÖµÄÅÅÃû£©
-//Õâ¸öjoblºÍjobrÊµ¼ÊÉÏÊÇÄÚ²¿¼¯ºÏµÄ·¶Î§  l rÊÇÍâ²¿·¶Î§
+//æŸ¥è¯¢ä»Žjoblåˆ°jobré›†åˆä¸­  ç¬¬jobkå¤§çš„æ•°å­—æ˜¯ä»€ä¹ˆ  ï¼ˆå®žé™…ä¸Šè¿”å›žçš„æ˜¯è¿™ä¸ªæ•°å­—çš„æŽ’åï¼‰
+//è¿™ä¸ªjoblå’Œjobrå®žé™…ä¸Šæ˜¯å†…éƒ¨é›†åˆçš„èŒƒå›´  l ræ˜¯å¤–éƒ¨èŒƒå›´
 int outerQuery(int jobl, int jobr, long long jobk, int l, int r, int i) {
     if (l == r) {
         return l;
@@ -165,7 +165,7 @@ int main() {
     for (int i = 1; i <= m; i++) {
         if (ques[i][0] == 1) {
             outerAdd(ques[i][1], ques[i][2], ques[i][3], 1, s, 1);
-            //¼ÓÈëÒ»¸ö´óÐ¡Îª ques[i][3]µ½¼¯ºÏques[i][1]~ques[i][2]
+            //åŠ å…¥ä¸€ä¸ªå¤§å°ä¸º ques[i][3]åˆ°é›†åˆques[i][1]~ques[i][2]
         } else {
             int idx = outerQuery(ques[i][1], ques[i][2], ques[i][3], 1, s, 1);
             cout << sorted[idx] << "\n";

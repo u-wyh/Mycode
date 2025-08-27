@@ -1,14 +1,14 @@
-// ÍøÂç¹ÜÀí£¬C++°æ
-// Ò»¹²ÓĞn¸öµã£¬±àºÅ1~n£¬Ã¿¸öµã¸ø¶¨µãÈ¨£¬¸ø¶¨n-1Ìõ±ß£¬ËùÓĞµãÁ¬³ÉÒ»¿ÃÊ÷
-// ÊµÏÖÈçÏÂÀàĞÍµÄ²Ù×÷£¬²Ù×÷Ò»¹²·¢Éúm´Î
-// ²Ù×÷ 0 x y : xºÅµãµÄµãÈ¨±ä³Éy
-// ²Ù×÷ k x y : ±£Ö¤k > 0£¬µãxµ½µãyµÄÂ·¾¶ÉÏ£¬´òÓ¡µÚk´óµÄÖµ
-//              Èç¹ûÂ·¾¶ÉÏ²»¹»k¸öµã£¬´òÓ¡"invalid request!"
-// 1 <= n¡¢m <= 8 * 10^4
-// µãÈ¨ <= 10^8
-// ²âÊÔÁ´½Ó : https://www.luogu.com.cn/problem/P4175
-// ÈçÏÂÊµÏÖÊÇC++µÄ°æ±¾£¬C++°æ±¾ºÍjava°æ±¾Âß¼­ÍêÈ«Ò»Ñù
-// Ìá½»ÈçÏÂ´úÂë£¬¿ÉÒÔÍ¨¹ıËùÓĞ²âÊÔÓÃÀı
+// ç½‘ç»œç®¡ç†ï¼ŒC++ç‰ˆ
+// ä¸€å…±æœ‰nä¸ªç‚¹ï¼Œç¼–å·1~nï¼Œæ¯ä¸ªç‚¹ç»™å®šç‚¹æƒï¼Œç»™å®šn-1æ¡è¾¹ï¼Œæ‰€æœ‰ç‚¹è¿æˆä¸€æ£µæ ‘
+// å®ç°å¦‚ä¸‹ç±»å‹çš„æ“ä½œï¼Œæ“ä½œä¸€å…±å‘ç”Ÿmæ¬¡
+// æ“ä½œ 0 x y : xå·ç‚¹çš„ç‚¹æƒå˜æˆy
+// æ“ä½œ k x y : ä¿è¯k > 0ï¼Œç‚¹xåˆ°ç‚¹yçš„è·¯å¾„ä¸Šï¼Œæ‰“å°ç¬¬kå¤§çš„å€¼
+//              å¦‚æœè·¯å¾„ä¸Šä¸å¤Ÿkä¸ªç‚¹ï¼Œæ‰“å°"invalid request!"
+// 1 <= nã€m <= 8 * 10^4
+// ç‚¹æƒ <= 10^8
+// æµ‹è¯•é“¾æ¥ : https://www.luogu.com.cn/problem/P4175
+// å¦‚ä¸‹å®ç°æ˜¯C++çš„ç‰ˆæœ¬ï¼ŒC++ç‰ˆæœ¬å’Œjavaç‰ˆæœ¬é€»è¾‘å®Œå…¨ä¸€æ ·
+// æäº¤å¦‚ä¸‹ä»£ç ï¼Œå¯ä»¥é€šè¿‡æ‰€æœ‰æµ‹è¯•ç”¨ä¾‹
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 80001;
@@ -21,22 +21,22 @@ int arr[MAXN];
 int ques[MAXN][3];
 int sorted[MAXN << 1];
 
-// Á´Ê½Ç°ÏòĞÇ½¨Í¼
+// é“¾å¼å‰å‘æ˜Ÿå»ºå›¾
 int head[MAXN];
 int nxt[MAXN << 1];
 int to[MAXN << 1];
 int cntg;
 
-// Íâ²ãµÄÊ÷×´Êı×é
+// å¤–å±‚çš„æ ‘çŠ¶æ•°ç»„
 int root[MAXN];
 int ls[MAXT];
 int rs[MAXT];
 int sum[MAXT];
 int cntt;
 
-// Ê÷ÉÏ±¶ÔöĞèÒª
+// æ ‘ä¸Šå€å¢éœ€è¦
 int deep[MAXN];
-int size[MAXN];
+int sz[MAXN];
 int dfn[MAXN];
 int stjump[MAXN][MAXH];
 int cntd;
@@ -66,10 +66,10 @@ int lowbit(int i) {
     return i & -i;
 }
 
-//½¨Á¢dfnĞò Íê³ÉszÊı×é
+//å»ºç«‹dfnåº å®Œæˆszæ•°ç»„
 void dfs(int u, int fa) {
     deep[u] = deep[fa] + 1;
-    size[u] = 1;
+    sz[u] = 1;
     dfn[u] = ++cntd;
     stjump[u][0] = fa;
     for (int p = 1; p < MAXH; p++) {
@@ -79,7 +79,7 @@ void dfs(int u, int fa) {
         if (to[e] != fa) dfs(to[e], u);
     }
     for (int e = head[u]; e; e = nxt[e]) {
-        if (to[e] != fa) size[u] += size[to[e]];
+        if (to[e] != fa) sz[u] += sz[to[e]];
     }
 }
 
@@ -116,7 +116,7 @@ int innerAdd(int jobi, int jobv, int l, int r, int i) {
     return i;
 }
 
-//²éÑ¯µÄÊÇlµ½rÇø¼äµÚjobkĞ¡µÄÊı×Ö
+//æŸ¥è¯¢çš„æ˜¯låˆ°råŒºé—´ç¬¬jobkå°çš„æ•°å­—
 int innerQuery(int jobk, int l, int r) {
     if (l == r) return l;
     int mid = (l + r) / 2;
@@ -128,8 +128,8 @@ int innerQuery(int jobk, int l, int r) {
         leftsum -= sum[ls[minusTree[i]]];
     }
     if (jobk <= leftsum) {
-        //´ğ°¸Ò»¶¨ÔÚ×ó±ß
-        //½«¼Ó¼õĞÅÏ¢½ÚµãÈ«²¿»»µ½×ó±ß
+        //ç­”æ¡ˆä¸€å®šåœ¨å·¦è¾¹
+        //å°†åŠ å‡ä¿¡æ¯èŠ‚ç‚¹å…¨éƒ¨æ¢åˆ°å·¦è¾¹
         for (int i = 1; i <= cntadd; i++) {
             addTree[i] = ls[addTree[i]];
         }
@@ -156,17 +156,17 @@ void add(int i, int val, int cnt) {
 
 void update(int i, int v) {
     add(dfn[i], arr[i], -1);
-    add(dfn[i] + size[i], arr[i], 1);//Ïû³ıÓ°Ïì
-    arr[i] = kth(v);//Öµ±ä»¯
+    add(dfn[i] + sz[i], arr[i], 1);//æ¶ˆé™¤å½±å“
+    arr[i] = kth(v);//å€¼å˜åŒ–
     add(dfn[i], arr[i], 1);
-    add(dfn[i] + size[i], arr[i], -1);//Ïû³ıÓ°Ïì
+    add(dfn[i] + sz[i], arr[i], -1);//æ¶ˆé™¤å½±å“
 }
 
 int query(int x, int y, int k) {
     int xylca = lca(x, y);
     int lcafa = stjump[xylca][0];
     int num = deep[x] + deep[y] - deep[xylca] - deep[lcafa];
-    if (num < k) return -1;//±íÊ¾ÔªËØÃ»ÓĞk¸ö
+    if (num < k) return -1;//è¡¨ç¤ºå…ƒç´ æ²¡æœ‰kä¸ª
     cntadd = cntminus = 0;
     for (int i = dfn[x]; i; i -= lowbit(i)) {
         addTree[++cntadd] = root[i];
@@ -195,7 +195,7 @@ void prepare() {
     dfs(1, 0);
     for (int i = 1; i <= n; i++) {
         add(dfn[i], arr[i], 1);
-        add(dfn[i] + size[i], arr[i], -1);//Ïû³ı´íÎóÓ°Ïì
+        add(dfn[i] + sz[i], arr[i], -1);//æ¶ˆé™¤é”™è¯¯å½±å“
     }
 }
 
