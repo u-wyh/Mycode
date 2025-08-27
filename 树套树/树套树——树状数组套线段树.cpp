@@ -10,6 +10,8 @@
 // 测试链接 : https://www.luogu.com.cn/problem/P3380
 // 如下实现是C++的版本，C++版本和java版本逻辑完全一样
 // 提交如下代码，可以通过所有测试用例
+// 这个虽然说是树状数组套线段树  但是这个树状数组是统计加减阵营的  没有实际意义
+// 其实就是多个线段树之间的加减
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 50001;
@@ -19,7 +21,6 @@ const int INF = INT_MAX;
 
 //外部的树状数组是根据arr的下标组织
 //内部的线段树是按照离散化数字排名组织
-
 int n, m, s;
 int arr[MAXN];
 //收集问题  用于离散化
