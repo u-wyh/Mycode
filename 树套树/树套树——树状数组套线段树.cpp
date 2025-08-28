@@ -28,14 +28,14 @@ int ques[MAXN][4];
 int sorted[MAXN * 2];
 
 //线段树
-int root[MAXN];
+int root[MAXN];//这个其实就是外层的树状数组
 int sum[MAXT];
 int ls[MAXT];
 int rs[MAXT];
 int cntt = 0;
 
 //加减阵营
-int addTree[MAXN];
+int addTree[MAXN];//储存的全部都是节点号  不是什么版本信息
 int minusTree[MAXN];
 int cntadd;
 int cntminus;
