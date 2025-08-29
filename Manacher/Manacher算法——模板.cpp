@@ -23,6 +23,7 @@ void manacherss() {
 int manacher() {
     manacherss();
     int maxans = 0;
+    // 注意这里的r是没有包住的第一个 不是被抱住的最后一个  这个和其他人的模板不一样
     for (int i = 0, c = 0, r = 0, len; i < n; i++) {
         //i是此时来到的中心位置
         len = r > i ? min(p[2 * c - i], r - i) : 1;
