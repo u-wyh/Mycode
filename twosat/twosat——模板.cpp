@@ -1,5 +1,5 @@
 //https://acm.hdu.edu.cn/showproblem.php?pid=3062
-// 连的有向边是推导关系  即从u一定可以得到v
+// 连的有向边是推导关系  即从u一定可以得到v  最终的判断是如果不是所有的条件都满足  输出no
 #include <algorithm>
 #include <cstring>
 #include <iostream>
