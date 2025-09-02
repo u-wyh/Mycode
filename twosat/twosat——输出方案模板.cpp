@@ -1,4 +1,5 @@
 // https://www.luogu.com.cn/problem/P5782
+// 这里介绍了为什么要选择col[i]<col[i+1]
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 2e6+5;
