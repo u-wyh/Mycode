@@ -1,12 +1,12 @@
-// �ɳ־û���ƫ����ʵ�֣����ö�������֤��ȷ�ԣ�C++��
+// 可持久化左偏树的实现，利用对数器验证正确性，C++版
 
 #include <bits/stdc++.h>
 
 using namespace std;
 
-const int MAXN = 10000;//�汾��
-const int MAXV = 100000;//����������ֵķ�Χ
-const int MAXT = 2000001;//���ڵ���Ŀ
+const int MAXN = 10000;//版本数
+const int MAXV = 100000;//随机生成数字的范围
+const int MAXT = 2000001;//最多节点数目
 
 int rt[MAXN];
 int num[MAXT];
@@ -16,14 +16,14 @@ int dist[MAXT];
 int siz[MAXT];
 int cnt = 0;
 
-//��ʼ��һ���½ڵ�
+//初始化一个新节点
 int init(int v) {
     num[++cnt] = v;
     ls[cnt] = rs[cnt] = dist[cnt] = 0;
     return cnt;
 }
 
-//����һ���ڵ�  �����ر��
+//复制一个节点  并返回编号
 int clone(int i) {
     num[++cnt] = num[i];
     ls[cnt] = ls[i];
@@ -32,7 +32,7 @@ int clone(int i) {
     return cnt;
 }
 
-//�ϲ���ijΪͷ����
+//合并以ij为头的树
 int merge(int i, int j) {
     if (i == 0 || j == 0) {
         return i + j;
@@ -40,7 +40,7 @@ int merge(int i, int j) {
     if (num[i] > num[j]) {
         swap(i, j);
     }
-    int h = clone(i);//�����仯�Ľڵ�Ҫ��¡  �����ʹ�þͰ汾����޷�
+    int h = clone(i);//发生变化的节点要克隆  其余的使用就版本编号无妨
     rs[h] = merge(rs[h], j);
     if (dist[ls[h]] < dist[rs[h]]) {
         swap(ls[h], rs[h]);
@@ -49,7 +49,7 @@ int merge(int i, int j) {
     return h;
 }
 
-//����Ԫ��i
+//弹出元素i
 int pop(int i) {
     if (ls[i] == 0 && rs[i] == 0) {
         return 0;
@@ -60,13 +60,13 @@ int pop(int i) {
     return merge(ls[i], rs[i]);
 }
 
-//��x�汾�м���y
+//在x版本中加入y
 void treeAdd(int x, int y, int i) {
     rt[i] = merge(rt[x], init(y));
     siz[rt[i]] = siz[rt[x]] + 1;
 }
 
-//i�汾��x��y�汾�ϲ�
+//i版本将x、y版本合并
 void treeMerge(int x, int y, int i) {
     if (rt[x] == 0 && rt[y] == 0) {
         rt[i] = 0;
@@ -78,7 +78,7 @@ void treeMerge(int x, int y, int i) {
     siz[rt[i]] = siz[rt[x]] + siz[rt[y]];
 }
 
-//��x�汾�е���ͷ���  ��Ϊi�汾
+//在x版本中弹出头结点  变为i版本
 void treePop(int x, int i) {
     if (siz[rt[x]] == 0) {
         rt[i] = 0;
@@ -211,7 +211,7 @@ int main() {
             cout << "err!" << endl;
         }
         else{
-            cout<<"�� "<<setw(4)<<i<<" ����Գɹ���"<<endl;
+            cout<<"第 "<<setw(4)<<i<<" 组测试成功！"<<endl;
         }
     }
     cout << "test finish" << endl;

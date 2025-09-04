@@ -1,33 +1,33 @@
-// ��ƫ��ģ����1��C++��
-// ���θ���n���Ǹ����֣���ʾ��n��С���ѣ�ÿ����ֻ��һ����
-// ʵ���������ֲ���������һ������m��
-// 1 x y : ��x���������ڵĶѺ͵�y���������ڵĶѺϲ�
-//         ������������Ѿ���һ���ѻ���ĳ�������Ѿ�ɾ���������кϲ�
-// 2 x   : ��ӡ��x���������ڶѵ���Сֵ�������ڶ���ɾ�������Сֵ
-//         �����x�������Ѿ���ɾ����Ҳ�����Ҳ������ڵĶѣ���ӡ-1
-//         ���ж����Сֵ������ɾ�����С��
+// 左偏树模版题，C++版
+// 依次给定n个非负数字，表示有n个小根堆，每个堆只有一个数
+// 实现如下两种操作，操作一共调用m次
+// 1 x y : 第x个数字所在的堆和第y个数字所在的堆合并
+//         如果两个数字已经在一个堆或者某个数字已经删除，不进行合并
+// 2 x   : 打印第x个数字所在堆的最小值，并且在堆里删掉这个最小值
+//         如果第x个数字已经被删除，也就是找不到所在的堆，打印-1
+//         若有多个最小值，优先删除编号小的
 // 1 <= n, m <= 10^5
-// �������� : https://www.luogu.com.cn/problem/P3377
-// ����ʵ����C++�İ汾��C++�汾��java�汾�߼���ȫһ��
-// �ύ���´��룬����ͨ�����в�������
-
+// 测试链接 : https://www.luogu.com.cn/problem/P3377
+// 如下实现是C++的版本，C++版本和java版本逻辑完全一样
+// 提交如下代码，可以通过所有测试用例
+// 左偏堆是二叉树结构 但并不是完全二叉树结构  是广义堆
 #include <bits/stdc++.h>
-
 using namespace std;
-
 const int MAXN = 100001;
+
 int n, m;
 int num[MAXN];
 int ls[MAXN];
 int rs[MAXN];
+//表示这个节点需要经过几个节点才会到达空节点
 int dist[MAXN];
-// ���鼯��Ҫfather���飬��������ҵ�����ͷ
-// father[i]������i�����ϵĸ��׽ڵ�
-// father�ǲ��鼯�Ҵ����ڵ��·����Ϣ
-// ��Ҫ��֤�����鼯���Ϸ��Ĵ����ڵ� = ����ͷ�ڵ�
+// 并查集需要father数组，方便快速找到树的头
+// father[i]不代表i在树上的父亲节点
+// father是并查集找代表节点的路径信息
+// 需要保证，并查集最上方的代表节点 = 树的头节点
 int fa[MAXN];
 
-//Ԥ����
+//预处理
 void prepare() {
     dist[0] = -1;
     for(int i = 1; i <= n; i++) {
@@ -37,24 +37,24 @@ void prepare() {
 }
 
 int find(int i) {
-    fa[i] = fa[i] == i ? i : find(fa[i]);//��ƽ������
+    fa[i] = fa[i] == i ? i : find(fa[i]);//扁平化处理
     return fa[i];
 }
 
-//����i �� jΪͷ�����ϲ�  ������ͷ�����
+//将以i 、 j为头的树合并  并返回头结点编号
 int merge(int i, int j) {
     if (i == 0 || j == 0) {
-        //�����˿սڵ� ��ô���Էǿ���Ϊͷ���
+        //遇到了空节点 那么就以非空作为头结点
         return i + j;
     }
     if (num[i] > num[j] || (num[i] == num[j] && i > j)) {
-        //˭С˭��ͷ ��������Ŀ�涨  һ�㶼������涨
+        //谁小谁做头 后面是题目规定  一般都是这个规定
         int tmp = i;
         i = j;
         j = tmp;
     }
-    rs[i] = merge(rs[i], j);//���Ҷ��Ӻ������ϲ�
-    //���dist��û������ �Ƿ���Ҫ����
+    rs[i] = merge(rs[i], j);//将右儿子和它做合并
+    //检查dist有没有问题 是否需要交换
     if (dist[ls[i]] < dist[rs[i]]) {
         int tmp = ls[i];
         ls[i] = rs[i];
@@ -65,13 +65,13 @@ int merge(int i, int j) {
     return i;
 }
 
-// �ڵ�iһ������ƫ����ͷ������ƫ����ɾ���ڵ�i������������ͷ�ڵ���
+// 节点i一定是左偏树的头，在左偏树上删掉节点i，返回新树的头节点编号
 int pop(int i) {
     fa[ls[i]] = ls[i];
     fa[rs[i]] = rs[i];
-    // ���鼯��·��ѹ��������i�·���ĳ���ڵ�x��������father[x] = i
-    // ����Ҫɾ��i�ˣ�����x���ϻ��Ҳ�����ȷ��ͷ�ڵ�
-    // Ϊ���κνڵ����϶����ҵ���ȷ��ͷ������Ҫ���������
+    // 并查集有路径压缩，所以i下方的某个节点x，可能有father[x] = i
+    // 现在要删掉i了，所以x往上会找不到正确的头节点
+    // 为了任何节点往上都能找到正确的头，所以要有下面这句
     fa[i] = merge(ls[i], rs[i]);
     ls[i] = rs[i] = dist[i] = 0;
     return fa[i];
@@ -92,11 +92,11 @@ int main() {
             int x, y;
             cin >> x >> y;
             if (num[x] != -1 && num[y] != -1) {
-                //��ʾ�������ֶ�û�б�ɾ��
+                //表示两个数字都没有被删除
                 int l = find(x);
                 int r = find(y);
                 if (l != r) {
-                    //��ʾ�������ֲ���һ������
+                    //表示两个数字不在一个堆中
                     merge(l, r);
                 }
             }
@@ -104,12 +104,12 @@ int main() {
             int x;
             cin >> x;
             if (num[x] == -1) {
-                //������ֲ�����
+                //如果数字不存在
                 cout << -1 << "\n";
             } else {
                 int ans = find(x);
                 cout << num[ans] << "\n";
-                //������Сֵ
+                //弹出最小值
                 pop(ans);
                 num[ans] = -1;
             }
