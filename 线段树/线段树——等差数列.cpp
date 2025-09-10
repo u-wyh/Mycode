@@ -1,4 +1,4 @@
-//Î¬³ÖµÄÊÇ²î·ÖÊı×éÏß¶ÎÊ÷
+//ç»´æŒçš„æ˜¯å·®åˆ†æ•°ç»„çº¿æ®µæ ‘
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 100005;
@@ -9,7 +9,7 @@ long sum[MAXN<<2];
 int add[MAXN<<2];
 
 void up(int i) {
-    // ¸¸·¶Î§µÄÀÛ¼ÓºÍ = ×ó·¶Î§ÀÛ¼ÓºÍ + ÓÒ·¶Î§ÀÛ¼ÓºÍ
+    // çˆ¶èŒƒå›´çš„ç´¯åŠ å’Œ = å·¦èŒƒå›´ç´¯åŠ å’Œ + å³èŒƒå›´ç´¯åŠ å’Œ
     sum[i] = sum[i << 1] + sum[i << 1 | 1];
 }
 
@@ -18,14 +18,14 @@ void lazy(int i, long v, int n) {
     add[i] += v;
 }
 
-// ÀÁĞÅÏ¢µÄÏÂ·¢
+// æ‡’ä¿¡æ¯çš„ä¸‹å‘
 void down(int i, int ln, int rn) {
     if (add[i] != 0) {
-        // ·¢×ó
+        // å‘å·¦
         lazy(i << 1, add[i], ln);
-        // ·¢ÓÒ
+        // å‘å³
         lazy(i << 1 | 1, add[i], rn);
-        // ¸¸·¶Î§ÀÁĞÅÏ¢Çå¿Õ
+        // çˆ¶èŒƒå›´æ‡’ä¿¡æ¯æ¸…ç©º
         add[i] = 0;
     }
 }
@@ -54,7 +54,7 @@ void Add(int jobl, int jobr, long jobv, int l, int r, int i) {
         if (jobr > mid) {
             Add(jobl, jobr, jobv, mid + 1, r, i << 1 | 1);
         }
-        up(i);//»ã×ÜĞŞ¸ÄÊı¾İ
+        up(i);//æ±‡æ€»ä¿®æ”¹æ•°æ®
     }
 }
 
