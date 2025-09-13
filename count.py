@@ -7,7 +7,7 @@ class CodeCounter:
         self.root = root
         self.root.title("代码行数统计工具")
         self.root.geometry("800x600")
-        self.root.configure(bg="#de4141")
+        self.root.configure(bg="#ffffff")
         
         # 创建界面
         self.create_widgets()

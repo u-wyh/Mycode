@@ -7,10 +7,13 @@
 // -10^4 <= Ci <= +10^4
 // 测试链接 : https://www.luogu.com.cn/problem/P5960
 // 提交以下的code，提交时请把类名改成"Main"，可以通过所有测试用例
+// 这种形式是值往小的方向更新  初始为最大值  一个式子u-v>=w   --->  v<=u-w v的权值小于等于u的权值-w
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 5005;
 const int MAXM = 10005;
+
+int n,m;
 
 // 链式前向星建图需要
 int head[MAXN];
@@ -18,29 +21,17 @@ int Next[MAXM];
 int to[MAXM];
 int weight[MAXM];
 int cnt=1;
-//n表示一共有多少个点  m表示一共有多少条路线
-int n,m;
+
 // 源点出发到每个节点的距离表
 int dis[MAXN];
+
 // 节点被松弛的次数
 int updateCnt[MAXN];
 //当前在队列中的话  就是true  否则就是false
 bool enter[MAXN];
 //每一轮都弹出最后面的一个  如果一个点可以被优化  那么加入队列
-queue<int >q;
+queue<int>q;
 
-void build() {
-    cnt = 1;
-    fill(head+1, head+n + 1, 0);
-    fill(enter+1,enter+ n + 1, false);
-    fill(dis+ 1,dis+ n + 1, INT_MAX);
-    fill(updateCnt+1,updateCnt+ n + 1, 0);
-    while(!q.empty()){
-        q.pop();
-    }
-}
-
-//建立链式前向星
 void addEdge(int u, int v, int w) {
     Next[cnt] = head[u];
     to[cnt] = v;
@@ -84,15 +75,19 @@ bool spfa() {
 int main()
 {
     cin>>n>>m;
-    build();//全面初始化
     for(int i=1;i<=n;i++){
-        addEdge(0,i,0);//超级源点建边
+        dis[i]=INT_MAX;
+    }
+    for(int i=1;i<=n;i++){
+        //超级源点建边  这个仅仅是为了维护联通性  这种形式是为了判断是否存在负环
+        // 所以这里可以使用dis[i]<=dis[0]+0
+        addEdge(0,i,0);
     }
     for(int i=1;i<=m;i++){
         int u,v,w;
         cin>>u>>v>>w;
-        addEdge(v,u,w);
         // 形式1的连边方式  u<=v+w  即v向u连一条权值为w的边
+        addEdge(v,u,w);
     }
     if(spfa()){
         cout<<"NO"<<endl;

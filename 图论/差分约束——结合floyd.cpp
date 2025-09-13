@@ -1,14 +1,14 @@
-// ÌìÆ½
-// Ò»¹²ÓÐn¸öíÀÂë£¬±àºÅ1~n£¬Ã¿¸öíÀÂëµÄÖØÁ¿¾ùÎª1¿Ë£¬»òÕß2¿Ë£¬»òÕß3¿Ë
-// íÀÂëÓëíÀÂëÖ®¼äµÄ¹ØÏµÊÇÒ»¸ön * nµÄ¶þÎ¬Êý×és
-// s[i][j] == '+'£¬íÀÂëi±ÈíÀÂëjÖØ        s[i][j] == '-'£¬íÀÂëi±ÈíÀÂëjÇá
-// s[i][j] == '='£¬íÀÂëiºÍíÀÂëjÖØÁ¿Ò»Ñù   s[i][j] == '?'£¬íÀÂëiºÍíÀÂëj¹ØÏµÎ´Öª
-// Êý¾Ý±£Ö¤ÖÁÉÙ´æÔÚÒ»ÖÖÇé¿ö·ûºÏ¸Ã¾ØÕó
-// ¸ø¶¨±àºÅÎªaºÍbµÄíÀÂë£¬ÕâÁ½¸öíÀÂëÒ»¶¨»á·ÅÔÚÌìÆ½µÄ×ó±ß£¬ÄãÒªÁíÑ¡Á½¸öíÀÂë·ÅÔÚÌìÆ½ÓÒ±ß
-// ·µ»ØÓÐ¶àÉÙÖÖ·½·¨£¬Ò»¶¨ÈÃÌìÆ½×ó±ßÖØ(ans1)£¬Ò»¶¨ÈÃÌìÆ½Ò»ÑùÖØ(ans2)£¬Ò»¶¨ÈÃÌìÆ½ÓÒ±ßÖØ(ans3)
+// å¤©å¹³
+// ä¸€å…±æœ‰nä¸ªç ç ï¼Œç¼–å·1~nï¼Œæ¯ä¸ªç ç çš„é‡é‡å‡ä¸º1å…‹ï¼Œæˆ–è€…2å…‹ï¼Œæˆ–è€…3å…‹
+// ç ç ä¸Žç ç ä¹‹é—´çš„å…³ç³»æ˜¯ä¸€ä¸ªn * nçš„äºŒç»´æ•°ç»„s
+// s[i][j] == '+'ï¼Œç ç iæ¯”ç ç jé‡        s[i][j] == '-'ï¼Œç ç iæ¯”ç ç jè½»
+// s[i][j] == '='ï¼Œç ç iå’Œç ç jé‡é‡ä¸€æ ·   s[i][j] == '?'ï¼Œç ç iå’Œç ç jå…³ç³»æœªçŸ¥
+// æ•°æ®ä¿è¯è‡³å°‘å­˜åœ¨ä¸€ç§æƒ…å†µç¬¦åˆè¯¥çŸ©é˜µ
+// ç»™å®šç¼–å·ä¸ºaå’Œbçš„ç ç ï¼Œè¿™ä¸¤ä¸ªç ç ä¸€å®šä¼šæ”¾åœ¨å¤©å¹³çš„å·¦è¾¹ï¼Œä½ è¦å¦é€‰ä¸¤ä¸ªç ç æ”¾åœ¨å¤©å¹³å³è¾¹
+// è¿”å›žæœ‰å¤šå°‘ç§æ–¹æ³•ï¼Œä¸€å®šè®©å¤©å¹³å·¦è¾¹é‡(ans1)ï¼Œä¸€å®šè®©å¤©å¹³ä¸€æ ·é‡(ans2)ï¼Œä¸€å®šè®©å¤©å¹³å³è¾¹é‡(ans3)
 // 1 <= n <= 50
-// ²âÊÔÁ´½Ó : https://www.luogu.com.cn/problem/P2474
-// Ìá½»ÒÔÏÂµÄcode£¬Ìá½»Ê±Çë°ÑÀàÃû¸Ä³É"Main"£¬¿ÉÒÔÍ¨¹ýËùÓÐ²âÊÔÓÃÀý
+// æµ‹è¯•é“¾æŽ¥ : https://www.luogu.com.cn/problem/P2474
+// æäº¤ä»¥ä¸‹çš„codeï¼Œæäº¤æ—¶è¯·æŠŠç±»åæ”¹æˆ"Main"ï¼Œå¯ä»¥é€šè¿‡æ‰€æœ‰æµ‹è¯•ç”¨ä¾‹
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 51;
@@ -21,7 +21,7 @@ int n, a, b;
 int ans1, ans2, ans3;
 
 void compute() {
-    // ÉèÖÃ³õÊ¼¹ØÏµ
+    // è®¾ç½®åˆå§‹å…³ç³»
     for (int i = 1; i <= n; i++) {
         for (int j = 1; j <= n; j++) {
             if (s[i][j] == '=') {
@@ -43,7 +43,7 @@ void compute() {
         dmin[i][i] = 0;
         dmax[i][i] = 0;
     }
-    // À´×Ô½²½â065£¬FloydËã·¨
+    // æ¥è‡ªè®²è§£065ï¼ŒFloydç®—æ³•
     for (int bridge = 1; bridge <= n; bridge++) {
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= n; j++) {
@@ -52,7 +52,7 @@ void compute() {
             }
         }
     }
-    // Í³¼Æ´ð°¸
+    // ç»Ÿè®¡ç­”æ¡ˆ
     ans1 = ans2 = ans3 = 0;
     for (int i = 1; i <= n; i++) {
         for (int j = 1; j < i; j++) {
