@@ -27,6 +27,8 @@ void build(int n){
         stmax[i][0]=arr[i];
         stmin[i][0]=arr[i];
     }
+    // 这里需要注意 有的代码中会有j+(1<<(i-1))-1<=n  这样做是为了防止j+(1<<(i-1))越界
+    // 这样的统计答案也是对的  因为查询的时候  绝对不会有左边界访问到n+1之后的位置
     for(int i=1;i<=Log2[n];i++){
         for(int j=1;j<=n;j++){
             stmax[j][i]=max(stmax[j][i-1],stmax[j+(1<<(i-1))][i-1]);

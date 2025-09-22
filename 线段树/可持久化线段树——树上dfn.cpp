@@ -1,14 +1,14 @@
-// ��Ϊ������C++��
-// Ϊ�˷������⣬�Ҹ�д�����⣬���Ǹ�д�������ԭʼ�����Ч
-// ��n���ڵ㣬���1~n������n-1���ߣ�����һ������1�ŵ�����ͷ
-// ���x��y�����Ƚڵ㣬��Ϊ"x��y������"
-// ���x��y��·���ϣ��ߵ����� <= ĳ����������Ϊ"x��y���ھ�"
-// һ����m����ѯ��ÿ����ѯ a k : ��ӡ�ж�����Ԫ��(a, b, c)�������¹涨
-// a��b��cΪ������ͬ�ĵ㣻a��b����c������a��b���ھӣ�·���ߵ����� <= ������k
-// 1 <= n��m��k <= 3 * 10^5
-// �������� : https://www.luogu.com.cn/problem/P3899
-// ����ʵ����C++�İ汾��C++�汾��java�汾�߼���ȫһ��
-// �ύ���´��룬����ͨ�����в�������
+// 更为厉害，C++版
+// 为了方便理解，我改写了题意，但是改写的题意和原始题意等效
+// 有n个节点，编号1~n，给定n-1条边，连成一棵树，1号点是树头
+// 如果x是y的祖先节点，认为"x比y更厉害"
+// 如果x到y的路径上，边的数量 <= 某个常数，认为"x和y是邻居"
+// 一共有m条查询，每条查询 a k : 打印有多少三元组(a, b, c)满足如下规定
+// a、b、c为三个不同的点；a和b都比c厉害；a和b是邻居，路径边的数量 <= 给定的k
+// 1 <= n、m、k <= 3 * 10^5
+// 测试链接 : https://www.luogu.com.cn/problem/P3899
+// 如下实现是C++的版本，C++版本和java版本逻辑完全一样
+// 提交如下代码，可以通过所有测试用例
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 300001;
@@ -80,7 +80,7 @@ long long query(int jobl, int jobr, int l, int r, int u, int v) {
     return ans;
 }
 
-//���dfn����
+//完成dfn序建立
 void dfs1(int u, int f) {
     dep[u] = dep[f] + 1;
     depth = max(depth, dep[u]);
@@ -98,7 +98,7 @@ void dfs1(int u, int f) {
     }
 }
 
-//�����dfs���½���
+//在这个dfs中新建树
 void dfs2(int u, int f) {
     root[dfn[u]] = add(dep[u], (long long)siz[u] - 1, 1, depth, root[dfn[u] - 1]);
     for (int ei = head[u]; ei > 0; ei = nxt[ei]) {
@@ -117,12 +117,12 @@ void prepare() {
 
 long long compute(int a, int k) {
     long long ans = (long long)(siz[a] - 1) * min(k, dep[a] - 1);
-    //��ʾa�ڵ������м� b�ڵ�����������  ��ô��Ȼ��b��a�����Ƚڵ�
-    //��c�ڵ�ֻ��Ҫ��a�ڵ�����к�������ѡһ������  b�ڵ㰴�����ѡ��һ���ͺ�
+    //表示a节点是在中间 b节点在他的上面  那么必然有b是a的祖先节点
+    //即c节点只需要在a节点的所有孩子中任选一个即可  b节点按照深度选择一个就好
     ans += query(dep[a] + 1, dep[a] + k, 1, depth, root[dfn[a] - 1], root[dfn[a] + siz[a] - 1]);
-    //��ʾa�ڵ���b�ڵ��Ϸ�
-    //root[dfn[a] - 1], root[dfn[a] + siz[a] - 1]���Եõ�������aΪͷ��ͷ������
-    //�õ���Ϣ��  �Ѹ�����ȵĴ���Ӽ��ɻ�����ս��
+    //表示a节点在b节点上方
+    //root[dfn[a] - 1], root[dfn[a] + siz[a] - 1]可以得到的是以a为头的头结点的树
+    //得到信息后  把各个深度的答案相加即可获得最终结果
     return ans;
 }
 

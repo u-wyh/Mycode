@@ -1,25 +1,21 @@
-// ������û�����Χ���� + ��ѯ�ۼӺͣ�C++��
-// ����һ������Ϊn������arr���±�1~n��һ����m��������������������
-// 1 x y k : ������[x, y]ÿ��������k
-// 2 x y   : ��ӡ����[x, y]���ۼӺ�
-// �������ͨ�߶��������ñ�����û��ķ�ʽʵ��
-// �������� : https://www.luogu.com.cn/problem/P3372
-// ����ʵ����C++�İ汾��C++�汾��java�汾�߼���ȫһ��
-// �ύ���´��룬����ͨ�����в�������
-#include <iostream>
-#include <cstdio>
-#include <cstring>
-#include <algorithm>
+// 标记永久化，范围增加 + 查询累加和，C++版
+// 给定一个长度为n的数组arr，下标1~n，一共有m条操作，操作类型如下
+// 1 x y k : 将区间[x, y]每个数加上k
+// 2 x y   : 打印区间[x, y]的累加和
+// 这就是普通线段树，请用标记永久化的方式实现
+// 测试链接 : https://www.luogu.com.cn/problem/P3372
+// 如下实现是C++的版本，C++版本和java版本逻辑完全一样
+// 提交如下代码，可以通过所有测试用例
+#include <bits/stdc++.h>
 using namespace std;
-
 const int MAXN = 100001;
 
 long long arr[MAXN];
-// ������ʵ�ۼӺͣ�����֮ǰ��������
-// �����Ǳ��Ϸ���Χ��ס������ֻ����������ǰ��Χ ���� �����ߵ�����
-// �ۼӺͱ����ʲô
+// 不是真实累加和，而是之前的任务中
+// 不考虑被上方范围截住的任务，只考虑来到当前范围 或者 往下走的任务
+// 累加和变成了什么
 long long sum[MAXN << 2];
-// ��������������Ϣ����ɱ����Ϣ
+// 不再是懒更新信息，变成标记信息   标记永久化
 long long addTag[MAXN << 2];
 
 void build(int l, int r, int i) {
@@ -34,14 +30,14 @@ void build(int l, int r, int i) {
     addTag[i] = 0;
 }
 
-//����Ŀǰ��������� ������α仯�������������ʲôӰ��
+//到了目前的这个区间 考虑这次变化会给这个区间带来什么影响
 void add(int jobl, int jobr, long long jobv, int l, int r, int i) {
-    int a = max(jobl, l), b = min(jobr, r);//����Ӱ��ķ�Χ
+    int a = max(jobl, l), b = min(jobr, r);//真正影响的范围
     sum[i] += jobv * (b - a + 1);
-    //����仯��sum��Ӱ��
+    //这个变化对sum的影响
     if (jobl <= l && r <= jobr) {
+        //区间被全包  那么addtag信息要改变
         addTag[i] += jobv;
-        //���䱻ȫ��  ��ôaddtag��ϢҪ�ı�
     } else {
         int mid = (l + r) / 2;
         if (jobl <= mid) {
@@ -55,8 +51,8 @@ void add(int jobl, int jobr, long long jobv, int l, int r, int i) {
 
 long long query(int jobl, int jobr, long long addHistory, int l, int r, int i) {
     if (jobl <= l && r <= jobr) {
+        //区间被全包 那么就是sum信息加上上面被拦截的标签
         return sum[i] + addHistory * (r - l + 1);
-        //���䱻ȫ�� ��ô����sum��Ϣ�������汻���صı�ǩ
     }
     int mid = (l + r) >> 1;
     long long ans = 0;

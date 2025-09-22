@@ -1,15 +1,15 @@
-// Â·¾¶ÉÏµÄµÚkĞ¡£¬java°æ
-// ÓĞn¸ö½Úµã£¬±àºÅ1~n£¬Ã¿¸ö½ÚµãÓĞÈ¨Öµ£¬ÓĞn-1Ìõ±ß£¬ËùÓĞ½Úµã×é³ÉÒ»¿ÃÊ÷
-// Ò»¹²ÓĞmÌõ²éÑ¯£¬Ã¿Ìõ²éÑ¯ u v k : ´òÓ¡uºÅµãµ½vºÅµãµÄÂ·¾¶ÉÏ£¬µÚkĞ¡µÄµãÈ¨
-// ÌâÄ¿ÓĞÇ¿ÖÆÔÚÏßµÄÒªÇó£¬ÉÏÒ»´Î´òÓ¡µÄ´ğ°¸ÎªlastAns£¬³õÊ¼Ê±lastAns = 0
-// Ã¿´Î¸ø¶¨µÄu¡¢v¡¢k£¬°´ÕÕÈçÏÂ·½Ê½µÃµ½ÕæÊµµÄu¡¢v¡¢k£¬²éÑ¯Íê³Éºó¸üĞÂlastAns
-// ÕæÊµu = ¸ø¶¨u ^ lastAns
-// ÕæÊµv = ¸ø¶¨v
-// ÕæÊµk = ¸ø¶¨k
-// 1 <= n¡¢m <= 10^5
+// è·¯å¾„ä¸Šçš„ç¬¬kå°ï¼Œjavaç‰ˆ
+// æœ‰nä¸ªèŠ‚ç‚¹ï¼Œç¼–å·1~nï¼Œæ¯ä¸ªèŠ‚ç‚¹æœ‰æƒå€¼ï¼Œæœ‰n-1æ¡è¾¹ï¼Œæ‰€æœ‰èŠ‚ç‚¹ç»„æˆä¸€æ£µæ ‘
+// ä¸€å…±æœ‰mæ¡æŸ¥è¯¢ï¼Œæ¯æ¡æŸ¥è¯¢ u v k : æ‰“å°uå·ç‚¹åˆ°vå·ç‚¹çš„è·¯å¾„ä¸Šï¼Œç¬¬kå°çš„ç‚¹æƒ
+// é¢˜ç›®æœ‰å¼ºåˆ¶åœ¨çº¿çš„è¦æ±‚ï¼Œä¸Šä¸€æ¬¡æ‰“å°çš„ç­”æ¡ˆä¸ºlastAnsï¼Œåˆå§‹æ—¶lastAns = 0
+// æ¯æ¬¡ç»™å®šçš„uã€vã€kï¼ŒæŒ‰ç…§å¦‚ä¸‹æ–¹å¼å¾—åˆ°çœŸå®çš„uã€vã€kï¼ŒæŸ¥è¯¢å®Œæˆåæ›´æ–°lastAns
+// çœŸå®u = ç»™å®šu ^ lastAns
+// çœŸå®v = ç»™å®šv
+// çœŸå®k = ç»™å®šk
+// 1 <= nã€m <= 10^5
 // 1 <= arr[i] <= 2^32 - 1
-// ²âÊÔÁ´½Ó : https://www.luogu.com.cn/problem/P2633
-// Ìá½»ÒÔÏÂµÄcode£¬Ìá½»Ê±Çë°ÑÀàÃû¸Ä³É"Main"£¬¿ÉÒÔÍ¨¹ıËùÓĞ²âÊÔÓÃÀı
+// æµ‹è¯•é“¾æ¥ : https://www.luogu.com.cn/problem/P2633
+// æäº¤ä»¥ä¸‹çš„codeï¼Œæäº¤æ—¶è¯·æŠŠç±»åæ”¹æˆ"Main"ï¼Œå¯ä»¥é€šè¿‡æ‰€æœ‰æµ‹è¯•ç”¨ä¾‹
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 100001;
@@ -17,25 +17,25 @@ const int MAXH = 20;
 const int MAXT = MAXN * MAXH;
 
 int n, m, s;
-// ¸÷¸ö½ÚµãÈ¨Öµ
+// å„ä¸ªèŠ‚ç‚¹æƒå€¼
 int arr[MAXN];
-// ÊÕ¼¯È¨ÖµÅÅĞò²¢ÇÒÈ¥ÖØ×öÀëÉ¢»¯
+// æ”¶é›†æƒå€¼æ’åºå¹¶ä¸”å»é‡åšç¦»æ•£åŒ–
 int sorted[MAXN];
 
-// Á´Ê½Ç°ÏòĞÇĞèÒª
+// é“¾å¼å‰å‘æ˜Ÿéœ€è¦
 int head[MAXN];
 int to[MAXN << 1];
 int Next[MAXN << 1];
 int cntg = 1;
 
-// ¿É³Ö¾Ã»¯Ïß¶ÎÊ÷ĞèÒª
+// å¯æŒä¹…åŒ–çº¿æ®µæ ‘éœ€è¦
 int root[MAXN];
 int ls[MAXT];
 int rs[MAXT];
 int sz[MAXT];
 int cntt = 0;
 
-// Ê÷ÉÏ±¶ÔöÕÒlcaĞèÒª
+// æ ‘ä¸Šå€å¢æ‰¾lcaéœ€è¦
 int deep[MAXN];
 int stjump[MAXN][MAXH];
 
@@ -58,7 +58,7 @@ void addedge(int u,int v){
     head[u]=cntg++;
 }
 
-//¶ş·Ö²éÕÒ
+//äºŒåˆ†æŸ¥æ‰¾
 int kth(int num) {
     int left = 1, right = s, mid;
     while (left <= right) {
@@ -96,7 +96,7 @@ void prepare(){
             sorted[++s]=sorted[i];
         }
     }
-    //ÅÅĞò²¢ÀëÉ¢»¯
+    //æ’åºå¹¶ç¦»æ•£åŒ–
     root[0]=build(1,s);
 }
 
@@ -116,8 +116,8 @@ int insert(int jobi, int l, int r, int i) {
     return rt;
 }
 
-//dfs½¨Á¢¿É³Ö¾Ã»¯Ïß¶ÎÊ÷  Ã¿´Î²åÈëÒ»¸öÔªËØ
-//ÔÚ´Ë¹ı³ÌÖĞ  Í¬Ê±Íê³Ést±í
+//dfså»ºç«‹å¯æŒä¹…åŒ–çº¿æ®µæ ‘  æ¯æ¬¡æ’å…¥ä¸€ä¸ªå…ƒç´ 
+//åœ¨æ­¤è¿‡ç¨‹ä¸­  åŒæ—¶å®Œæˆstè¡¨
 void dfs1(int u, int f) {
     root[u] = insert(kth(arr[u]), 1, s, root[f]);
     deep[u] = deep[f] + 1;
@@ -169,7 +169,7 @@ int lca(int a, int b) {
 }
 
 int kth(int u, int v, int k) {
-    int Lca = lca(u, v);//Ïàµ±ÓÚÊÇÊ÷ÉÏ²î·Ö
+    int Lca = lca(u, v);//ç›¸å½“äºæ˜¯æ ‘ä¸Šå·®åˆ†
     int i = query(k, 1, s, root[u], root[v], root[Lca], root[stjump[Lca][0]]);
     return sorted[i];
 }
@@ -186,7 +186,7 @@ int main()
         addedge(u,v);
         addedge(v,u);
     }
-    dfs1(1,0);//Í¨¹ıÉî¶ÈÓÅÏÈËÑË÷ÊµÏÖ±éÀú  ºÍ½¨¿É³Ö¾Ã»¯Ê÷
+    dfs1(1,0);//é€šè¿‡æ·±åº¦ä¼˜å…ˆæœç´¢å®ç°éå†  å’Œå»ºå¯æŒä¹…åŒ–æ ‘
     for(int i=1,u,v,k,lastans=0;i<=m;i++){
         u=read(),v=read(),k=read();
         u^=lastans;
