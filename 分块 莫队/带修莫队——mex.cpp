@@ -9,6 +9,7 @@
 // 测试链接 : https://codeforces.com/problemset/problem/940/F
 // 如下实现是C++的版本，C++版本和java版本逻辑完全一样
 // 提交如下代码，可以通过所有测试用例
+// 这道题的关键是最终统计答案的时候   因为统计的是出现次数的mex  那么直接暴力寻找就好 反正也就是根号n的级别
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 100001;
@@ -18,11 +19,11 @@ int arr[MAXN];
 int sorted[MAXN << 1];
 
 struct Query {
-   int l, r, t, id;
+    int l, r, t, id;
 };
 
 struct Update {
-   int pos, val;
+    int pos, val;
 };
 
 int bi[MAXN];

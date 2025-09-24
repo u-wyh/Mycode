@@ -8,14 +8,14 @@
 // 提交如下代码，可以通过所有测试用例
 // 只减回滚莫队针对的是增加操作不好维护答案信息 但是在减操作的时候  可以轻松维护答案
 // 准备一个beforejob数组 表示进入这个块之前的答案  这个是为了方便在进入下一个块是更好的维护答案
-// 然后右边界不断向左收缩
+// 然后右边界不断向左收缩 最初时块的左右边界应该是1到n  每次变化块的时候 右边界都要恢复到n  同时答案要变成进入这个块之前的答案
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 200001;
 const int MAXB = 501;
 
 struct Query {
-   int l, r, id;
+    int l, r, id;
 };
 
 int n, m;

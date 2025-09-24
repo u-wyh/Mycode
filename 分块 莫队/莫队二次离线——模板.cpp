@@ -10,6 +10,7 @@
 // 提交如下代码，可以通过所有测试用例
 // 第一次离线操作的时候 需要排序 
 // 第二次离线操作的时候  已经是按顺序执行的了 从1->n  从 n->1
+// 二次离线主要需要我们推导公式  一般会变成前缀和、后缀和的形式
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 100002;
@@ -183,12 +184,12 @@ int main() {
     }
     prepare();
     compute();
-    for (int i = 2; i <= m; i++) {
-        ans[query[i].id] += ans[query[i - 1].id];
-    }
     // ans[i]代表答案变化量
     // 所以加工出前缀和才是每个查询的答案
     // 注意在普通莫队的顺序下，去生成前缀和
+    for (int i = 2; i <= m; i++) {
+        ans[query[i].id] += ans[query[i - 1].id];
+    }
     for (int i = 1; i <= m; i++) {
         cout << ans[i] << '\n';
     }
