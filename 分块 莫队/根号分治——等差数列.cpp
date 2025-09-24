@@ -9,7 +9,7 @@
 // 测试链接 : https://codeforces.com/problemset/problem/1921/F
 // 如下实现是C++的版本，C++版本和java版本逻辑完全一样
 // 提交如下代码，可以通过所有测试用例
-// 这道题的难度是如何准备信息表  利用fg数组实现
+// 这道题的难度是如何准备信息表和公式推导  利用fg数组实现
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 100001;

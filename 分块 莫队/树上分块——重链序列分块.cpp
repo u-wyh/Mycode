@@ -49,7 +49,6 @@ void addEdge(int u, int v) {
     head[u] = cntg;
 }
 
-//重链剖分
 void dfs1(int u, int f) {
     fa[u] = f;
     dep[u] = dep[f] + 1;
@@ -106,6 +105,7 @@ void query(int l, int r) {
     }
 }
 
+// 这个其实就是树链剖分中的路径信息查询
 void updateAns(int x, int y) {
     while (top[x] != top[y]) {
         if (dep[top[x]] < dep[top[y]]) {
