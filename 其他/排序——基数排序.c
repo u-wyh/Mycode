@@ -39,13 +39,13 @@ int main()
 {
     int t,bit=0;
     scanf("%d",&t);
-    srand(time(NULL));//ÖÖÏÂËæ»úÊıÖÖ×Ó
-    int max=0,k=1;//³õÊ¼»¯max  kÖµ
+    srand(time(NULL));//ç§ä¸‹éšæœºæ•°ç§å­
+    int max=0,k=1;//åˆå§‹åŒ–max  kå€¼
     for(int i=0;i<t;i++)
     {
         arr[i]=rand()%100;
         if(max<arr[i])
-            max=arr[i];//µÃµ½Êı×éµÄ×î´óÖµ
+            max=arr[i];//å¾—åˆ°æ•°ç»„çš„æœ€å¤§å€¼
         printf("%5d",arr[i]);
     }
     printf("\n");
