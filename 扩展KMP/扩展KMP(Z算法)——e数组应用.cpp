@@ -1,19 +1,20 @@
-//P8112
+//https://www.luogu.com.cn/problem/P8112
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 1e7+5;
 
-// b��bÿһ����׺���������ǰ׺���ȣ�z����
-// b��aÿһ����׺���������ǰ׺���ȣ�e����
+// b与b每一个后缀串的最长公共前缀长度，z数组
+// b与a每一个后缀串的最长公共前缀长度，e数组
 int z[MAXN];
 int e[MAXN];
 char a[MAXN];
 char b[MAXN];
 int n,m;
 
+// 单调栈
 int q[MAXN];
+//从后往前  至少要跳几次才能到达最后  而且越往后一定越小  这是因为我们被对答案没有贡献的部分全部去除了
 int f[MAXN];
-//�Ӻ���ǰ  ����Ҫ�����β��ܵ������  ����Խ����һ��ԽС  ������Ϊ���Ǳ��Դ�û�й��׵Ĳ���ȫ��ȥ����
 
 void zArray(char* s, int n) {
     z[0] = n;
@@ -43,7 +44,6 @@ void eArray(char* a, char* b, int n, int m) {
         e[i] = len;
     }
 }
-//���˵�в����Ļ�ֱ�Ӿ���ģ��
 
 int main()
 {
@@ -56,12 +56,12 @@ int main()
         f[i]=1e9;
     }
     for(int i=0,r=-1;i<n;i++){
+        //这里的意思是 如果前面就已经可以转移到的后面并且当前点却无法转移到那之后
+        //说明这个点对答案没有任何帮助  那么设置为0
+        //如果这些点没有去除的话  那么优先队列进入时要有操作  判断
         r>i+e[i]?e[i]=0:r=i+e[i];
-        //�������˼�� ���ǰ����Ѿ�����ת�Ƶ��ĺ��沢�ҵ�ǰ��ȴ�޷�ת�Ƶ���֮��
-        //˵�������Դ�û���κΰ���  ��ô����Ϊ0
-        //�����Щ��û��ȥ���Ļ�  ��ô���ȶ��н���ʱҪ�в���  �ж�
     }
-    //��ô��ʱ���еĵ� ֻҪe[i]Ϊ0  �Դ�һ��û��Ӱ��
+    //那么此时所有的点 只要e[i]为0  对答案一定没有影响
     f[n]=0;
     int l=1,r=1;
     q[r++]=n;
@@ -70,7 +70,7 @@ int main()
             continue;
         }
         while(l<r&&q[l]>i+e[i]){
-            //�����˽��޷�Χ
+            //超出了界限范围
             l++;
         }
         f[i]=f[q[l]]+1;
