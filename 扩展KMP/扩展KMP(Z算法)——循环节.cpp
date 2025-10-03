@@ -1,4 +1,8 @@
 //https://onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=396
+// 这里使用扩展KMP求解最短循环节的长度的原理是z数组的含义是以i为首的的后缀子串与字符串的最大匹配的长度
+// 利用的原理是 如果1~len = n-len+1~n   那么循环节长度就是n-len
+// 基于此可以使用KMP的nxt数组（表示以i为首的后缀子串的前缀 和后缀的 最大匹配长度）
+// 也同样可以使用哈希枚举最长的后缀  时间复杂度都是O(n)
 #include<iostream>
 #include<algorithm>
 #include<cstdlib>

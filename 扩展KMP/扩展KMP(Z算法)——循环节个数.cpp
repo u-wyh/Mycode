@@ -4,7 +4,7 @@ using namespace std;
 const int MAXN = 1e5+5;
 
 int z[MAXN];
-int cnt[MAXN];//³¤¶ÈÎªiµÄ¸öÊý
+int cnt[MAXN];//é•¿åº¦ä¸ºiçš„ä¸ªæ•°
 char a[MAXN];
 int n;
 
