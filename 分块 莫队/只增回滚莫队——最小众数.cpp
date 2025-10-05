@@ -7,6 +7,7 @@
 // 1 <= arr[i] <= 10^9
 // 测试链接 : https://leetcode.cn/problems/threshold-majority-queries/
 // 提交以下全部代码，可以通过所有测试用例
+// 洛谷上的题目是P13984
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 10001;
