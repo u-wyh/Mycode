@@ -12,16 +12,16 @@
 using namespace std;
 const int MAXN = 200001;
 
+int n, m;
+
 // 位置i，数值v
 struct Number {
-   int i, v;
+    int i, v;
 };
 
 bool NumberCmp(Number x, Number y) {
-   return x.v < y.v;
+    return x.v < y.v;
 }
-
-int n, m;
 
 Number arr[MAXN];
 

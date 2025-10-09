@@ -7,7 +7,8 @@
 // 测试链接 : https://www.luogu.com.cn/problem/P1527
 // 如下实现是C++的版本，C++版本和java版本逻辑完全一样
 // 提交如下代码，可以通过所有测试用例
-//这个就是一个二维的  没有什么特殊的
+// 这道题的大思路是将矩阵中的值排序  每次二分一个值  将这个值对应的位置加1 
+// 每次查询的时候就是一个二维树状数组查询  查询区间中已经添加的数字的个数
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 501;
@@ -15,11 +16,11 @@ const int MAXQ = 1000001;
 
 //记录位置信息和值
 struct Number {
-   int x, y, v;
+   	int x, y, v;
 };
 
 bool NumberCmp(Number a, Number b) {
-   return a.v < b.v;
+   	return a.v < b.v;
 }
 
 int n, q;

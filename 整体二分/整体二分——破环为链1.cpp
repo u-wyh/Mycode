@@ -9,6 +9,9 @@
 // 测试链接 : https://www.luogu.com.cn/problem/P3527
 // 如下实现是C++的版本，C++版本和java版本逻辑完全一样
 // 提交如下代码，可以通过所有测试用例
+// 这道题由于陨石雨的r可能小于l  也就是超过了m的限制
+// 那么我们直接破环为链 将小于l的r加上m  使之符合
+// 因此在查询的时候  我们不仅要查当前位置  还要查询加上m的位置
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 300001;

@@ -69,6 +69,7 @@ int query(int l, int r) {
 
 //第二种写法
 //和第一种方法的区别就是他不要更改k  而是通过used判断当前在树状数组中的是不是满足要求
+//这个时间复杂度也不会很大  因为每次都是将任务先执行左儿子的  used变化不会很大
 void compute(int ql, int qr, int vl, int vr) {
     if (ql > qr) {
         return;
