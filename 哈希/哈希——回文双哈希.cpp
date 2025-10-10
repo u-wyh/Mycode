@@ -1,5 +1,7 @@
 // https://www.luogu.com.cn/problem/P3449
 //这道题最关键的是这个核心公式的推导   并且需要使用双哈希
+// 第一个字符串哈希值为a  长度为s   第二个字符串哈希值为b  长度为t
+// 由于是回文串  那么有a*(p^t)+b=b*(p^s)+a
 #include<bits/stdc++.h>
 using namespace std;
 #define int long long 

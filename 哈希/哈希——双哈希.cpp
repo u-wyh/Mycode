@@ -1,9 +1,9 @@
-//https://www.luogu.com.cn/problem/P5018  ÓÐµãÎÊÌâ
-//ÕâµÀÌâµÄÌØ±ðÖ®´¦¾ÍÊÇÊ¹ÓÃÁËË«¹þÏ£
-//²¢ÇÒÍ¨¹ý²»Í¬µÄbaseÀ´Çø±ð²»Í¬µÄ±éÀúË³Ðò
-//²¢ÇÒ×ó×ÓÊ÷²ÉÓÃÏÈÐò±éÀú  ÓÒ×ÓÊ÷²ÉÓÃºóÐò±éÀú
-//Èç¹ûÁ½¿Ã×ÓÊ÷ÊÇ¶Ô³ÆµÄ  ÄÇÃ´×óÊ÷µÄÏÈÐòºÍÓÒÊ÷µÄºóÐòÓ¦¸ÃÊÇÒ»ÑùµÄ¡¢
-//µ±È»  ²»ÊÇÑÏ¸ñµÄÏÈÐòºóÐò Ö»ÊÇÏÈ×ó±ß ºóÓÒ±ß
+//https://www.luogu.com.cn/problem/P5018  æœ‰ç‚¹é—®é¢˜
+//è¿™é“é¢˜çš„ç‰¹åˆ«ä¹‹å¤„å°±æ˜¯ä½¿ç”¨äº†åŒå“ˆå¸Œ
+//å¹¶ä¸”é€šè¿‡ä¸åŒçš„baseæ¥åŒºåˆ«ä¸åŒçš„éåŽ†é¡ºåº
+//å¹¶ä¸”å·¦å­æ ‘é‡‡ç”¨å…ˆåºéåŽ†  å³å­æ ‘é‡‡ç”¨åŽåºéåŽ†
+//å¦‚æžœä¸¤æ£µå­æ ‘æ˜¯å¯¹ç§°çš„  é‚£ä¹ˆå·¦æ ‘çš„å…ˆåºå’Œå³æ ‘çš„åŽåºåº”è¯¥æ˜¯ä¸€æ ·çš„ã€
+//å½“ç„¶  ä¸æ˜¯ä¸¥æ ¼çš„å…ˆåºåŽåº åªæ˜¯å…ˆå·¦è¾¹ åŽå³è¾¹
 #include<bits/stdc++.h>
 using namespace std;
 #define int long long
@@ -22,11 +22,11 @@ int n;
 int lson[MAXN];
 int rson[MAXN];
 int sz[MAXN];
-//Ë«¹þÏ£º¯ÊýÊý×é
-long long hl[MAXN];//ÏÈ±éÀú×ó×ÓÊ÷µÃµ½µÄ¹þÏ£Öµ  ÏÈÐò±éÀú
-long long hr[MAXN];//ÏÈ±éÀúÓÒ×ÓÊ÷µÃµ½µÄ¹þÏ£Öµ  ºóÐò±éÀú
-long long lh[MAXN];//ÏÈ±éÀú×ó×ÓÊ÷µÃµ½µÄ¹þÏ£Öµ
-long long rh[MAXN];//ÏÈ±éÀúÓÒ×ÓÊ÷µÃµ½µÄ¹þÏ£Öµ
+//åŒå“ˆå¸Œå‡½æ•°æ•°ç»„
+long long hl[MAXN];//å…ˆéåŽ†å·¦å­æ ‘å¾—åˆ°çš„å“ˆå¸Œå€¼  å…ˆåºéåŽ†
+long long hr[MAXN];//å…ˆéåŽ†å³å­æ ‘å¾—åˆ°çš„å“ˆå¸Œå€¼  åŽåºéåŽ†
+long long lh[MAXN];//å…ˆéåŽ†å·¦å­æ ‘å¾—åˆ°çš„å“ˆå¸Œå€¼
+long long rh[MAXN];//å…ˆéåŽ†å³å­æ ‘å¾—åˆ°çš„å“ˆå¸Œå€¼
 int arr[MAXN];
 int ans=1;
 int ans1;
@@ -55,13 +55,13 @@ void dfs(int u,int f){
     }
     sz[u]=sz[lson[u]]+sz[rson[u]]+1;
     if(sz[lson[u]]==sz[rson[u]]&&hl[lson[u]]==hr[rson[u]]&&lh[lson[u]]==rh[rson[u]]){
-        //Ë«¹þÏ£º¯ÊýÅÐ¶Ï
+        //åŒå“ˆå¸Œå‡½æ•°åˆ¤æ–­
         ans=max(ans,sz[u]);
         if(sz[u]>=ans){
             ans1=u;
         }
     }
-    //±éÀúË³ÐòÍ¨¹ýbaseÌåÏÖ
+    //éåŽ†é¡ºåºé€šè¿‡baseä½“çŽ°
     hl[u]=hl[lson[u]]*BASE1+arr[u]*BASE2+hl[rson[u]]*BASE3;
     hr[u]=hr[rson[u]]*BASE1+arr[u]*BASE2+hr[lson[u]]*BASE3;
     hl[u]%=MOD1;

@@ -1,4 +1,4 @@
-// https://www.luogu.com.cn/problem/solution/P10634
+// https://www.luogu.com.cn/problem/P10634
 //动态哈希指的是哈希值并不能一开始就确定 需要随着变化不断调整
 //一般都是维护一个区间  每次变化都是变化一个位置
 //类似的题目还有P5256  不过这两个的技巧不一样

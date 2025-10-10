@@ -8,6 +8,7 @@
 // 返回所有串联子串在s中的开始索引
 // 你可以以任意顺序返回答案
 // 测试链接 : https://leetcode.cn/problems/substring-with-concatenation-of-all-words/
+// 这道题利用候选的单词长度都是一样的  那么可以使用一个滑动窗口收集哈希值
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 10001;

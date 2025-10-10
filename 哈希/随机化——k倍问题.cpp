@@ -1,5 +1,8 @@
 // https://www.luogu.com.cn/problem/CF1746F
 // 这道题的思路是进行T次独立检测 出现了k次的倍数 那么看看每次哈希值是否符合K倍的要求
+// 这道题也是随机化的一道题目
+// 思路是每次检测都是将原来的一个数字随机成另外一个数字，查询区间和是否可以整除k
+// 这道题还有修改操作 所以不能预处理出前缀和数组
 #include<bits/stdc++.h>
 using namespace std;
 #define int long long
@@ -104,6 +107,7 @@ signed main()
     for(int i=1;i<=n;i++){
         tmp[i]=nums[i];
     }
+
     int T=20;
     while(T--){
         for(int i=1;i<=n;i++){
@@ -134,6 +138,7 @@ signed main()
             }
         }
     }
+
     for(int i=1;i<=q;i++){
         if(op[i]==2){
             if(ans[i]){
