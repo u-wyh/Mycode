@@ -72,6 +72,7 @@ int main()
         insert(s);
     }
     setfail();
+
     queue<int>q;
     int ans=1;
     q.push(0);
@@ -81,11 +82,15 @@ int main()
         q.pop();
         for(int i=0;i<2;i++){
             int v=tree[u][i];
+
             if(en[v]){
+                // 不能走到一个终点
                 continue;
             }
+
             addedge(u,v);
             in[v]++;
+
             if(!vis[v]){
                 q.push(v);
                 vis[v]=true;
@@ -93,6 +98,7 @@ int main()
             }
         }
     }
+
     int res=0;
     for(int i=0;i<=cnt;i++){
         if(vis[i]&&in[i]==0){
@@ -112,6 +118,7 @@ int main()
             }
         }
     }
+    
     if(ans==res){
         cout<<"NIE"<<endl;
     }

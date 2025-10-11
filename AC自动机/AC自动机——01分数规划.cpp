@@ -1,5 +1,6 @@
 // https://www.luogu.com.cn/problem/P5319
-// 这道题是01规划 需要借助AC自动机算法实现
+// 这道题是01规划 需要借助AC自动机算法结合动态规划实现
+// 关键是想到如何使用分数规划
 #include<bits/stdc++.h>
 using namespace std;
 const double eps = 1e-8;
@@ -21,9 +22,12 @@ int cnt;
 // 记录的是当前来到了i位置匹配到自动机上的j  最大权值是多少
 double f[MAXN][MAXN];
 // 这个是用于回溯的  状态转移
+// 当前来到了i位置匹配到自动机上的j  满足权值最大的时候 
+// g[i][j]表示上一个树上的位置是多少 h[i][j]表示通过什么路径（字母）转移过来的
 int g[MAXN][MAXN];
 char h[MAXN][MAXN];
 
+// 这里插入的还是字符串  只不过传入的参数是奖励
 void insert(double v){
     int cur=0;
     int len=strlen(t+1);

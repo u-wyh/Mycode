@@ -73,6 +73,7 @@ void setFail() {
                 //这个选择没有  那么就是拷贝自己的失败节点的信息
                 tree[u][i] = tree[fail[u]][i];
             } else {
+                // 表示的是这个儿子如果失败了，那么就去自己的fail指针哪里
                 fail[tree[u][i]] = tree[fail[u]][i];//设置这个孩子节点的fail指针   直通表辅助不用绕环
                 box[r++] = tree[u][i];//表示有这条支路  加入到队列中
             }

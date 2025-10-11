@@ -24,7 +24,8 @@ int n;
 int cnt;
 int trie[MAXN][26];
 int fail[MAXN];
-int fa[MAXN];//这里比一般的AC自动机多出来的部分 是由于建立自动机时的特殊情况所决定的
+//这里比一般的AC自动机多出来的部分 是由于建立自动机时的特殊情况所决定的  用于B、P操作
+int fa[MAXN];
 int endpos[MAXN];//记录这个是为了在统计答案的时候更方便  具体参见代码
 
 //fail树的建图
