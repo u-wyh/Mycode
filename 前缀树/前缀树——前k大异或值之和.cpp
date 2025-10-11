@@ -11,6 +11,8 @@
 // 测试链接 : https://codeforces.com/problemset/problem/241/B
 // 如下实现是C++的版本，C++版本和java版本逻辑完全一样
 // 提交如下代码，可以通过所有测试用例
+// 这道题的大思路是先二分找到第k大的值是多少
+// 然后求出每个数字可以和多少个数字异或出大于这个值
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 50001;
@@ -24,6 +26,8 @@ int arr[MAXN];
 int tree[MAXT][2];
 int pass[MAXT];
 int cnt = 1;
+// 前缀树上的节点i的子树中有多少个数字j位上是1
+// 只有叶节点才是代表的数字
 int sum[MAXT][BIT + 1];
 
 void insert(int num) {
@@ -58,6 +62,7 @@ void dfs(int i, int h, int s) {
     }
 }
 
+// 查询数组中两两异或值大于x的个数有多少
 long long moreEqual(int x) {
     long long ans = 0;
     for (int i = 1; i <= n; i++) {
@@ -80,6 +85,7 @@ long long moreEqual(int x) {
         ans += pass[cur];
     }
     if (x == 0) {
+        // 如果是0的话  那么要减去自己和自己组成的方案
         ans -= n;
     }
     return ans / 2;
@@ -139,6 +145,8 @@ void prepare() {
     for (int i = 1; i <= n; i++) {
         insert(arr[i]);
     }
+    // 处理sum数组  不能用0号节点开头  因为没有任何实际意义
+    // 所以这里有两个dfs
     dfs(tree[1][0], BIT, 0);
     dfs(tree[1][1], BIT, 1 << BIT);
 }

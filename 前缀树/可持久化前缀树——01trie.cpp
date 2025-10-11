@@ -14,12 +14,11 @@
 // 想通过用C++实现，本节课Code01_MaxXor2文件就是C++的实现
 // 两个版本的逻辑完全一样，C++版本可以通过所有测试
 #include <bits/stdc++.h>
-
 using namespace std;
-
 const int MAXN = 600001;
 const int MAXT = MAXN * 22;
 const int BIT = 25;
+
 int n, m, eor;
 int root[MAXN];
 int tree[MAXT][2];//01trie只有两条路可以走 一条是0 一条是1

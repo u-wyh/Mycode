@@ -1,18 +1,18 @@
-// Òì»òÔËËã£¬C++°æ
-// ¸ø¶¨Ò»¸ö³¤¶ÈnµÄÊý×éx£¬»¹ÓÐÒ»¸ö³¤¶ÈÎªmµÄÊý×éy
-// ÏëÏóÒ»¸ö¶þÎ¬¾ØÕómat£¬Êý×éx×÷ÎªÐÐ£¬Êý×éy×÷ÎªÁÐ£¬mat[i][j] = x[i] ^ y[j]
-// Ò»¹²ÓÐpÌõ²éÑ¯£¬Ã¿Ìõ²éÑ¯¸ñÊ½ÈçÏÂ
-// xl xr yl yr k : »®¶¨matµÄ·¶Î§ÊÇ£¬ÐÐ´Óxl~xr£¬ÁÐ´Óyl~yr£¬´òÓ¡ÆäÖÐµÚk´óµÄÖµ
+// å¼‚æˆ–è¿ç®—ï¼ŒC++ç‰ˆ
+// ç»™å®šä¸€ä¸ªé•¿åº¦nçš„æ•°ç»„xï¼Œè¿˜æœ‰ä¸€ä¸ªé•¿åº¦ä¸ºmçš„æ•°ç»„y
+// æƒ³è±¡ä¸€ä¸ªäºŒç»´çŸ©é˜µmatï¼Œæ•°ç»„xä½œä¸ºè¡Œï¼Œæ•°ç»„yä½œä¸ºåˆ—ï¼Œmat[i][j] = x[i] ^ y[j]
+// ä¸€å…±æœ‰pæ¡æŸ¥è¯¢ï¼Œæ¯æ¡æŸ¥è¯¢æ ¼å¼å¦‚ä¸‹
+// xl xr yl yr k : åˆ’å®šmatçš„èŒƒå›´æ˜¯ï¼Œè¡Œä»Žxl~xrï¼Œåˆ—ä»Žyl~yrï¼Œæ‰“å°å…¶ä¸­ç¬¬kå¤§çš„å€¼
 // 1 <= n <= 1000
 // 1 <= m <= 3 * 10^5
 // 1 <= p <= 500
-// 0 <= x[i]¡¢y[i] < 2^31
-// ²âÊÔÁ´½Ó : https://www.luogu.com.cn/problem/P5795
-// ÈçÏÂÊµÏÖÊÇC++µÄ°æ±¾£¬C++°æ±¾ºÍjava°æ±¾Âß¼­ÍêÈ«Ò»Ñù
-// Ìá½»ÈçÏÂ´úÂë£¬¿ÉÒÔÍ¨¹ýËùÓÐ²âÊÔÓÃÀý
-//ÕâµÀÌâÊÇÔÚ¶þÎ¬ÉÏÇóÒì»òºóµÄµÚk´ó
-//ÎÒÃÇÖ»ÔÚyÎ¬ÉÏ½¨Á¢¿É³Ö¾Ã»¯Ç°×ºÊ÷
-//¶ÔÓÚÒª²éÑ¯µÄx  ÎÒÃÇÖðÎ»²é¿´ÊÇ²»ÊÇ1  ÒÔ¼°1µÄ¸öÊý  ´Ó¶øµÃµ½´ð°¸
+// 0 <= x[i]ã€y[i] < 2^31
+// æµ‹è¯•é“¾æŽ¥ : https://www.luogu.com.cn/problem/P5795
+// å¦‚ä¸‹å®žçŽ°æ˜¯C++çš„ç‰ˆæœ¬ï¼ŒC++ç‰ˆæœ¬å’Œjavaç‰ˆæœ¬é€»è¾‘å®Œå…¨ä¸€æ ·
+// æäº¤å¦‚ä¸‹ä»£ç ï¼Œå¯ä»¥é€šè¿‡æ‰€æœ‰æµ‹è¯•ç”¨ä¾‹
+//è¿™é“é¢˜æ˜¯åœ¨äºŒç»´ä¸Šæ±‚å¼‚æˆ–åŽçš„ç¬¬kå¤§
+//æˆ‘ä»¬åªåœ¨yç»´ä¸Šå»ºç«‹å¯æŒä¹…åŒ–å‰ç¼€æ ‘
+//å¯¹äºŽè¦æŸ¥è¯¢çš„x  æˆ‘ä»¬é€ä½æŸ¥çœ‹æ˜¯ä¸æ˜¯1  ä»¥åŠ1çš„ä¸ªæ•°  ä»Žè€Œå¾—åˆ°ç­”æ¡ˆ
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 300001;
@@ -45,7 +45,7 @@ int insert(int num, int i) {
 }
 
 int maxKth(int xl, int xr, int yl, int yr, int k) {
-    // »ùÓÚÄÄÁ½¸ö½ÚµãµÄpassÖµ²éÑ¯£¬Ò»¿ªÊ¼x[xl...xr]Ã¿¸öÊý×Ö£¬¶¼ÊÇÒ»ÑùµÄ
+    // åŸºäºŽå“ªä¸¤ä¸ªèŠ‚ç‚¹çš„passå€¼æŸ¥è¯¢ï¼Œä¸€å¼€å§‹x[xl...xr]æ¯ä¸ªæ•°å­—ï¼Œéƒ½æ˜¯ä¸€æ ·çš„
     for (int i = xl; i <= xr; i++) {
         xroad[i][0] = root[yl - 1];
         xroad[i][1] = root[yr];
@@ -53,19 +53,19 @@ int maxKth(int xl, int xr, int yl, int yr, int k) {
     int ans = 0;
     for (int b = BIT, path, best, sum; b >= 0; b--) {
         sum = 0;
-        // Í³¼Æx[xl...xr]·¶Î§ÉÏ
-        // Ã¿¸öÊý×Ö ^ y[yl...yr]ÈÎÒâÒ»¸öÊý×Ö£¬ÔÚµÚbÎ»ÉÏÄÜÈ¡µÃ1µÄ½á¹û£¬ÓÐ¶àÉÙ¸ö
-        // ½á¹ûÊýÁ¿ÀÛ¼ÓÆðÀ´
+        // ç»Ÿè®¡x[xl...xr]èŒƒå›´ä¸Š
+        // æ¯ä¸ªæ•°å­— ^ y[yl...yr]ä»»æ„ä¸€ä¸ªæ•°å­—ï¼Œåœ¨ç¬¬bä½ä¸Šèƒ½å–å¾—1çš„ç»“æžœï¼Œæœ‰å¤šå°‘ä¸ª
+        // ç»“æžœæ•°é‡ç´¯åŠ èµ·æ¥
         for (int i = xl; i <= xr; i++) {
             path = (x[i] >> b) & 1;
             best = path ^ 1;
             sum += pass[tree[xroad[i][1]][best]] - pass[tree[xroad[i][0]][best]];
         }
-        // Èç¹ûsum >= k
-        // ËµÃ÷x[xl...xr]¶ÔÓ¦y[yl...yr]£¬µÚk´óµÄÒì»ò½á¹û£¬ÔÚµÚbÎ»ÉÏÄÜÊÇ1
-        // Èç¹ûsum < k
-        // ËµÃ÷x[xl...xr]¶ÔÓ¦y[yl...yr]£¬µÚk´óµÄÒì»ò½á¹û£¬ÔÚµÚbÎ»ÉÏÖ»ÄÜÊÇ0
-        // x[xl...xr]Ã¿¸öÊý×Ö£¬¶¼ÓÐ×Ô¼º×¨ÊôµÄÌø×ª£¬Òª¼ÇÂ¼ºÃ£¡
+        // å¦‚æžœsum >= k
+        // è¯´æ˜Žx[xl...xr]å¯¹åº”y[yl...yr]ï¼Œç¬¬kå¤§çš„å¼‚æˆ–ç»“æžœï¼Œåœ¨ç¬¬bä½ä¸Šèƒ½æ˜¯1
+        // å¦‚æžœsum < k
+        // è¯´æ˜Žx[xl...xr]å¯¹åº”y[yl...yr]ï¼Œç¬¬kå¤§çš„å¼‚æˆ–ç»“æžœï¼Œåœ¨ç¬¬bä½ä¸Šåªèƒ½æ˜¯0
+        // x[xl...xr]æ¯ä¸ªæ•°å­—ï¼Œéƒ½æœ‰è‡ªå·±ä¸“å±žçš„è·³è½¬ï¼Œè¦è®°å½•å¥½ï¼
         for (int i = xl; i <= xr; i++) {
             path = (x[i] >> b) & 1;
             best = path ^ 1;

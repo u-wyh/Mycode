@@ -3,7 +3,6 @@
 // 1 <= nums.length <= 2 * 10^5
 // 0 <= nums[i] <= 2^31 - 1
 // 测试链接 : https://leetcode.cn/problems/maximum-xor-of-two-numbers-in-an-array/
-
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 2e5+5;
@@ -65,7 +64,8 @@ int main()
     for(int i=1;i<=n;i++){
         cin>>nums[i];
     }
-    build();//将所有的值加入树中
+    //将所有的值加入树中
+    build();
     for (int num : nums) {
         //将每一个数选择一个数字使答案最大
         ans = max(ans, maxXor(num));

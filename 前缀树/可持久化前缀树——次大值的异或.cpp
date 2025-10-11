@@ -1,21 +1,20 @@
-// Éú³ÉÄÜÁ¿ÃÜ¶È×î´óµÄ±¦Ê¯£¬C++°æ
-// ¸ø¶¨Ò»¸ö³¤¶ÈÎªnµÄÊý×éarr£¬Êý×éÖÐÃ»ÓÐÖØ¸´Êý×Ö
-// Äã¿ÉÒÔËæÒâÑ¡ÔñÒ»¸ö×ÓÊý×é£¬³¤¶ÈÒªÇó´óÓÚµÈÓÚ2£¬ÒòÎªÕâÑùÒ»À´£¬×ÓÊý×é±Ø´æÔÚ´Î´óÖµ
-// ×ÓÊý×éµÄ´Î´óÖµ ^ ×ÓÊý×éÖÐ³ýÁË´Î´óÖµÖ®ÍâËæÒâÑ¡Ò»¸öÊý×Ö
-// ËùÄÜµÃµ½µÄ×î´ó½á¹û£¬½Ð×ö×ÓÊý×éµÄÄÜÁ¿ÃÜ¶È
-// ÄÇÃ´±ØÓÐÄ³¸ö×ÓÊý×é£¬ÓµÓÐ×î´óµÄÄÜÁ¿ÃÜ¶È£¬´òÓ¡Õâ¸ö×î´óµÄÄÜÁ¿ÃÜ¶È
+// ç”Ÿæˆèƒ½é‡å¯†åº¦æœ€å¤§çš„å®çŸ³ï¼ŒC++ç‰ˆ
+// ç»™å®šä¸€ä¸ªé•¿åº¦ä¸ºnçš„æ•°ç»„arrï¼Œæ•°ç»„ä¸­æ²¡æœ‰é‡å¤æ•°å­—
+// ä½ å¯ä»¥éšæ„é€‰æ‹©ä¸€ä¸ªå­æ•°ç»„ï¼Œé•¿åº¦è¦æ±‚å¤§äºŽç­‰äºŽ2ï¼Œå› ä¸ºè¿™æ ·ä¸€æ¥ï¼Œå­æ•°ç»„å¿…å­˜åœ¨æ¬¡å¤§å€¼
+// å­æ•°ç»„çš„æ¬¡å¤§å€¼ ^ å­æ•°ç»„ä¸­é™¤äº†æ¬¡å¤§å€¼ä¹‹å¤–éšæ„é€‰ä¸€ä¸ªæ•°å­—
+// æ‰€èƒ½å¾—åˆ°çš„æœ€å¤§ç»“æžœï¼Œå«åšå­æ•°ç»„çš„èƒ½é‡å¯†åº¦
+// é‚£ä¹ˆå¿…æœ‰æŸä¸ªå­æ•°ç»„ï¼Œæ‹¥æœ‰æœ€å¤§çš„èƒ½é‡å¯†åº¦ï¼Œæ‰“å°è¿™ä¸ªæœ€å¤§çš„èƒ½é‡å¯†åº¦
 // 2 <= n <= 5 * 10^4
 // 0 <= arr[i] <= 10^9
-// ²âÊÔÁ´½Ó : https://www.luogu.com.cn/problem/P4098
-// ÈçÏÂÊµÏÖÊÇC++µÄ°æ±¾£¬C++°æ±¾ºÍjava°æ±¾Âß¼­ÍêÈ«Ò»Ñù
-// Ìá½»ÈçÏÂ´úÂë£¬¿ÉÒÔÍ¨¹ýËùÓÐ²âÊÔÓÃÀý
+// æµ‹è¯•é“¾æŽ¥ : https://www.luogu.com.cn/problem/P4098
+// å¦‚ä¸‹å®žçŽ°æ˜¯C++çš„ç‰ˆæœ¬ï¼ŒC++ç‰ˆæœ¬å’Œjavaç‰ˆæœ¬é€»è¾‘å®Œå…¨ä¸€æ ·
+// æäº¤å¦‚ä¸‹ä»£ç ï¼Œå¯ä»¥é€šè¿‡æ‰€æœ‰æµ‹è¯•ç”¨ä¾‹
 #include <bits/stdc++.h>
-
 using namespace std;
-
 const int MAXN = 50002;
 const int MAXT = MAXN * 32;
 const int BIT = 30;
+
 int n;
 vector<pair<int, int>> arr;
 int root[MAXN];
