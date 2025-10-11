@@ -1,4 +1,4 @@
-// https://www.luogu.com.cn/problem/solution/P10581
+// https://www.luogu.com.cn/problem/P10581
 //类似的题目还有3193
 //对于这种题  我们先不要管全部的大小  先看部分测试点的信息   先把状态转移方程写出来
 //把这个转移写出来之后  我们就会发现有的变量其实完全可以省略  并且这个变量特别大
