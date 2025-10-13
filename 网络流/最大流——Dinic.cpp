@@ -30,11 +30,13 @@ void addedge(int u,int v,int w){
     nxt[cnt]=head[u];
     to[cnt]=v;
     cap[cnt]=w;
+    now[cnt]=0;
     head[u]=cnt++;
 
     nxt[cnt]=head[v];
     to[cnt]=u;
     cap[cnt]=0;
+    now[cnt]=0;
     head[v]=cnt++;
 }
 
