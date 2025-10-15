@@ -1,6 +1,8 @@
 // https://www.luogu.com.cn/problem/P2045
 // 这道题是求出最大费用最大流，我们将所有的值取反  就变成了最小费用最大流问题
 // 涉及到了负数  不建议使用dijkstra  所以我们使用spfa实现
+// 但是在一般情况下  即使出现了负数  也很难形成负环
+// 时间复杂度O(F × V × E)  f为最大流值
 #include <bits/stdc++.h>
 using namespace std;
 

@@ -1,6 +1,7 @@
 // https://www.luogu.com.cn/problem/P3381
 // 最小费用最大流问题是每条边有流量  并且每条边的流量有单位价格
 // 要在满足流量最大的情况下  使得花费最小的解决方案
+// 时间复杂度O(F×(V+E)logV) f为最大流值
 #include<bits/stdc++.h>
 using namespace std;
 #define int long long
