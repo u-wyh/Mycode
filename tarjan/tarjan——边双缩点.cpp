@@ -32,7 +32,6 @@ int dfncnt;
 int dep[MAXN];
 int st[MAXN][LIMIT];
 
-
 inline int read(){
     int x=0,f=1;
     char ch=getchar();

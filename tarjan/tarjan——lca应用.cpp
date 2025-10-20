@@ -2,6 +2,8 @@
 //tarjan求lca操作
 //这道题很巧妙的运用了tarjan求lca
 //这道题不能使用倍增  因为会导致空间不够(5e6*20)  
+// 这道题过于卡常，好像只有这一种写法可以通过
+// 如果想要计算同一层dfn序号最大和最小值  实际上也会超时
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 5e6+5;
