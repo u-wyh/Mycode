@@ -14,8 +14,8 @@ struct compare{
         return a<b;
     }
 };
-//这两个堆都存储的是  pos*z+更新这个pos位置之前的操作的代价   并且这个代价已经被加入到ans中  
-//这个代价是遇到此次操作之前的局部最优解  加上pos*z是为了处理移动时的代价
+//这两个堆都存储的是  pos*z+更新这个pos位置的在此之前做的操作的代价   并且这个代价已经被加入到ans中  
+//这个代价是遇到此次操作之前的局部最优解  加上pos*z是为了处理移动时的代价  都是大根堆
 priority_queue<int,vector<int>,compare>buy;//用于需求的单位代价  需要得到别人的帮助或直接购买
 priority_queue<int,vector<int>,compare>sell;//用于供给的单位代价  需要提供给别人或扔掉
 
@@ -35,7 +35,7 @@ signed main()
             if(!buy.empty()){
                 int cost=i*z-buy.top();//用于更新之前的代价
                 if(cost<y){
-                    //表示的是解决这个位置所要付出的最小代价
+                    //表示的是解决目前这个位置i所要付出的最小代价
                     ans+=cost;
                     buy.pop();
                     sell.push(i*z+cost);//这里还是要放在sell堆里面

@@ -30,6 +30,7 @@ void add(int i,int v){
     }
 }
 
+//这个函数求的是从1到i所有数字的和
 int sum(int i){
     int ans=0;
     while(i>0){
@@ -40,7 +41,6 @@ int sum(int i){
     }
     return ans;
 }
-//这个函数求的是从1到i所有数字的和
 
 int query(int l,int r){
     return sum(r)-sum(l-1);
@@ -53,11 +53,11 @@ signed main()
         cin>>arr[i];
     }
 
+    //建立阶乘表
     fac[0]=1;
     for(int i=1;i<n;i++){
         fac[i]=(fac[i-1]*i)%MOD;
     }
-    //建立阶乘表
 
     for(int i=1;i<=n;i++){
         add(i,1);
