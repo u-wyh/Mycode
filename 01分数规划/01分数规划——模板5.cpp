@@ -34,8 +34,10 @@ int dfnCnt=0;
 // (战斗值 - x * 招募花费)的结余，下标为节点dfn编号
 double value[MAXN];
 // 子树大小，下标为节点dfn编号
-int size[MAXN];
+int sz[MAXN];
 // 树型dp
+// 含义：dfn序号从i到n+1上选择j个  必须要是有效结构的最大利益
+// 有效结构意思是如果前面的点可以认为是全部都选了的  那么图是和根节点联通的
 double dp[MAXN][MAXN];
 int k, n;
 
@@ -50,12 +52,12 @@ void addEdge(int u, int v) {
 int dfs(int u) {
 	int i = ++dfnCnt;
 	dfn[u] = i;
-	size[i] = 1;
+	sz[i] = 1;
 	for (int e = head[u], v; e != 0; e = Next[e]) {
 		v = to[e];
-		size[i] += dfs(v);
+		sz[i] += dfs(v);
 	}
-	return size[i];
+	return sz[i];
 }
 
 // 根据x的值，计算节点的结余值，在树上选k+1个点
@@ -73,7 +75,8 @@ bool check(double x) {
 	// 讲解079题目5的最优解逻辑
 	for (int i = dfnCnt; i >= 2; i--) {
 		for (int j = 1; j <= k; j++) {
-			dp[i][j] = max(dp[i + size[i]][j], value[i] + dp[i + 1][j - 1]);
+			// 要么这个以i为首的子树全部不要 要么要了这个子树的头然后选择的次数减1
+			dp[i][j] = max(dp[i + sz[i]][j], value[i] + dp[i + 1][j - 1]);
 		}
 	}
 	// 原始的0号节点，dfn编号是1，其他节点的dfn编号从2开始

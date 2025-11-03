@@ -46,8 +46,9 @@ void addEdge(int u, int v, int w) {
     weight[cnt] = w;
     head[u] = cnt++;
 }
-//建立链式前向星
 
+//这个函数结束后  可以得到这个点到任何位置的最短路径
+//这个函数是为了判断这个图中有没有从原点出发经过的负环
 bool spfa() {
     dis[1] = 0;
     updateCnt[1]++;
@@ -79,8 +80,6 @@ bool spfa() {
     }
     return false;
 }
-//这个函数结束后  可以得到这个点到任何位置的最短路径
-//这个函数是为了判断这个图中有没有从原点出发经过的负环
 
 int main()
 {
