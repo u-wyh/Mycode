@@ -6,6 +6,8 @@ using namespace std;
 const int MAXN = 1e6+5;
 
 int n,m;
+// nxt[i]表示的是从1到i这些字符串  前后缀匹配的最大长度（不能是整体）
+// 因为我们用s2[i+1]来匹配s1[j]  如果匹配不上  那么i变成的是nxt[i]
 int nxt[MAXN];
 char s1[MAXN],s2[MAXN];
 

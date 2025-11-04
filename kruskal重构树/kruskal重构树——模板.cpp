@@ -122,7 +122,7 @@ int main() {
     kruskalRebuild();
     for (int i = 1; i <= cntu; i++) {
         if (i == father[i]) {
-                //对于每棵树建立倍增表
+            //对于每棵树建立倍增表
             dfs(i, 0);
         }
     }
