@@ -14,6 +14,7 @@ int n;
 int tree[MAXN][26];
 int fail[MAXN];
 int len[MAXN];// 节点代表的回文串长度
+// 这里的num统计的是PAM上i节点代表的回文串在整个文本中出现的次数
 int num[MAXN];
 int cnt;
 int last;
