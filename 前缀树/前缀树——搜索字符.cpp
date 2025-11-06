@@ -7,7 +7,6 @@
 // 1 <= words.length <= 3 * 10^4
 // 1 <= words[i].length <= 10
 // 测试链接 : https://leetcode.cn/problems/word-search-ii/
-
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 10001;

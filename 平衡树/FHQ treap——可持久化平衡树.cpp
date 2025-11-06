@@ -88,7 +88,6 @@ void add(int v, int i, int num) {
     priority[cnt] = (double)rand() / RAND_MAX;
     //为新建的节点编号
     head[v] = merge(merge(l, cnt), r);//记录该版本的头结点
-
 }
 
 void remove(int v, int i, int num) {
