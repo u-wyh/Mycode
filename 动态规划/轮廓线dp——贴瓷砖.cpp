@@ -1,22 +1,22 @@
-// Ìù´É×©µÄ·½·¨Êý(ÂÖÀªÏßdp)
-// ¸ø¶¨Á½¸ö²ÎÊýnºÍm£¬±íÊ¾nÐÐmÁÐµÄ¿Õ°×ÇøÓò
-// ÓÐÎÞÏÞ¶àµÄ1*2¹æ¸ñµÄ´É×©£¬Ä¿±êÊÇÑÏË¿ºÏ·ìµÄÆÌÂúËùÓÐµÄ¿Õ°×ÇøÓò
-// ·µ»ØÓÐ¶àÉÙÖÖÆÌÂúµÄ·½·¨
+// è´´ç“·ç –çš„æ–¹æ³•æ•°(è½®å»“çº¿dp)
+// ç»™å®šä¸¤ä¸ªå‚æ•°nå’Œmï¼Œè¡¨ç¤ºnè¡Œmåˆ—çš„ç©ºç™½åŒºåŸŸ
+// æœ‰æ— é™å¤šçš„1*2è§„æ ¼çš„ç“·ç –ï¼Œç›®æ ‡æ˜¯ä¸¥ä¸åˆç¼çš„é“ºæ»¡æ‰€æœ‰çš„ç©ºç™½åŒºåŸŸ
+// è¿”å›žæœ‰å¤šå°‘ç§é“ºæ»¡çš„æ–¹æ³•
 // 1 <= n, m <= 11
-// ²âÊÔÁ´½Ó : http://poj.org/problem?id=2411
-// Ìá½»ÒÔÏÂµÄcode£¬Ìá½»Ê±Çë°ÑÀàÃû¸Ä³É"Main"£¬¿ÉÒÔÍ¨¹ýËùÓÐÓÃÀý
+// æµ‹è¯•é“¾æŽ¥ : http://poj.org/problem?id=2411
+// æäº¤ä»¥ä¸‹çš„codeï¼Œæäº¤æ—¶è¯·æŠŠç±»åæ”¹æˆ"Main"ï¼Œå¯ä»¥é€šè¿‡æ‰€æœ‰ç”¨ä¾‹
 #include<iostream>
 using namespace std;
 
 long dp[11][11][1<<11];
 int n, m;
 
-// ¸¨Öúº¯Êý£º»ñÈ¡×´Ì¬sÖÐµÚjÎ»µÄ×´Ì¬
+// è¾…åŠ©å‡½æ•°ï¼šèŽ·å–çŠ¶æ€sä¸­ç¬¬jä½çš„çŠ¶æ€
 int get(int s, int j) {
     return (s >> j) & 1;
 }
 
-// ¸¨Öúº¯Êý£ºÉèÖÃ×´Ì¬sÖÐµÚjÎ»µÄ×´Ì¬Îªv£¬²¢·µ»ØÐÂµÄ×´Ì¬
+// è¾…åŠ©å‡½æ•°ï¼šè®¾ç½®çŠ¶æ€sä¸­ç¬¬jä½çš„çŠ¶æ€ä¸ºvï¼Œå¹¶è¿”å›žæ–°çš„çŠ¶æ€
 int set(int s, int j, int v) {
     return v == 0 ? (s & (~(1 << j))) : (s | (1 << j));
 }
@@ -36,10 +36,10 @@ long f(int i,int j,int s){
         ans+=f(i,j+1,set(s,j,0));
     }
     else{
-        if (i + 1 < n) { // µ±Ç°Êú×Å°Ú×©
+        if (i + 1 < n) { // å½“å‰ç«–ç€æ‘†ç –
             ans = f(i, j + 1, set(s, j, 1));
         }
-        if (j + 1 < m && get(s, j + 1) == 0) { // µ±Ç°ºá×Å°Ú×©
+        if (j + 1 < m && get(s, j + 1) == 0) { // å½“å‰æ¨ªç€æ‘†ç –
             ans += f(i, j + 2, s);
         }
     }

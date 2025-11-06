@@ -1,4 +1,4 @@
-// https://www.luogu.com.cn/problem/
+// https://www.luogu.com.cn/problem/P5363
 // https://blog.csdn.net/qq_60008251/article/details/124238470
 //阶梯博弈是奇数位置上的堆的尼姆博弈
 //这个奇数位置指的是地面不算的第1、3、5、7堆
