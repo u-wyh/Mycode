@@ -41,6 +41,7 @@ bool QueryCmp(Query x, Query y) {
         return x.i < y.i;
     }
 }
+
 Edge edge[MAXN];
 Query queries[MAXN];
 
@@ -100,6 +101,7 @@ void compute() {
             //将问题分组
             r++;
         }
+        // 将权值小于目前查询的边全部加进去  
         for (; ei <= m && edge[ei].w < queries[l].w; ei++) {
             if (find(edge[ei].u) != find(edge[ei].v)) {
                 Union(edge[ei].u, edge[ei].v);
