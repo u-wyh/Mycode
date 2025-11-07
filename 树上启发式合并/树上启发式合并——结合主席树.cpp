@@ -139,6 +139,7 @@ void dfs(int u, int fa, int treeh) {
 }
 
 // 在xy之间连接一条边
+// 每次合并的时候  暴力的将小树的持久化线段树重构
 void connect(int x, int y) {
     addEdge(x, y);
     addEdge(y, x);
