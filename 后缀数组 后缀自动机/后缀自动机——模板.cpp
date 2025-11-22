@@ -19,9 +19,9 @@ int fa[MAXN];
 int nxt[MAXN][26];
 // cnt[i]: 状态i对应的endpos集合大小，即该状态表示的子串在字符串中的出现次数
 int cnt[MAXN];
-int lst;
+int lst=1;
 // 当前节点总数
-int tot;
+int tot=1;
 
 int head[MAXN];
 int nxtg[MAXN<<1];
