@@ -35,6 +35,7 @@ int cntc;
 int allDis[MAXN];
 int cnta;
 
+// 表示到目前的重心而言 如果距离是i最少需要多少条边
 int dp[MAXK];
 
 void addEdge(int u, int v, int w) {
